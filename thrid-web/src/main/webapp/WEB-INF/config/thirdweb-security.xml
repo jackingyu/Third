@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- All rights reserved. This software is the confidential and proprietary 
+	information of hybris ("Confidential Information"). You shall not disclose 
+	such Confidential Information and shall use it only in accordance with the 
+	terms of the license agreement you entered into with hybris. -->
+
+<!--suppress ALL -->
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:util="http://www.springframework.org/schema/util"
+	xmlns:aop="http://www.springframework.org/schema/aop" xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:mybatis="http://mybatis.org/schema/mybatis-spring" xmlns:context="http://www.springframework.org/schema/context" 
+	xmlns:security="http://www.springframework.org/schema/security"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans 
+           http://www.springframework.org/schema/beans/spring-beans.xsd
+           http://www.springframework.org/schema/context
+           http://www.springframework.org/schema/context/spring-context.xsd
+           http://mybatis.org/schema/mybatis-spring http://mybatis.org/schema/mybatis-spring.xsd
+		   http://www.springframework.org/schema/aop
+		   http://www.springframework.org/schema/aop/spring-aop-3.2.xsd 
+		   http://www.springframework.org/schema/tx
+		   http://www.springframework.org/schema/tx/spring-tx-3.2.xsd
+		   http://www.springframework.org/schema/util 
+		   http://www.springframework.org/schema/util/spring-util-3.0.xsd
+           http://www.springframework.org/schema/security
+		   http://www.springframework.org/schema/security/spring-security.xsd
+           ">
+
+  
+    <security:http  pattern="/login" security="none"></security:http>
+    <security:http  pattern="/ui/**" security="none"></security:http>
+    
+	<!-- Default security config -->
+	<security:http disable-url-rewriting="true"  use-expressions="true">
+	
+		<security:anonymous username="anonymous" granted-authority="ROLE_ANONYMOUS" />
+
+		<!-- SSL / AUTHENTICATED pages -->
+		<security:intercept-url pattern="/**" />
+		<!-- Everything should be secure -->
+		<!-- <security:custom-filter ref="ajaxTimeoutRedirectFilter" after="EXCEPTION_TRANSLATION_FILTER"/> -->
+	
+		<security:form-login
+				login-page="/login"
+				login-processing-url="/j_spring_security_check" 
+				always-use-default-target="true"
+				default-target-url="/loginsuccess"
+				authentication-failure-url="/loginfailure" />
+        <security:csrf disabled="true"/>
+		<!--  <security:logout logout-url="/logout" success-handler-ref="logoutSuccessHandler" />
+
+		<security:port-mappings>
+			<security:port-mapping http="80" https="443" />
+		</security:port-mappings>-->
+
+		<!--  <security:request-cache ref="httpWithoutPostRequestCache" />
+
+		<security:access-denied-handler ref="anguoAccessDeniedHandler" />-->
+	</security:http>
+	
+	<security:authentication-manager alias="authenticationManager">
+		<security:authentication-provider ref="thirdAuthenticationProvider" />
+	</security:authentication-manager>
+
+	<bean id="userDetailsService" class="com.third.service.impl.user.DefaultUserDetailsService">
+        <property name="userService" ref="userService" />
+    </bean>
+    
+    <alias name="defaultThirdAuthenticationProvider" alias="thirdAuthenticationProvider"></alias>
+	<bean id="defaultThirdAuthenticationProvider" class="com.third.security.DefaultThirdDaoAuthenticationProvider">
+		<property name="userDetailsService" ref="userDetailsService"/>
+		<property name="userService" ref="userService"/>
+	</bean>
+
+</beans>

@@ -21,9 +21,9 @@
 		   http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-3.0.xsd
            ">
 
-	<context:annotation-config />
-	<context:component-scan base-package="com.third"></context:component-scan>
-
+    <context:annotation-config/>
+    <context:component-scan base-package="com.third"></context:component-scan>
+    
 	<bean id="propertyConfigurer"
 		class="org.springframework.context.support.PropertySourcesPlaceholderConfigurer">
 		<property name="location">
@@ -126,11 +126,18 @@
 	</bean>
 
 	<bean id="userMapper" class="org.mybatis.spring.mapper.MapperFactoryBean">
-		<property name="mapperInterface" value="org.third.mybatis.mapper.UserMapper" />
+		<property name="mapperInterface" value="com.third.dao.impl.UserMapper" />
 		<property name="sqlSessionFactory" ref="sqlSessionFactory" />
 	</bean>
 	
-	<bean id="userService" class="org.third.facade.UserServiceImpl">
+	<alias name="defaultUserService" alias="userService"></alias>
+	<bean id="defaultUserService" class="com.third.service.impl.user.DefaultUserService">
         <property name="userMapper" ref="userMapper" />
     </bean>
+    
+     <bean id="viewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver">  
+          <property name="viewClass" value="org.springframework.web.servlet.view.JstlView"/>     <!-- 支持JSTL -->  
+          <property name="prefix" value="WEB-INF/views/pages/" />     <!-- 模板的路径 -->  
+          <property name="suffix" value=".jsp" />                 <!-- 模板文件的后缀-->  
+     </bean>  
 </beans>

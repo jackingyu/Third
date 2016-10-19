@@ -1,13 +1,15 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE generatorConfiguration PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN" "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd" >
 <generatorConfiguration >
-  <context id="context1" >
-    <jdbcConnection driverClass="???" connectionURL="???" userId="???" password="???" />
-    <javaModelGenerator targetPackage="???" targetProject="???" />
-    <sqlMapGenerator targetPackage="???" targetProject="???" />
-    <javaClientGenerator targetPackage="???" targetProject="???" type="XMLMAPPER" />
-    <table schema="???" tableName="???" >
-      <columnOverride column="???" property="???" />
+  <classPathEntry location="/Users/i076218/Documents/02IDE/workspaces/pp/third/third-facade/src/main/resources/mysql-connector-java-5.1.6.jar"/>
+
+  <context id="initialcontext" >
+    <jdbcConnection driverClass="com.mysql.jdbc.Driver" connectionURL="jdbc:mysql://localhost:3306/test" userId="root" password="jackingyu123" />
+    <javaModelGenerator targetPackage="com.third.model" targetProject="third-facade" />
+    <sqlMapGenerator targetPackage="com.third.mybatis.mapper" targetProject="third-facade" />
+    <javaClientGenerator targetPackage="com.third.dao.impl" targetProject="third-facade" type="XMLMAPPER" />
+    <table schema="User" tableName="User" >
+      <!--<columnOverride column="???" property="???" />-->
     </table>
   </context>
 </generatorConfiguration>

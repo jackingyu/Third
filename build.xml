@@ -1,0 +1,25 @@
+<project name="third" default="deployui" basedir="." >   
+   
+ <property name="ui_sourcepath" value="./thrid-web/src/main/webapp/_ui" description="ui file source path"/>  
+ <property name="jsp_sourcepath" value="./thrid-web/src/main/webapp/WEB-INF/views" description="jsp source path"/>  
+ <property name="tag_sourcepath" value="./thrid-web/src/main/webapp/WEB-INF/tags" description="tags source path"/>  
+ <property name="ui_targetpath" value="./thrid-web/target/thrid-web/_ui" description="ui file target path"/>  
+ <property name="jsp_targetpath" value="./thrid-web/target/thrid-web/WEB-INF/views" description="jsp target path"/>  
+ <property name="tag_targetpath" value="./thrid-web/target/thrid-web/WEB-INF/tags" description="tags target path"/>  
+   
+ <target name="deployui">  
+ 	<copy todir="${ui_targetpath}">
+ 	   <fileset dir="${ui_sourcepath}">
+       </fileset>
+ 	</copy>
+ 	<copy todir="${jsp_targetpath}">
+ 	   <fileset dir="${jsp_sourcepath}">
+       </fileset>
+ 	</copy>
+ 	<copy todir="${tag_targetpath}">
+ 	   <fileset dir="${tag_sourcepath}">
+       </fileset>
+ 	</copy>
+ </target>  
+   
+</project>

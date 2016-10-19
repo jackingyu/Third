@@ -13,4 +13,8 @@
        <!-- <setting name="defaultExecutorType" value="BATCH" /> -->
        <setting name="defaultStatementTimeout" value="25000" />
     </settings>
+    <mappers>  
+		<!--userMapper.xml装载进来 同等于把“dao”的实现装载进来 -->  
+		<mapper resource="com/third/mybatis/mapper/UserMapper.xml" />  
+	</mappers> 
 </configuration>
