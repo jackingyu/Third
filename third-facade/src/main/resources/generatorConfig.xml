@@ -8,8 +8,11 @@
     <javaModelGenerator targetPackage="com.third.model" targetProject="third-facade" />
     <sqlMapGenerator targetPackage="com.third.mybatis.mapper" targetProject="third-facade" />
     <javaClientGenerator targetPackage="com.third.dao.impl" targetProject="third-facade" type="XMLMAPPER" />
-    <table schema="User" tableName="User" >
-      <!--<columnOverride column="???" property="???" />-->
+    <table schema="User" tableName="user" >
+       <columnOverride column="usergroup" javaType="UserGroup"></columnOverride>
+    </table>
+    <table schema="UserGroup" tableName="user_group" >
+     
     </table>
   </context>
 </generatorConfiguration>

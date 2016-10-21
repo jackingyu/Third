@@ -5,6 +5,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 import com.third.dao.impl.UserMapper;
 import com.third.model.User;
+import com.third.model.UserGroup;
 import com.third.service.user.UserService;
 
 public class DefaultUserService implements UserService{
@@ -13,11 +14,16 @@ public class DefaultUserService implements UserService{
 
 	
 	public User getUserById(String userId) {
-		return (User) userMapper.selectByUid(userId);
+		
+		User user = userMapper.getUserById(userId);
+		UserGroup usergroup = userMapper.getUsergroup(userId);
+		System.out.println("user group "+usergroup.getName());
+		
+		return user;
 	}
 
 	public void saveUser(User user) {
-		userMapper.insert(user);
+		//userMapper.insert(user);
 	}
 	
 	public void setUserMapper(UserMapper userMapper) {

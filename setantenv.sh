@@ -15,3 +15,6 @@ export -p ANT_OPTS="-Xmx512m -Dfile.encoding=UTF-8"
 export -p ANT_HOME=$PLATFORM_HOME/apache-ant-1.9.1
 chmod +x "$ANT_HOME/bin/ant"
 export -p PATH=$ANT_HOME/bin:$PATH
+
+export -p TOMCAT_HOME=$PLATFORM_HOME/apache-tomcat-8.0.35
+export -p PATH=$TOMCAT_HOME/bin:$PATH
