@@ -11,6 +11,9 @@
         <dependent-module archiveName="third-facade-0.0.1-SNAPSHOT.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/third-facade/third-facade">
             <dependency-type>uses</dependency-type>
         </dependent-module>
+        <dependent-module archiveName="third-core-0.0.1-SNAPSHOT.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/third-core/third-core">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
         <property name="context-root" value="thrid-web"/>
         <property name="java-output-path" value="/thrid-web/target/classes"/>
     </wb-module>

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+                                   "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+	<class name="com.third.model.UserGroup" table="usergroup">
+		<id name="pk" type="java.lang.Integer">
+			<column name="pk" />
+			<generator class="uuid" />
+		</id>
+		<property column="id" lazy="false" name="id"
+			type="java.lang.String" />
+		<property column="name" lazy="false" name="name"
+			type="java.lang.String" />
+	</class>
+</hibernate-mapping>

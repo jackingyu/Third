@@ -22,7 +22,7 @@
            ">
     <context:annotation-config />
 	<import resource="thirdweb-security.xml"></import>
-	<import resource="thirdweb-filter.xml"></import>
+	<import resource="thirdweb-hibernate.xml"></import>
 	<import resource="thirdweb-mvc.xml"></import>
 
 </beans>

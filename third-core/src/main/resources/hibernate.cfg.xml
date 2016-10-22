@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-configuration PUBLIC
+		"-//Hibernate/Hibernate Configuration DTD 3.0//EN"
+		"http://hibernate.sourceforge.net/hibernate-configuration-3.0.dtd">
+<hibernate-configuration>  
+    <session-factory>  
+        <!-- 设置数据库驱动 -->  
+        <property name="hibernate.connection.driver_class">com.mysql.jdbc.Driver</property>  
+        <!-- 设置数据库URL -->  
+        <property name="hibernate.connection.url">jdbc:mysql://localhost:3306/test</property>  
+        <!-- 数据库用户名 -->  
+        <property name="hibernate.connection.username">root</property>  
+        <!-- 数据库密码 -->  
+        <property name="hibernate.connection.password">jackingyu123</property>  
+        <!-- 指定对应数据库的方言，hibernate为了更好适配各种关系数据库，针对每种数据库都指定了一个方言dialect -->  
+        <property name="hibernate.dialect">org.hibernate.dialect.MySQLDialect</property>  
+          
+        <!-- 映射文件 -->  
+        <mapping resource="hbm/User.hbm.xml"/>  
+        <mapping resource="hbm/UserGroup.hbm.xml"/>  
+    </session-factory>  
+</hibernate-configuration>  

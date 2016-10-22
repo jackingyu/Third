@@ -9,5 +9,6 @@
     <module>third-lib</module>
     <module>thrid-web</module>
     <module>third-facade</module>
+    <module>third-core</module>
   </modules>
 </project>
