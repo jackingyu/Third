@@ -62,7 +62,8 @@
 		<security:authentication-provider ref="thirdAuthenticationProvider" />
 	</security:authentication-manager>
 
-	<bean id="userDetailsService" class="com.third.service.impl.user.DefaultUserDetailsService">
+    <alias name="defaultUserDetailsService" alias="userDetailsService"></alias>
+	<bean id="defaultUserDetailsService" class="com.third.service.user.impl.DefaultUserDetailsService">
         <property name="userService" ref="userService" />
     </bean>
     

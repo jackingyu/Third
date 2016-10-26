@@ -8,6 +8,8 @@ ${TOMCAT_HOME}/bin/catalina.sh stop && ${TOMCAT_HOME}/bin/catalina.sh run
 elif [ $1 == "stop" ]
 then
 ${TOMCAT_HOME}/bin/catalina.sh stop
-el
+elif [ $1 == "debug" ]
+then
+${TOMCAT_HOME}/bin/catalina.sh jpda run
 echo "only support run,restart,stop"
 fi

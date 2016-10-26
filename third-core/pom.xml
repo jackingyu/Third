@@ -41,6 +41,7 @@
                 <directory>src/main/resources</directory>
                 <includes>
                     <include>**/*.xml</include>
+                    <include>**/*.dtd</include>
                 </includes>
             </resource>
         </resources>

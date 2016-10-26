@@ -35,7 +35,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.util.StringUtils;
 
-import com.third.model.User;
+import com.third.model.UserModel;
 import com.third.service.user.UserService;
 
 
@@ -72,7 +72,7 @@ public class DefaultThirdDaoAuthenticationProvider implements AuthenticationProv
 			throw new BadCredentialsException("profile.password.cannot.blank");
 		}
 		
-		User user = userService.getUserById(username);
+		UserModel user = userService.getUserById(username);
 		
 		checkPassword(authentication, user);
 		
@@ -100,7 +100,7 @@ public class DefaultThirdDaoAuthenticationProvider implements AuthenticationProv
 		return result;
 	}
 	
-	private void checkPassword(final Authentication authentication, User user)
+	private void checkPassword(final Authentication authentication, UserModel user)
 	{
 		if(authentication.getCredentials().toString().equals(user.getPassword()))
 			return;

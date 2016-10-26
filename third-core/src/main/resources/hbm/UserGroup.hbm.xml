@@ -2,14 +2,27 @@
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
                                    "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
 <hibernate-mapping>
-	<class name="com.third.model.UserGroup" table="usergroup">
-		<id name="pk" type="java.lang.Integer">
+	<class name="com.third.model.UserGroupModel" table="usergroup">
+		<id name="pk" type="java.lang.String">
 			<column name="pk" />
 			<generator class="uuid" />
 		</id>
-		<property column="id" lazy="false" name="id"
+		<property column="groupid" lazy="false" name="groupId"
 			type="java.lang.String" />
 		<property column="name" lazy="false" name="name"
 			type="java.lang.String" />
+		<set name="users" inverse="true" table="user">
+			<key>
+				<column name="usergroup" />
+			</key>
+			<one-to-many class="com.third.model.UserModel" />
+		</set>
+		<bag name="roles" table="usergroup2role" inverse="false"
+			cascade="save-update" lazy="true">
+			<key column="userGroupPK"></key>
+			<many-to-many class="com.third.model.RoleModel"
+				column="rolePK">
+			</many-to-many>
+		</bag>
 	</class>
 </hibernate-mapping>

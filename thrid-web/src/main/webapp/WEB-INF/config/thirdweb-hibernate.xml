@@ -50,6 +50,9 @@
 		<property name="mappingResources">
 			<list>
 			   <value>/hbm/User.hbm.xml</value>
+			   <value>/hbm/UserGroup.hbm.xml</value>
+			   <value>/hbm/Menu.hbm.xml</value>
+			   <value>/hbm/Role.hbm.xml</value>
 			</list>
 		</property>
 		<property name="hibernateProperties">
@@ -60,7 +63,7 @@
 				<prop key="hibernate.show_sql">${hibernate.show_sql}</prop>
 				<prop key="hibernate.connection.release_mode">${hibernate.connection.release_mode}</prop>
 				<prop key="hibernate.current_session_context_class">${hibernate.current_session_context_class}</prop>
-				<prop key="hibernate.hbm2ddl.auto">${hibernate.hbm2ddl_auto}</prop>
+				<!--  <prop key="hibernate.hbm2ddl.auto">${hibernate.hbm2ddl_auto}</prop>-->
 				<!--<prop key="hibernate.cache.provider_class">org.hibernate.cache.EhCacheProvider</prop> -->
 			</props>
 		</property>
@@ -118,9 +121,11 @@
   <tx:advice id="transactionAdvice" transaction-manager="transactionManager">
 		<!-- 配置详细事务处理语义 -->
 		<tx:attributes>
+			<tx:method name="create*" propagation="REQUIRED" />
 			<tx:method name="insert*" propagation="REQUIRED" />
 			<tx:method name="update*" propagation="REQUIRED" />
 			<tx:method name="delete*" propagation="REQUIRED" />
+			<tx:method name="save*" propagation="REQUIRED" />
 
 			<tx:method name="get*" propagation="SUPPORTS" read-only="true" />
 			<tx:method name="find*" propagation="SUPPORTS" read-only="true" />
@@ -128,7 +133,6 @@
 			<tx:method name="load*" propagation="SUPPORTS" read-only="true" />
 
 			<!-- 其他采用默认事务方式 -->
-			<tx:method name="*" />
 
 		</tx:attributes>
 	</tx:advice>
@@ -136,18 +140,10 @@
 <aop:config>
 		<!-- 配置切入点 -->
 		<aop:pointcut id="transactionPointcut"
-			expression="execution(* com.third.dao.*.*(..))" />
+			expression="execution(* com.third.dao..*.*(..))" />
 		<!-- 指定在txAdvice切入点应用txAdvice事务增强处理 -->
 		<aop:advisor pointcut-ref="transactionPointcut"
 			advice-ref="transactionAdvice" />
 	</aop:config>
-    
-    <bean id="genericDAO" class="com.third.dao.impl.GenericDAO"/>
-    <alias name="defaultUserDao" alias="userDao"></alias>
-    <bean id="defaultUserDao" class="com.third.dao.impl.DefaultUserDao" parent="genericDAO"></bean>
-	<alias name="defaultUserService" alias="userService"></alias>
-	<bean id="defaultUserService" class="com.third.service.impl.user.DefaultUserService">
-			<property name="userDao" ref="userDao" />
-	</bean>
 
 </beans>

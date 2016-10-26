@@ -2,24 +2,26 @@
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
                                    "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
 <hibernate-mapping>
-	<class name="com.third.model.User" table="user">
-		<id name="pk" type="java.lang.Integer">
+	<class name="com.third.model.UserModel" table="user">
+		<id name="pk" type="java.lang.String">
 			<column name="pk" unique="true" />
 			<generator class="uuid" />
-		</id>
-		<property column="id" lazy="false" name="id"
-			type="java.lang.String" />
+		</id><!--user id-->
+		<property column="userid" lazy="false" name="userId"
+			type="java.lang.String" unique="true">
+		</property><!--password-->
 		<property column="password" lazy="false" name="password"
-			type="java.lang.String" />
+			type="java.lang.String" ></property>
 		<property column="name" lazy="false" name="name" type="java.lang.String" />
-		<set name="userGroups" table="user_usergroup" inverse="false">  
-            <key column="userPK" />  
-            <many-to-many class="com.third.model.UserGroup" column="userGroupPK" />
-        </set>  
+		<many-to-one name="userGroup" lazy="false"
+			class="com.third.model.UserGroupModel" cascade="refresh"
+			fetch="join">
+			<column name="usergroup" ></column>
+		</many-to-one>
 	</class>
 	<query name="getUserById">
     <![CDATA[  
-      from com.third.model.User u where u.id=?
+      from com.third.model.UserModel u where u.id=?
     ]]>
 	</query>
 </hibernate-mapping>

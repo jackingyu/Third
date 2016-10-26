@@ -24,5 +24,7 @@
 	<import resource="thirdweb-security.xml"></import>
 	<import resource="thirdweb-hibernate.xml"></import>
 	<import resource="thirdweb-mvc.xml"></import>
+	<import resource="classpath:third-core-spring.xml"></import>
+	<import resource="classpath:third-facade-spring.xml"></import>
 
 </beans>

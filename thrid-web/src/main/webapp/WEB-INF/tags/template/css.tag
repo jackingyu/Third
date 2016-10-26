@@ -6,6 +6,8 @@
 <spring:url value="/_ui/css/easyui/themes/default/easyui.css" var="easyuiCss" />
 <spring:url value="/_ui/css/easyui/themes/icon.css" var="iconCss" />
 <spring:url value="/_ui/css/main.css" var="mainCss" />
+<spring:url value="/_ui/css/usergroup.css" var="usergroupCss" />
 <link rel="stylesheet" type="text/css" href="${easyuiCss}" />
 <link rel="stylesheet" type="text/css" href="${iconCss}" />
 <link rel="stylesheet" type="text/css" href="${mainCss}" />
+<link rel="stylesheet" type="text/css" href="${usergroupCss}" />

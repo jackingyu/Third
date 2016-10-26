@@ -1,12 +1,24 @@
 <project name="third" default="deployui" basedir="." >   
    
- <property name="ui_sourcepath" value="./thrid-web/src/main/webapp/_ui" description="ui file source path"/>  
- <property name="jsp_sourcepath" value="./thrid-web/src/main/webapp/WEB-INF/views" description="jsp source path"/>  
- <property name="tag_sourcepath" value="./thrid-web/src/main/webapp/WEB-INF/tags" description="tags source path"/>  
- <property name="ui_targetpath" value="./thrid-web/target/thrid-web/_ui" description="ui file target path"/>  
- <property name="jsp_targetpath" value="./thrid-web/target/thrid-web/WEB-INF/views" description="jsp target path"/>  
- <property name="tag_targetpath" value="./thrid-web/target/thrid-web/WEB-INF/tags" description="tags target path"/>  
+ <property name="ui_sourcepath" value="${basedir}/thrid-web/src/main/webapp/_ui" description="ui file source path"/>  
+ <property name="jsp_sourcepath" value="${basedir}/thrid-web/src/main/webapp/WEB-INF/views" description="jsp source path"/>  
+ <property name="tag_sourcepath" value="${basedir}/thrid-web/src/main/webapp/WEB-INF/tags" description="tags source path"/>  
+ <property name="ui_targetpath" value="${basedir}/thrid-web/target/thrid-web/_ui" description="ui file target path"/>  
+ <property name="jsp_targetpath" value="${basedir}/thrid-web/target/thrid-web/WEB-INF/views" description="jsp target path"/>  
+ <property name="tag_targetpath" value="${basedir}/thrid-web/target/thrid-web/WEB-INF/tags" description="tags target path"/>  
+ 
+ <property name="core_resourcepath" value="${basedir}/third-core/src/main/resources" description="core resource path"/>  
+ 
+  <property name="message_targetpath" value="${basedir}/thrid-web/target/thrid-web/WEB-INF/messages" description="message target path"/>  
+  <property name="message_sourcepath" value="${basedir}/thrid-web/src/main/webapp/WEB-INF/messages" description="message source path"/>  
+ <property name="jdbc.driver.jar" value="lib/mysql-connector-java-5.1.6.jar" description="mysql database driver"/>  
    
+<path id="toolslib">
+  <fileset dir="${basedir}">  
+       <include name="tools/hibernatetools/*.jar"/>  
+  </fileset> 
+</path>
+
  <target name="deployui">  
  	<copy todir="${ui_targetpath}">
  	   <fileset dir="${ui_sourcepath}">
@@ -20,6 +32,34 @@
  	   <fileset dir="${tag_sourcepath}">
        </fileset>
  	</copy>
+ 	<copy todir="${message_targetpath}">
+ 	   <fileset dir="${message_sourcepath}">
+       </fileset>
+ 	</copy>
  </target> 
    
+  <taskdef name="hibernatetool" 
+         classname="org.hibernate.tool.ant.HibernateToolTask" 
+         classpathref="toolslib" />
+         
+  <target name="codegen">
+        <hibernatetool destdir="${basedir}/third-core/src/main/java">
+        <classpath>
+            <path location="${core_resourcepath}"/>
+        </classpath>
+ 
+        <configuration configurationfile="${core_resourcepath}/hibernate.cfg.xml"/>
+        <hbm2java/>
+        </hibernatetool>
+  </target>
+  <target name="databasegen">
+        <hibernatetool destdir="${basedir}">
+        <classpath>
+            <path location="${core_resourcepath}"/>
+        </classpath>
+ 
+        <configuration configurationfile="${core_resourcepath}/hibernate.cfg.xml"/>
+        <hbm2ddl/>
+        </hibernatetool>
+  </target>
 </project>

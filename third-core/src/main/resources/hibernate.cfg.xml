@@ -18,5 +18,7 @@
         <!-- 映射文件 -->  
         <mapping resource="hbm/User.hbm.xml"/>  
         <mapping resource="hbm/UserGroup.hbm.xml"/>  
+        <mapping resource="hbm/Role.hbm.xml"/>  
+        <mapping resource="hbm/Menu.hbm.xml"/>  
     </session-factory>  
 </hibernate-configuration>  

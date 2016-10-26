@@ -16,4 +16,7 @@
 <script type="text/javascript" src="${mainJs}"></script>
 
 <spring:url value="/_ui/js/juicer-min.js" var="juicerJs" />
+
 <script type="text/javascript" src="${juicerJs}"></script>
+<spring:url value="/_ui/js/easyui-lang-zh_CN.js" var="easyuiLocaleJs" />
+<script type="text/javascript" src="${easyuiLocaleJs}"></script>

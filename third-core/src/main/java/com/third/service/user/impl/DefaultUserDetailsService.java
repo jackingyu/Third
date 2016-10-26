@@ -9,7 +9,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 
-import com.third.model.User;
+import com.third.model.UserModel;
 import com.third.service.user.UserService;
 
 public class DefaultUserDetailsService implements UserDetailsService {
@@ -17,7 +17,7 @@ public class DefaultUserDetailsService implements UserDetailsService {
 	private UserService userService;
 
 	public UserDetails loadUserByUsername(String username) {
-		User user = userService.getUserById(username);
+		UserModel user = userService.getUserById(username);
 
 		if (user == null)
 			throw new UsernameNotFoundException(username + " not found!");
@@ -41,7 +41,7 @@ public class DefaultUserDetailsService implements UserDetailsService {
 		return userDetails;
 	}
 
-	private Collection<GrantedAuthority> getAuthorities(final User user) {
+	private Collection<GrantedAuthority> getAuthorities(final UserModel user) {
 		// {
 		// final Set<PrincipalGroup> groups = user.getGroups();
 		// final Collection<GrantedAuthority> authorities = new

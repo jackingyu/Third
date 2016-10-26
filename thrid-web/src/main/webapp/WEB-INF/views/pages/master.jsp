@@ -87,17 +87,17 @@
 	"menus": [{
 		"menuid": "1",
 		"icon": "icon-sys",
-		"menuname": "标注管理",
+		"menuname": "系统管理",
 		"menus": [{
 			"menuid": "12",
-			"menuname": "添加标注",
+			"menuname": "用户管理",
 			"icon": "icon-add",
 			"url": "http://hxling.cnblogs.com",
 			"child": [{
 				"menuid": "140",
-				"menuname": "dengluchengn",
+				"menuname": "用户组",
 				"icon": "icon-role",
-				"url": "loginsuccess.jsp"
+				"url": "/usergrouplistpage"
 			},
 			{
 				"menuid": "150",
