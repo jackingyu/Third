@@ -20,3 +20,9 @@
 <script type="text/javascript" src="${juicerJs}"></script>
 <spring:url value="/_ui/js/easyui-lang-zh_CN.js" var="easyuiLocaleJs" />
 <script type="text/javascript" src="${easyuiLocaleJs}"></script>
+
+<spring:url value="/_ui/js/acc.usergroup.js" var="userGroupJs" />
+<script type="text/javascript" src="${userGroupJs}"></script>
+
+<spring:url value="/_ui/js/acc.usergrouplist.js" var="userGroupListJs" />
+<script type="text/javascript" src="${userGroupListJs}"></script>

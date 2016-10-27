@@ -1,5 +1,7 @@
 package com.third.service.user;
 
+import java.util.List;
+
 import com.third.exceptions.SystemException;
 import com.third.model.UserGroupModel;
 import com.third.model.UserModel;
@@ -57,5 +59,7 @@ public interface UserService
 	 * @param userGroup
 	 */
 	public void saveUserGroup(UserGroupModel userGroup);
+
+	public List<UserGroupModel> getUserGroupList(final String userGroupId, final String userGroupName);
 
 }

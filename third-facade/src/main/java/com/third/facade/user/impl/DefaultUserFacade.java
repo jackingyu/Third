@@ -12,6 +12,7 @@ import org.springframework.util.CollectionUtils;
 
 import com.third.facade.data.MenuData;
 import com.third.facade.data.UserData;
+import com.third.facade.data.UserGroupData;
 import com.third.facade.populator.MenuDataPopulator;
 import com.third.facade.user.UserFacade;
 import com.third.model.MenuModel;
@@ -27,8 +28,10 @@ public class DefaultUserFacade implements UserFacade
 	private static final Logger LOG = Logger.getLogger(DefaultUserFacade.class);
 
 	private MenuService menuService;
-	private MenuDataPopulator menuDataPopulator;
 	private UserService userService;
+
+	private MenuDataPopulator menuDataPopulator;
+	private UserGroupDataPopulator userGroupDataPopulator;
 
 	public void setMenuService(MenuService menuService)
 	{
@@ -107,6 +110,13 @@ public class DefaultUserFacade implements UserFacade
 		}));
 
 		return new ArrayList<MenuData>(lv2Menus.values());
+	}
+
+	@Override
+	public List<UserGroupData> getUserGroups(String userGroupName, String userGroupId)
+	{
+		List<UserGroupModel> userGroupModels = userService.getUserGroupList(userGroupId, userGroupName);
+		return null;
 	}
 
 }

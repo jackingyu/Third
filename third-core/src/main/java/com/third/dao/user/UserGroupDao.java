@@ -1,8 +1,23 @@
 package com.third.dao.user;
 
+import java.util.List;
+
 import com.third.dao.generic.IGenericDAO;
 import com.third.model.UserGroupModel;
 
-public interface UserGroupDao extends IGenericDAO<UserGroupModel, String> {
+
+public interface UserGroupDao extends IGenericDAO<UserGroupModel, String>
+{
+	/**
+	 * @param id
+	 * @return
+	 */
 	public UserGroupModel findUserGroupById(final String id);
+
+	/**
+	 * @param userGroupId
+	 * @param userGroupName
+	 * @return
+	 */
+	public List<UserGroupModel> findUserGroupByName(final String userGroupId, final String userGroupName);
 }

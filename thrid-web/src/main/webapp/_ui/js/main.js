@@ -225,8 +225,8 @@ $(document).ready(function ()
 	juicer.set({
 	    'tag::operationOpen': '{@',
 	    'tag::operationClose': '}',
-	    'tag::interpolateOpen': '$(',
-	    'tag::interpolateClose': ')',
+	    'tag::interpolateOpen': '$[',
+	    'tag::interpolateClose': ']',
 	    'tag::noneencodeOpen': '$${',
 	    'tag::noneencodeClose': '}',
 	    'tag::commentOpen': '{#',

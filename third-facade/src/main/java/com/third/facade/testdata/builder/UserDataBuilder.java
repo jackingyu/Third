@@ -32,17 +32,17 @@ public class UserDataBuilder implements DataBuilder
 		userService.createUser(admin);
 
 
-		MenuModel lv2_user = this.buildMenu("1", 2, "用户管理", "#", "icon-sys");
+		MenuModel lv2_user = this.buildMenu("1", 2, "用户管理", "#", "menu-icon-sys");
 		menuService.createMenu(lv2_user);
 
-		MenuModel lv3_usergroup = this.buildMenu("11", 3, "用户组列表", "/usergrouplistpage", "icon-role");
-		MenuModel lv3_userlist = this.buildMenu("12", 3, "用户列表", "#", "icon-users");
+		MenuModel lv3_usergroup = this.buildMenu("11", 3, "用户组列表", "/usergrouplistpage", "menu-icon-role");
+		MenuModel lv3_userlist = this.buildMenu("12", 3, "用户列表", "#", "menu-icon-users");
 		lv3_usergroup.setParentMenu(lv2_user);
 		lv3_userlist.setParentMenu(lv2_user);
 		menuService.createMenu(lv3_usergroup);
 		menuService.createMenu(lv3_userlist);
 
-		MenuModel lv2_test = this.buildMenu("2", 2, "二级测试结点", "#", "icon-users");
+		MenuModel lv2_test = this.buildMenu("2", 2, "二级测试结点", "#", "menu-icon-users");
 		menuService.createMenu(lv2_test);
 
 		//create role

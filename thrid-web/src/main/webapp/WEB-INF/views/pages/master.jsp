@@ -7,6 +7,7 @@
 <head id="Head1">
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <template:css/>
+    <script type="text/javascript" src="/thrid-web/_ui/js/jquery.min.js"></script>
 </head>
 <body class="easyui-layout" class="layout"  fit="true"   scroll="no">
 <noscript>
@@ -45,7 +46,7 @@
     
     <!--修改密码窗口-->
     <div id="w" class="easyui-window" title="修改密码" collapsible="false" minimizable="false"
-        maximizable="false" icon="icon-save"  style="width: 300px; height: 150px; padding: 5px;
+        maximizable="false" icon="menu-icon-save"  style="width: 300px; height: 150px; padding: 5px;
         background: #fafafa;">
         <div class="easyui-layout" fit="true">
             <div region="center" border="false" style="padding: 10px; background: #fff; border: 1px solid #ccc;">
@@ -61,7 +62,7 @@
                 </table>
             </div>
             <div region="south" border="false" style="text-align: right; height: 30px; line-height: 30px;">
-                <a id="btnEp" class="easyui-linkbutton" icon="icon-ok" href="javascript:void(0)" >
+                <a id="btnEp" class="easyui-linkbutton" icon="menu-icon-ok" href="javascript:void(0)" >
                     确定</a> <a id="btnCancel" class="easyui-linkbutton" icon="icon-cancel" href="javascript:void(0)">取消</a>
             </div>
         </div>

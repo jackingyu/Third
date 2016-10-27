@@ -7,15 +7,15 @@
 	{@each menus as menu}
 	<li>
 		<div>
-			<a ref="$(menu.menuid)" href="#" rel="${contextPath}$(menu.url)"><span
-				class="icon $(menu.icon)">&nbsp;</span><span class="nav">$(menu.menuname)</span></a>
+			<a ref="$[menu.menuid]" href="#" rel="${contextPath}$[menu.url]"><span
+				class="icon $[menu.icon]">&nbsp;</span><span class="nav">$[menu.menuname]</span></a>
 		</div>
 		<ul class="third_ul" style="display: block;">
 		   {@each menu.child as childmenu}
 			<li>
 				<div>
-					<a ref="$(childmenu.menuid)" href="#" rel="${contextPath}$(childmenu.url)"> <span
-						class="icon $(childmenu.icon)">&nbsp;</span> <span class="nav">$(childmenu.menuname)</span>
+					<a ref="$[childmenu.menuid]" href="#" rel="${contextPath}$[childmenu.url]"> <span
+						class="icon $[childmenu.icon]">&nbsp;</span> <span class="nav">$[childmenu.menuname]</span>
 					</a>
 				</div>
 			</li>

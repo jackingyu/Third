@@ -1,6 +1,8 @@
 package com.third.service.user.impl;
 
 
+import java.util.List;
+
 import org.springframework.security.core.context.SecurityContextHolder;
 
 import com.third.dao.user.UserDao;
@@ -71,6 +73,12 @@ public class DefaultUserService implements UserService
 	public void saveUserGroup(UserGroupModel userGroup)
 	{
 		userGroupDao.save(userGroup);
+	}
+
+	@Override
+	public List<UserGroupModel> getUserGroupList(final String userGroupId, final String userGroupName)
+	{
+		return userGroupDao.findUserGroupByName(userGroupId, userGroupName);
 	}
 
 }

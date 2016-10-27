@@ -1,18 +1,19 @@
 package com.third.facade.data;
 
-public class UserGroupData {
+public class UserGroupData
+{
 
-	public String id;
+	public String groupId;
 	public String name;
 
-	public String getId()
+	public String getGroupId()
 	{
-		return id;
+		return groupId;
 	}
 
-	public void setId(String id)
+	public void setGroupId(String groupId)
 	{
-		this.id = id;
+		this.groupId = groupId;
 	}
 
 	public String getName()
@@ -24,5 +25,7 @@ public class UserGroupData {
 	{
 		this.name = name;
 	}
+
+
 
 }

@@ -252,4 +252,9 @@ public class GenericDAO<T, ID extends Serializable> extends HibernateDaoSupport 
 		super.setSessionFactory(sessionFactory);
 	}
 
+	protected String generateLikeParameter(final String parameter)
+	{
+		return "%" + parameter + "%";
+	}
+
 }
