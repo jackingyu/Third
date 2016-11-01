@@ -1,5 +1,5 @@
 package com.third.model;
-// Generated Oct 26, 2016 8:09:14 PM by Hibernate Tools 4.3.1
+// Generated Oct 31, 2016 10:31:11 PM by Hibernate Tools 4.3.1
 
 
 import java.util.ArrayList;
@@ -14,14 +14,16 @@ public class RoleModel  implements java.io.Serializable {
      private String pk;
      private String roleId;
      private String roleName;
+     private String description;
      private Collection menus = new ArrayList(0);
 
     public RoleModel() {
     }
 
-    public RoleModel(String roleId, String roleName, Collection menus) {
+    public RoleModel(String roleId, String roleName, String description, Collection menus) {
        this.roleId = roleId;
        this.roleName = roleName;
+       this.description = description;
        this.menus = menus;
     }
    
@@ -45,6 +47,13 @@ public class RoleModel  implements java.io.Serializable {
     
     public void setRoleName(String roleName) {
         this.roleName = roleName;
+    }
+    public String getDescription() {
+        return this.description;
+    }
+    
+    public void setDescription(String description) {
+        this.description = description;
     }
     public Collection getMenus() {
         return this.menus;

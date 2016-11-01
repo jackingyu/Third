@@ -2,23 +2,35 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 
-<div id="tb">
-	<span><spring:message code="usergrouplist.groupid" /></span> <input
-		id="itemid" style="line-height: 26px; border: 1px solid #ccc">
-	<span><spring:message code="usergrouplist.name" /></span> <input
-		id="productid" style="line-height: 26px; border: 1px solid #ccc">
-	<a href="#" class="easyui-linkbutton" plain="true" onclick="doSearch()"><spring:message code="form.select" /></a>
-</div>
-<table id="tt" class="easyui-datagrid"
-	style="width: 600px; height: 250px" url="datagrid24_getdata.php"
-	toolbar="#tb" title="<spring:message code="usergrouplist.title"/>"
-	iconCls="icon-save" rownumbers="true" pagination="true">
-	<thead>
-		<tr>
-			<th field="groupId" width="80"><spring:message
-					code="usergrouplist.field.groupid" /></th>
-			<th field="name" width="80"><spring:message
-					code="usergrouplist.field.name" /></th>
-		</tr>
-	</thead>
-</table>
+<div style="margin: 5px;">
+	<div id="usergrouplist-tb">
+		<a href="#" class="easyui-linkbutton"
+				iconCls="icon-add" plain="true" onclick="ACC.usergroup.create();"></a>
+		<div class="searchcondition">
+		  <form id="searchUserGroupForm" >
+			<span><spring:message code="usergrouplist.groupid" /></span> <input
+				name="userGroupId"></input> <span><spring:message
+					code="usergrouplist.name" /></span> <input name="userGroupName"></input> <a
+				href="#" class="easyui-linkbutton" plain="true" id="searchUserGroupBtn"><spring:message
+					code="form.select" /></a>
+		  </form>
+		</div>
+	</div>
+	<table id="userGroupListGrid" style="width: 600px; height: 390px" 
+		title="<spring:message code="usergrouplist.title"/>">
+		<thead>
+			<tr>
+				<th field="groupId" class="column-100"><spring:message
+						code="usergrouplist.column.groupid" /></th>
+				<th field="name" class="column-100"><spring:message
+						code="usergrouplist.column.name" /></th>
+			</tr>
+		</thead>
+	</table>
+</div><!-- 新建usergroup 窗口 -->
+
+<jsp:include page="userGroupComponent.jsp" flush="true"/>
+<script type="text/javascript">
+ACC.usergrouplist.initEvent();
+</script>
+

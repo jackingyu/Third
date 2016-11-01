@@ -10,6 +10,7 @@ public class UserGroupDataPopulator implements Populator<UserGroupModel, UserGro
 	@Override
 	public void populate(UserGroupModel source, UserGroupData target)
 	{
+		target.setPk(source.getPk());
 		target.setGroupId(source.getGroupId());
 		target.setName(source.getName());
 	}

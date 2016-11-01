@@ -1,19 +1,38 @@
 package com.third.facade.data;
 
-public class UserData {
+/**
+ * user data
+ */
+public class UserData extends AbstractData
+{
 
-	public String id;
+	public String userId;
 	public String name;
 	public UserGroupData userGroupData;
 
-	public void setId(String id)
+	public String getUserId()
 	{
-		this.id = id;
+		return userId;
+	}
+
+	public void setUserId(String userId)
+	{
+		this.userId = userId;
+	}
+
+	public String getName()
+	{
+		return name;
 	}
 
 	public void setName(String name)
 	{
 		this.name = name;
+	}
+
+	public UserGroupData getUserGroupData()
+	{
+		return userGroupData;
 	}
 
 	public void setUserGroupData(UserGroupData userGroupData)

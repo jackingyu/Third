@@ -11,6 +11,9 @@ import com.third.service.user.RoleService;
 import com.third.service.user.UserService;
 
 
+/**
+ * build test data for user module,this can be run via /data url,implement {@link DataBuilder}
+ */
 public class UserDataBuilder implements DataBuilder
 {
 	private UserService userService;
@@ -28,6 +31,14 @@ public class UserDataBuilder implements DataBuilder
 		userGroup.setName("管理员");
 		userService.createUserGroup(userGroup);
 
+		for (int i = 0; i < 100; i++)
+		{
+			UserGroupModel userGroup1 = new UserGroupModel();
+			userGroup1.setGroupId("admin" + i);
+			userGroup1.setName("管理员" + i);
+			userService.createUserGroup(userGroup1);
+		}
+
 		admin.setUserGroup(userGroup);
 		userService.createUser(admin);
 
@@ -35,8 +46,8 @@ public class UserDataBuilder implements DataBuilder
 		MenuModel lv2_user = this.buildMenu("1", 2, "用户管理", "#", "menu-icon-sys");
 		menuService.createMenu(lv2_user);
 
-		MenuModel lv3_usergroup = this.buildMenu("11", 3, "用户组列表", "/usergrouplistpage", "menu-icon-role");
-		MenuModel lv3_userlist = this.buildMenu("12", 3, "用户列表", "#", "menu-icon-users");
+		MenuModel lv3_usergroup = this.buildMenu("11", 3, "用户组列表", "/getUserGroupListPage", "menu-icon-role");
+		MenuModel lv3_userlist = this.buildMenu("12", 3, "用户列表", "/getUserListPage", "menu-icon-users");
 		lv3_usergroup.setParentMenu(lv2_user);
 		lv3_userlist.setParentMenu(lv2_user);
 		menuService.createMenu(lv3_usergroup);
@@ -49,12 +60,23 @@ public class UserDataBuilder implements DataBuilder
 		RoleModel role = new RoleModel();
 		role.setRoleId("adminRole");
 		role.setRoleName("管理员角色");
+		role.setDescription("测试管理员的角色的描述文本的橘色");
 		role.setMenus(Arrays.asList(lv3_usergroup, lv3_userlist, lv2_test));
 
 		roleService.createRole(role);
 
+
+		for (int i = 0; i < 20; i++)
+		{
+			RoleModel role1 = new RoleModel();
+			role1.setRoleId("role" + i);
+			role1.setRoleName("角色" + i);
+			role1.setDescription("描述描述描述描述" + i);
+			roleService.createRole(role1);
+		}
+
 		userGroup.setRoles(Arrays.asList(role));
-		userService.saveUserGroup(userGroup);
+		userService.createUserGroup(userGroup);
 	}
 
 	protected MenuModel buildMenu(final String menuId, final Integer level, final String menuName, final String url,

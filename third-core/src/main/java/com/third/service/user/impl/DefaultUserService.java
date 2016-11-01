@@ -7,6 +7,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 
 import com.third.dao.user.UserDao;
 import com.third.dao.user.UserGroupDao;
+import com.third.dao.util.PaginationSupport;
 import com.third.model.UserGroupModel;
 import com.third.model.UserModel;
 import com.third.service.user.UserService;
@@ -42,20 +43,11 @@ public class DefaultUserService implements UserService
 	}
 
 
-	public void setUserDao(UserDao userDao)
-	{
-		this.userDao = userDao;
-	}
-
 	public UserGroupModel getUserGroupById(String useGroupdId)
 	{
 		return null;
 	}
 
-	public void setUserGroupDao(UserGroupDao userGroupDao)
-	{
-		this.userGroupDao = userGroupDao;
-	}
 
 	public boolean isExist(String userId)
 	{
@@ -64,21 +56,45 @@ public class DefaultUserService implements UserService
 	}
 
 	@Override
-	public void saveUser(UserModel user)
+	public void updateUser(UserModel user)
 	{
 		userDao.update(user);
 	}
 
 	@Override
-	public void saveUserGroup(UserGroupModel userGroup)
+	public PaginationSupport getUserList(final String userId, final String userName, final Integer startIndex,
+			final Integer pageSize)
 	{
-		userGroupDao.save(userGroup);
+		return userDao.findUser(userId, userName, startIndex, pageSize);
 	}
 
 	@Override
-	public List<UserGroupModel> getUserGroupList(final String userGroupId, final String userGroupName)
+	public void updateUserGroup(UserGroupModel userGroup)
 	{
-		return userGroupDao.findUserGroupByName(userGroupId, userGroupName);
+		userGroupDao.update(userGroup);
+	}
+
+	@Override
+	public PaginationSupport getUserGroupList(final String userGroupId, final String userGroupName, final Integer startIndex,
+			final Integer pageSize)
+	{
+		return userGroupDao.findUserGroupByName(userGroupId, userGroupName, startIndex, pageSize);
+	}
+
+	@Override
+	public UserGroupModel getUserGroup(final String pk)
+	{
+		return userGroupDao.get(pk);
+	}
+
+	public void setUserDao(UserDao userDao)
+	{
+		this.userDao = userDao;
+	}
+
+	public void setUserGroupDao(UserGroupDao userGroupDao)
+	{
+		this.userGroupDao = userGroupDao;
 	}
 
 }

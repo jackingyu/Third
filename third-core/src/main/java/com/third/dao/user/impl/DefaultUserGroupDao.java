@@ -2,10 +2,15 @@ package com.third.dao.user.impl;
 
 import java.util.List;
 
+import org.hibernate.Query;
+import org.hibernate.criterion.DetachedCriteria;
+import org.hibernate.criterion.Restrictions;
 import org.springframework.util.CollectionUtils;
+import org.springframework.util.StringUtils;
 
 import com.third.dao.generic.GenericDAO;
 import com.third.dao.user.UserGroupDao;
+import com.third.dao.util.PaginationSupport;
 import com.third.model.UserGroupModel;
 
 
@@ -24,12 +29,18 @@ public class DefaultUserGroupDao extends GenericDAO<UserGroupModel, String> impl
 	}
 
 	@Override
-	public List<UserGroupModel> findUserGroupByName(String userGroupId, String userGroupName)
+	public PaginationSupport findUserGroupByName(final String userGroupId, final String userGroupName, final Integer startIndex,
+			final Integer pageSize)
 	{
-		List<UserGroupModel> userGroups = find(FIND_BY_IDANDNAME_SQL, new String[]
-		{ generateLikeParameter(userGroupId), generateLikeParameter(userGroupName) });
+		DetachedCriteria dcUserGroup = DetachedCriteria.forClass(UserGroupModel.class);
 
-		return userGroups;
+		if (!StringUtils.isEmpty(userGroupId))
+			dcUserGroup.add(Restrictions.like("groupId", generateLikeParameter(userGroupId)));
+
+		if (!StringUtils.isEmpty(userGroupName))
+			dcUserGroup.add(Restrictions.like("name", generateLikeParameter(userGroupName)));
+
+		PaginationSupport ps = findPageByCriteria(dcUserGroup, pageSize, startIndex);
+		return ps;
 	}
-
 }

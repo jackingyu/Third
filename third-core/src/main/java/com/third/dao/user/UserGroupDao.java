@@ -3,6 +3,7 @@ package com.third.dao.user;
 import java.util.List;
 
 import com.third.dao.generic.IGenericDAO;
+import com.third.dao.util.PaginationSupport;
 import com.third.model.UserGroupModel;
 
 
@@ -19,5 +20,9 @@ public interface UserGroupDao extends IGenericDAO<UserGroupModel, String>
 	 * @param userGroupName
 	 * @return
 	 */
-	public List<UserGroupModel> findUserGroupByName(final String userGroupId, final String userGroupName);
+	public PaginationSupport findUserGroupByName(final String userGroupId, final String userGroupName, final Integer startIndex,
+			final Integer pageSize);
+
+
+
 }

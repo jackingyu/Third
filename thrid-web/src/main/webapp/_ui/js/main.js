@@ -1,5 +1,5 @@
 var onlyOpenTitle="简介";//不允许关闭的标签的标题
-
+var menus;
 window.onload = function(){
 	$('#loading-mask').fadeOut();
 }
@@ -13,6 +13,7 @@ ACC.main = {
 			url:ACC.config.contextPath+'/getMenu',
 			async:false,
 			success:function(result){
+				menus = result;
 				$.each(result, function(i, n) {
 			    	var menulist = juicer($('#menuTmpl').html(),n);
 					$('#nav').accordion('add', {
@@ -176,7 +177,7 @@ ACC.main = {
 	//获取左侧导航的图标
 	getIcon:function(menuid){
 		var icon = 'icon ';
-		$.each(_menus.menus, function(i, n) {
+		$.each(menus, function(i, n) {
 			 $.each(n.menus, function(j, o) {
 			 	if(o.menuid==menuid){
 					icon += o.icon;
@@ -189,7 +190,7 @@ ACC.main = {
 	
 	findMenu:function(menuid){
 		var obj=null;
-		$.each(_menus.menus, function(i, n) {
+		$.each(menus, function(i, n) {
 			 $.each(n.menus, function(j, o) {
 			 	if(o.menuid==menuid){
 					obj = o;
@@ -239,5 +240,15 @@ $(document).ready(function ()
 		
 });
 
-
+function serializeObject(form){
+    var o={};
+    $.each(form.serializeArray(),function(index){
+              if(o[this['name'] ]){
+                   o[this['name'] ] = o[this['name'] ] + "," + this['value'];
+               }else{
+                  o[this['name'] ]=this['value'];
+               }
+        })
+      return o;
+}  
 

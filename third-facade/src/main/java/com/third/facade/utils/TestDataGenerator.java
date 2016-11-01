@@ -5,6 +5,9 @@ import java.util.List;
 import com.third.facade.testdata.builder.DataBuilder;
 
 
+/**
+ * test data generator,depends {@link DataBuilder}
+ */
 public class TestDataGenerator
 {
 	private List<DataBuilder> dataBuilders;

@@ -1,10 +1,14 @@
 package com.third.facade.data;
 
-public class UserGroupData
+import java.util.List;
+
+
+public class UserGroupData extends AbstractData
 {
 
 	public String groupId;
 	public String name;
+	public List<RoleData> roles;
 
 	public String getGroupId()
 	{
@@ -26,6 +30,14 @@ public class UserGroupData
 		this.name = name;
 	}
 
+	public List<RoleData> getRoles()
+	{
+		return roles;
+	}
 
+	public void setRoles(List<RoleData> roles)
+	{
+		this.roles = roles;
+	}
 
 }

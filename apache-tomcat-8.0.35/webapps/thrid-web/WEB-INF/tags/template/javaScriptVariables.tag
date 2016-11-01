@@ -8,7 +8,7 @@
 		/*<![CDATA[*/
 		<%-- Define a javascript variable to hold the content path --%>
 		var ACC = { config: {} };
-	    ACC.config.contextPath = "/thrid-web";
+	    ACC.config.contextPath = "${contextPath}";
 			//ACC.config.encodedContextPath = "${encodedContextPath}";
 			//ACC.config.commonResourcePath = "${commonResourcePath}";
 	

@@ -50,4 +50,11 @@ a:hover{ color:Red; text-decoration:underline;}
 .layout-north{overflow: hidden; height: 30px; background: url(images/layout-browser-hd-bg.gif) #7f99be repeat-x center 50%;line-height: 20px;color: #fff; font-family: Verdana, 微软雅黑,黑体}
 .north-title{padding-left:10px; font-size: 16px;}
 
+.column-0{width:0px;}
 .column-80{width:80px;}
+.column-100{width:100px;}
+.column-150{width:150px;}
+.width-160{width:160px;}
+
+.form-submit1{text-align:center;padding:5px}
+.addedTabPanel{padding:5px}

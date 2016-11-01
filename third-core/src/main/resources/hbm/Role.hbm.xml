@@ -12,6 +12,8 @@
 		</property><!--password-->
 		<property column="rolename" lazy="false" name="roleName"
 			type="java.lang.String" ></property>
+		<property column="description" lazy="false" name="description"
+			type="java.lang.String" ></property>
 		<bag name="menus" table="menu2role" inverse="false"
 			cascade="save-update">
 			<key column="menuPK"></key>

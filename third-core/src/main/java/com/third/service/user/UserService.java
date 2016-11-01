@@ -2,6 +2,7 @@ package com.third.service.user;
 
 import java.util.List;
 
+import com.third.dao.util.PaginationSupport;
 import com.third.exceptions.SystemException;
 import com.third.model.UserGroupModel;
 import com.third.model.UserModel;
@@ -17,18 +18,19 @@ public interface UserService
 	 * @param userId
 	 * @return
 	 */
-	public UserModel getUserById(String userId);
+	public UserModel getUserById(final String userId);
 
 	/**
 	 * @param useGroupdId
 	 * @return
 	 */
-	public UserGroupModel getUserGroupById(String useGroupdId);
+	public UserGroupModel getUserGroupById(final String useGroupdId);
 
 	/**
-	 * @param user
+	 * @param pk
+	 * @return
 	 */
-	public void saveUser(UserModel user);
+	UserGroupModel getUserGroup(final String pk);
 
 	/**
 	 * 检查用户是否存在
@@ -36,7 +38,7 @@ public interface UserService
 	 * @param userId
 	 * @return
 	 */
-	public boolean isExist(String userId);
+	public boolean isExist(final String userId);
 
 	/**
 	 * @return
@@ -47,19 +49,42 @@ public interface UserService
 	 * @param user
 	 * @return
 	 */
-	public void createUser(UserModel user);
+	public void createUser(final UserModel user);
 
 	/**
 	 * @param userGroup
 	 * @return
 	 */
-	public void createUserGroup(UserGroupModel userGroup);
+	public void createUserGroup(final UserGroupModel userGroup);
 
 	/**
 	 * @param userGroup
 	 */
-	public void saveUserGroup(UserGroupModel userGroup);
+	public void updateUserGroup(final UserGroupModel userGroup);
 
-	public List<UserGroupModel> getUserGroupList(final String userGroupId, final String userGroupName);
+
+	/**
+	 * @param userGroupId
+	 * @param userGroupName
+	 * @param startIndex
+	 * @param pageSize
+	 * @return
+	 */
+	PaginationSupport getUserGroupList(final String userGroupId, final String userGroupName, final Integer startIndex,
+			final Integer pageSize);
+
+	/**
+	 * @param user
+	 */
+	void updateUser(final UserModel user);
+
+	/**
+	 * @param userId
+	 * @param userName
+	 * @param startIndex
+	 * @param pageSize
+	 * @return
+	 */
+	PaginationSupport getUserList(String userId, String userName, Integer startIndex, Integer pageSize);
 
 }

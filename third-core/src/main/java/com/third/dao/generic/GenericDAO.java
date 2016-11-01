@@ -160,9 +160,7 @@ public class GenericDAO<T, ID extends Serializable> extends HibernateDaoSupport 
 
 	public List<T> findByNamedQuery(String queryName, Object value) throws DataAccessException
 	{
-		// this.currentSession().beginTransaction();
 		List<T> result = (List<T>) getHibernateTemplate().findByNamedQuery(queryName, value);
-		// this.currentSession().getTransaction().commit();
 		return result;
 	}
 
@@ -173,12 +171,12 @@ public class GenericDAO<T, ID extends Serializable> extends HibernateDaoSupport 
 
 	public PaginationSupport findPageByCriteria(final DetachedCriteria detachedCriteria, final int pageSize, final int startIndex)
 	{
-		return (PaginationSupport) getHibernateTemplate().execute(new HibernateCallback()
+		return (PaginationSupport) getHibernateTemplate().executeWithNativeSession(new HibernateCallback()
 		{
 			public Object doInHibernate(Session session) throws HibernateException
 			{
 				Criteria criteria = detachedCriteria.getExecutableCriteria(session);
-				int totalCount = (Integer) criteria.setProjection(Projections.rowCount()).uniqueResult();
+				int totalCount = Integer.valueOf(criteria.setProjection(Projections.rowCount()).uniqueResult().toString());
 				criteria.setProjection(null);
 				List items = criteria.setFirstResult(startIndex).setMaxResults(pageSize).list();
 				return new PaginationSupport(items, totalCount, pageSize, startIndex);

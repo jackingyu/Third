@@ -6,8 +6,7 @@
 
 <template:javaScriptVariables/>
 
-<spring:url value="/_ui/js/jquery.min.js" var="jqueryJs" />
-<script type="text/javascript" src="${jqueryJs}"></script>
+
 
 <spring:url value="/_ui/js/jquery.easyui.min.js" var="easyuiJs" />
 <script type="text/javascript" src="${easyuiJs}"></script>
@@ -26,3 +25,9 @@
 
 <spring:url value="/_ui/js/acc.usergrouplist.js" var="userGroupListJs" />
 <script type="text/javascript" src="${userGroupListJs}"></script>
+
+<spring:url value="/_ui/js/acc.user.js" var="userJs" />
+<script type="text/javascript" src="${userJs}"></script>
+
+<spring:url value="/_ui/js/acc.userlist.js" var="userListJs" />
+<script type="text/javascript" src="${userListJs}"></script>

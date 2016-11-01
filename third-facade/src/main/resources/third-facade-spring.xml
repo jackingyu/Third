@@ -33,11 +33,27 @@
 	<bean id="defaultUserFacade" class="com.third.facade.user.impl.DefaultUserFacade">
 	    <property name="userService" ref="userService"></property>
 	    <property name="menuService" ref="menuService"></property>
+	    <property name="roleService" ref="roleService"></property>
 	    <property name="menuDataPopulator" ref="menuDataPopulator"></property>
+	    <property name="userGroupDataPopulator" ref="userGroupDataPopulator"></property>
+	    <property name="roleDataPopulator" ref="roleDataPopulator"></property>
+	    <property name="userDataPopulator" ref="userDataPopulator"></property>
 	</bean>
     
     <alias name="defaultMenuDataPopulator" alias="menuDataPopulator"></alias>
     <bean id="defaultMenuDataPopulator" class="com.third.facade.populator.MenuDataPopulator">
+    </bean>
+    
+    <alias name="defaultUserDataPopulator" alias="userDataPopulator"></alias>
+    <bean id="defaultUserDataPopulator" class="com.third.facade.populator.UserDataPopulator">
+    </bean>
+    
+    <alias name="defaultUserGroupDataPopulator" alias="userGroupDataPopulator"></alias>
+    <bean id="defaultUserGroupDataPopulator" class="com.third.facade.populator.UserGroupDataPopulator">
+    </bean>
+    
+    <alias name="defaultRoleDataPopulator" alias="roleDataPopulator"></alias>
+    <bean id="defaultRoleDataPopulator" class="com.third.facade.populator.RoleDataPopulator">
     </bean>
 </beans>
  
