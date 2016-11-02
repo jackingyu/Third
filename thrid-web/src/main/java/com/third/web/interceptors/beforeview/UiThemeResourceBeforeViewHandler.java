@@ -21,6 +21,7 @@ public class UiThemeResourceBeforeViewHandler implements BeforeViewHandler
 	public void beforeView(final HttpServletRequest request, final HttpServletResponse response, final ModelAndView modelAndView)
 	{
 		modelAndView.addObject("jucierTplBasePath", "/WEB-INF/views/juicer");
+		modelAndView.addObject("framentsPath", "/WEB-INF/views/fragments");
 		modelAndView.addObject("contextPath", "/thrid-web");
 	}
 

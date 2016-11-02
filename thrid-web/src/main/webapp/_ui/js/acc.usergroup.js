@@ -1,7 +1,7 @@
 ACC.usergroup = {
 	create:function() {
 		  $("#userGroupForm").form("clear");
-		  $("#roleListGrid").datagrid("loadData",{total:0,rows:[]}); 
+		  $("#roleListGrid").datagrid("loadData",{total:0,rows:[]});
 	},
 	modify:function(value){
 		$("#userGroupForm").form("load",value);
@@ -44,14 +44,27 @@ ACC.usergroup = {
 						rolesPK.push(roles[i].pk);
 					}
 					
-					$.ajax({
+					if($("#userGroupPk").val()=="")
+						$.ajax({
+					    type: "post",
+					    url: ACC.config.contextPath+"/createUserGroup",
+					    data: $(this).serialize()+"&roleList="+rolesPK,
+					    success: function(data) {
+					        $.messager.alert("系统提示","新建成功");
+					        //重置页面信息,可以新建
+					        ACC.usergroup.create();
+					    }
+					   });
+					else
+					 $.ajax({
 					    type: "post",
 					    url: ACC.config.contextPath+"/modifyUserGroup",
 					    data: $(this).serialize()+"&roleList="+rolesPK,
 					    success: function(data) {
-					        $.messager.alert("系统提示","保存成功");
+					        $.messager.alert("系统提示","修改成功");
 					        //重置页面信息,可以新建
 					        ACC.usergroup.create();
+					        $("#userGroupListGrid").datagrid("reload");
 					    }
 					});
 				}

@@ -237,7 +237,7 @@ $(document).ready(function ()
 	ACC.main.initLeftMenu();
 	ACC.main.tabClose();
 	ACC.main.tabCloseEven();
-		
+    ACC.usergroupselector.init({prefix:"userEditor_userGroupPk"});
 });
 
 function serializeObject(form){

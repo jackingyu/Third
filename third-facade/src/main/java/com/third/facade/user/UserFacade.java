@@ -44,6 +44,11 @@ public interface UserFacade
 	/**
 	 * @param userGroup
 	 */
+	void createUserGroup(UserGroupData userGroup);
+
+	/**
+	 * @param userGroup
+	 */
 	void updateUserGroup(UserGroupData userGroup);
 
 	/**
@@ -56,4 +61,8 @@ public interface UserFacade
 	 * @return
 	 */
 	List<RoleData> getRolesForUserGroup(final String userGroupPK);
+
+	void updateUser(UserData user);
+
+	UserData getUserById(final String userId);
 }

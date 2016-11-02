@@ -31,3 +31,6 @@
 
 <spring:url value="/_ui/js/acc.userlist.js" var="userListJs" />
 <script type="text/javascript" src="${userListJs}"></script>
+
+<spring:url value="/_ui/js/acc.usergroupselector.js" var="userGroupSelectorJs" />
+<script type="text/javascript" src="${userGroupSelectorJs}"></script>

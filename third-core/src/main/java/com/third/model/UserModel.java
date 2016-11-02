@@ -1,5 +1,5 @@
 package com.third.model;
-// Generated Oct 31, 2016 10:31:11 PM by Hibernate Tools 4.3.1
+// Generated Nov 2, 2016 7:55:52 PM by Hibernate Tools 4.3.1
 
 
 
@@ -12,15 +12,17 @@ public class UserModel  implements java.io.Serializable {
      private String pk;
      private String userId;
      private String password;
+     private Boolean blocked;
      private String name;
      private UserGroupModel userGroup;
 
     public UserModel() {
     }
 
-    public UserModel(String userId, String password, String name, UserGroupModel userGroup) {
+    public UserModel(String userId, String password, Boolean blocked, String name, UserGroupModel userGroup) {
        this.userId = userId;
        this.password = password;
+       this.blocked = blocked;
        this.name = name;
        this.userGroup = userGroup;
     }
@@ -45,6 +47,13 @@ public class UserModel  implements java.io.Serializable {
     
     public void setPassword(String password) {
         this.password = password;
+    }
+    public Boolean getBlocked() {
+        return this.blocked;
+    }
+    
+    public void setBlocked(Boolean blocked) {
+        this.blocked = blocked;
     }
     public String getName() {
         return this.name;

@@ -12,6 +12,8 @@
 		</property><!--password-->
 		<property column="password" lazy="false" name="password"
 			type="java.lang.String" ></property>
+		<property column="blocked" lazy="false" name="blocked"
+			type="java.lang.Boolean" ></property>
 		<property column="name" lazy="false" name="name" type="java.lang.String" />
 		<many-to-one name="userGroup" lazy="false"
 			class="com.third.model.UserGroupModel" cascade="refresh"

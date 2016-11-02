@@ -1,11 +1,11 @@
 ACC.usergroup = {
 	create:function() {
-		$("#userGroupForm").form("clear");
-		$("#userGroupDialog").dialog("open");
+		  $("#userGroupForm").form("clear");
+		  $("#roleListGrid").datagrid("loadData",{total:0,rows:[]});
 	},
 	modify:function(value){
 		$("#userGroupForm").form("load",value);
-		$("#userGroupDialog").dialog("open");
+		//$("#userGroupDialog").dialog("open");
 		$("#roleListGrid").datagrid({url:ACC.config.contextPath+"/getRolesForUserGroup",queryParams:{userGroupPK:value.pk}});
 	},
 	openSelectRolesDialog:function(){
@@ -44,27 +44,34 @@ ACC.usergroup = {
 						rolesPK.push(roles[i].pk);
 					}
 					
-					$.ajax({
+					if($("#userGroupPk").val()=="")
+						$.ajax({
+					    type: "post",
+					    url: ACC.config.contextPath+"/createUserGroup",
+					    data: $(this).serialize()+"&roleList="+rolesPK,
+					    success: function(data) {
+					        $.messager.alert("系统提示","新建成功");
+					        //重置页面信息,可以新建
+					        ACC.usergroup.create();
+					    }
+					   });
+					else
+					 $.ajax({
 					    type: "post",
 					    url: ACC.config.contextPath+"/modifyUserGroup",
 					    data: $(this).serialize()+"&roleList="+rolesPK,
 					    success: function(data) {
-					        $.messager.alert("系统提示","保存成功");
-					        $("#userGroupDialog").dialog("close");
+					        $.messager.alert("系统提示","修改成功");
+					        //重置页面信息,可以新建
+					        ACC.usergroup.create();
+					        $("#userGroupListGrid").datagrid("reload");
 					    }
 					});
 				}
 				return false;
 			}
 		});
-		$("#userGroupDialog").dialog({
-		    title: '用户组',
-		    width: 500,
-		    height: 400,
-		    closed: true,
-		    cache: false,
-		    modal: true
-		});
+
 		
 	   $("#roleListGrid").datagrid({
 			singleSelect:false,

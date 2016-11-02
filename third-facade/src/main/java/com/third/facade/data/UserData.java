@@ -8,7 +8,9 @@ public class UserData extends AbstractData
 
 	public String userId;
 	public String name;
-	public UserGroupData userGroupData;
+	public String password;
+	public boolean blocked;
+	public UserGroupData userGroup;
 
 	public String getUserId()
 	{
@@ -30,14 +32,34 @@ public class UserData extends AbstractData
 		this.name = name;
 	}
 
-	public UserGroupData getUserGroupData()
+	public String getPassword()
 	{
-		return userGroupData;
+		return password;
 	}
 
-	public void setUserGroupData(UserGroupData userGroupData)
+	public void setPassword(String password)
 	{
-		this.userGroupData = userGroupData;
+		this.password = password;
+	}
+
+	public void setUserGroup(UserGroupData userGroup)
+	{
+		this.userGroup = userGroup;
+	}
+
+	public UserGroupData getUserGroup()
+	{
+		return userGroup;
+	}
+
+	public boolean isBlocked()
+	{
+		return blocked;
+	}
+
+	public void setBlocked(boolean blocked)
+	{
+		this.blocked = blocked;
 	}
 
 }

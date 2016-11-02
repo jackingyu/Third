@@ -26,7 +26,7 @@
 			</tr>
 		</thead>
 	</table>
-	<jsp:include page="userGroupComponent.jsp" flush="true" />
+	<jsp:include page="userGroupEditorPanel.jsp" flush="true" />
 </div>
 <script type="text/javascript">
 	ACC.usergrouplist.initEvent();

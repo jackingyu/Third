@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
-<!-- 新建usergroup 窗口 -->
+<!-- 新建usergroup 选择role -->
 <div id="userDialog" closed="true" class="easyui-dialog">
   <div class="class="easyui-panel"">
 	<form id="userForm">

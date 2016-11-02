@@ -8,6 +8,7 @@ import java.util.Map;
 
 import org.apache.log4j.Logger;
 import org.springframework.util.CollectionUtils;
+import org.springframework.util.StringUtils;
 
 import com.third.dao.util.PaginationSupport;
 import com.third.facade.data.ListData;
@@ -45,7 +46,12 @@ public class DefaultUserFacade implements UserFacade
 	public void createUser(UserData user)
 	{
 		UserModel userModel = new UserModel();
-
+		userModel.setName(user.getName());
+		userModel.setUserId(user.getUserId());
+		userModel.setPassword(user.getPassword() != null ? user.getPassword() : "111111");
+		userModel.setUserGroup(userService.getUserGroup(user.getUserGroup().getPk()));
+		userModel.setBlocked(user.isBlocked());
+		userService.createUser(userModel);
 	}
 
 	@SuppressWarnings("unchecked")
@@ -107,7 +113,7 @@ public class DefaultUserFacade implements UserFacade
 	}
 
 	@Override
-	public ListData getUserGroups(final String userGroupName, final String userGroupId, final Integer startIndex,
+	public ListData getUserGroups(final String userGroupId, final String userGroupName, final Integer startIndex,
 			final Integer pageSize)
 	{
 		PaginationSupport result = userService.getUserGroupList(userGroupId, userGroupName, startIndex, pageSize);
@@ -226,6 +232,61 @@ public class DefaultUserFacade implements UserFacade
 	public void setRoleDataPopulator(RoleDataPopulator roleDataPopulator)
 	{
 		this.roleDataPopulator = roleDataPopulator;
+	}
+
+	@Override
+	public void updateUser(UserData userData)
+	{
+		UserModel user = userService.getUserById(userData.getUserId());
+		user.setName(userData.getName());
+		user.setUserGroup(userService.getUserGroup(userData.getUserGroup().getPk()));
+		user.setBlocked(userData.isBlocked());
+
+		if (!StringUtils.isEmpty(userData.getPassword()))
+			user.setPassword(userData.getPassword());
+
+		userService.updateUser(user);
+	}
+
+	@Override
+	public UserData getUserById(String userId)
+	{
+		UserModel userModel = userService.getUserById(userId);
+		UserData userData = new UserData();
+		UserGroupModel userGroupModel = userModel.getUserGroup();
+		UserGroupData userGroupData = new UserGroupData();
+		userDataPopulator.populate(userModel, userData);
+
+		if (userGroupModel != null)
+			userGroupDataPopulator.populate(userGroupModel, userGroupData);
+
+		userData.setUserGroup(userGroupData);
+
+		return userData;
+	}
+
+	@Override
+	public void createUserGroup(UserGroupData userGroup)
+	{
+		UserGroupModel userGroupModel = new UserGroupModel();
+		userGroupModel.setGroupId(userGroup.getGroupId());
+		userGroupModel.setName(userGroup.getName());
+
+		List<RoleData> roleDatas = userGroup.getRoles();
+
+		if (!CollectionUtils.isEmpty(roleDatas))
+		{
+			List<RoleModel> roles = new ArrayList<RoleModel>();
+			roleDatas.forEach(rd -> {
+				RoleModel role = roleService.getRole(rd.getPk());
+				roles.add(role);
+			});
+
+			userGroupModel.setRoles(roles);
+		}
+
+		userService.createUserGroup(userGroupModel);
+
 	}
 
 }

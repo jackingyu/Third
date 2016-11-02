@@ -14,6 +14,9 @@ public class UserDataPopulator implements Populator<UserModel, UserData>
 		target.setPk(source.getPk());
 		target.setUserId(source.getUserId());
 		target.setName(source.getName());
+		target.setBlocked(false);
+		//不将真实的密码传递出去
+		target.setPassword("xxxxxxx");
 	}
 
 }

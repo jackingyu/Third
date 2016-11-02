@@ -84,5 +84,7 @@
     <template:js/>
    
     <jsp:include page="${jucierTplBasePath}/nav/menu.jsp" />
+    <jsp:include page="${framentsPath}/template/component.jsp" />
+    
 </body>
 </html>

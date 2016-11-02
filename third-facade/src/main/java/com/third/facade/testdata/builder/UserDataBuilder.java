@@ -42,6 +42,14 @@ public class UserDataBuilder implements DataBuilder
 		admin.setUserGroup(userGroup);
 		userService.createUser(admin);
 
+		for (int i = 0; i < 100; i++)
+		{
+			UserModel user = new UserModel();
+			user.setUserId("测试用户" + i);
+			user.setName("测试用户" + i);
+			user.setPassword("密码");
+			userService.createUser(user);
+		}
 
 		MenuModel lv2_user = this.buildMenu("1", 2, "用户管理", "#", "menu-icon-sys");
 		menuService.createMenu(lv2_user);
