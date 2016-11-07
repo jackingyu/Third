@@ -46,11 +46,10 @@ public class UserPageController extends AbstractPageController
 			@RequestParam(value = "page", required = false) final Integer page,
 			@RequestParam(value = "rows", required = false) final Integer rows)
 	{
-		ListData users = userFacade.getUsers(userId, userName, (page - 1) * rows, rows);
+		ListData users = userFacade.getUsers(userId, userName, getStartIndex(page, rows), rows);
 
 		return users;
 	}
-
 
 	@RequestMapping(value = "/createUser", method = RequestMethod.POST)
 	@ResponseBody

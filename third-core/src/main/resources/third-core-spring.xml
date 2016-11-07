@@ -25,6 +25,25 @@
     
     <alias name="defaultRoleDao" alias="roleDao"></alias>
     <bean id="defaultRoleDao" class="com.third.dao.user.impl.DefaultRoleDao" parent="genericDAO"></bean>
+  
+    <alias name="defaultRegionDao" alias="regionDao"></alias>
+    <bean id="defaultRegionDao" class="com.third.dao.location.impl.DefaultRegionDao" parent="genericDAO"></bean>
+    
+    <alias name="defaultCityDao" alias="cityDao"></alias>
+    <bean id="defaultCityDao" class="com.third.dao.location.impl.DefaultCityDao" parent="genericDAO"></bean>
+    
+    <alias name="defaultAddressDao" alias="addressDao"></alias>
+    <bean id="defaultAddressDao" class="com.third.dao.location.impl.DefaultAddressDao" parent="genericDAO"></bean>
+    
+    <alias name="defaultCustomerDao" alias="customerDao"></alias>
+    <bean id="defaultCustomerDao" class="com.third.dao.customer.impl.DefaultCustomerDao" parent="genericDAO"></bean>
+    
+    <alias name="defaultSourceDao" alias="sourceDao"></alias>
+    <bean id="defaultSourceDao" class="com.third.dao.customer.impl.DefaultSourceDao" parent="genericDAO"></bean>
+   
+    <alias name="defaultStoreDao" alias="storeDao"></alias>
+    <bean id="defaultStoreDao" class="com.third.dao.store.impl.DefaultStoreDao" parent="genericDAO"></bean>
+    
 	
 	
 	<alias name="defaultUserService" alias="userService"></alias>
@@ -38,9 +57,30 @@
 	     <property name="menuDao" ref="menuDao" />
 	</bean>
 	
-	<alias name="defaultRoleService" alias="roleService"></alias>
+    <alias name="defaultRoleService" alias="roleService"></alias>
 	<bean id="defaultRoleService" class="com.third.service.user.impl.DefaultRoleService">
 	     <property name="roleDao" ref="roleDao" />
+	</bean>
+	
+	<alias name="defaultI18NService" alias="i18NService"></alias>
+	<bean id="defaultI18NService" class="com.third.service.location.impl.DefaultI18NService">
+	     <property name="cityDao" ref="cityDao" />
+	     <property name="regionDao" ref="regionDao" />
+	     <property name="addressDao" ref="addressDao" />
+	</bean>
+	
+    <alias name="defaultCustomerService" alias="customerService"></alias>
+	<bean id="defaultCustomerService" class="com.third.service.customer.impl.DefaultCustomerService">
+	     <property name="customerDao" ref="customerDao" />
+	</bean>    
+	
+	<alias name="defaultStoreService" alias="storeService"></alias>
+	<bean id="defaultStoreService" class="com.third.service.store.impl.DefaultStoreService">
+	     <property name="storeDao" ref="storeDao" />
+	</bean>
+	<alias name="defaultSourceService" alias="sourceService"></alias>
+	<bean id="defaultSourceService" class="com.third.service.customer.impl.DefaultSourceService">
+	     <property name="sourceDao" ref="sourceDao" />
 	</bean>
 
 </beans>

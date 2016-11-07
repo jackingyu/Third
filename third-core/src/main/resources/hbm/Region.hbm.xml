@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+                                   "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+	<class name="com.third.model.RegionModel" table="region">
+		<id name="isoCode" type="java.lang.String">
+			<column name="code" unique="true" />
+		</id><!--user id-->
+		<property column="name" lazy="false" name="name"
+			type="java.lang.String" >
+		</property>
+		<bag name="citys" inverse="true" table="city" lazy="true" fetch="select">
+			<key>
+				<column name="region" />
+			</key>
+			<one-to-many class="com.third.model.CityModel" />
+		</bag>
+	</class>
+</hibernate-mapping>

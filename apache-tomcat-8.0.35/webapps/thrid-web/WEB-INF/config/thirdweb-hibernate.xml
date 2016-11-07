@@ -53,6 +53,12 @@
 			   <value>/hbm/UserGroup.hbm.xml</value>
 			   <value>/hbm/Menu.hbm.xml</value>
 			   <value>/hbm/Role.hbm.xml</value>
+			   <value>/hbm/Region.hbm.xml</value>
+			   <value>/hbm/City.hbm.xml</value>
+			   <value>/hbm/Address.hbm.xml</value>
+			   <value>/hbm/Customer.hbm.xml</value>
+			   <value>/hbm/Store.hbm.xml</value>
+			   <value>/hbm/Source.hbm.xml</value>
 			</list>
 		</property>
 		<property name="hibernateProperties">

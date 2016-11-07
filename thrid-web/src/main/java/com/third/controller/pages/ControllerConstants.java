@@ -14,6 +14,7 @@ public interface ControllerConstants
 		final static String PREFIX = "/fragments";
 		final static String USERGROULIST = PREFIX + "/user/userGroupList";
 		final static String USERLIST = PREFIX + "/user/userList";
+		final static String CUSTOMERLIST = PREFIX + "/sales/customerList";
 	}
 
 }

@@ -20,5 +20,15 @@
         <mapping resource="hbm/UserGroup.hbm.xml"/>  
         <mapping resource="hbm/Role.hbm.xml"/>  
         <mapping resource="hbm/Menu.hbm.xml"/>  
+        
+        <mapping resource="hbm/Region.hbm.xml"/>  
+        <mapping resource="hbm/City.hbm.xml"/>  
+        <mapping resource="hbm/Address.hbm.xml"/>
+        
+        <mapping resource="hbm/Customer.hbm.xml"/>
+        <mapping resource="hbm/Store.hbm.xml"/>
+        <mapping resource="hbm/Source.hbm.xml"/>
+        
+          
     </session-factory>  
 </hibernate-configuration>  

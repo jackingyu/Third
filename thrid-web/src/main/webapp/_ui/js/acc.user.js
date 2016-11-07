@@ -2,6 +2,7 @@ ACC.user = {
 	create:function() {
 		$("#userPanel").panel("setTitle","创建用户");
 		$("#userForm").form("clear");
+		$("#userStoreList").datagrid("loadData",{total:0,rows:[]});
 	},
 	modify:function(value){
 		$("#userPanel").panel("setTitle","修改用户-"+value.userId);
@@ -46,6 +47,26 @@ ACC.user = {
 				}
 				return false;
 			}
+		});
+		
+		$("#userStoreList").datagrid({
+			singleSelect:true,
+			toolbar:["-", {
+            id: 'addStore',
+            iconCls: 'icon-add',
+            handler: function () {
+               ACC.storeselector.openDialog();
+            }
+            },"-",{
+            id:'deleteStore',
+            iconCls: 'icon-remove',
+            handler: function(){
+            	ACC.user.deleteStores();
+            }
+            }],
+            iconCls:'icon-save',
+            rownumbers:true,
+            idField:"pk"
 		});
 	}
 }

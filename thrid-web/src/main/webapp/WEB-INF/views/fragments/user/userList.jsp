@@ -3,10 +3,8 @@
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 <div class="addedTabPanel">
 	<div id="userlist-tb">
-		<a href="#" class="easyui-linkbutton" iconCls="icon-add" plain="true"
+		<a id="createuser" href="#" class="easyui-linkbutton" iconCls="icon-add" plain="true"
 			onclick="ACC.usergroup.create"></a>
-		<div id="createuser" class="" easyui-linkbutton" iconCls="icon-del"
-			plain="true"></div>
 		<div class="searchcondition">
 			<form id="searchUserForm">
 				<span><spring:message code="userlist.id" /></span> <input

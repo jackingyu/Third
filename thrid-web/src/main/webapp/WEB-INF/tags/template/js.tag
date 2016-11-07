@@ -34,3 +34,12 @@
 
 <spring:url value="/_ui/js/acc.usergroupselector.js" var="userGroupSelectorJs" />
 <script type="text/javascript" src="${userGroupSelectorJs}"></script>
+
+<spring:url value="/_ui/js/acc.storeselector.js" var="storeSelectorJs" />
+<script type="text/javascript" src="${storeSelectorJs}"></script>
+
+<spring:url value="/_ui/js/acc.customer.js" var="customerJs" />
+<script type="text/javascript" src="${customerJs}"></script>
+
+<spring:url value="/_ui/js/acc.customerlist.js" var="customerListJs" />
+<script type="text/javascript" src="${customerListJs}"></script>

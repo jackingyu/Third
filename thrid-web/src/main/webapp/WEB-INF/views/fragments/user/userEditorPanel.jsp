@@ -29,8 +29,22 @@
 	    			<td><spring:message code="user.blocked" /></td>
 	    			<td><input  id="userForm-blocked"  checked="checked" type="checkbox"  name="blocked"></input></td>
 	    		</tr>
+	    		<tr>
+	    			<td><spring:message code="user.stores" /></td>
+	    			<td>
+					<table id="userStoreList"
+						style="width: 300px; height: 150px">
+						<thead>
+							<tr>
+								<th field="name" class="column-100"><spring:message
+										code="userlist.column.name" /></th>
+							</tr>
+						</thead>
+					</table>
+				</td>
+	    		</tr>
 	    	</table>
-	        <div class="form-submit2">
+		<div class="form-submit2">
 	             <input id="userForm-userPk" name="pk" type="hidden"/>
 	       	    <input style="margin-left:150px;" type="submit" value="<spring:message code="text.submit"/>"></input>
 	        </div>

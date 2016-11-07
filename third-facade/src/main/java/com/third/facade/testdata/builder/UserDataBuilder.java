@@ -51,7 +51,7 @@ public class UserDataBuilder implements DataBuilder
 			userService.createUser(user);
 		}
 
-		MenuModel lv2_user = this.buildMenu("1", 2, "用户管理", "#", "menu-icon-sys");
+		MenuModel lv2_user = this.buildMenu("1", 2, "系统管理", "#", "menu-icon-sys");
 		menuService.createMenu(lv2_user);
 
 		MenuModel lv3_usergroup = this.buildMenu("11", 3, "用户组列表", "/getUserGroupListPage", "menu-icon-role");
@@ -61,15 +61,19 @@ public class UserDataBuilder implements DataBuilder
 		menuService.createMenu(lv3_usergroup);
 		menuService.createMenu(lv3_userlist);
 
-		MenuModel lv2_test = this.buildMenu("2", 2, "二级测试结点", "#", "menu-icon-users");
-		menuService.createMenu(lv2_test);
+		MenuModel lv2_sales = this.buildMenu("2", 2, "销售管理", "#", "menu-icon-users");
+		menuService.createMenu(lv2_sales);
+
+		MenuModel lv3_customer = this.buildMenu("21", 3, "顾客管理", "/getCustomerListPage", "menu-icon-role");
+		lv3_customer.setParentMenu(lv2_sales);
+		menuService.createMenu(lv3_userlist);
 
 		//create role
 		RoleModel role = new RoleModel();
 		role.setRoleId("adminRole");
 		role.setRoleName("管理员角色");
 		role.setDescription("测试管理员的角色的描述文本的橘色");
-		role.setMenus(Arrays.asList(lv3_usergroup, lv3_userlist, lv2_test));
+		role.setMenus(Arrays.asList(lv3_usergroup, lv3_userlist, lv3_customer));
 
 		roleService.createRole(role);
 

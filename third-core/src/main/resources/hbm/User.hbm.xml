@@ -20,6 +20,12 @@
 			fetch="join">
 			<column name="usergroup" ></column>
 		</many-to-one>
+		<bag name="stores" inverse="true" table="store" lazy="true" fetch="select">
+			<key>
+				<column name="store" />
+			</key>
+			<one-to-many class="com.third.model.StoreModel" />
+		</bag>
 	</class>
 	<query name="getUserById">
     <![CDATA[  

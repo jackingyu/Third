@@ -29,7 +29,7 @@ public class TestDataController
 	public String testData()
 	{
 		testDataGenerator.generateData();
-		return ControllerConstants.Pages.MASTER;
+		return "redirect:/master";
 	}
 
 }

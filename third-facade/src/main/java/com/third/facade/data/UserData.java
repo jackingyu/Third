@@ -1,5 +1,8 @@
 package com.third.facade.data;
 
+import java.util.List;
+
+
 /**
  * user data
  */
@@ -11,6 +14,7 @@ public class UserData extends AbstractData
 	public String password;
 	public boolean blocked;
 	public UserGroupData userGroup;
+	public List<StoreData> stores;
 
 	public String getUserId()
 	{
@@ -60,6 +64,16 @@ public class UserData extends AbstractData
 	public void setBlocked(boolean blocked)
 	{
 		this.blocked = blocked;
+	}
+
+	public List<StoreData> getStores()
+	{
+		return stores;
+	}
+
+	public void setStores(List<StoreData> stores)
+	{
+		this.stores = stores;
 	}
 
 }

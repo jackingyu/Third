@@ -12,6 +12,9 @@
   <property name="message_targetpath" value="${basedir}/thrid-web/target/thrid-web/WEB-INF/messages" description="message target path"/>  
   <property name="message_sourcepath" value="${basedir}/thrid-web/src/main/webapp/WEB-INF/messages" description="message source path"/>  
  <property name="jdbc.driver.jar" value="lib/mysql-connector-java-5.1.6.jar" description="mysql database driver"/>  
+ <property name="db.user" value="root" description="mysql database driver"/>  
+ <property name="db.password" value="jackingyu123" description="mysql database driver"/>  
+ <property name="db.url" value="jdbc:mysql://127.0.0.1:3306/test" description="database url"/>  
    
 <path id="toolslib">
   <fileset dir="${basedir}">  
@@ -52,7 +55,17 @@
         <hbm2java/>
         </hibernatetool>
   </target>
+ 
   <target name="databasegen">
+        <echo message="initial database" />
+        <sql driver="com.mysql.jdbc.Driver" url="${db.url}" userid="${db.user}" password="${db.password}" onerror="continue">
+            <classpath>
+                <fileset dir="tools/hibernatetools">
+                    <include name="mysql-connector-java-5.1.6.jar" />
+                </fileset>
+            </classpath>
+            <transaction src="tools/dropdb.sql" />
+        </sql>
         <hibernatetool destdir="${basedir}">
         <classpath>
             <path location="${core_resourcepath}"/>
@@ -62,4 +75,5 @@
         <hbm2ddl/>
         </hibernatetool>
   </target>
+
 </project>

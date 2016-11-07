@@ -17,7 +17,9 @@
 	<bean id="testDataGenerator" class="com.third.facade.utils.TestDataGenerator">
 	   <property name="dataBuilders">
 	      <list>
-	        <ref bean="userDataBuilder"></ref>
+	         <ref bean="userDataBuilder"></ref>
+	        <ref bean="addressDataBuilder"></ref>
+	        <ref bean="storeDataBuilder"></ref>
 	      </list>
 	   </property>
 	</bean>
@@ -27,6 +29,18 @@
 	     <property name="userService" ref="userService"/>
 	     <property name="menuService" ref="menuService"/>
 	     <property name="roleService" ref="roleService"/>
+	</bean>
+	
+	<alias name="defaultAddressDataBuilder" alias="addressDataBuilder"></alias>
+	<bean id="defaultAddressDataBuilder" class="com.third.facade.testdata.builder.AddressDataBuilder">
+	     <property name="i18NService" ref="i18NService"/>
+	</bean>
+	
+	<alias name="defaultStoreDataBuilder" alias="storeDataBuilder"></alias>
+	<bean id="defaultStoreDataBuilder" class="com.third.facade.testdata.builder.StoreDataBuilder">
+	     <property name="i18NService" ref="i18NService"/>
+	     <property name="customerService" ref="customerService"/>
+	     <property name="storeService" ref="storeService"/>
 	</bean>
 	
 	<alias name="defaultUserFacade" alias="userFacade"></alias>
@@ -39,6 +53,22 @@
 	    <property name="roleDataPopulator" ref="roleDataPopulator"></property>
 	    <property name="userDataPopulator" ref="userDataPopulator"></property>
 	</bean>
+	
+	<alias name="defaultCustomerFacade" alias="customerFacade"></alias>
+	<bean id="defaultCustomerFacade" class="com.third.facade.customer.impl.DefaultCustomerFacade">
+	    <property name="customerService" ref="customerService"></property>
+	    <property name="i18NService" ref="i18NService"></property>
+	    <property name="sourceService" ref="sourceService"></property>
+	    <property name="customerDataPopulator" ref="customerDataPopulator"></property>
+	    <property name="sourceDataPopulator" ref="sourceDataPopulator"></property>
+	</bean>
+	
+	<alias name="defaultI18NFacade" alias="i18NFacade"></alias>
+	<bean id="defaultI18NFacade" class="com.third.facade.local.impl.DefaultI18NFacade">
+	    <property name="i18NService" ref="i18NService"></property>
+	    <property name="cityDataPopulator" ref="cityDataPopulator"></property>
+	    <property name="regionDataPopulator" ref="regionDataPopulator"></property>
+	</bean>
     
     <alias name="defaultMenuDataPopulator" alias="menuDataPopulator"></alias>
     <bean id="defaultMenuDataPopulator" class="com.third.facade.populator.MenuDataPopulator">
@@ -46,6 +76,7 @@
     
     <alias name="defaultUserDataPopulator" alias="userDataPopulator"></alias>
     <bean id="defaultUserDataPopulator" class="com.third.facade.populator.UserDataPopulator">
+        <property name="storeDataPopulator" ref="storeDataPopulator"></property>
     </bean>
     
     <alias name="defaultUserGroupDataPopulator" alias="userGroupDataPopulator"></alias>
@@ -54,6 +85,34 @@
     
     <alias name="defaultRoleDataPopulator" alias="roleDataPopulator"></alias>
     <bean id="defaultRoleDataPopulator" class="com.third.facade.populator.RoleDataPopulator">
+    </bean>
+    
+    <alias name="defaultCityDataPopulator" alias="cityDataPopulator"></alias>
+    <bean id="defaultCityDataPopulator" class="com.third.facade.populator.CityDataPopulator">
+    </bean>
+    
+    <alias name="defaultRegionDataPopulator" alias="regionDataPopulator"></alias>
+    <bean id="defaultRegionDataPopulator" class="com.third.facade.populator.RegionDataPopulator">
+    </bean>
+    
+    <alias name="defaultAddressDataPopulator" alias="addressDataPopulator"></alias>
+    <bean id="defaultAddressDataPopulator" class="com.third.facade.populator.AddressDataPopulator">
+     <property name="regionDataPopulator" ref="regionDataPopulator"></property>
+     <property name="cityDataPopulator" ref="cityDataPopulator"></property>
+    </bean>
+    
+    <alias name="defaultCustomerDataPopulator" alias="customerDataPopulator"></alias>
+    <bean id="defaultCustomerDataPopulator" class="com.third.facade.populator.CustomerDataPopulator">
+         <property name="addressDataPopulator" ref="addressDataPopulator"></property>
+         <property name="sourceDataPopulator" ref="sourceDataPopulator"></property>
+    </bean>
+    
+    <alias name="defaultSourceDataPopulator" alias="sourceDataPopulator"></alias>
+    <bean id="defaultSourceDataPopulator" class="com.third.facade.populator.SourceDataPopulator">
+    </bean>
+    
+    <alias name="defaultStoreDataPopulator" alias="storeDataPopulator"></alias>
+    <bean id="defaultStoreDataPopulator" class="com.third.facade.populator.StoreDataPopulator">
     </bean>
 </beans>
  
