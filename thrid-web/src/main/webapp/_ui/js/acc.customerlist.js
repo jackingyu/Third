@@ -1,5 +1,5 @@
 ACC.customerlist = {
-	initEvent:function() {
+	init:function() {
 		$("#createcustomer").unbind();
 		$("#createcustomer").on("click",function(){
 			ACC.customer.create();

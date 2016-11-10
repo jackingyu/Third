@@ -24,10 +24,14 @@ public class DefaultStoreService implements StoreService
 	}
 
 	@Override
-	public List<StoreModel> getStores(String name)
+	public List<StoreModel> getStores(final String name)
 	{
-		// TODO Auto-generated method stub
-		return null;
+		return storeDao.findStoreByName(name);
 	}
 
+	@Override
+	public StoreModel getStoreForCode(final String code)
+	{
+		return storeDao.getStoreForCode(code);
+	}
 }

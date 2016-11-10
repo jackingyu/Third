@@ -39,6 +39,22 @@ public class StoreDataBuilder implements DataBuilder
 		AddressModel address = buildAddress(region, city, "shanghai street");
 		StoreModel store = buildStore("s-1", "南方一店", address);
 
+		for (int i = 2; i < 30; i++)
+		{
+			String storeName = "默认店名";
+
+			if (i > 5)
+				storeName = "南方" + i + "店";
+
+			if (i > 8)
+				storeName = "北方" + i + "店";
+
+			if (i > 10)
+				storeName = "森林" + i + "店";
+
+			buildStore("s-" + i, storeName, address);
+		}
+
 		List<UserModel> userList = userDao.list();
 
 		for (int i = 0; i < userList.size(); i++)

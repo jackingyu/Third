@@ -74,9 +74,9 @@ public class UserPageController extends AbstractPageController
 	@RequestMapping(value = "/modifyUser", method = RequestMethod.POST)
 	@ResponseBody
 	public void modifyUser(@RequestParam(value = "userId") final String userId, @RequestParam(value = "name") final String name,
-			@RequestParam(value = "blocked", required = false) final String blockedString,
+			@RequestParam(value = "blocked", required = false, defaultValue = "off") final String blockedString,
 			@RequestParam(value = "password", required = false) final String password,
-			@RequestParam(value = "usergroup") final String userGroupPk)
+			@RequestParam(value = "usergroup") final String userGroupPk, @RequestParam(value = "storeList") final String storeList)
 	{
 		boolean blocked = blockedString.equals("on");
 		UserData user = new UserData();

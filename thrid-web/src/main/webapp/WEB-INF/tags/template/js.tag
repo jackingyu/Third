@@ -43,3 +43,9 @@
 
 <spring:url value="/_ui/js/acc.customerlist.js" var="customerListJs" />
 <script type="text/javascript" src="${customerListJs}"></script>
+
+<spring:url value="/_ui/js/acc.order.js" var="orderJs" />
+<script type="text/javascript" src="${orderJs}"></script>
+
+<spring:url value="/_ui/js/acc.orderlist.js" var="orderListJs" />
+<script type="text/javascript" src="${orderListJs}"></script>

@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+	<class name="com.third.model.OrderEntryModel" table="orderentry">
+		<id name="pk" type="java.lang.String">
+			<column name="pk" unique="true" />
+			<generator class="uuid" />
+		</id>
+		<property name="entryNo" type="java.lang.Integer">
+			<column name="entryno">
+				<comment>行项目编号</comment>
+			</column>
+		</property>
+		<property name="style" type="java.lang.String">
+			<column name="style" />
+		</property>
+		<property name="itemCategory" type="java.lang.String">
+			<column name="itemcategory">
+				<comment>项目类别,表明是衣服还是一次性物料,如果是衣服就是量身单类型</comment>
+			</column>
+		</property>
+		<property name="product" type="java.lang.Integer">
+			<column name="product">
+				<comment>
+				物料编码
+				</comment>
+			</column>
+		</property>
+		<property name="productTitle" type="java.lang.String">
+			<column name="productTitle">
+				<comment>
+				物料描述
+				</comment>
+			</column>
+		</property>
+		<property name="quantity" type="java.lang.Integer">
+			<column name="quantity" />
+		</property>
+		<property name="designer" type="java.lang.String">
+			<column name="designer">
+				<comment>设计师</comment>
+			</column>
+		</property>
+		<property column="deliverydate" lazy="false" name="deliveryDate"
+			type="java.util.Date" />
+		<property column="sizedate" lazy="false" name="sizeDate"
+			type="java.util.Date" />
+		<property name="comment" type="java.lang.String">
+			<column name="comment" />
+		</property>
+		<property name="sizeDetails" type="java.lang.String">
+			<column name="sizedetails">
+				<comment>
+					量身单的数据的序列化
+				</comment>
+			</column>
+		</property>
+		<many-to-one name="order" lazy="proxy"
+			class="com.third.model.OrderModel" cascade="refresh"
+			fetch="select">
+			<column name="orderpk" />
+		</many-to-one>
+	   	<property name="createTime" update="false" insert="true"
+			type="java.util.Date">
+			<column name="create_time" sql-type="timestamp"   />
+		</property>
+		<property name="modificationTime" update="true" insert="true"
+			type="java.util.Date">
+			<column name="modification_time" sql-type="timestamp"   />
+		</property>
+		<many-to-one name="createdBy" lazy="proxy"
+			class="com.third.model.UserModel" cascade="refresh"
+			fetch="select">
+			<column name="createdby" />
+		</many-to-one>
+	</class>
+</hibernate-mapping>

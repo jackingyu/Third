@@ -29,6 +29,11 @@
         <mapping resource="hbm/Store.hbm.xml"/>
         <mapping resource="hbm/Source.hbm.xml"/>
         
+        <mapping resource="hbm/Product.hbm.xml"/>
+        <mapping resource="hbm/Order.hbm.xml"/>
+        <mapping resource="hbm/OrderEntry.hbm.xml"/>
+        <mapping resource="hbm/Payment.hbm.xml"/>
+        
           
     </session-factory>  
 </hibernate-configuration>  

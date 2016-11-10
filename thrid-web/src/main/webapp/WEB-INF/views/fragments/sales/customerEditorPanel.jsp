@@ -72,5 +72,5 @@
 	</form>
 </div>
 <script type="text/javascript">
-	ACC.customer.initEvent();
+	ACC.customer.init();
 </script>

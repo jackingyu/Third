@@ -35,7 +35,7 @@ ACC.customer = {
 		    }
 		})
 	},
-	initEvent:function(){
+	init:function(){
 		$("#customerForm").form({
 			onSubmit:function(){
 				if($(this).form('validate'))

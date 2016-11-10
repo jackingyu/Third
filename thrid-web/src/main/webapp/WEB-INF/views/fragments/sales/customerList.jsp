@@ -28,5 +28,5 @@
 	<jsp:include page="customerEditorPanel.jsp" flush="true" />
 </div>
 <script type="text/javascript">
-   ACC.customerlist.initEvent();
+   ACC.customerlist.init();
 </script>

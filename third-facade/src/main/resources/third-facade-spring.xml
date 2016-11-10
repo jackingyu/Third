@@ -20,6 +20,8 @@
 	         <ref bean="userDataBuilder"></ref>
 	        <ref bean="addressDataBuilder"></ref>
 	        <ref bean="storeDataBuilder"></ref>
+	        <ref bean="productDataBuilder"></ref>
+	        <ref bean="orderDataBuilder"></ref>
 	      </list>
 	   </property>
 	</bean>
@@ -41,6 +43,14 @@
 	     <property name="i18NService" ref="i18NService"/>
 	     <property name="customerService" ref="customerService"/>
 	     <property name="storeService" ref="storeService"/>
+	</bean>
+	
+	<alias name="defaultProductDataBuilder" alias="productDataBuilder"></alias>
+	<bean id="defaultProductDataBuilder" class="com.third.facade.testdata.builder.ProductDataBuilder">
+	</bean>
+	
+	<alias name="defaultOrderDataBuilder" alias="orderDataBuilder"></alias>
+	<bean id="defaultOrderDataBuilder" class="com.third.facade.testdata.builder.OrderDataBuilder">
 	</bean>
 	
 	<alias name="defaultUserFacade" alias="userFacade"></alias>
@@ -68,6 +78,17 @@
 	    <property name="i18NService" ref="i18NService"></property>
 	    <property name="cityDataPopulator" ref="cityDataPopulator"></property>
 	    <property name="regionDataPopulator" ref="regionDataPopulator"></property>
+	</bean>
+	
+	<alias name="defaultStoreFacade" alias="storeFacade"></alias>
+	<bean id="defaultStoreFacade" class="com.third.facade.store.impl.DefaultStoreFacade">
+	    <property name="storeService" ref="storeService"></property>
+	    <property name="storeDataPopulator" ref="storeDataPopulator"></property>
+	</bean>
+	
+	<alias name="defaultOrderFacade" alias="orderFacade"></alias>
+	<bean id="defaultOrderFacade" class="com.third.facade.order.impl.DefaultOrderFacade">
+	    <property name="orderService" ref="orderService"></property>
 	</bean>
     
     <alias name="defaultMenuDataPopulator" alias="menuDataPopulator"></alias>
@@ -113,6 +134,10 @@
     
     <alias name="defaultStoreDataPopulator" alias="storeDataPopulator"></alias>
     <bean id="defaultStoreDataPopulator" class="com.third.facade.populator.StoreDataPopulator">
+    </bean>
+    
+    <alias name="defaultOrderDataPopulator" alias="orderDataPopulator"></alias>
+    <bean id="defaultOrderDataPopulator" class="com.third.facade.populator.OrderDataPopulator">
     </bean>
 </beans>
  

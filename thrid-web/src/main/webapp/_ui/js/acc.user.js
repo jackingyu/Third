@@ -20,16 +20,34 @@ ACC.user = {
 		    }
 		})
 	},
+	deleteStores:function(){
+	    var rows = $('#userStoreList').datagrid("getSelections"); 
+        var copyRows = [];
+        for ( var j= 0; j < rows.length; j++) {
+          copyRows.push(rows[j]);
+        						}
+        for(var i =0;i<copyRows.length;i++){    
+            var index = $('#userStoreList').datagrid('getRowIndex',copyRows[i]);
+            $('#userStoreList').datagrid('deleteRow',index); 
+        }
+	},
 	initEvent:function(){
 		$("#userForm").form({
 			onSubmit:function(){
 				if($(this).form('validate'))
 				{
+					var stores = $("#userStoreList").datagrid("getData").rows;
+					var storesPK = [];
+					for(var i = 0;i<stores.length;i++)
+					{
+						storesPK.push(stores[i].pk);
+					}
+					
 					if($("#userForm-userPk").val()=="")
 					$.ajax({
 					    type: "post",
 					    url: ACC.config.contextPath+"/createUser",
-					    data: $(this).serialize(),
+					    data: $(this).serialize()+"&storeList="+storesPK,
 					    success: function(data) {
 					        $.messager.alert("系统提示","创建用户成功");
 					    }
@@ -38,7 +56,7 @@ ACC.user = {
 					 $.ajax({
 					    type: "post",
 					    url: ACC.config.contextPath+"/modifyUser",
-					    data: $(this).serialize(),
+					    data: $(this).serialize()+"&storeList="+storesPK,
 					    success: function(data) {
 					        $.messager.alert("系统提示","修改用户成功");
 					        ACC.user.create();
@@ -55,7 +73,13 @@ ACC.user = {
             id: 'addStore',
             iconCls: 'icon-add',
             handler: function () {
-               ACC.storeselector.openDialog();
+               ACC.storeselector.openDialog({callback:function(selectedStores){
+               	 for(var i = 0;i < selectedStores.length;i++)
+               	 {
+               	   var selectedStore = selectedStores[i];
+                   $("#userStoreList").datagrid("appendRow",selectedStore);
+                  }
+               }});
             }
             },"-",{
             id:'deleteStore',

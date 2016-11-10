@@ -43,8 +43,15 @@
    
     <alias name="defaultStoreDao" alias="storeDao"></alias>
     <bean id="defaultStoreDao" class="com.third.dao.store.impl.DefaultStoreDao" parent="genericDAO"></bean>
-    
 	
+    <alias name="defaultOrderDao" alias="orderDao"></alias>
+    <bean id="defaultOrderDao" class="com.third.dao.order.impl.DefaultOrderDao" parent="genericDAO"></bean>
+  
+    <alias name="defaultProductDao" alias="productDao"></alias>
+    <bean id="defaultProductDao" class="com.third.dao.product.impl.DefaultProductDao" parent="genericDAO"></bean>
+	
+    <alias name="defaultPaymentDao" alias="paymentDao"></alias>
+    <bean id="defaultPaymentDao" class="com.third.dao.order.impl.DefaultPaymentDao" parent="genericDAO"></bean>
 	
 	<alias name="defaultUserService" alias="userService"></alias>
 	<bean id="defaultUserService" class="com.third.service.user.impl.DefaultUserService">
@@ -83,5 +90,14 @@
 	     <property name="sourceDao" ref="sourceDao" />
 	</bean>
 
+   <alias name="defaultOrderService" alias="orderService"></alias>
+	<bean id="defaultOrderService" class="com.third.service.order.impl.DefaultOrderService">
+	     <property name="orderDao" ref="orderDao" />
+	</bean>
+	
+   <alias name="defaultProductService" alias="productService"></alias>
+	<bean id="defaultProductService" class="com.third.service.product.impl.DefaultProductService">
+	     <property name="productDao" ref="productDao" />
+	</bean>
 </beans>
  

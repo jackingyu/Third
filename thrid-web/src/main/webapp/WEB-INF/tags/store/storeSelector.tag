@@ -16,7 +16,7 @@
 		</div>
 </div>
 	
-	<table id="storeSelector" class="easyui-grid"
+	<table id="storeSelectorGrid" class="easyui-grid"
 		style="width: 460px; height: 220px">
 		<thead>
 			<tr>

@@ -59,6 +59,10 @@
 			   <value>/hbm/Customer.hbm.xml</value>
 			   <value>/hbm/Store.hbm.xml</value>
 			   <value>/hbm/Source.hbm.xml</value>
+			   <value>/hbm/Product.hbm.xml</value>
+			   <value>/hbm/Order.hbm.xml</value>
+			   <value>/hbm/OrderEntry.hbm.xml</value>
+			   <value>/hbm/Payment.hbm.xml</value>
 			</list>
 		</property>
 		<property name="hibernateProperties">
