@@ -66,10 +66,14 @@ public class StoreDataBuilder implements DataBuilder
 			userDao.update(user);
 		}
 
+		UserModel user1 = userDao.findUserById("yuxiang");
+		user1.setStores(Arrays.asList(store));
+		userDao.update(user1);
+
 		for (int i = 0; i < 100; i++)
 		{
 			AddressModel address1 = buildAddress(region, city, "shanghai street" + i);
-			buildCustomer("13800138900" + i, "fly" + i, address1);
+			buildCustomer("1380013800" + i, "fly" + i, address1);
 		}
 
 		for (int i = 0; i < 100; i++)
@@ -107,7 +111,7 @@ public class StoreDataBuilder implements DataBuilder
 		customer.setName(name);
 		customer.setAddress(address);
 		customer.setBirthday(new Date());
-		customer.setWeddingDay(new Date());
+		customer.setWeddingDate(new Date());
 		customer.setEmail("dd@tt.com");
 		customer.setComment("yekongzhongzuiliangdexing");
 		customer.setQQ("33445566");

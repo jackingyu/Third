@@ -20,7 +20,7 @@ ACC.customer = {
 		    	$("#customerForm-QQ").textbox("setValue",data.qq);
 		    	$("#customerForm-email").textbox("setValue",data.email);
 		    	$("#customerForm-birthday").datebox("setValue",data.birthday);
-		    	$("#customerForm-weddingday").datebox("setValue",data.weddingday);
+		    	$("#customerForm-weddingdate").datebox("setValue",data.weddingdate);
 		    	
 		    	$("#customerForm-region").combobox("setValue",data.address.region.isoCode);
 		    	$("#customerForm-city").combobox("setValue",data.address.city.isoCode);

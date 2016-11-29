@@ -1,5 +1,5 @@
 package com.third.model;
-// Generated Nov 10, 2016 4:52:00 PM by Hibernate Tools 4.3.1
+// Generated Nov 28, 2016 4:34:25 PM by Hibernate Tools 4.3.1
 
 
 import java.math.BigDecimal;
@@ -15,21 +15,18 @@ public class OrderModel  implements java.io.Serializable {
 
      private String pk;
      private String code;
-     private String coSalesperson;
      private String customerName;
      private String cellphone;
-     private String qq;
-     private Date weddingDay;
-     private Date orderDate;
+     private Date weddingDate;
      private Date tryDate;
      private Date photoDate;
      private Date deliveryDate;
-     private Integer approval;
+     private Date orderDate;
+     private String coSalesperson;
      private String comment;
      private BigDecimal receiveable;
      private BigDecimal openamount;
      private Integer status;
-     private String paymentMethod;
      private CustomerModel customer;
      private UserModel salesperson;
      private SourceModel source;
@@ -40,23 +37,20 @@ public class OrderModel  implements java.io.Serializable {
     public OrderModel() {
     }
 
-    public OrderModel(String code, String coSalesperson, String customerName, String cellphone, String qq, Date weddingDay, Date orderDate, Date tryDate, Date photoDate, Date deliveryDate, Integer approval, String comment, BigDecimal receiveable, BigDecimal openamount, Integer status, String paymentMethod, CustomerModel customer, UserModel salesperson, SourceModel source, StoreModel store, List payments, List orderEntries) {
+    public OrderModel(String code, String customerName, String cellphone, Date weddingDate, Date tryDate, Date photoDate, Date deliveryDate, Date orderDate, String coSalesperson, String comment, BigDecimal receiveable, BigDecimal openamount, Integer status, CustomerModel customer, UserModel salesperson, SourceModel source, StoreModel store, List payments, List orderEntries) {
        this.code = code;
-       this.coSalesperson = coSalesperson;
        this.customerName = customerName;
        this.cellphone = cellphone;
-       this.qq = qq;
-       this.weddingDay = weddingDay;
-       this.orderDate = orderDate;
+       this.weddingDate = weddingDate;
        this.tryDate = tryDate;
        this.photoDate = photoDate;
        this.deliveryDate = deliveryDate;
-       this.approval = approval;
+       this.orderDate = orderDate;
+       this.coSalesperson = coSalesperson;
        this.comment = comment;
        this.receiveable = receiveable;
        this.openamount = openamount;
        this.status = status;
-       this.paymentMethod = paymentMethod;
        this.customer = customer;
        this.salesperson = salesperson;
        this.source = source;
@@ -79,13 +73,6 @@ public class OrderModel  implements java.io.Serializable {
     public void setCode(String code) {
         this.code = code;
     }
-    public String getCoSalesperson() {
-        return this.coSalesperson;
-    }
-    
-    public void setCoSalesperson(String coSalesperson) {
-        this.coSalesperson = coSalesperson;
-    }
     public String getCustomerName() {
         return this.customerName;
     }
@@ -100,26 +87,12 @@ public class OrderModel  implements java.io.Serializable {
     public void setCellphone(String cellphone) {
         this.cellphone = cellphone;
     }
-    public String getQq() {
-        return this.qq;
+    public Date getWeddingDate() {
+        return this.weddingDate;
     }
     
-    public void setQq(String qq) {
-        this.qq = qq;
-    }
-    public Date getWeddingDay() {
-        return this.weddingDay;
-    }
-    
-    public void setWeddingDay(Date weddingDay) {
-        this.weddingDay = weddingDay;
-    }
-    public Date getOrderDate() {
-        return this.orderDate;
-    }
-    
-    public void setOrderDate(Date orderDate) {
-        this.orderDate = orderDate;
+    public void setWeddingDate(Date weddingDate) {
+        this.weddingDate = weddingDate;
     }
     public Date getTryDate() {
         return this.tryDate;
@@ -142,12 +115,19 @@ public class OrderModel  implements java.io.Serializable {
     public void setDeliveryDate(Date deliveryDate) {
         this.deliveryDate = deliveryDate;
     }
-    public Integer getApproval() {
-        return this.approval;
+    public Date getOrderDate() {
+        return this.orderDate;
     }
     
-    public void setApproval(Integer approval) {
-        this.approval = approval;
+    public void setOrderDate(Date orderDate) {
+        this.orderDate = orderDate;
+    }
+    public String getCoSalesperson() {
+        return this.coSalesperson;
+    }
+    
+    public void setCoSalesperson(String coSalesperson) {
+        this.coSalesperson = coSalesperson;
     }
     public String getComment() {
         return this.comment;
@@ -176,13 +156,6 @@ public class OrderModel  implements java.io.Serializable {
     
     public void setStatus(Integer status) {
         this.status = status;
-    }
-    public String getPaymentMethod() {
-        return this.paymentMethod;
-    }
-    
-    public void setPaymentMethod(String paymentMethod) {
-        this.paymentMethod = paymentMethod;
     }
     public CustomerModel getCustomer() {
         return this.customer;

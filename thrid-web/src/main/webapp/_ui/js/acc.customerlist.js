@@ -8,6 +8,7 @@ ACC.customerlist = {
 		$("#searchCustomerBtn").unbind();
 		$("#searchCustomerBtn").on("click",function(){
 			var searchForm = $("#searchCustomerForm").form();
+
 			$("#customerListGrid").datagrid("load",serializeObject(searchForm));
 		});
 		

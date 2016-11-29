@@ -1,5 +1,6 @@
 package com.third.facade.data;
 
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -8,9 +9,9 @@ import java.util.List;
  */
 public class ListData
 {
-	public Integer total;
+	private Integer total = 0;
 
-	public List<Object> rows;
+	private List<Object> rows = new ArrayList<Object>();
 
 	public Integer getTotal()
 	{

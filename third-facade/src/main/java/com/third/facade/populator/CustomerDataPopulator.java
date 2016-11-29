@@ -16,7 +16,7 @@ public class CustomerDataPopulator implements Populator<CustomerModel, CustomerD
 	{
 		target.setPk(source.getPk());
 		target.setBirthday(source.getBirthday());
-		target.setWeddingday(source.getWeddingDay());
+		target.setWeddingdate(source.getWeddingDate());
 		target.setCellphone(source.getCellphone());
 		target.setComment(source.getComment());
 		target.setEmail(source.getEmail());

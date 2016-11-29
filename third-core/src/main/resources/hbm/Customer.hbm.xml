@@ -15,7 +15,7 @@
 		</property>
 		<property column="birthday" lazy="false" name="birthday"
 			type="java.util.Date" />
-		<property column="weddingday" lazy="false" name="weddingDay"
+		<property column="weddingdate" lazy="false" name="weddingDate"
 			type="java.util.Date" />
 		<property column="comment" lazy="false" name="comment"
 			type="java.lang.String" />

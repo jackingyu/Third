@@ -89,6 +89,10 @@
 	<alias name="defaultOrderFacade" alias="orderFacade"></alias>
 	<bean id="defaultOrderFacade" class="com.third.facade.order.impl.DefaultOrderFacade">
 	    <property name="orderService" ref="orderService"></property>
+	    <property name="storeService" ref="storeService"></property>
+	    <property name="userService" ref="userService"></property>
+	    <property name="customerService" ref="customerService"></property>
+	    <property name="orderDataPopulator" ref="orderDataPopulator"></property>
 	</bean>
     
     <alias name="defaultMenuDataPopulator" alias="menuDataPopulator"></alias>
@@ -138,6 +142,24 @@
     
     <alias name="defaultOrderDataPopulator" alias="orderDataPopulator"></alias>
     <bean id="defaultOrderDataPopulator" class="com.third.facade.populator.OrderDataPopulator">
+         <property name="orderEntryDataPopulator" ref="orderEntryDataPopulator"></property>
+         <property name="paymentDataPopulator" ref="paymentDataPopulator"></property>
+         <property name="sourceDataPopulator" ref="sourceDataPopulator"></property>
+         <property name="storeDataPopulator" ref="storeDataPopulator"></property>
+         <property name="userDataPopulator" ref="userDataPopulator"></property>
+         <property name="customerDataPopulator" ref="customerDataPopulator"></property>
+    </bean>
+    
+    <alias name="defaultOrderEntryDataPopulator" alias="orderEntryDataPopulator"></alias>
+    <bean id="defaultOrderEntryDataPopulator" class="com.third.facade.populator.OrderEntryDataPopulator">
+          <property name="userDataPopulator" ref="userDataPopulator"></property>
+    </bean>
+    
+    <alias name="defaultPaymentDataPopulator" alias="paymentDataPopulator"></alias>
+    <bean id="defaultPaymentDataPopulator" class="com.third.facade.populator.PaymentDataPopulator">
+    </bean>
+    
+    <bean id="textMapperUtils" class="com.third.facade.utils.TextMapperUtils">
     </bean>
 </beans>
  

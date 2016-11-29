@@ -1,5 +1,5 @@
 package com.third.model;
-// Generated Nov 10, 2016 4:52:00 PM by Hibernate Tools 4.3.1
+// Generated Nov 28, 2016 4:34:25 PM by Hibernate Tools 4.3.1
 
 
 import java.math.BigDecimal;
@@ -17,7 +17,7 @@ public class PaymentModel  implements java.io.Serializable {
      private String paymentMethod;
      private String paymentType;
      private BigDecimal amount;
-     private Date paydate;
+     private Date paidTime;
      private Date createTime;
      private Date modificationTime;
      private StoreModel store;
@@ -26,13 +26,13 @@ public class PaymentModel  implements java.io.Serializable {
     public PaymentModel() {
     }
 
-    public PaymentModel(Integer paymentEntryNo, OrderModel order, String paymentMethod, String paymentType, BigDecimal amount, Date paydate, Date createTime, Date modificationTime, StoreModel store, UserModel createdBy) {
+    public PaymentModel(Integer paymentEntryNo, OrderModel order, String paymentMethod, String paymentType, BigDecimal amount, Date paidTime, Date createTime, Date modificationTime, StoreModel store, UserModel createdBy) {
        this.paymentEntryNo = paymentEntryNo;
        this.order = order;
        this.paymentMethod = paymentMethod;
        this.paymentType = paymentType;
        this.amount = amount;
-       this.paydate = paydate;
+       this.paidTime = paidTime;
        this.createTime = createTime;
        this.modificationTime = modificationTime;
        this.store = store;
@@ -81,12 +81,12 @@ public class PaymentModel  implements java.io.Serializable {
     public void setAmount(BigDecimal amount) {
         this.amount = amount;
     }
-    public Date getPaydate() {
-        return this.paydate;
+    public Date getPaidTime() {
+        return this.paidTime;
     }
     
-    public void setPaydate(Date paydate) {
-        this.paydate = paydate;
+    public void setPaidTime(Date paidTime) {
+        this.paidTime = paidTime;
     }
     public Date getCreateTime() {
         return this.createTime;

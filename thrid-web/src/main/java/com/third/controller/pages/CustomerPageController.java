@@ -75,7 +75,7 @@ public class CustomerPageController extends AbstractPageController
 			@RequestParam(value = "name") final String name, @RequestParam(value = "QQ", required = false) final String QQ,
 			@RequestParam(value = "email", required = false) final String email,
 			@RequestParam(value = "birthday", required = false) @DateTimeFormat(pattern = "yyyy-MM-dd") final Date birthday,
-			@RequestParam(value = "weddingday", required = false) @DateTimeFormat(pattern = "yyyy-MM-dd") final Date weddingday,
+			@RequestParam(value = "weddingdate", required = false) @DateTimeFormat(pattern = "yyyy-MM-dd") final Date weddingdate,
 			@RequestParam(value = "source", required = false) final String source,
 			@RequestParam(value = "region", required = false) final String region,
 			@RequestParam(value = "city", required = false) final String city,
@@ -90,7 +90,7 @@ public class CustomerPageController extends AbstractPageController
 		customer.setBirthday(birthday);
 		customer.setEmail(email);
 		customer.setComment(comment);
-		customer.setWeddingday(weddingday);
+		customer.setWeddingdate(weddingdate);
 
 		SourceData sourceData = new SourceData();
 		sourceData.setPk(source);
@@ -116,7 +116,7 @@ public class CustomerPageController extends AbstractPageController
 			@RequestParam(value = "name") final String name, @RequestParam(value = "QQ", required = false) final String QQ,
 			@RequestParam(value = "email", required = false) final String email,
 			@RequestParam(value = "birthday", required = false) @DateTimeFormat(pattern = "yyyy-MM-dd") final Date birthday,
-			@RequestParam(value = "weddingday", required = false) @DateTimeFormat(pattern = "yyyy-MM-dd") final Date weddingday,
+			@RequestParam(value = "weddingdate", required = false) @DateTimeFormat(pattern = "yyyy-MM-dd") final Date weddingdate,
 			@RequestParam(value = "source", required = false) final String source,
 			@RequestParam(value = "region", required = false) final String region,
 			@RequestParam(value = "city", required = false) final String city,
@@ -131,7 +131,7 @@ public class CustomerPageController extends AbstractPageController
 		customer.setBirthday(birthday);
 		customer.setEmail(email);
 		customer.setComment(comment);
-		customer.setWeddingday(weddingday);
+		customer.setWeddingdate(weddingdate);
 
 		SourceData sourceData = new SourceData();
 		sourceData.setPk(source);

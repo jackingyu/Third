@@ -8,7 +8,7 @@ public class CustomerData extends AbstractData
 	private String name;
 	private String cellphone;
 	private Date birthday;
-	private Date weddingday;
+	private Date weddingdate;
 	private SourceData source;
 	private String comment;
 	private String email;
@@ -87,24 +87,24 @@ public class CustomerData extends AbstractData
 		return QQ;
 	}
 
-	public void setWeddingday(Date weddingday)
+	public SourceData getSource()
 	{
-		this.weddingday = weddingday;
+		return source;
+	}
+
+	public Date getWeddingdate()
+	{
+		return weddingdate;
+	}
+
+	public void setWeddingdate(Date weddingdate)
+	{
+		this.weddingdate = weddingdate;
 	}
 
 	public void setSource(SourceData source)
 	{
 		this.source = source;
-	}
-
-	public Date getWeddingday()
-	{
-		return weddingday;
-	}
-
-	public SourceData getSource()
-	{
-		return source;
 	}
 
 }

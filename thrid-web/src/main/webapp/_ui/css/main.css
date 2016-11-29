@@ -59,3 +59,5 @@ a:hover{ color:Red; text-decoration:underline;}
 
 .form-submit1{text-align:center;padding:5px}
 .addedTabPanel{padding:5px}
+.orderpanel-table td{width:300px}
+/* .orderpanel-table .fieldname{width:55px;display:block;float:left} */

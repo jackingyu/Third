@@ -1,16 +1,29 @@
 package com.third.service.order;
 
+import java.util.Date;
+import java.util.Map;
+
+import com.third.dao.util.PaginationSupport;
+import com.third.model.OrderEntryModel;
 import com.third.model.OrderModel;
 
 
 public interface OrderService
 {
-	OrderModel getOrder(final String orderNo);
+	OrderModel getOrderForCode(final String orderCode);
 
 	void createOrder(final OrderModel order);
 
 	void upateOrder(final OrderModel order);
 
+	PaginationSupport getOrders(final Date startDate, final Date endDate, final Integer startIndex, final Integer pageSize,
+			final Map<String, String> sp);
 
+	void createOrderEntry(final OrderEntryModel orderEntry);
 
+	void updateOrderEntry(final OrderEntryModel orderEntry);
+
+	void removeOrderEntry(final String orderEntryPK);
+
+	OrderEntryModel getOrderEntry(final String entryPK);
 }

@@ -28,8 +28,8 @@
 	    			<td><input id="customerForm-birthday" class="easyui-datebox" type="text" name="birthday"></input></td>
 	    		</tr>
 	    		<tr>
-	    			<td><spring:message code="customer.weddingday" /></td>
-	    			<td><input id="customerForm-weddingday" class="easyui-datebox" type="text" name="weddingday"  data-options="required:true"></input></td>
+	    			<td><spring:message code="customer.weddingdate" /></td>
+	    			<td><input id="customerForm-weddingdate" class="easyui-datebox" type="text" name="weddingdate"  data-options="required:true"></input></td>
 	    		</tr>
 	    		<tr>
 	    			<td><spring:message code="address.title" /></td>

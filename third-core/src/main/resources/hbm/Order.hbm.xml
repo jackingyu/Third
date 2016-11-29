@@ -10,24 +10,21 @@
 		</id>
 		<property column="code" lazy="false" name="code"
 			type="java.lang.String" />
-			<property column="cosalesperson" lazy="false" name="coSalesperson"
-			type="java.lang.String" />
 		<property column="customername" lazy="false" name="customerName"
 			type="java.lang.String" />
 		<property column="cellphone" lazy="false" name="cellphone"
 			type="java.lang.String" />
-		<property column="qq" lazy="false" name="qq" type="java.lang.String" />
-		<property column="weddingday" lazy="false" name="weddingDay"
-			type="java.util.Date" />
-		<property column="orderdate" lazy="false" name="orderDate"
+		<property column="weddingdate" lazy="false" name="weddingDate"
 			type="java.util.Date" />
 		<property column="trydate" lazy="false" name="tryDate" type="java.util.Date" />
 		<property column="photodate" lazy="false" name="photoDate"
 			type="java.util.Date" />
 		<property column="deliverydate" lazy="false" name="deliveryDate"
 			type="java.util.Date" />
-		<property column="approval"  name="approval" type="java.lang.Integer">
-		</property>
+		<property column="orderdate" lazy="false" name="orderDate"
+			type="java.util.Date" />
+		<property column="cosalesperson" lazy="false" name="coSalesperson"
+			type="java.lang.String" />
 		<property column="comment" lazy="false" name="comment"
 			type="java.lang.String" />
 		<property column="receiveable" lazy="false" name="receiveable"
@@ -36,7 +33,6 @@
 			type="java.math.BigDecimal" />
 		<property column="status" lazy="false" name="status"
 			type="java.lang.Integer" />
-		<property column="paymentmethod" lazy="false" name="paymentMethod" type="java.lang.String"></property>
 		<many-to-one name="customer" lazy="proxy"
 			class="com.third.model.CustomerModel" cascade="refresh"
 			fetch="select">
@@ -52,7 +48,6 @@
 			fetch="select">
 			<column name="supplysource" />
 		</many-to-one>
-	
 		<many-to-one name="store" lazy="false"
 			class="com.third.model.StoreModel" cascade="refresh"
 			fetch="select">

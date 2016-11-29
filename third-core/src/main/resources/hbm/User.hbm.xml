@@ -20,11 +20,12 @@
 			fetch="join">
 			<column name="usergroup" ></column>
 		</many-to-one>
-		<bag name="stores" inverse="true" table="store" lazy="true" fetch="select">
-			<key>
-				<column name="store" />
-			</key>
-			<one-to-many class="com.third.model.StoreModel" />
+		<bag name="stores" table="user2store" inverse="false"
+			cascade="save-update" lazy="true">
+			<key column="userPK"></key>
+			<many-to-many class="com.third.model.StoreModel"
+				column="storePK">
+			</many-to-many>
 		</bag>
 	</class>
 	<query name="getUserById">

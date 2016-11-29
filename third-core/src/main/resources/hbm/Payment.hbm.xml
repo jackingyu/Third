@@ -21,7 +21,10 @@
 			type="java.lang.String" />
 		<property column="amount" lazy="false" name="amount"
 			type="java.math.BigDecimal" />
-		<property column="paydate" lazy="false" name="paydate" type="java.util.Date"></property>
+		<property name="paidTime" update="false" insert="true"
+			type="java.util.Date">
+			<column name="payidtime" sql-type="timestamp"   />
+		</property>
 		<property name="createTime" update="false" insert="true"
 			type="java.util.Date">
 			<column name="create_time" sql-type="timestamp"   />

@@ -35,7 +35,7 @@ public class DefaultCustomerFacade implements CustomerFacade
 		customerModel.setCellphone(customer.getCellphone());
 		customerModel.setName(customer.getName());
 		customerModel.setBirthday(customer.getBirthday());
-		customerModel.setWeddingDay(customer.getWeddingday());
+		customerModel.setWeddingDate(customer.getWeddingdate());
 		customerModel.setComment(customer.getComment());
 		customerModel.setEmail(customer.getEmail());
 		customerModel.setQQ(customer.getQQ());
@@ -66,7 +66,10 @@ public class DefaultCustomerFacade implements CustomerFacade
 	{
 		CustomerModel customer = customerService.getCustomerByCellphone(cellphone);
 		CustomerData customerData = new CustomerData();
-		customerDataPopulator.populate(customer, customerData);
+
+		if (customer != null)
+			customerDataPopulator.populate(customer, customerData);
+
 		return customerData;
 	}
 
@@ -136,7 +139,7 @@ public class DefaultCustomerFacade implements CustomerFacade
 
 		customerModel.setName(customer.getName());
 		customerModel.setBirthday(customer.getBirthday());
-		customerModel.setWeddingDay(customer.getWeddingday());
+		customerModel.setWeddingDate(customer.getWeddingdate());
 		customerModel.setComment(customer.getComment());
 		customerModel.setEmail(customer.getEmail());
 		customerModel.setQQ(customer.getQQ());
