@@ -1,6 +1,7 @@
 package com.third.facade.data;
 
 import java.util.Date;
+import java.util.Map;
 
 import com.third.model.OrderModel;
 import com.third.model.UserModel;
@@ -27,6 +28,7 @@ public class OrderEntryData extends AbstractData
 	private String orderCode;
 	private String storeName;
 	private String customerName;
+	private Map<String, SizeAttributeGroupData> sizeDatas;
 
 	public Integer getEntryNo()
 	{
@@ -217,6 +219,16 @@ public class OrderEntryData extends AbstractData
 	public void setItemCategoryText(String itemCategoryText)
 	{
 		this.itemCategoryText = itemCategoryText;
+	}
+
+	public Map<String, SizeAttributeGroupData> getSizeDatas()
+	{
+		return sizeDatas;
+	}
+
+	public void setSizeDatas(Map<String, SizeAttributeGroupData> sizeDatas)
+	{
+		this.sizeDatas = sizeDatas;
 	}
 
 }

@@ -14,5 +14,14 @@ public interface CoreConstants
 		final String CreditCard = "1";
 	}
 
+	interface ItemCategory
+	{
+		final String Suit = "10";
+		final String Trousers = "20";
+		final String Shirt = "30";
+		final String Vest = "40";
+		final String Norm = "50";
+	}
+
 
 }

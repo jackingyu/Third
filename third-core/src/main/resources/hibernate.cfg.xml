@@ -33,6 +33,7 @@
         <mapping resource="hbm/Order.hbm.xml"/>
         <mapping resource="hbm/OrderEntry.hbm.xml"/>
         <mapping resource="hbm/Payment.hbm.xml"/>
+        <mapping resource="hbm/SizeAttribute.hbm.xml"/>
         
           
     </session-factory>  

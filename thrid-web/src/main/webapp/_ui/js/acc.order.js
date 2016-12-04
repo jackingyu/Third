@@ -8,6 +8,7 @@ ACC.order = {
 		$("#orderpanel").tabs("disableTab", 1);
 		$("#orderpanel-orderpk").val("");
 		$("#orderpanel-ordercode").textbox("readonly", false);
+		$("#orderpanel-basic").panel("setTitle", "新建销售订单");
 	},
 	save : function() {
 		ACC.payment.acceptChanges();
@@ -35,8 +36,15 @@ ACC.order = {
 									.datagrid("getData").rows),
 					success : function(data) {
 						$.messager.alert("系统提示", "订单保存成功");
-						$("#orderpanel").tabs("enableTab", 1);
-
+						// 在order的环节中我们需要遵循everything depends on order
+						// code的原则,此处PK只是表明数据库中有这么一条记录了,
+						// 暂时给一个mockup值即可
+						var modifyData = {
+							orderCode : $("#orderpanel-ordercode")
+									.textbox("getValue"),
+							pk : "111"
+						};
+						ACC.order.modify(modifyData);
 					}
 				});
 	},
@@ -73,7 +81,7 @@ ACC.order = {
 						$("#paymentListGrid").datagrid("loadData",
 								data.payments);
 						ACC.orderentry.refreshList();
-                        ACC.orderentry.reset();
+						ACC.orderentry.reset();
 					},
 					faliure : function() {
 
@@ -142,6 +150,21 @@ ACC.order = {
 
 ACC.payment = {
 	editIndex : undefined,
+	refreshList : function() {
+		if ($("#paymentListGrid").datagrid("options").url == null)
+			$("#paymentListGrid").datagrid({
+						url : ACC.config.contextPath + "/getPaymentEntries",
+						queryParams : {
+							orderCode : $("#orderpanel-ordercode")
+									.textbox("getValue")
+						}
+					});
+		else
+			$("#entryListGrid").datagrid("load", {
+						orderCode : $("#orderpanel-ordercode")
+								.textbox("getValue")
+					});
+	},
 	endEditing : function() {
 		if (ACC.payment.editIndex == undefined) {
 			return true
@@ -217,10 +240,12 @@ ACC.payment = {
 }
 
 ACC.orderentry = {
-	reset:function(){
+	reset : function() {
 		$("#saveOrderEntryLink").linkbutton("disable");
 		$("#removeOrderEntryLink").linkbutton("disable");
 		$("#orderEntryForm").form("clear");
+		$("#sizeDatasForm").form("clear");
+		$("#orderentry-itemcategory").combobox("enable");
 	},
 	refreshList : function() {
 		if ($("#entryListGrid").datagrid("options").url == null)
@@ -241,8 +266,11 @@ ACC.orderentry = {
 	modify : function(value) {
 		if ($("#saveOrderEntryLink").linkbutton("options").disabled == true)
 			$("#saveOrderEntryLink").linkbutton("enable");
+			
+	   
 		$("#entryPK").val(value.pk);
 		$("#orderentry-itemcategory").combobox("setValue", value.itemCategory);
+		$("#orderentry-itemcategory").combobox("disable");
 		$("#orderentry-ordercode").textbox("setValue", value.orderCode);
 		$("#orderentry-customername").textbox("setValue", value.customerName);
 		$("#orderentry-storename").textbox("setValue", value.storeName);
@@ -255,15 +283,18 @@ ACC.orderentry = {
 		$("#orderentry-sizedate").datebox("setValue", value.sizeDate);
 		$("#orderentry-comment").textbox("setValue", value.comment);
 		$("#removeOrderEntryLink").linkbutton("enable");
+		ACC.orderentry.getSizeDatasByEntry(value.pk);
 	},
 	create : function() {
 		$("#entryPK").val();
 		$("#removeOrderEntryLink").linkbutton("disable");
+		$("#orderentry-itemcategory").combobox("enable");
 
 		if ($("#saveOrderEntryLink").linkbutton("options").disabled == true)
 			$("#saveOrderEntryLink").linkbutton("enable");
 
 		$("#orderEntryForm").form("clear");
+		$("#sizeDatasForm").form("clear");
 		$.ajax({
 			type : "get",
 			url : ACC.config.contextPath + "/getOrder",
@@ -288,34 +319,58 @@ ACC.orderentry = {
 	remove : function() {
 		var selected_item_text = $("#orderentry-itemcategory")
 				.combobox("getText");
-		$.messager.confirm('删除确认', '确认是否删除-' + selected_item_text,'question', function(r) {
+		$.messager.confirm('删除确认', '确认是否删除-' + selected_item_text, function(r) {
 					if (r) {
 						$.ajax({
-									type : "post",
-									url : ACC.config.contextPath
-											+ "/removeOrderEntry",
-									data : {
-										entryPK : $('#entryPK').val()
-									},
-									success : function(data) {
-										$.messager.alert("系统提示", "删除成功");
-										ACC.orderentry.refreshList();
-									}
-								});
+							type : "post",
+							url : ACC.config.contextPath + "/removeOrderEntry",
+							data : {
+								entryPK : $('#entryPK').val()
+							},
+							success : function(data) {
+								$.messager.alert("系统提示", "删除成功");
+								ACC.orderentry.refreshList();
+								ACC.orderentry.reset();
+							}
+						});
 					}
 				});
 
 	},
 	save : function() {
+		if (!$("#orderEntryForm").form("validate")) {
+			$.messager.alert("系统提示", "订单信息有误,请输入必输字段或者调整输入内容");
+			return;
+		}
+		
+		var sizeDatas = JSON.stringify(ACC.orderentry.compositeSizeDatas());
 		$.ajax({
-					type : "post",
-					url : ACC.config.contextPath + "/saveOrderEntry",
-					data : $("#orderEntryForm").serialize(),
-					success : function(data) {
-						$.messager.alert("系统提示", "保存成功");
-						ACC.orderentry.refreshList();
-					}
-				});
+			type : "post",
+			url : ACC.config.contextPath + "/saveOrderEntry",
+			data : $("#orderEntryForm").serialize()+"&sizeDetails="+sizeDatas,
+			success : function(data) {
+				$.messager.alert("系统提示", "保存成功");
+				ACC.orderentry.refreshList();
+				$("#entryPK").val(data.pk);
+	        }
+		});
+	},
+	getSizeDatasByItemCategory:function(value){
+	   $('#sizeDataPanel').panel('refresh',ACC.config.contextPath + "/getSizeDatas?itemCategory="+value.code);
+	},
+	getSizeDatasByEntry:function(entryPK){
+	   $('#sizeDataPanel').panel('refresh',ACC.config.contextPath + "/getSizeDatas?entryPK="+entryPK);
+	},
+	compositeSizeDatas:function(){
+	   var sizeDatas = [];
+        $.each($("#sizeDatasForm").serializeArray(),function(index){
+        	  var sizeData = { name:'',value:'',group:''};
+        	  var a1 = this.name.split("-");
+              sizeData.group = a1[0];
+              sizeData.name = a1[1];
+              sizeData.value = this.value;
+              sizeDatas.push(sizeData);
+        });
+      return sizeDatas;
 	}
-
 }

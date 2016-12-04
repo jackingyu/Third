@@ -56,6 +56,9 @@
     <alias name="defaultPaymentDao" alias="paymentDao"></alias>
     <bean id="defaultPaymentDao" class="com.third.dao.order.impl.DefaultPaymentDao" parent="genericDAO"></bean>
 	
+    <alias name="defaultSizeAttributeDao" alias="sizeAttributeDao"></alias>
+    <bean id="defaultSizeAttributeDao" class="com.third.dao.product.impl.DefaultSizeAttributeDao" parent="genericDAO"></bean>
+	
 	<alias name="defaultUserService" alias="userService"></alias>
 	<bean id="defaultUserService" class="com.third.service.user.impl.DefaultUserService">
 	     <property name="userDao" ref="userDao" />
@@ -103,6 +106,11 @@
    <alias name="defaultProductService" alias="productService"></alias>
 	<bean id="defaultProductService" class="com.third.service.product.impl.DefaultProductService">
 	     <property name="productDao" ref="productDao" />
+	</bean>
+	
+   <alias name="defaultSizeAttributeService" alias="sizeAttributeService"></alias>
+	<bean id="defaultSizeAttributeService" class="com.third.service.product.impl.DefaultSizeAttributeService">
+	     <property name="sizeAttributeDao" ref="sizeAttributeDao" />
 	</bean>
 </beans>
  

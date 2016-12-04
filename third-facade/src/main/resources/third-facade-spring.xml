@@ -22,6 +22,7 @@
 	        <ref bean="storeDataBuilder"></ref>
 	        <ref bean="productDataBuilder"></ref>
 	        <ref bean="orderDataBuilder"></ref>
+	        <ref bean="sizeAttributeDataBuilder"></ref>
 	      </list>
 	   </property>
 	</bean>
@@ -51,6 +52,10 @@
 	
 	<alias name="defaultOrderDataBuilder" alias="orderDataBuilder"></alias>
 	<bean id="defaultOrderDataBuilder" class="com.third.facade.testdata.builder.OrderDataBuilder">
+	</bean>
+	
+	<alias name="defaultSizeAttributeDataBuilder" alias="sizeAttributeDataBuilder"></alias>
+	<bean id="defaultSizeAttributeDataBuilder" class="com.third.facade.testdata.builder.SizeAttributeDataBuilder">
 	</bean>
 	
 	<alias name="defaultUserFacade" alias="userFacade"></alias>
@@ -92,7 +97,10 @@
 	    <property name="storeService" ref="storeService"></property>
 	    <property name="userService" ref="userService"></property>
 	    <property name="customerService" ref="customerService"></property>
+	    <property name="sizeAttributeService" ref="sizeAttributeService"></property>
 	    <property name="orderDataPopulator" ref="orderDataPopulator"></property>
+	    <property name="orderEntryDataPopulator" ref="orderEntryDataPopulator"></property>
+	    <property name="sizeAttributeDataPopulator" ref="sizeAttributeDataPopulator"></property>
 	</bean>
     
     <alias name="defaultMenuDataPopulator" alias="menuDataPopulator"></alias>
@@ -157,6 +165,10 @@
     
     <alias name="defaultPaymentDataPopulator" alias="paymentDataPopulator"></alias>
     <bean id="defaultPaymentDataPopulator" class="com.third.facade.populator.PaymentDataPopulator">
+    </bean>
+    
+    <alias name="defaultSizeAttributeDataPopulator" alias="sizeAttributeDataPopulator"></alias>
+    <bean id="defaultSizeAttributeDataPopulator" class="com.third.facade.populator.SizeAttributeDataPopulator">
     </bean>
     
     <bean id="textMapperUtils" class="com.third.facade.utils.TextMapperUtils">

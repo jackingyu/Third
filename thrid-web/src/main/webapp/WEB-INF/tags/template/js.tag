@@ -11,6 +11,9 @@
 <spring:url value="/_ui/js/jquery.easyui.min.js" var="easyuiJs" />
 <script type="text/javascript" src="${easyuiJs}"></script>
 
+<spring:url value="/_ui/js/jquery.scrollTo.min.js" var="scrollToJs" />
+<script type="text/javascript" src="${scrollToJs}"></script>
+
 <spring:url value="/_ui/js/main.js" var="mainJs" />
 <script type="text/javascript" src="${mainJs}"></script>
 

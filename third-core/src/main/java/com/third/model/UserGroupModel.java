@@ -1,9 +1,10 @@
 package com.third.model;
-// Generated Nov 28, 2016 4:34:25 PM by Hibernate Tools 4.3.1
+// Generated Dec 2, 2016 4:39:39 PM by Hibernate Tools 4.3.1
 
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -16,15 +17,19 @@ public class UserGroupModel  implements java.io.Serializable {
      private String pk;
      private String groupId;
      private String name;
+     private Date modificationTime;
+     private Date createTime;
      private Set users = new HashSet(0);
      private Collection roles = new ArrayList(0);
 
     public UserGroupModel() {
     }
 
-    public UserGroupModel(String groupId, String name, Set users, Collection roles) {
+    public UserGroupModel(String groupId, String name, Date modificationTime, Date createTime, Set users, Collection roles) {
        this.groupId = groupId;
        this.name = name;
+       this.modificationTime = modificationTime;
+       this.createTime = createTime;
        this.users = users;
        this.roles = roles;
     }
@@ -49,6 +54,20 @@ public class UserGroupModel  implements java.io.Serializable {
     
     public void setName(String name) {
         this.name = name;
+    }
+    public Date getModificationTime() {
+        return this.modificationTime;
+    }
+    
+    public void setModificationTime(Date modificationTime) {
+        this.modificationTime = modificationTime;
+    }
+    public Date getCreateTime() {
+        return this.createTime;
+    }
+    
+    public void setCreateTime(Date createTime) {
+        this.createTime = createTime;
     }
     public Set getUsers() {
         return this.users;

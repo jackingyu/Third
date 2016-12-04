@@ -19,11 +19,14 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
 import com.third.facade.data.ListData;
 import com.third.facade.data.OrderData;
 import com.third.facade.data.OrderEntryData;
 import com.third.facade.data.PaymentData;
+import com.third.facade.data.SizeAttributeData;
+import com.third.facade.data.SizeAttributeGroupData;
 import com.third.facade.data.TextMapper;
 import com.third.facade.order.OrderFacade;
 import com.third.facade.utils.TextMapperUtils;
@@ -111,6 +114,24 @@ public class OrderPageController extends AbstractPageController
 
 	}
 
+	@RequestMapping(value = "/getPaymentEntries")
+	@ResponseBody
+	public Object getPaymentEntries(@RequestParam(value = "orderCode") final String orderCode)
+	{
+		OrderData order = orderFacade.getOrder(orderCode);
+		ListData list = new ListData();
+		List<Object> rows = new ArrayList<Object>();
+
+		for (int i = 0; i < order.getPayments().size(); i++)
+		{
+			PaymentData e = order.getPayments().get(i);
+			rows.add(e);
+		}
+		list.setRows(rows);
+		list.setTotal(rows.size());
+		return list;
+	}
+
 	@RequestMapping(value = "/getOrderEntries")
 	@ResponseBody
 	public Object getOrderEntries(@RequestParam(value = "orderCode") final String orderCode)
@@ -138,7 +159,7 @@ public class OrderPageController extends AbstractPageController
 
 	@RequestMapping(value = "/saveOrderEntry")
 	@ResponseBody
-	public void saveOrderEntry(@RequestParam(value = "orderCode", required = false) final String orderCode,
+	public Object saveOrderEntry(@RequestParam(value = "orderCode", required = false) final String orderCode,
 			@RequestParam(value = "entryPK", required = false) final String entryPK,
 			@RequestParam(value = "itemCategory", required = false) final String itemCategory,
 			@RequestParam(value = "style", required = false) final String style,
@@ -166,11 +187,53 @@ public class OrderPageController extends AbstractPageController
 		orderEntryData.setSizeDetails(sizeDetails);
 		orderEntryData.setComment(comment);
 		orderEntryData.setCustomerName(customerName);
+		orderEntryData.setSizeDetails(sizeDetails);
+
+		if (StringUtils.isNotBlank(sizeDetails))
+		{
+			List<SizeAttributeData> sizeDatas = JSON.parseArray(sizeDetails, SizeAttributeData.class);
+		}
 
 		if (StringUtils.isBlank(entryPK))
 			orderFacade.createOrderEntry(orderEntryData);
 		else
 			orderFacade.updateOrderEntry(orderEntryData);
+
+		return orderEntryData;
 	}
+
+	@RequestMapping(value = "/getSizeDatas")
+	public String getSizeAttribute(@RequestParam(value = "itemCategory", required = false) final String itemCategory,
+			@RequestParam(value = "entryPK", required = false) final String entryPK, final Model model)
+	{
+		Map<String, SizeAttributeGroupData> sizeDatas = null;
+		if (StringUtils.isBlank(entryPK))
+		{
+		  sizeDatas = orderFacade.getSizeAttributes(Integer.valueOf(itemCategory));
+
+			model.addAttribute("itemCategory", itemCategory);
+			
+		}else
+		{
+	      OrderEntryData entry = orderFacade.getSizeDatas(entryPK);
+	      model.addAttribute("itemCategory", entry.getItemCategory());
+	      sizeDatas = entry.getSizeDatas();
+		}		
+		//量
+		if (sizeDatas.containsKey("10"))
+			model.addAttribute("lSizeDatas", sizeDatas.get("10").getAttributes());
+
+		//裁
+		if (sizeDatas.containsKey("20"))
+			model.addAttribute("cSizeDatas", sizeDatas.get("20").getAttributes());
+
+		//试
+		if (sizeDatas.containsKey("30"))
+			model.addAttribute("sSizeDatas", sizeDatas.get("30").getAttributes());
+
+		
+		return ControllerConstants.Fragements.SIZEDATAPANEL;
+	}
+
 
 }

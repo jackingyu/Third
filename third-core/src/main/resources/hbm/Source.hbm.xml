@@ -12,6 +12,14 @@
 			type="java.lang.String" />
 		<property column="type" lazy="false" name="type"
 			type="java.lang.String" />
+		<property name="modificationTime" update="true" insert="true"
+			type="java.util.Date">
+			<column name="modification_time" sql-type="timestamp"/>
+		</property>
+		<property name="createTime" update="false" insert="true"
+			type="java.util.Date">
+			<column name="create_time" sql-type="timestamp"/>
+		</property>
 	</class>
 
 </hibernate-mapping>

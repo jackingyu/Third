@@ -1,5 +1,5 @@
 package com.third.model;
-// Generated Nov 28, 2016 4:34:25 PM by Hibernate Tools 4.3.1
+// Generated Dec 2, 2016 4:39:39 PM by Hibernate Tools 4.3.1
 
 
 import java.util.Date;
@@ -14,19 +14,19 @@ public class ProductModel  implements java.io.Serializable {
      private String code;
      private String producttitle;
      private String producttype;
-     private Date createTime;
      private Date modificationTime;
+     private Date createTime;
      private UserModel createdBy;
 
     public ProductModel() {
     }
 
-    public ProductModel(String code, String producttitle, String producttype, Date createTime, Date modificationTime, UserModel createdBy) {
+    public ProductModel(String code, String producttitle, String producttype, Date modificationTime, Date createTime, UserModel createdBy) {
        this.code = code;
        this.producttitle = producttitle;
        this.producttype = producttype;
-       this.createTime = createTime;
        this.modificationTime = modificationTime;
+       this.createTime = createTime;
        this.createdBy = createdBy;
     }
    
@@ -58,19 +58,19 @@ public class ProductModel  implements java.io.Serializable {
     public void setProducttype(String producttype) {
         this.producttype = producttype;
     }
-    public Date getCreateTime() {
-        return this.createTime;
-    }
-    
-    public void setCreateTime(Date createTime) {
-        this.createTime = createTime;
-    }
     public Date getModificationTime() {
         return this.modificationTime;
     }
     
     public void setModificationTime(Date modificationTime) {
         this.modificationTime = modificationTime;
+    }
+    public Date getCreateTime() {
+        return this.createTime;
+    }
+    
+    public void setCreateTime(Date createTime) {
+        this.createTime = createTime;
     }
     public UserModel getCreatedBy() {
         return this.createdBy;

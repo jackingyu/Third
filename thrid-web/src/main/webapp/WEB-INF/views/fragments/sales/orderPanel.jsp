@@ -4,8 +4,9 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="common" tagdir="/WEB-INF/tags/common"%>
 <!-- 订单 编辑页面 -->
+<div id="orderPanelPosition"></div>
 <common:h10 />
-<div id="orderpanel" class="easyui-tabs" style="width: 800px; height: 400px" title="test">
+<div id="orderpanel" class="easyui-tabs" style="width: 800px;height:auto" title="test">
 <jsp:include page="orderBasicTab.jsp" flush="true" />
 <jsp:include page="orderEntryTab.jsp" flush="true" />
 </div>

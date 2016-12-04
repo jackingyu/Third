@@ -16,6 +16,7 @@ public interface ControllerConstants
 		final static String USERLIST = PREFIX + "/user/userList";
 		final static String CUSTOMERLIST = PREFIX + "/sales/customerList";
 		final static String ORDERLIST = PREFIX + "/sales/orderList";
+		final static String SIZEDATAPANEL = PREFIX + "/sales/sizeDataPanel";
 	}
 
 }

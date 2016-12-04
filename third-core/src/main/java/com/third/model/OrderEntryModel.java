@@ -1,5 +1,5 @@
 package com.third.model;
-// Generated Nov 28, 2016 4:34:25 PM by Hibernate Tools 4.3.1
+// Generated Dec 2, 2016 4:39:39 PM by Hibernate Tools 4.3.1
 
 
 import java.util.Date;
@@ -25,14 +25,14 @@ public class OrderEntryModel  implements java.io.Serializable {
      private String comment;
      private String sizeDetails;
      private OrderModel order;
-     private Date createTime;
      private Date modificationTime;
+     private Date createTime;
      private UserModel createdBy;
 
     public OrderEntryModel() {
     }
 
-    public OrderEntryModel(Integer entryNo, String style, String itemCategory, ProductModel product, String productTitle, Integer quantity, String designer, String customerName, Date deliveryDate, Date sizeDate, Date tryDate, String comment, String sizeDetails, OrderModel order, Date createTime, Date modificationTime, UserModel createdBy) {
+    public OrderEntryModel(Integer entryNo, String style, String itemCategory, ProductModel product, String productTitle, Integer quantity, String designer, String customerName, Date deliveryDate, Date sizeDate, Date tryDate, String comment, String sizeDetails, OrderModel order, Date modificationTime, Date createTime, UserModel createdBy) {
        this.entryNo = entryNo;
        this.style = style;
        this.itemCategory = itemCategory;
@@ -47,8 +47,8 @@ public class OrderEntryModel  implements java.io.Serializable {
        this.comment = comment;
        this.sizeDetails = sizeDetails;
        this.order = order;
-       this.createTime = createTime;
        this.modificationTime = modificationTime;
+       this.createTime = createTime;
        this.createdBy = createdBy;
     }
    
@@ -157,19 +157,19 @@ public class OrderEntryModel  implements java.io.Serializable {
     public void setOrder(OrderModel order) {
         this.order = order;
     }
-    public Date getCreateTime() {
-        return this.createTime;
-    }
-    
-    public void setCreateTime(Date createTime) {
-        this.createTime = createTime;
-    }
     public Date getModificationTime() {
         return this.modificationTime;
     }
     
     public void setModificationTime(Date modificationTime) {
         this.modificationTime = modificationTime;
+    }
+    public Date getCreateTime() {
+        return this.createTime;
+    }
+    
+    public void setCreateTime(Date createTime) {
+        this.createTime = createTime;
     }
     public UserModel getCreatedBy() {
         return this.createdBy;

@@ -63,6 +63,7 @@
 			   <value>/hbm/Order.hbm.xml</value>
 			   <value>/hbm/OrderEntry.hbm.xml</value>
 			   <value>/hbm/Payment.hbm.xml</value>
+			   <value>/hbm/SizeAttribute.hbm.xml</value>
 			</list>
 		</property>
 		<property name="hibernateProperties">

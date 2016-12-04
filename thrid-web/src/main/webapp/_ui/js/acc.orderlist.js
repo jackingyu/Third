@@ -24,6 +24,7 @@ ACC.orderlist = {
             idField:"pk",
             onDblClickRow: function(rowIndex,value) {
 		           ACC.order.modify(value);
+		           $('#tabs').tabs('getSelected').scrollTo("#orderPanelPosition",500);
             }
 		});
 		

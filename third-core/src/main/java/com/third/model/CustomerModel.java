@@ -1,5 +1,5 @@
 package com.third.model;
-// Generated Nov 28, 2016 4:34:25 PM by Hibernate Tools 4.3.1
+// Generated Dec 2, 2016 4:39:39 PM by Hibernate Tools 4.3.1
 
 
 import java.util.Date;
@@ -20,14 +20,14 @@ public class CustomerModel  implements java.io.Serializable {
      private String QQ;
      private SourceModel source;
      private AddressModel address;
-     private Date createTime;
      private Date modificationTime;
+     private Date createTime;
      private UserModel createdBy;
 
     public CustomerModel() {
     }
 
-    public CustomerModel(String cellphone, String name, Date birthday, Date weddingDate, String comment, String email, String QQ, SourceModel source, AddressModel address, Date createTime, Date modificationTime, UserModel createdBy) {
+    public CustomerModel(String cellphone, String name, Date birthday, Date weddingDate, String comment, String email, String QQ, SourceModel source, AddressModel address, Date modificationTime, Date createTime, UserModel createdBy) {
        this.cellphone = cellphone;
        this.name = name;
        this.birthday = birthday;
@@ -37,8 +37,8 @@ public class CustomerModel  implements java.io.Serializable {
        this.QQ = QQ;
        this.source = source;
        this.address = address;
-       this.createTime = createTime;
        this.modificationTime = modificationTime;
+       this.createTime = createTime;
        this.createdBy = createdBy;
     }
    
@@ -112,19 +112,19 @@ public class CustomerModel  implements java.io.Serializable {
     public void setAddress(AddressModel address) {
         this.address = address;
     }
-    public Date getCreateTime() {
-        return this.createTime;
-    }
-    
-    public void setCreateTime(Date createTime) {
-        this.createTime = createTime;
-    }
     public Date getModificationTime() {
         return this.modificationTime;
     }
     
     public void setModificationTime(Date modificationTime) {
         this.modificationTime = modificationTime;
+    }
+    public Date getCreateTime() {
+        return this.createTime;
+    }
+    
+    public void setCreateTime(Date createTime) {
+        this.createTime = createTime;
     }
     public UserModel getCreatedBy() {
         return this.createdBy;

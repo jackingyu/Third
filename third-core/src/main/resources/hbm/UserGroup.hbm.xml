@@ -11,6 +11,14 @@
 			type="java.lang.String" />
 		<property column="name" lazy="false" name="name"
 			type="java.lang.String" />
+	    <property name="modificationTime" update="true" insert="true"
+			type="java.util.Date">
+			<column name="modification_time" sql-type="timestamp"/>
+		</property>
+		<property name="createTime" update="false" insert="true"
+			type="java.util.Date">
+			<column name="create_time" sql-type="timestamp"/>
+		</property>
 		<set name="users" inverse="true" table="user">
 			<key>
 				<column name="usergroup" />

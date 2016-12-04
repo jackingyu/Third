@@ -12,4 +12,5 @@ public interface StoreService
 	List<StoreModel> getStores(final String name);
 
 	StoreModel getStoreForCode(final String code);
+
 }

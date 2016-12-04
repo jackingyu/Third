@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+	<class name="com.third.model.SizeAttributeModel" table="sizeattribute">
+		<id name="pk" type="java.lang.String">
+			<column name="pk" unique="true" />
+			<generator class="uuid" />
+		</id>
+	   <property name="itemCategory" type="java.lang.Integer">
+			<column name="sizetype">
+				<comment>10-西服,20-西裤,30-衬衫,40-背心,50-普通项</comment>
+			</column>
+		</property>
+		<property name="group" type="java.lang.Integer">
+			<column name="sizegroup">
+				<comment>10-量,20-剪,30-裁</comment>
+			</column>
+		</property>
+		<property name="name" type="java.lang.String">
+			<column name="name">
+				<comment>字段名称</comment>
+			</column>
+		</property>
+		<property name="code" type="java.lang.String">
+			<column name="code">
+				<comment>字段代码</comment>
+			</column>
+		</property>
+		<property name="modificationTime" update="true" insert="true"
+			type="java.util.Date">
+			<column name="modification_time" sql-type="timestamp"/>
+		</property>
+		<property name="createTime" update="false" insert="true"
+			type="java.util.Date">
+			<column name="create_time" sql-type="timestamp"/>
+		</property>
+	</class>
+</hibernate-mapping>

@@ -1,5 +1,5 @@
 package com.third.model;
-// Generated Nov 28, 2016 4:34:25 PM by Hibernate Tools 4.3.1
+// Generated Dec 2, 2016 4:39:39 PM by Hibernate Tools 4.3.1
 
 
 import java.math.BigDecimal;
@@ -18,23 +18,23 @@ public class PaymentModel  implements java.io.Serializable {
      private String paymentType;
      private BigDecimal amount;
      private Date paidTime;
-     private Date createTime;
      private Date modificationTime;
+     private Date createTime;
      private StoreModel store;
      private UserModel createdBy;
 
     public PaymentModel() {
     }
 
-    public PaymentModel(Integer paymentEntryNo, OrderModel order, String paymentMethod, String paymentType, BigDecimal amount, Date paidTime, Date createTime, Date modificationTime, StoreModel store, UserModel createdBy) {
+    public PaymentModel(Integer paymentEntryNo, OrderModel order, String paymentMethod, String paymentType, BigDecimal amount, Date paidTime, Date modificationTime, Date createTime, StoreModel store, UserModel createdBy) {
        this.paymentEntryNo = paymentEntryNo;
        this.order = order;
        this.paymentMethod = paymentMethod;
        this.paymentType = paymentType;
        this.amount = amount;
        this.paidTime = paidTime;
-       this.createTime = createTime;
        this.modificationTime = modificationTime;
+       this.createTime = createTime;
        this.store = store;
        this.createdBy = createdBy;
     }
@@ -88,19 +88,19 @@ public class PaymentModel  implements java.io.Serializable {
     public void setPaidTime(Date paidTime) {
         this.paidTime = paidTime;
     }
-    public Date getCreateTime() {
-        return this.createTime;
-    }
-    
-    public void setCreateTime(Date createTime) {
-        this.createTime = createTime;
-    }
     public Date getModificationTime() {
         return this.modificationTime;
     }
     
     public void setModificationTime(Date modificationTime) {
         this.modificationTime = modificationTime;
+    }
+    public Date getCreateTime() {
+        return this.createTime;
+    }
+    
+    public void setCreateTime(Date createTime) {
+        this.createTime = createTime;
     }
     public StoreModel getStore() {
         return this.store;

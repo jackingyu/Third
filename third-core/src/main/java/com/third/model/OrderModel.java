@@ -1,5 +1,5 @@
 package com.third.model;
-// Generated Nov 28, 2016 4:34:25 PM by Hibernate Tools 4.3.1
+// Generated Dec 2, 2016 4:39:39 PM by Hibernate Tools 4.3.1
 
 
 import java.math.BigDecimal;
@@ -27,6 +27,8 @@ public class OrderModel  implements java.io.Serializable {
      private BigDecimal receiveable;
      private BigDecimal openamount;
      private Integer status;
+     private Date modificationTime;
+     private Date createTime;
      private CustomerModel customer;
      private UserModel salesperson;
      private SourceModel source;
@@ -37,7 +39,7 @@ public class OrderModel  implements java.io.Serializable {
     public OrderModel() {
     }
 
-    public OrderModel(String code, String customerName, String cellphone, Date weddingDate, Date tryDate, Date photoDate, Date deliveryDate, Date orderDate, String coSalesperson, String comment, BigDecimal receiveable, BigDecimal openamount, Integer status, CustomerModel customer, UserModel salesperson, SourceModel source, StoreModel store, List payments, List orderEntries) {
+    public OrderModel(String code, String customerName, String cellphone, Date weddingDate, Date tryDate, Date photoDate, Date deliveryDate, Date orderDate, String coSalesperson, String comment, BigDecimal receiveable, BigDecimal openamount, Integer status, Date modificationTime, Date createTime, CustomerModel customer, UserModel salesperson, SourceModel source, StoreModel store, List payments, List orderEntries) {
        this.code = code;
        this.customerName = customerName;
        this.cellphone = cellphone;
@@ -51,6 +53,8 @@ public class OrderModel  implements java.io.Serializable {
        this.receiveable = receiveable;
        this.openamount = openamount;
        this.status = status;
+       this.modificationTime = modificationTime;
+       this.createTime = createTime;
        this.customer = customer;
        this.salesperson = salesperson;
        this.source = source;
@@ -156,6 +160,20 @@ public class OrderModel  implements java.io.Serializable {
     
     public void setStatus(Integer status) {
         this.status = status;
+    }
+    public Date getModificationTime() {
+        return this.modificationTime;
+    }
+    
+    public void setModificationTime(Date modificationTime) {
+        this.modificationTime = modificationTime;
+    }
+    public Date getCreateTime() {
+        return this.createTime;
+    }
+    
+    public void setCreateTime(Date createTime) {
+        this.createTime = createTime;
     }
     public CustomerModel getCustomer() {
         return this.customer;
