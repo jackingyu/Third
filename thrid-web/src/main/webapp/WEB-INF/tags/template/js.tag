@@ -3,10 +3,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="template" tagdir="/WEB-INF/tags/template"%>
 
-
 <template:javaScriptVariables/>
-
-
 
 <spring:url value="/_ui/js/jquery.easyui.min.js" var="easyuiJs" />
 <script type="text/javascript" src="${easyuiJs}"></script>
@@ -19,9 +16,16 @@
 
 <spring:url value="/_ui/js/juicer-min.js" var="juicerJs" />
 
+<spring:url value="/_ui/js/plugin/jquery.colorbox-min.js" var="colorboxJs" />
+<script type="text/javascript" src="${colorboxJs}"></script>
+
 <script type="text/javascript" src="${juicerJs}"></script>
 <spring:url value="/_ui/js/easyui-lang-zh_CN.js" var="easyuiLocaleJs" />
 <script type="text/javascript" src="${easyuiLocaleJs}"></script>
+
+<spring:url value="/_ui/js/acc.common.js" var="commonJs" />
+<script type="text/javascript" src="${commonJs}"></script>
+
 
 <spring:url value="/_ui/js/acc.usergroup.js" var="userGroupJs" />
 <script type="text/javascript" src="${userGroupJs}"></script>
@@ -52,3 +56,13 @@
 
 <spring:url value="/_ui/js/acc.orderlist.js" var="orderListJs" />
 <script type="text/javascript" src="${orderListJs}"></script>
+
+<spring:url value="/_ui/js/acc.orderprocess.js" var="orderProcessJs" />
+<script type="text/javascript" src="${orderProcessJs}"></script>
+
+<spring:url value="/_ui/js/acc.reservation.js" var="reservationJs" />
+<script type="text/javascript" src="${reservationJs}"></script>
+
+<spring:url value="/_ui/js/acc.uploadfile.js" var="uploadfileJs" />
+<script type="text/javascript" src="${uploadfileJs}"></script>
+

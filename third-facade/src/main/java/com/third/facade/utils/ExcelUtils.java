@@ -187,7 +187,7 @@ public class ExcelUtils
 	{
 		Workbook wb = new HSSFWorkbook();
 		UUID uuid = UUID.randomUUID();
-		String fileSitePath = "/";// Config.getParameter("excel.export.path");
+		String fileSitePath = "/exports";// Config.getParameter("excel.export.path");
 		String fileName = workbookName + "_" + uuid + ".xls";
 		String filePath = request.getSession().getServletContext().getRealPath(fileSitePath) + File.separator;
 		File f = new File(filePath);

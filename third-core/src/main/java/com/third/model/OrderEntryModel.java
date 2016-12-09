@@ -1,5 +1,5 @@
 package com.third.model;
-// Generated Dec 2, 2016 4:39:39 PM by Hibernate Tools 4.3.1
+// Generated Dec 9, 2016 11:47:25 AM by Hibernate Tools 4.3.1
 
 
 import java.util.Date;
@@ -24,6 +24,7 @@ public class OrderEntryModel  implements java.io.Serializable {
      private Date tryDate;
      private String comment;
      private String sizeDetails;
+     private String sizeImage;
      private OrderModel order;
      private Date modificationTime;
      private Date createTime;
@@ -32,7 +33,7 @@ public class OrderEntryModel  implements java.io.Serializable {
     public OrderEntryModel() {
     }
 
-    public OrderEntryModel(Integer entryNo, String style, String itemCategory, ProductModel product, String productTitle, Integer quantity, String designer, String customerName, Date deliveryDate, Date sizeDate, Date tryDate, String comment, String sizeDetails, OrderModel order, Date modificationTime, Date createTime, UserModel createdBy) {
+    public OrderEntryModel(Integer entryNo, String style, String itemCategory, ProductModel product, String productTitle, Integer quantity, String designer, String customerName, Date deliveryDate, Date sizeDate, Date tryDate, String comment, String sizeDetails, String sizeImage, OrderModel order, Date modificationTime, Date createTime, UserModel createdBy) {
        this.entryNo = entryNo;
        this.style = style;
        this.itemCategory = itemCategory;
@@ -46,6 +47,7 @@ public class OrderEntryModel  implements java.io.Serializable {
        this.tryDate = tryDate;
        this.comment = comment;
        this.sizeDetails = sizeDetails;
+       this.sizeImage = sizeImage;
        this.order = order;
        this.modificationTime = modificationTime;
        this.createTime = createTime;
@@ -149,6 +151,13 @@ public class OrderEntryModel  implements java.io.Serializable {
     
     public void setSizeDetails(String sizeDetails) {
         this.sizeDetails = sizeDetails;
+    }
+    public String getSizeImage() {
+        return this.sizeImage;
+    }
+    
+    public void setSizeImage(String sizeImage) {
+        this.sizeImage = sizeImage;
     }
     public OrderModel getOrder() {
         return this.order;

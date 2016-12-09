@@ -16,12 +16,17 @@
 		data-options="iconCls:'icon-remove',disabled:true,plain:true" onclick="ACC.orderentry.remove()">
 		<spring:message code="orderentrypanel.removeentry"></spring:message>
 	</a>
+	<a href="javascript:void(0)" class="easyui-linkbutton" id="uploadSizeImageLink"
+		data-options="iconCls:'icon-upload',disabled:true,plain:true" onclick="ACC.orderentry.uploadImage()">
+		<spring:message code="orderentrypanel.uploadfile"></spring:message>
+	</a>
 	<div class="easyui-panel" title="<spring:message code="orderentrypanel.basicinformation"/>"
 		data-options="collapsible:true" style="width: 780px; height: 250px; padding: 10px;">
 		<table class="orderpanel-table">
 			<tr>
 				<td>
 					<input type="hidden" id="entryPK" name="entryPK" />
+					<input type="hidden" id="sizeImageUrl" name="sizeImageUrl" />
 					<input type="text" class="easyui-combobox" id="orderentry-itemcategory" name="itemCategory"
 						data-options="required:true,
 						     width:200,
@@ -101,6 +106,14 @@
 						data-options="required:false,width:300,multiline:true,label:'<spring:message
 							code="orderentry.comment"/>'"></input>
 				</td>
+			</tr>
+			<tr>
+			<td>
+			<a href="javascript:void(0)" class="easyui-linkbutton" id="getSizeImage"
+		       data-options="iconCls:'icon-large_picture',plain:true" onclick="ACC.orderentry.getSizeImage()">
+		     <spring:message code="orderentrypanel.getsizeimage"></spring:message>
+	        </a>
+			</td>
 			</tr>
 
 		</table>

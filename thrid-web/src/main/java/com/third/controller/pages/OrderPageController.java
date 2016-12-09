@@ -1,23 +1,26 @@
 package com.third.controller.pages;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.lang3.StringUtils;
 import org.apache.log4j.Logger;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
@@ -27,8 +30,9 @@ import com.third.facade.data.OrderEntryData;
 import com.third.facade.data.PaymentData;
 import com.third.facade.data.SizeAttributeData;
 import com.third.facade.data.SizeAttributeGroupData;
-import com.third.facade.data.TextMapper;
 import com.third.facade.order.OrderFacade;
+import com.third.facade.populator.option.OrderOption;
+import com.third.facade.utils.ExcelUtils;
 import com.third.facade.utils.TextMapperUtils;
 
 
@@ -72,7 +76,7 @@ public class OrderPageController extends AbstractPageController
 	@ResponseBody
 	public Object getOrder(@RequestParam(value = "orderCode") final String orderCode)
 	{
-		OrderData order = orderFacade.getOrder(orderCode);
+		OrderData order = orderFacade.getOrderForOptions(orderCode, Arrays.asList(OrderOption.BASIC,OrderOption.PAYMENTS));
 
 		return order;
 	}
@@ -118,7 +122,7 @@ public class OrderPageController extends AbstractPageController
 	@ResponseBody
 	public Object getPaymentEntries(@RequestParam(value = "orderCode") final String orderCode)
 	{
-		OrderData order = orderFacade.getOrder(orderCode);
+		OrderData order = orderFacade.getOrderForOptions(orderCode, Arrays.asList(OrderOption.BASIC,OrderOption.PAYMENTS));
 		ListData list = new ListData();
 		List<Object> rows = new ArrayList<Object>();
 
@@ -136,7 +140,7 @@ public class OrderPageController extends AbstractPageController
 	@ResponseBody
 	public Object getOrderEntries(@RequestParam(value = "orderCode") final String orderCode)
 	{
-		OrderData order = orderFacade.getOrder(orderCode);
+		OrderData order = orderFacade.getOrderForOptions(orderCode, Arrays.asList(OrderOption.ENTRIES,OrderOption.BASIC));
 		ListData list = new ListData();
 		List<Object> rows = new ArrayList<Object>();
 
@@ -209,16 +213,17 @@ public class OrderPageController extends AbstractPageController
 		Map<String, SizeAttributeGroupData> sizeDatas = null;
 		if (StringUtils.isBlank(entryPK))
 		{
-		  sizeDatas = orderFacade.getSizeAttributes(Integer.valueOf(itemCategory));
+			sizeDatas = orderFacade.getSizeAttributes(Integer.valueOf(itemCategory));
 
 			model.addAttribute("itemCategory", itemCategory);
-			
-		}else
+
+		}
+		else
 		{
-	      OrderEntryData entry = orderFacade.getSizeDatas(entryPK);
-	      model.addAttribute("itemCategory", entry.getItemCategory());
-	      sizeDatas = entry.getSizeDatas();
-		}		
+			OrderEntryData entry = orderFacade.getSizeDatas(entryPK);
+			model.addAttribute("itemCategory", entry.getItemCategory());
+			sizeDatas = entry.getSizeDatas();
+		}
 		//量
 		if (sizeDatas.containsKey("10"))
 			model.addAttribute("lSizeDatas", sizeDatas.get("10").getAttributes());
@@ -231,9 +236,53 @@ public class OrderPageController extends AbstractPageController
 		if (sizeDatas.containsKey("30"))
 			model.addAttribute("sSizeDatas", sizeDatas.get("30").getAttributes());
 
-		
+
 		return ControllerConstants.Fragements.SIZEDATAPANEL;
 	}
 
+
+	@RequestMapping(value = "/uploadSizeImage", method = RequestMethod.POST)
+	public @ResponseBody String uploadSizeImage(@RequestParam(value = "fileUpload") final MultipartFile file,
+			@RequestParam(value = "key", required = false) final String entryPK, final HttpServletRequest request)
+	{
+		return orderFacade.uploadMediaForOrderEntry(entryPK, file);
+	}
+	
+	@RequestMapping(value = "/getSizeImage", method = RequestMethod.GET)
+	public String getSizeImage(@RequestParam(value = "entryPK", required = false) final String entryPK, final Model model,final HttpServletRequest request)
+	{
+		model.addAttribute("mediaUrl",orderFacade.getMediaForOrderEntry(entryPK));
+		return   ControllerConstants.Fragements.IMAGE;
+	}
+
+	@RequestMapping(value = "/exportOrder", method = RequestMethod.GET)
+	public @ResponseBody String exportOrder(final HttpServletRequest request,
+			final HttpServletResponse response)
+	{
+
+		String workbookName = "export_orders.xls";
+		String sheetName = "orders";
+		String[] headerNames =
+		{ "下单日期", "订单号", "订单状态", "交易金额", "买家用户名", "卖家用户名", "店铺名" };
+		List<String[]> dataList = new ArrayList<String[]>();
+
+		for (int i = 0; i < 10; i++)
+		{
+			String[] data = new String[7];
+			data[0] = "dd" + i;
+			data[1] = "ss";
+
+			data[2] = "dadf";
+			data[3] = "552";
+			data[4] = "aaaa";
+			data[5] = "bbbbb";
+			data[6] = "ccccc";
+			dataList.add(data);
+		}
+
+		String filePath = ExcelUtils.makeExcel(workbookName, sheetName, headerNames, dataList, request, response);
+
+		return filePath;
+	}
 
 }

@@ -29,6 +29,7 @@ public class OrderEntryData extends AbstractData
 	private String storeName;
 	private String customerName;
 	private Map<String, SizeAttributeGroupData> sizeDatas;
+	private String sizeImageUrl;
 
 	public Integer getEntryNo()
 	{
@@ -229,6 +230,16 @@ public class OrderEntryData extends AbstractData
 	public void setSizeDatas(Map<String, SizeAttributeGroupData> sizeDatas)
 	{
 		this.sizeDatas = sizeDatas;
+	}
+
+	public String getSizeImageUrl()
+	{
+		return sizeImageUrl;
+	}
+
+	public void setSizeImageUrl(String sizeImageUrl)
+	{
+		this.sizeImageUrl = sizeImageUrl;
 	}
 
 }

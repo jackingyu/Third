@@ -72,12 +72,25 @@ public class UserDataBuilder implements DataBuilder
 		lv3_orders.setParentMenu(lv2_sales);
 		menuService.createMenu(lv3_orders);
 
+		MenuModel lv3_reservation = this.buildMenu("23", 3, "预约管理", "/getReservationListPage", "menu-icon-file");
+		lv3_reservation.setParentMenu(lv2_sales);
+		menuService.createMenu(lv3_reservation);
+
+		MenuModel lv3_orderprocess = this.buildMenu("24", 3, "条码管理", "/getOrderProcessPage", "menu-icon-file");
+		lv3_orderprocess.setParentMenu(lv2_sales);
+		menuService.createMenu(lv3_orderprocess);
+
+		MenuModel lv3_orderprocesslist = this.buildMenu("25", 3, "扫码记录查询管理", "/getOrderProcessListPage", "menu-icon-file");
+		lv3_orderprocesslist.setParentMenu(lv2_sales);
+		menuService.createMenu(lv3_orderprocesslist);
+
 		//create role
 		RoleModel role = new RoleModel();
 		role.setRoleId("adminRole");
 		role.setRoleName("管理员角色");
 		role.setDescription("测试管理员的角色的描述文本的橘色");
-		role.setMenus(Arrays.asList(lv3_usergroup, lv3_userlist, lv3_customer, lv3_orders));
+		role.setMenus(Arrays.asList(lv3_usergroup, lv3_userlist, lv3_customer, lv3_orders, lv3_reservation, lv3_orderprocess,
+				lv3_orderprocesslist));
 
 		roleService.createRole(role);
 

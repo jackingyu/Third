@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+	<class name="com.third.model.ReservationModel" table="reservation">
+		<id name="pk" type="java.lang.String">
+			<column name="pk" unique="true" />
+			<generator class="uuid" />
+		</id>
+		<many-to-one name="customer" lazy="false"
+			class="com.third.model.CustomerModel" cascade="refresh"
+			fetch="select">
+			<column name="customerpk" />
+		</many-to-one>
+		<many-to-one name="city" lazy="false"
+			class="com.third.model.CityModel" cascade="refresh"
+			fetch="select">
+			<column name="citycode" />
+		</many-to-one>
+		<many-to-one name="store" lazy="false"
+			class="com.third.model.StoreModel" cascade="refresh"
+			fetch="select">
+			<column name="storepk" />
+		</many-to-one>
+		<property column="name" lazy="false" name="name" type="java.lang.String" />
+		<property column="cellphone" lazy="false" name="cellphone" type="java.lang.String" />
+		<property column="status" lazy="false" name="status" type="java.lang.Integer" />
+		<property column="reservationDate" lazy="false" name="reservationDate" type="java.util.Date" />
+		<property column="channel" lazy="false" name="channel" type="java.lang.String" />
+		<property column="comment" lazy="false" name="comment" type="java.lang.String" />
+		<property name="modificationTime" update="true" insert="true"
+			type="java.util.Date">
+			<column name="modification_time" sql-type="timestamp"/>
+		</property>
+		<property name="createTime" update="false" insert="true"
+			type="java.util.Date">
+			<column name="create_time" sql-type="timestamp"/>
+		</property>
+		<many-to-one name="createdBy" lazy="proxy"
+			class="com.third.model.UserModel" cascade="refresh"
+			fetch="select">
+			<column name="createdby" />
+		</many-to-one>
+	</class>
+</hibernate-mapping>

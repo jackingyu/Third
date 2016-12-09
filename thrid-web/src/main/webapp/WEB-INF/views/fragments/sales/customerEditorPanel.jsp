@@ -3,13 +3,18 @@
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!-- user 编辑页面 -->
+<a  id="createcustomer" href="javascript:void(0)" onClick="ACC.customer.create()" class="easyui-linkbutton" iconCls="icon-add" plain="true"></a>
+<a href="javascript:void(0)" class="easyui-linkbutton"
+				data-options="iconCls:'icon-save',plain:true" onclick="ACC.customer.save()">
+				<spring:message code="customerpanel.save"></spring:message>
+			</a>
  <div id="customerPanel" class="easyui-panel" style="width:600px;" title="<spring:message code="customerpanel.createtitle"/>">
 	<form id="customerForm">
 		   <table cellpadding="5">
 	    		<tr>
 	    			<td><spring:message code="customer.cellphone" /></td>
 	    			<td>
-	    			<input id="customerForm-cellphone" class="easyui-textbox" type="text" name="cellphone" data-options="required:true"></input></td>
+	    			<input id="customerForm-cellphone" class="easyui-textbox" type="text" name="cellphone" data-options="required:true,validType:'cellphoneRex'"></input></td>
 	    		</tr>
 	    		<tr>
 	    			<td><spring:message code="customer.name" /></td>
@@ -61,13 +66,12 @@
 	    		<tr>
 	    			<td><spring:message code="customer.comment" /></td>
 	    			<td>	
-		              <input id="customerForm-comment" class="easyui-textarea" type="text" name="comment">
+		              <input id="customerForm-comment" class="easyui-textbox" data-options="multiline:true" type="text" name="comment">
 		            </td>
 	    		</tr>
 	    	</table>
 	        <div class="form-submit2">
 	             <input id="customerForm-customerPk" name="pk" type="hidden"/>
-	       	    <input style="margin-left:150px;" type="submit" value="<spring:message code="text.submit"/>"></input>
 	        </div>
 	</form>
 </div>

@@ -32,7 +32,7 @@
 		<property column="openamount" lazy="false" name="openamount"
 			type="java.math.BigDecimal" />
 		<property column="status" lazy="false" name="status"
-			type="java.lang.Integer" />
+			type="java.lang.Integer"/>
 		<property name="modificationTime" update="true" insert="true"
 			type="java.util.Date">
 			<column name="modification_time" sql-type="timestamp"/>

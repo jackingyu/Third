@@ -19,6 +19,9 @@
 			    <a href="#"
 					class="easyui-linkbutton" data-options="iconCls:'icon-search'"  id="searchOrderBtn"><spring:message
 						code="form.select" /></a>
+			    <a href="#"
+					class="easyui-linkbutton" data-options="iconCls:'icon-search'"  id="exportOrderBtn"><spring:message
+						code="form.export" /></a>
 						</div>
 			</form>
 		</div>

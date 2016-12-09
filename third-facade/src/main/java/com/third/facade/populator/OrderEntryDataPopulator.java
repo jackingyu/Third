@@ -35,6 +35,7 @@ public class OrderEntryDataPopulator implements Populator<OrderEntryModel, Order
 		target.setCustomerName(StringUtils.isBlank(source.getCustomerName()) ? source.getOrder().getCustomerName() : source
 				.getCustomerName());
       target.setSizeDetails(source.getSizeDetails());
+      target.setSizeImageUrl(source.getSizeImage());
    
 		if (source.getCreatedBy() != null)
 		{

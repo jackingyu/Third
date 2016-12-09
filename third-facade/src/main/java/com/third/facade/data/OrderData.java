@@ -27,7 +27,8 @@ public class OrderData extends AbstractData
 	private StoreData store;
 	private List<OrderEntryData> entries;
 	private String customerName;
-
+   private Integer status;
+   
 	public String getOrderCode()
 	{
 		return orderCode;
@@ -207,6 +208,16 @@ public class OrderData extends AbstractData
 	public void setCustomerName(String customerName)
 	{
 		this.customerName = customerName;
+	}
+
+	public Integer getStatus()
+	{
+		return status;
+	}
+
+	public void setStatus(Integer status)
+	{
+		this.status = status;
 	}
 
 }

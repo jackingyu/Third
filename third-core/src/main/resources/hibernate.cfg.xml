@@ -34,7 +34,8 @@
         <mapping resource="hbm/OrderEntry.hbm.xml"/>
         <mapping resource="hbm/Payment.hbm.xml"/>
         <mapping resource="hbm/SizeAttribute.hbm.xml"/>
-        
+        <mapping resource="hbm/Reservation.hbm.xml"/>
+        <mapping resource="hbm/OrderProcessRecord.hbm.xml"/>
           
     </session-factory>  
 </hibernate-configuration>  

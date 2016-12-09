@@ -51,6 +51,7 @@ ACC.order = {
 	modify : function(value) {
 		$("#orderpanel-basic").panel("setTitle", "修改订单-" + value.orderCode);
 		$("#orderpanel").tabs("enableTab", 1);
+		$("#orderpanel").tabs("select", 0);
 		$("#orderpanel-ordercode").textbox("readonly", true);
 		// $("#customerForm-customerPk").val(value.cellphone);
 		// $("#customerForm-cellphone").textbox("readonly",true);
@@ -81,7 +82,7 @@ ACC.order = {
 						$("#paymentListGrid").datagrid("loadData",
 								data.payments);
 						ACC.orderentry.refreshList();
-						ACC.orderentry.reset();
+						ACC.orderentry.create();
 					},
 					faliure : function() {
 
@@ -240,12 +241,18 @@ ACC.payment = {
 }
 
 ACC.orderentry = {
-	reset : function() {
-		$("#saveOrderEntryLink").linkbutton("disable");
+	reset:function() {
+		if ($("#saveOrderEntryLink").linkbutton("options").disabled == true)
+			$("#saveOrderEntryLink").linkbutton("enable");
+		
+		$("#entryPK").val("");
+		$("#sizeImageUrl").val("");
 		$("#removeOrderEntryLink").linkbutton("disable");
 		$("#orderEntryForm").form("clear");
 		$("#sizeDatasForm").form("clear");
 		$("#orderentry-itemcategory").combobox("enable");
+		$("#uploadSizeImageLink").linkbutton("disable");
+		$("#getSizeImage").linkbutton("disable");
 	},
 	refreshList : function() {
 		if ($("#entryListGrid").datagrid("options").url == null)
@@ -267,8 +274,8 @@ ACC.orderentry = {
 		if ($("#saveOrderEntryLink").linkbutton("options").disabled == true)
 			$("#saveOrderEntryLink").linkbutton("enable");
 			
-	   
 		$("#entryPK").val(value.pk);
+		$("#sizeImageUrl").val(value.sizeImageUrl);
 		$("#orderentry-itemcategory").combobox("setValue", value.itemCategory);
 		$("#orderentry-itemcategory").combobox("disable");
 		$("#orderentry-ordercode").textbox("setValue", value.orderCode);
@@ -282,19 +289,15 @@ ACC.orderentry = {
 		$("#orderentry-deliverydate").datebox("setValue", value.deliveryDate);
 		$("#orderentry-sizedate").datebox("setValue", value.sizeDate);
 		$("#orderentry-comment").textbox("setValue", value.comment);
+		
+		
 		$("#removeOrderEntryLink").linkbutton("enable");
+		$("#uploadSizeImageLink").linkbutton("enable");
+		$("#getSizeImage").linkbutton("enable");
 		ACC.orderentry.getSizeDatasByEntry(value.pk);
 	},
 	create : function() {
-		$("#entryPK").val();
-		$("#removeOrderEntryLink").linkbutton("disable");
-		$("#orderentry-itemcategory").combobox("enable");
-
-		if ($("#saveOrderEntryLink").linkbutton("options").disabled == true)
-			$("#saveOrderEntryLink").linkbutton("enable");
-
-		$("#orderEntryForm").form("clear");
-		$("#sizeDatasForm").form("clear");
+        ACC.orderentry.reset();
 		$.ajax({
 			type : "get",
 			url : ACC.config.contextPath + "/getOrder",
@@ -372,5 +375,33 @@ ACC.orderentry = {
               sizeDatas.push(sizeData);
         });
       return sizeDatas;
+	},
+	uploadImage:function(){
+		var key = $("#entryPK").val();
+		ACC.uploadfile.initUploadWindow(key,"/uploadSizeImage",function(mediaUrl){
+			
+		    $("#sizeImageUrl").val(mediaUrl);
+		    //保证图片的URL加载进datagrid中,这样点击链接的时候可以显示图片
+		    ACC.orderentry.refreshList();
+		});
+	},
+	getSizeImage:function(){
+		if($("#sizeImageUrl").val()==null||$("#sizeImageUrl").val()=="")
+		{
+		    $.messager.alert("系统提示", "暂无图片");
+			return;
+		}
+		
+		 $.colorbox({
+            closeButton:true,
+            href:ACC.config.contextPath+$("#sizeImageUrl").val(),//ACC.config.contextPath+"/getSizeImage"+"?entryPK="+$("#entryPK").val(),
+            onComplete: function() {
+			   ACC.common.refreshScreenReaderBuffer();
+			},
+			onClosed: function() {
+			   ACC.common.refreshScreenReaderBuffer();
+			   $.colorbox.remove();
+			}
+          });
 	}
 }

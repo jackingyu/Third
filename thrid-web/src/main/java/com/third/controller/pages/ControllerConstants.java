@@ -17,6 +17,14 @@ public interface ControllerConstants
 		final static String CUSTOMERLIST = PREFIX + "/sales/customerList";
 		final static String ORDERLIST = PREFIX + "/sales/orderList";
 		final static String SIZEDATAPANEL = PREFIX + "/sales/sizeDataPanel";
+		final static String RESERVATIONLIST = PREFIX + "/sales/reservationList";
+		final static String ORDERPROCESS = PREFIX + "/orderprocess/orderProcess";
+		final static String IMAGE = PREFIX + "/template/image";
 	}
 
+	interface WeiXin
+	{
+		final static String PREFIX="";
+		final static String FIRSTPAGE= "";
+	}
 }

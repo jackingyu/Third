@@ -3,6 +3,7 @@
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="template" tagdir="/WEB-INF/tags/template"%>
+<%@ taglib prefix="common" tagdir="/WEB-INF/tags/common"%>
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head id="Head1">
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
@@ -85,6 +86,8 @@
    
     <jsp:include page="${jucierTplBasePath}/nav/menu.jsp" />
     <jsp:include page="${framentsPath}/template/component.jsp" />
+    <common:fileupload /> 
     
+    <input type="hidden" id="accesibility_refreshScreenReaderBufferField"></input>
 </body>
 </html>

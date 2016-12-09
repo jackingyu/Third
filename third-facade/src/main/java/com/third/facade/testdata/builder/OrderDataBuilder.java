@@ -13,9 +13,11 @@ import com.third.model.CoreConstants.PaymentType;
 import com.third.model.CustomerModel;
 import com.third.model.OrderEntryModel;
 import com.third.model.OrderModel;
+import com.third.model.OrderProcessRecordModel;
 import com.third.model.PaymentModel;
 import com.third.model.StoreModel;
 import com.third.service.customer.CustomerService;
+import com.third.service.order.OrderProcessService;
 import com.third.service.order.OrderService;
 import com.third.service.product.ProductService;
 import com.third.service.store.StoreService;
@@ -34,16 +36,31 @@ public class OrderDataBuilder implements DataBuilder
 
 	@Resource(name = "productService")
 	private ProductService productService;
+	
+	@Resource(name="orderProcessService")
+	private OrderProcessService orderProcessService;
 
 	@Override
 	public void buildData()
 	{
 		for (int i = 0; i < 20; i++)
 		{
-			buildOrder("o-" + i);
+			OrderModel order = buildOrder("o-" + i);
+			buildOrderProcess(order);
 		}
 	}
 
+	public void buildOrderProcess(final OrderModel orderModel)
+	{
+		OrderProcessRecordModel op = new OrderProcessRecordModel();
+		op.setMessage("dadfds");
+		op.setOrderCode(orderModel.getCode());
+		op.setFromStatus("0");
+		op.setToStatus("1");
+		orderProcessService.createOrderProcess(op);
+		
+	}
+	
 	public OrderModel buildOrder(final String orderCode)
 	{
 		OrderModel orderModel = new OrderModel();
@@ -60,7 +77,7 @@ public class OrderDataBuilder implements DataBuilder
 		orderModel.setWeddingDate(getNextDay(today, 20));
 		orderModel.setReceiveable(BigDecimal.valueOf(1000.00));
 		orderModel.setOpenamount(BigDecimal.valueOf(500.00));
-
+      orderModel.setStatus(0);
 		CustomerModel customer = customerService.getCustomerByCellphone("13800138000");
 		orderModel.setCustomer(customer);
 

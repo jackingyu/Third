@@ -19,6 +19,9 @@
 .icon-cut{
 	background:url('icons/cut.png') no-repeat center center;
 }
+.icon-upload{
+	background:url('icons/upload.png') no-repeat center center;
+}
 .icon-ok{
 	background:url('icons/ok.png') no-repeat center center;
 }

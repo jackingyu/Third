@@ -17,6 +17,13 @@
    <listener>
      <listener-class>org.springframework.web.util.Log4jConfigListener</listener-class>
   </listener>
+  
+   <listener>   
+    <listener-class>   
+    org.springframework.web.util.WebAppRootListener   
+    </listener-class>   
+ </listener>
+  
   <context-param>
     <param-name>contextConfigLocation</param-name>
     <param-value>WEB-INF/config/thirdweb-spring.xml</param-value>
@@ -26,7 +33,10 @@
      <param-name>log4jConfigLocation</param-name>
      <param-value>/WEB-INF/properties/log4j.properties</param-value>
  </context-param>
-
+  <context-param>   
+    <param-name>webAppRootKey</param-name>   
+    <param-value>system.root</param-value> 
+  </context-param>   
 
   <filter>
     <filter-name>characterEncodingFilter</filter-name>
@@ -99,6 +109,10 @@
     <servlet-mapping>  
         <servlet-name>default</servlet-name>  
         <url-pattern>*.js</url-pattern>  
+    </servlet-mapping>  
+    <servlet-mapping>  
+        <servlet-name>default</servlet-name>  
+        <url-pattern>*.xls</url-pattern>  
     </servlet-mapping>  
     
   <servlet>

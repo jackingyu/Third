@@ -3,7 +3,6 @@
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 <div class="addedTabPanel">
 	<div id="customerlist-tb">
-		<a  id="createcustomer" href="#" class="easyui-linkbutton" iconCls="icon-add" plain="true"></a>
 		<div class="searchcondition">
 			<form id="searchCustomerForm">
 				<span><spring:message code="customer.cellphone" /></span> <input

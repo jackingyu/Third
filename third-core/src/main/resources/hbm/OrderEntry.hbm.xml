@@ -59,6 +59,11 @@
 				<comment>量身单的数据的序列化</comment>
 			</column>
 		</property>
+		<property name="sizeImage" type="java.lang.String">
+			<column name="sizeimage" length="300">
+				<comment>量身单图片</comment>
+			</column>
+		</property>
 		<many-to-one name="order" lazy="proxy"
 			class="com.third.model.OrderModel" cascade="refresh"
 			fetch="select">

@@ -11,6 +11,7 @@ public class StoreDataPopulator implements Populator<StoreModel, StoreData>
 	public void populate(StoreModel source, StoreData target)
 	{
 		target.setPk(source.getPk());
+		target.setCode(source.getId());
 		target.setName(source.getName());
 	}
 

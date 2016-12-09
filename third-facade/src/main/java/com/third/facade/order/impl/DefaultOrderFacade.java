@@ -1,16 +1,19 @@
 package com.third.facade.order.impl;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
+import java.util.UUID;
 import java.util.stream.Collectors;
 
 import org.apache.commons.lang3.StringUtils;
 import org.apache.log4j.Logger;
 import org.springframework.util.CollectionUtils;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.alibaba.fastjson.JSON;
 import com.third.dao.util.PaginationSupport;
@@ -21,10 +24,12 @@ import com.third.facade.data.SizeAttributeData;
 import com.third.facade.data.SizeAttributeGroupData;
 import com.third.facade.data.TextMapper;
 import com.third.facade.order.OrderFacade;
+import com.third.facade.populator.ConfigurablePopulator;
 import com.third.facade.populator.OrderDataPopulator;
 import com.third.facade.populator.OrderEntryDataPopulator;
 import com.third.facade.populator.SizeAttributeDataPopulator;
-import com.third.facade.utils.TextMapperUtils;
+import com.third.facade.populator.option.OrderOption;
+import com.third.model.CoreConstants;
 import com.third.model.CustomerModel;
 import com.third.model.OrderEntryModel;
 import com.third.model.OrderModel;
@@ -33,6 +38,7 @@ import com.third.model.SizeAttributeModel;
 import com.third.model.StoreModel;
 import com.third.service.customer.CustomerService;
 import com.third.service.customer.SourceService;
+import com.third.service.media.MediaService;
 import com.third.service.order.OrderService;
 import com.third.service.product.SizeAttributeService;
 import com.third.service.store.StoreService;
@@ -44,12 +50,14 @@ public class DefaultOrderFacade implements OrderFacade
 	private OrderService orderService;
 	private CustomerService customerService;
 	private OrderDataPopulator orderDataPopulator;
+	private ConfigurablePopulator<OrderModel, OrderData, OrderOption> orderConfiguredPopulator;
 	private OrderEntryDataPopulator orderEntryDataPopulator;
 	private SizeAttributeDataPopulator sizeAttributeDataPopulator;
 	private UserService userService;
 	private StoreService storeService;
 	private SourceService sourceService;
 	private SizeAttributeService sizeAttributeService;
+	private MediaService mediaService;
 	private static final Logger LOG = Logger.getLogger(DefaultOrderFacade.class);
 
 	@Override
@@ -127,6 +135,15 @@ public class DefaultOrderFacade implements OrderFacade
 		OrderModel order = orderService.getOrderForCode(orderCode);
 		OrderData orderData = new OrderData();
 		orderDataPopulator.populate(order, orderData);
+		return orderData;
+	}
+	
+	@Override
+	public OrderData getOrderForOptions(String orderCode,Collection<OrderOption> orderOptions)
+	{
+		OrderModel order = orderService.getOrderForCode(orderCode);
+		OrderData orderData = new OrderData();
+		orderConfiguredPopulator.populate(order, orderData, orderOptions);
 		return orderData;
 	}
 
@@ -296,6 +313,23 @@ public class DefaultOrderFacade implements OrderFacade
       
 		return entry;
 	}
+	
+	public String uploadMediaForOrderEntry(final String entryPK,final MultipartFile media)
+	{
+		final String mediaId = UUID.randomUUID().toString();
+		final String mediaUrl = mediaService.createMedia(mediaId, CoreConstants.MediaFolder.SizeOrderFolder, media);
+		OrderEntryModel orderEntry = orderService.getOrderEntry(entryPK);
+		orderEntry.setSizeImage(mediaUrl);
+		orderService.updateOrderEntry(orderEntry);
+		
+		return mediaUrl;
+	}
+	
+	public String getMediaForOrderEntry(final String entryPK)
+	{
+		OrderEntryModel entry = orderService.getOrderEntry(entryPK);
+		return entry.getSizeImage();
+	}
 
 	public void setOrderService(OrderService orderService)
 	{
@@ -340,6 +374,16 @@ public class DefaultOrderFacade implements OrderFacade
 	public void setOrderEntryDataPopulator(OrderEntryDataPopulator orderEntryDataPopulator)
 	{
 		this.orderEntryDataPopulator = orderEntryDataPopulator;
+	}
+
+	public void setMediaService(MediaService mediaService)
+	{
+		this.mediaService = mediaService;
+	}
+
+	public void setOrderConfiguredPopulator(ConfigurablePopulator<OrderModel, OrderData, OrderOption> orderConfiguredPopulator)
+	{
+		this.orderConfiguredPopulator = orderConfiguredPopulator;
 	}
 
 	

@@ -1,10 +1,5 @@
 ACC.customerlist = {
 	init:function() {
-		$("#createcustomer").unbind();
-		$("#createcustomer").on("click",function(){
-			ACC.customer.create();
-		});
-		
 		$("#searchCustomerBtn").unbind();
 		$("#searchCustomerBtn").on("click",function(){
 			var searchForm = $("#searchCustomerForm").form();

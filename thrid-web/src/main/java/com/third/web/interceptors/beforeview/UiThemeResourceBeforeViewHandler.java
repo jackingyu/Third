@@ -23,6 +23,9 @@ public class UiThemeResourceBeforeViewHandler implements BeforeViewHandler
 		modelAndView.addObject("jucierTplBasePath", "/WEB-INF/views/juicer");
 		modelAndView.addObject("framentsPath", "/WEB-INF/views/fragments");
 		modelAndView.addObject("contextPath", "/thrid-web");
+		modelAndView.addObject("WXImagePath", "/thrid-web/ui/images/weixin");
+		modelAndView.addObject("WXJsPath", "/thrid-web/ui/js/weixin");
+		modelAndView.addObject("WXCssPath", "/thrid-web/ui/css/weixin");
 	}
 
 }

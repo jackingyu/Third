@@ -50,6 +50,9 @@
     <alias name="defaultOrderEntryDao" alias="orderEntryDao"></alias>
     <bean id="defaultOrderEntryDao" class="com.third.dao.order.impl.DefaultOrderEntryDao" parent="genericDAO"></bean>
   
+    <alias name="defaultOrderProcessRecordDao" alias="orderProcessRecordDao"></alias>
+    <bean id="defaultOrderProcessRecordDao" class="com.third.dao.order.impl.DefaultOrderProcessRecordDao" parent="genericDAO"></bean>
+  
     <alias name="defaultProductDao" alias="productDao"></alias>
     <bean id="defaultProductDao" class="com.third.dao.product.impl.DefaultProductDao" parent="genericDAO"></bean>
 	
@@ -58,6 +61,9 @@
 	
     <alias name="defaultSizeAttributeDao" alias="sizeAttributeDao"></alias>
     <bean id="defaultSizeAttributeDao" class="com.third.dao.product.impl.DefaultSizeAttributeDao" parent="genericDAO"></bean>
+	
+    <alias name="defaultReservationDao" alias="reservationDao"></alias>
+    <bean id="defaultReservationDao" class="com.third.dao.customer.impl.DefaultReservationDao" parent="genericDAO"></bean>
 	
 	<alias name="defaultUserService" alias="userService"></alias>
 	<bean id="defaultUserService" class="com.third.service.user.impl.DefaultUserService">
@@ -102,6 +108,11 @@
 	     <property name="orderDao" ref="orderDao" />
 	     <property name="orderEntryDao" ref="orderEntryDao" />
 	</bean>
+   <alias name="defaultOrderProcessService" alias="orderProcessService"></alias>
+	<bean id="defaultOrderProcessService" class="com.third.service.order.impl.DefaultOrderProcessService">
+	     <property name="orderDao" ref="orderDao" />
+	     <property name="orderProcessRecordDao" ref="orderProcessRecordDao" />
+	</bean>
 	
    <alias name="defaultProductService" alias="productService"></alias>
 	<bean id="defaultProductService" class="com.third.service.product.impl.DefaultProductService">
@@ -112,5 +123,21 @@
 	<bean id="defaultSizeAttributeService" class="com.third.service.product.impl.DefaultSizeAttributeService">
 	     <property name="sizeAttributeDao" ref="sizeAttributeDao" />
 	</bean>
+	
+	<alias name="defaultReservationService" alias="reservationService"></alias>
+	<bean id="defaultReservationService" class="com.third.service.customer.impl.DefaultReservationService">
+	     <property name="reservationDao" ref="reservationDao" />
+	</bean>
+	
+   <alias name="defaultMediaStorageStrategy" alias="mediaStorageStrategy"></alias>
+	<bean id="defaultMediaStorageStrategy" class="com.third.service.media.impl.DefaultMediaStorageStrategy">
+	</bean>
+	
+   <alias name="defaultMediaService" alias="mediaService"></alias>
+	<bean id="defaultMediaService" class="com.third.service.media.impl.DefaultMediaService">
+	     <property name="mediaStorageStrategy" ref="mediaStorageStrategy" />
+	</bean>
+	
+	
 </beans>
  

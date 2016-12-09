@@ -289,4 +289,13 @@ public class DefaultUserFacade implements UserFacade
 
 	}
 
+	@Override
+	public UserData getCurrentUser()
+	{
+		UserModel user = userService.getCurrentUser();
+		UserData userData = new UserData();
+		userDataPopulator.populate(user, userData);
+		return userData;
+	}
+
 }

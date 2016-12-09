@@ -23,8 +23,13 @@
 	        <ref bean="productDataBuilder"></ref>
 	        <ref bean="orderDataBuilder"></ref>
 	        <ref bean="sizeAttributeDataBuilder"></ref>
+	        <ref bean="reservationDataBuilder"></ref>
 	      </list>
 	   </property>
+	</bean>
+	
+	<alias name="defaultReservationDataBuilder" alias="reservationDataBuilder"></alias>
+	<bean id="defaultReservationDataBuilder" class="com.third.facade.testdata.builder.ReservationDataBuilder">
 	</bean>
 	
 	<alias name="defaultUserDataBuilder" alias="userDataBuilder"></alias>
@@ -97,12 +102,31 @@
 	    <property name="storeService" ref="storeService"></property>
 	    <property name="userService" ref="userService"></property>
 	    <property name="customerService" ref="customerService"></property>
+	    <property name="mediaService" ref="mediaService"></property>
 	    <property name="sizeAttributeService" ref="sizeAttributeService"></property>
 	    <property name="orderDataPopulator" ref="orderDataPopulator"></property>
+	    <property name="orderConfiguredPopulator" ref="orderConfiguredPopulator"></property>
 	    <property name="orderEntryDataPopulator" ref="orderEntryDataPopulator"></property>
 	    <property name="sizeAttributeDataPopulator" ref="sizeAttributeDataPopulator"></property>
 	</bean>
+	
+	<alias name="defaultOrderProcessFacade" alias="orderProcessFacade"></alias>
+	<bean id="defaultOrderProcessFacade" class="com.third.facade.order.impl.DefaultOrderProcessFacade">
+	    <property name="orderService" ref="orderService"></property>
+	    <property name="orderProcessService" ref="orderProcessService"></property>
+	    <property name="userService" ref="userService"></property>
+	    <property name="orderProcessRecordDataPopulator" ref="orderProcessRecordDataPopulator"></property>
+	</bean>
+	
+	<alias name="defaultReservationFacade" alias="reservationFacade"></alias>
+	<bean id="defaultReservationFacade" class="com.third.facade.customer.impl.DefaultReservationFacade">
+	    <property name="reservationService" ref="reservationService"></property>
+	    <property name="storeService" ref="storeService"></property>
+	    <property name="customerService" ref="customerService"></property>
+	    <property name="reservationDataPopulator" ref="reservationDataPopulator"></property>
+	</bean>
     
+    <!-- start of populator  -->
     <alias name="defaultMenuDataPopulator" alias="menuDataPopulator"></alias>
     <bean id="defaultMenuDataPopulator" class="com.third.facade.populator.MenuDataPopulator">
     </bean>
@@ -173,5 +197,43 @@
     
     <bean id="textMapperUtils" class="com.third.facade.utils.TextMapperUtils">
     </bean>
+    
+    <alias name="defaultOrderConfiguredPopulator" alias="orderConfiguredPopulator" />
+	<bean id="defaultOrderConfiguredPopulator"
+		class="com.third.facade.populator.DefaultConfigurablePopulator">
+		<property name="populators">
+			<map key-type="com.third.facade.populator.option.OrderOption">
+				<entry key="BASIC" value-ref="orderBasicPopulator" />
+				<entry key="ENTRIES" value-ref="orderEntryPopulator" />
+				<entry key="PAYMENTS" value-ref="orderPaymentPopulator" />
+			</map>
+		</property>
+	</bean>
+	
+	 <alias name="defaultOrderBasicPopulator" alias="orderBasicPopulator" />
+	 <bean id="defaultOrderBasicPopulator" class="com.third.facade.populator.OrderBasicPopulator">
+         <property name="sourceDataPopulator" ref="sourceDataPopulator"></property>
+         <property name="storeDataPopulator" ref="storeDataPopulator"></property>
+         <property name="userDataPopulator" ref="userDataPopulator"></property>
+         <property name="customerDataPopulator" ref="customerDataPopulator"></property>
+     </bean>
+    
+     <alias name="defaultOrderEntryPopulator" alias="orderEntryPopulator" />
+	 <bean id="defaultOrderEntryPopulator" class="com.third.facade.populator.OrderEntryPopulator">
+         <property name="orderEntryDataPopulator" ref="orderEntryDataPopulator"></property>
+    </bean>
+    
+     <alias name="defaultOrderPaymentPopulator" alias="orderPaymentPopulator" />
+     <bean id="defaultOrderPaymentPopulator" class="com.third.facade.populator.OrderPaymentPopulator">
+         <property name="paymentDataPopulator" ref="paymentDataPopulator"></property>
+     </bean>
+     
+     <alias name="defaultReservationDataPopulator" alias="reservationDataPopulator" />
+     <bean id="defaultReservationDataPopulator" class="com.third.facade.populator.ReservationDataPopulator">
+     </bean>
+     
+     <alias name="defaultOrderProcessRecordDataPopulator" alias="orderProcessRecordDataPopulator" />
+     <bean id="defaultOrderProcessRecordDataPopulator" class="com.third.facade.populator.OrderProcessRecordDataPopulator">
+     </bean>
 </beans>
  

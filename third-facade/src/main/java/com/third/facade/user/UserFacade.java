@@ -65,4 +65,6 @@ public interface UserFacade
 	void updateUser(UserData user);
 
 	UserData getUserById(final String userId);
+	
+	UserData getCurrentUser();
 }

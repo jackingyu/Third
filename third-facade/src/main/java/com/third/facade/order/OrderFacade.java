@@ -1,13 +1,18 @@
 package com.third.facade.order;
 
+import java.util.Collection;
+import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
+
+import org.springframework.web.multipart.MultipartFile;
 
 import com.third.facade.data.ListData;
 import com.third.facade.data.OrderData;
 import com.third.facade.data.OrderEntryData;
 import com.third.facade.data.SizeAttributeGroupData;
+import com.third.facade.populator.option.OrderOption;
 
 
 public interface OrderFacade
@@ -16,7 +21,10 @@ public interface OrderFacade
 
 	ListData getOrders(Date startDate, Date endDate, Integer startIndex, Integer pageSize, Map<String, String> sp);
 
+	@Deprecated
 	OrderData getOrder(final String orderCode);
+	
+	OrderData getOrderForOptions(final String orderCode,final Collection<OrderOption> orderOption);
 
 	void updateOrder(final OrderData order);
 
@@ -33,5 +41,8 @@ public interface OrderFacade
 	Map<String, SizeAttributeGroupData> getSizeAttributes(final Integer itemCategory);
 
 	OrderEntryData getSizeDatas(String orderEntryPK);
+	
+	String uploadMediaForOrderEntry(final String entryPK,final MultipartFile media);
 
+	String getMediaForOrderEntry(final String entryPK);
 }

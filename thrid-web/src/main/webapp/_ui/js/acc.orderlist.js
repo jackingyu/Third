@@ -15,6 +15,11 @@ ACC.orderlist = {
 				$("#orderListGrid").datagrid("load",serializeObject(searchForm));
 		});
 		
+		$("#exportOrderBtn").unbind();
+		$("#exportOrderBtn").on("click",function(){
+			ACC.orderlist.exportOrder();
+		});
+		
 		$("#orderListGrid").datagrid({
 		//	url:ACC.config.contextPath+"/getOrderList",
 			singleSelect:true,
@@ -54,6 +59,15 @@ ACC.orderlist = {
 				}
 		});
 		
+	},
+	exportOrder:function(){
+		$.ajax({
+			type : "get",
+			url : ACC.config.contextPath + "/exportOrder",
+			success : function(data) {
+				window.location.href = ACC.config.contextPath+"/"+data;
+			}
+		});
 	}
 }
 
