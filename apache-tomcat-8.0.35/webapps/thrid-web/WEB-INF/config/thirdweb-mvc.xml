@@ -69,7 +69,7 @@
 	
      <bean id="viewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver">  
           <property name="viewClass" value="org.springframework.web.servlet.view.JstlView"/>     <!-- 支持JSTL -->  
-          <property name="prefix" value="WEB-INF/views" />     <!-- 模板的路径 -->  
+          <property name="prefix" value="/WEB-INF/views" />     <!-- 模板的路径 -->  
           <property name="suffix" value=".jsp" />                 <!-- 模板文件的后缀-->  
      </bean>
      

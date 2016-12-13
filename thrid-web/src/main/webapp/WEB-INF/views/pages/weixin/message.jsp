@@ -1,4 +1,7 @@
-﻿<!DOCTYPE html>
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<%@ page import="com.third.controller.weixin.WXConstant" %>
+<%@ taglib prefix="template" tagdir="/WEB-INF/tags/template"%>
+<%@ taglib prefix="common" tagdir="/WEB-INF/tags/common"%>
 <html lang="zh-cn">
 <head>
 <meta charset="utf-8">
@@ -7,8 +10,7 @@
 	content="width=device-width, initial-scale=1.0, user-scalable=no">
 <title>铂玛西服</title>
 <!-- Bootstrap -->
-<link rel="stylesheet" href="${pageContext.request.contextPath}/wx/css/bootstrap.min.css">
-<link rel="stylesheet" href="${pageContext.request.contextPath}/wx/css/wx.css">
+<template:wxcss />
 <%@ include file="inc/stat.jsp"%>
 </head>
 <body>

@@ -170,6 +170,7 @@
     
     <alias name="defaultStoreDataPopulator" alias="storeDataPopulator"></alias>
     <bean id="defaultStoreDataPopulator" class="com.third.facade.populator.StoreDataPopulator">
+        <property name="addressDataPopulator" ref="addressDataPopulator"></property>
     </bean>
     
     <alias name="defaultOrderDataPopulator" alias="orderDataPopulator"></alias>

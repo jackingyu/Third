@@ -1,6 +1,7 @@
 package com.third.dao.customer.impl;
 
 import java.util.Date;
+import java.util.List;
 
 import org.hibernate.FetchMode;
 import org.hibernate.criterion.DetachedCriteria;
@@ -15,7 +16,8 @@ import com.third.model.ReservationModel;
 
 public class DefaultReservationDao extends GenericDAO<ReservationModel, String> implements ReservationDao
 {
-	private String FIND_RESERVATION = "from com.third.model.Reservation r where r.reservationDate >= ? and r.reservationDate <= ?";;
+	private String FIND_RESERVATION = "from com.third.model.ReservatioModel r where r.reservationDate >= ? and r.reservationDate <= ?";
+	private String FIND_CUST_RESERVATION = "from com.third.model.ReservationModel r where r.customer.pk= ?";
 
 	@Override
 	public PaginationSupport findReservations(final String storeCode,final String cellphone, final String name, final Date fromDate, final Date toDate,
@@ -35,6 +37,12 @@ public class DefaultReservationDao extends GenericDAO<ReservationModel, String> 
 		PaginationSupport ps = findPageByCriteria(dc, pageSize, startIndex);
 
 		return ps;
+	}
+
+	@Override
+	public List<ReservationModel> findReservationsForCustomer(String customerPK)
+	{
+		return find(FIND_CUST_RESERVATION, customerPK);
 	}
 
 

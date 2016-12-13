@@ -1,7 +1,9 @@
 package com.third.facade.order.impl;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -384,6 +386,25 @@ public class DefaultOrderFacade implements OrderFacade
 	public void setOrderConfiguredPopulator(ConfigurablePopulator<OrderModel, OrderData, OrderOption> orderConfiguredPopulator)
 	{
 		this.orderConfiguredPopulator = orderConfiguredPopulator;
+	}
+
+	@Override
+	public List<OrderData> getOrdersForCustomer(String cellphone)
+	{
+		CustomerModel customer = customerService.getCustomerByCellphone(cellphone);
+		List<OrderModel> orders = orderService.getOrdersForCustomer(customer.getPk());
+		if(CollectionUtils.isEmpty(orders))
+			return Collections.EMPTY_LIST;
+		
+		List<OrderData> orderDatas = new ArrayList<OrderData>();
+		List<OrderOption> orderOptions = Arrays.asList(OrderOption.BASIC);
+		orders.forEach( o-> {
+			OrderData od = new OrderData();
+			orderConfiguredPopulator.populate(o, od, orderOptions);
+			orderDatas.add(od);
+		});
+		
+		return orderDatas;
 	}
 
 	

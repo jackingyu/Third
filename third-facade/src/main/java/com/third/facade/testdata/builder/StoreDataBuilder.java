@@ -34,25 +34,41 @@ public class StoreDataBuilder implements DataBuilder
 	@Override
 	public void buildData()
 	{
-		RegionModel region = buildRegion("cn11", "customer region");
-		CityModel city = buildCity("cn12", "customer city", region);
-		AddressModel address = buildAddress(region, city, "shanghai street");
+		RegionModel region = buildRegion("cn11", "上海市");
+		CityModel city = buildCity("cn12", "上海市", region);
+		RegionModel region1 = buildRegion("CN13", "江苏省");
+		CityModel city1 = buildCity("CN14", "泰州市", region);
+		AddressModel address = buildAddress(region, city, "闵行区平吉路88弄");
+		AddressModel address1 = buildAddress(region1, city1, "泰兴市江平路22号");
 		StoreModel store = buildStore("s-1", "南方一店", address);
 
 		for (int i = 2; i < 30; i++)
 		{
 			String storeName = "默认店名";
+			
 
-			if (i > 5)
+			if (i <= 10)
+			{
 				storeName = "南方" + i + "店";
+				buildStore("s-" + i, storeName, address);
+				continue;
+			}
 
-			if (i > 8)
+			if (i > 10 && i <= 20)
+			{
+				
 				storeName = "北方" + i + "店";
+				buildStore("s-" + i, storeName, address);
+				continue;
+			}
 
-			if (i > 10)
+			if (i > 20)
+			{
 				storeName = "森林" + i + "店";
-
-			buildStore("s-" + i, storeName, address);
+				buildStore("s-" + i, storeName, address1);
+				continue;
+				
+			}
 		}
 
 		List<UserModel> userList = userDao.list();
@@ -72,8 +88,8 @@ public class StoreDataBuilder implements DataBuilder
 
 		for (int i = 0; i < 100; i++)
 		{
-			AddressModel address1 = buildAddress(region, city, "shanghai street" + i);
-			buildCustomer("1380013800" + i, "fly" + i, address1);
+			AddressModel address5 = buildAddress(region, city, "shanghai street" + i);
+			buildCustomer("1380013800" + i, "fly" + i, address5);
 		}
 
 		for (int i = 0; i < 100; i++)
@@ -144,6 +160,7 @@ public class StoreDataBuilder implements DataBuilder
 		address.setCity(city);
 		address.setRegion(region);
 		address.setAdr1(adr1);
+		address.setTel1("02160306796");
 		i18NService.createAddress(address);
 		return address;
 	}

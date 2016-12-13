@@ -1,6 +1,7 @@
 package com.third.dao.order;
 
 import java.util.Date;
+import java.util.List;
 import java.util.Map;
 
 import com.third.dao.generic.IGenericDAO;
@@ -15,4 +16,5 @@ public interface OrderDao extends IGenericDAO<OrderModel, String>
 	PaginationSupport findOrders(Date startDate, Date endDate, Integer startIndex, Integer pageSize,
 			Map<String, String> searchParameter);
 
+	List<OrderModel> findOrdersForCustomer(final String customerPK);
 }

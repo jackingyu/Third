@@ -18,4 +18,6 @@ public interface CustomerFacade
 	ListData getCustomers(final String cellphone, final String name, final Integer startIndex, final Integer pageSize);
 
 	List<SourceData> getSources();
+	
+	public CustomerData getCurrentCustomer();
 }

@@ -43,4 +43,11 @@ public class DefaultReservationService implements ReservationService
 		this.reservationDao = reservationDao;
 	}
 
+	@Override
+	public List<ReservationModel> getReservationsForCustomer(String customerPK)
+	{
+		return reservationDao.findReservationsForCustomer(customerPK);
+				
+	}
+
 }

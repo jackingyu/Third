@@ -1,11 +1,14 @@
-﻿<!DOCTYPE html>
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<%@ page import="com.third.controller.weixin.WXConstant" %>
+<%@ taglib prefix="template" tagdir="/WEB-INF/tags/template"%>
+<%@ taglib prefix="common" tagdir="/WEB-INF/tags/common"%>
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
 <link href="http://libs.baidu.com/bootstrap/3.0.3/css/bootstrap.min.css" rel="stylesheet">
-<link rel="stylesheet" href="${contextPath}/wx/css/wx.css">
-<link rel="stylesheet" href="${contextPath}/wx/css/onepage-scroll.css" />
+<link rel="stylesheet" href="${WXCssPath}/css/wx.css">
+<link rel="stylesheet" href="${WXCssPath}/css/onepage-scroll.css" />
 <style>
 .page1 { background-color: #0A0A0B;}
 .page2 { background-color: #BFB09D;}
@@ -21,18 +24,18 @@ margin:30px;
 .img{ width:100%; }
 </style>
 <title>欢迎关注铂玛男士礼服</title>
-<%@ include file="inc/stat.jsp"%>
+<%-- <%@ include file="inc/stat.jsp"%> --%>
 </head>
 <body>
 <div class="main">
 	<div class="page page1">
-		<img class="img" date-small="${WXImagePath}/welcome1.jpg" date-big="${pageContext.request.contextPath}/wx/img/welcome1.jpg" src="${pageContext.request.contextPath}/wx/img/welcome1.jpg" alt="量身定制">
+		<img class="img" date-small="${WXImagePath}/welcome1.jpg" date-big="${WXImagePath}/welcome1.jpg" src="${WXImagePath}/welcome1.jpg" alt="量身定制">
 	</div>
 	<div class="page page2">
-		<img class="img" date-small="${WXImagePath}/welcome2.jpg" date-big="${pageContext.request.contextPath}/wx/img/welcome2.jpg" src="${pageContext.request.contextPath}/wx/img/welcome2.jpg" alt="品牌历史">
+		<img class="img" date-small="${WXImagePath}/welcome2.jpg" date-big="${WXImagePath}/welcome2.jpg" src="${WXImagePath}/welcome2.jpg" alt="品牌历史">
 	</div>
 	<div class="page page3">
-		<img class="img" date-small="${WXImagePath}/welcome3.jpg" date-big="${pageContext.request.contextPath}/wx/img/welcome3.jpg" src="${pageContext.request.contextPath}/wx/img/welcome3.jpg" alt="绅士文化">
+		<img class="img" date-small="${WXImagePath}/welcome3.jpg" date-big="${WXImagePath}/welcome3.jpg" src="${WXImagePath}/welcome3.jpg" alt="绅士文化">
 	</div>
 </div>
 <script src="http://libs.baidu.com/jquery/2.1.1/jquery.min.js"></script>

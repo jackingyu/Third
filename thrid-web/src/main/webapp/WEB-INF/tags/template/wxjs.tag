@@ -5,6 +5,10 @@
 
 <template:javaScriptVariables/>
 
-<spring:url value="/_ui/js/acc.uploadfile.js" var="uploadfileJs" />
-<script type="text/javascript" src="${uploadfileJs}"></script>
+<script src="${WXJsPath}/jquery-2.1.1.min.js"></script>
+<script src="${WXJsPath}/blaimar.js"></script>
+<script src="${WXJsPath}/bootstrap.min.js"></script>
+<script src="${WXJsPath}/bootstrap-datetimepicker.min.js"></script>
+<script src="${WXJsPath}/locales/bootstrap-datetimepicker.zh-CN.js"></script>
+
 

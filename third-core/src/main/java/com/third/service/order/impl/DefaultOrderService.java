@@ -1,6 +1,7 @@
 package com.third.service.order.impl;
 
 import java.util.Date;
+import java.util.List;
 import java.util.Map;
 
 import com.third.dao.order.OrderDao;
@@ -82,5 +83,12 @@ public class DefaultOrderService implements OrderService
 	public OrderEntryModel getOrderEntry(String entryPK)
 	{
 		return orderEntryDao.get(entryPK);
+	}
+
+
+	@Override
+	public List<OrderModel> getOrdersForCustomer(String customerPK)
+	{
+		return orderDao.findOrdersForCustomer(customerPK);
 	}
 }

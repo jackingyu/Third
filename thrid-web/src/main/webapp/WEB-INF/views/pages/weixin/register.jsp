@@ -1,16 +1,16 @@
-﻿<%@ page import="com.xiangbei.weixin.util.WXConstant" %>
-<!DOCTYPE html>
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<%@ page import="com.third.controller.weixin.WXConstant" %>
+<%@ taglib prefix="template" tagdir="/WEB-INF/tags/template"%>
+<%@ taglib prefix="common" tagdir="/WEB-INF/tags/common"%>
 <html lang="zh-cn">
- <head>
+<head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <title>会员注册</title>
     
 <!-- Bootstrap -->
-<link rel="stylesheet" href="${pageContext.request.contextPath}/wx/css/bootstrap.min.css">
-<link rel="stylesheet" href="${pageContext.request.contextPath}/wx/css/wx.css">
-<%@ include file="inc/stat.jsp"%>
+<template:wxcss></template:wxcss>
 </head>
 
   <body>
@@ -65,9 +65,7 @@
 			<p>1. 根据省份，城市，地区不同，一般会在5秒-60秒内收到验证码。如未收到，您可以在60秒后重新获取。</p>
 		</div>
 	</form>
-
-	<script src="${pageContext.request.contextPath}/wx/js/jquery-2.1.1.min.js"></script>
-	<script src="${pageContext.request.contextPath}/wx/js/blaimar.js"></script>
+    <template:wxjs/>
 	<script>
 	
 	//判断是否需要显示错误消息

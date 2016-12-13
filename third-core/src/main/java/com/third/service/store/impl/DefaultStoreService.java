@@ -34,4 +34,10 @@ public class DefaultStoreService implements StoreService
 	{
 		return storeDao.getStoreForCode(code);
 	}
+
+	@Override
+	public List<StoreModel> getAllStores()
+	{
+		return storeDao.list();
+	}
 }

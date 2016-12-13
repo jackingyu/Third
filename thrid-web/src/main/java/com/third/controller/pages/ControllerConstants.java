@@ -24,7 +24,19 @@ public interface ControllerConstants
 
 	interface WeiXin
 	{
-		final static String PREFIX="";
-		final static String FIRSTPAGE= "";
+		final static String PREFIX="/pages/weixin";
+		final static String FIRSTPAGE= PREFIX+"/first_page";
+		final static String REGISTERPAGE= PREFIX+"/register";
+		final static String ORDERLISTPAGE= PREFIX+"/orderlist";
+		final static String ORDERDETAILPAGE= PREFIX+"/orderdetail";
+		
+		final static String RESERVATIONPAGE= PREFIX+"/reservation";
+		final static String RESERVATIONMODIFYPAGE= PREFIX+"/reservationmodify";
+		static final String RESERVATIONLISTPAGE = PREFIX+"/reservationlist";
+		static final String RESERVATIONDETAILPAGE = PREFIX+"/reservationdetail";
+		
+		static final String STORELISTPAGE = PREFIX+"/storelist";
+		static final String STOREDETAILPAGE = PREFIX+"/storedetail";
+		
 	}
 }

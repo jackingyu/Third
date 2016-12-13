@@ -6,6 +6,7 @@ import org.apache.log4j.Logger;
 import com.third.facade.data.CustomerData;
 import com.third.facade.data.OrderData;
 import com.third.facade.data.StoreData;
+import com.third.facade.data.TextMapper;
 import com.third.model.OrderModel;
 
 
@@ -30,8 +31,11 @@ public class OrderBasicPopulator implements Populator<OrderModel, OrderData>
 		if (source.getCustomer() != null)
 		{
 			customerDataPopulator.populate(source.getCustomer(), customer);
+		}else
+		{
 			LOG.error("order without customer,order no:" + source.getCode());
 		}
+	
 		target.setCustomer(customer);
 		target.setCustomerName(StringUtils.isNotBlank(source.getCustomerName()) ? source.getCustomerName() : customer.getName());
 
@@ -43,6 +47,7 @@ public class OrderBasicPopulator implements Populator<OrderModel, OrderData>
 		target.setDeliveryDate(source.getDeliveryDate());
 		target.setWeddingDate(source.getWeddingDate());
       target.setStatus(Integer.valueOf(source.getStatus()));
+      target.setStatusText(TextMapper.OrderStatus.get(source.getStatus()));
       
 		StoreData store = new StoreData();
 		storeDataPopulator.populate(source.getStore(), store);

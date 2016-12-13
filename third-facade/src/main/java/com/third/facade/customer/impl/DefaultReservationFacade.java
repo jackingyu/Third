@@ -15,6 +15,7 @@ import com.third.service.customer.CustomerService;
 import com.third.service.customer.ReservationService;
 import com.third.service.store.StoreService;
 
+
 public class DefaultReservationFacade implements ReservationFacade
 {
 	private ReservationService reservationService;
@@ -30,17 +31,18 @@ public class DefaultReservationFacade implements ReservationFacade
 		reservation.setChannel(reservationData.getChannel());
 		reservation.setName(reservationData.getName());
 		reservation.setReservationDate(reservationData.getReservationDate());
-		
+
 		reservation.setStore(storeService.getStoreForCode(reservationData.getStore().getCode()));
-		reservation.setComment(reservationData.getComment());
-		CustomerModel customer = customerService.getCustomerByCellphone(reservationData.getCellphone());
-		if(customer != null)
+		reservation.setComment(reservationData.getComment() != null ? reservationData.getComment() : "");
+
+		CustomerModel customer = customerService.getCustomerByCellphone(reservationData.getCustomer().getCellphone());
+		if (customer != null)
 		{
 			reservation.setCustomer(customer);
 		}
-		
+
 		reservationService.createrReservation(reservation);
-		
+
 		return reservation.getPk();
 	}
 
@@ -52,45 +54,47 @@ public class DefaultReservationFacade implements ReservationFacade
 		reservation.setChannel(reservationData.getChannel());
 		reservation.setName(reservationData.getName());
 		reservation.setReservationDate(reservationData.getReservationDate());
-		
+
 		reservation.setStore(storeService.getStoreForCode(reservationData.getStore().getCode()));
 		reservation.setComment(reservationData.getComment());
-		CustomerModel customer = customerService.getCustomerByCellphone(reservationData.getCellphone());
-		if(customer != null)
+		CustomerModel customer = customerService.getCustomerByCellphone(reservationData.getCustomer().getCellphone());
+		if (customer != null)
 		{
 			reservation.setCustomer(customer);
 		}
-		
+
 		reservationService.updateReservation(reservation);
 	}
-	
+
 	@Override
 	public ReservationData getReservation(final String reservationPK)
 	{
 		ReservationModel reservation = reservationService.getReservation(reservationPK);
 		ReservationData reservationData = new ReservationData();
 		reservationDataPopulator.populate(reservation, reservationData);
-		
+
 		return reservationData;
 	}
 
 	@Override
-	public ListData getReservations(String storeCode,String cellphone, String name, Date fromDate,Date toDate,Integer startIndex, Integer pageSize)
+	public ListData getReservations(String storeCode, String cellphone, String name, Date fromDate, Date toDate,
+			Integer startIndex, Integer pageSize)
 	{
-		PaginationSupport ps = reservationService.getReservationList(storeCode, cellphone, name, fromDate, toDate, startIndex, pageSize);
+		PaginationSupport ps = reservationService.getReservationList(storeCode, cellphone, name, fromDate, toDate, startIndex,
+				pageSize);
 		List<ReservationModel> reservations = ps.getItems();
-		List<Object> reservationDatas  = new ArrayList<Object>();
-		reservations.forEach( r ->{
+		List<Object> reservationDatas = new ArrayList<Object>();
+		reservations.forEach(r -> {
 			ReservationData reservationData = new ReservationData();
 			reservationDataPopulator.populate(r, reservationData);
 			reservationDatas.add(reservationData);
-			
+
 		});
-		
+
 		ListData result = new ListData();
 		result.setTotal(ps.getTotalCount());
 		result.setRows(reservationDatas);
-		
+
 		return result;
 	}
 
@@ -112,6 +116,22 @@ public class DefaultReservationFacade implements ReservationFacade
 	public void setCustomerService(CustomerService customerService)
 	{
 		this.customerService = customerService;
+	}
+
+	@Override
+	public List<ReservationData> getReservationsForCustomer(String cellphone)
+	{
+		final CustomerModel customer = customerService.getCustomerByCellphone(cellphone);
+		List<ReservationModel> reservationModels = this.reservationService.getReservationsForCustomer(customer.getPk());
+		List<ReservationData> reservations = new ArrayList<ReservationData>();
+
+		reservationModels.forEach(r -> {
+			ReservationData reservation = new ReservationData();
+			reservationDataPopulator.populate(r, reservation);
+			reservations.add(reservation);
+		});
+
+		return reservations;
 	}
 
 }

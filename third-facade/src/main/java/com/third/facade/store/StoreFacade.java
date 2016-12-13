@@ -12,6 +12,9 @@ public interface StoreFacade
 
 	void updateStore(StoreData store);
 
-	List<StoreData> getStores(String name);
-
+	List<StoreData> getStores(String storeName);
+	
+	List<StoreData> getAllStores();
+	
+	StoreData getStoreForCode(final String storeCode);
 }

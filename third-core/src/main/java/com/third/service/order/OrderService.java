@@ -1,6 +1,7 @@
 package com.third.service.order;
 
 import java.util.Date;
+import java.util.List;
 import java.util.Map;
 
 import com.third.dao.util.PaginationSupport;
@@ -26,4 +27,6 @@ public interface OrderService
 	void removeOrderEntry(final String orderEntryPK);
 
 	OrderEntryModel getOrderEntry(final String entryPK);
+	
+	List<OrderModel> getOrdersForCustomer(final String customerPK);
 }

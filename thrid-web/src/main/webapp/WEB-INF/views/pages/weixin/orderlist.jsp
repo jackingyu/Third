@@ -1,59 +1,58 @@
-﻿<%@ page import="java.util.*" %>
-<%@ page import="com.changeman.sales.model.bean.SalesOrder" %>
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<%@ page import="com.third.controller.weixin.WXConstant" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>  
+<%@ taglib prefix="template" tagdir="/WEB-INF/tags/template"%>
+<%@ taglib prefix="common" tagdir="/WEB-INF/tags/common"%>
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
+<%@ page import="java.util.*" %>
 <%@ page import="java.text.SimpleDateFormat" %>
-<!DOCTYPE html>
 <html lang="zh-cn">
 <head>
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
-<title>铂玛订单列表</title>
-<link rel="stylesheet" href="${pageContext.request.contextPath}/wx/css/bootstrap.min.css">
-<link rel="stylesheet" href="${pageContext.request.contextPath}/wx/css/wx.css">
+<title><spring:message code="wx.orderlist.title"/></title>
+<template:wxcss/>
+<template:javaScriptVariables/>
 </head>
 
 <body>
 	<%@ include file="inc/nav.jsp"%>
 	
-	<% List<SalesOrder> soList = (List<SalesOrder>)request.getAttribute("SOList"); %>
-	
-	<% if( soList == null || soList.size() == 0){ %>
+	<c:if test="${empty orderList}">
 		<div class="container wx_container">
 			<div class="row wx_row">
 				<div class="col-md-1 col-xs-1 col-sm-1 col-lg-1">
 				</div>
 				<div class="col-md-11 col-xs-11 col-sm-11 col-lg-11">
-					<span class="wx_label">您目前还没有订单</span>
+					<span class="wx_label"><spring:message code="wx.orderlist.empty"/></span>
 				</div>
 			</div>
 		</div>
-	<% } %>
+	</c:if>
 	
 	<div class="list-group">
-	<% if( soList != null ){
-		 for( int i = 0; i < soList.size(); i++){
-			 SalesOrder so = soList.get(i);
-	%>
-		<a href="${pageContext.request.contextPath}/wx/orderdetail?id=<%=so.getId()%>" class="list-group-item">
+	 <c:forEach var="order" items="${orderList}">
+		<a href="${contextPath}/wx/getOrderDetail?orderCode=${order.orderCode}" class="list-group-item">
 			<div>
 				<table width="100%" border="0" cellspacing="0" cellpadding="0">
 					<tr>
-						<td width="30%" class="table_td">订单号：</td>
-						<td width="70%" class="table_td"><%=so.getOrderNo()%></td>
+						<td width="30%" class="table_td"><spring:message code="wx.orderlist.ordercode"/></td>
+						<td width="70%" class="table_td">${order.orderCode}</td>
 					</tr>
 					<tr>
-						<td class="table_td">订单时间：</td>
-						<td class="table_td"><%=(new SimpleDateFormat("yyyy-MM-dd")).format(so.getCreateDate())%></td>
+						<td class="table_td"><spring:message code="wx.orderlist.orderdate"/></td>
+						<td class="table_td">${order.orderDate}</td>
 					</tr>
 					<tr>
-						<td class="table_td">订单状态：</td>
-						<td class="table_td"><%=so.getStatusText()%></td>
+						<td class="table_td"><spring:message code="wx.orderlist.orderstatus"/></td>
+						<td class="table_td">${order.status}</td>
 					</tr>
 				</table>
 				<div style="display: inline;position: absolute;right: 5px;top: 50%; margin-top: -10px;"><span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span></div>
 			</div>
 		</a>
-	<% } } %>
+	</c:forEach>
 	</div>
 </body>
 </html>

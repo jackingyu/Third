@@ -168,4 +168,17 @@ public class DefaultCustomerFacade implements CustomerFacade
 
 		customerService.updateCustomer(customerModel);
 	}
+
+	@Override
+	public CustomerData getCurrentCustomer()
+	{
+		//TODO: need to get the user from session
+	   CustomerModel customer = customerService.getCustomerByCellphone("13800138000");
+	   CustomerData customerData = new CustomerData();
+	   
+	   if(customer!=null)
+	   	customerDataPopulator.populate(customer, customerData);
+	   
+		return customerData;
+	}
 }

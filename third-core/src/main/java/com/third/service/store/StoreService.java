@@ -9,8 +9,10 @@ public interface StoreService
 {
 	void createStore(StoreModel store);
 
-	List<StoreModel> getStores(final String name);
+	List<StoreModel> getStores(final String storeName);
 
 	StoreModel getStoreForCode(final String code);
+	
+	List<StoreModel> getAllStores();
 
 }

@@ -13,6 +13,7 @@ import com.third.facade.data.OrderData;
 import com.third.facade.data.OrderEntryData;
 import com.third.facade.data.SizeAttributeGroupData;
 import com.third.facade.populator.option.OrderOption;
+import com.third.model.OrderModel;
 
 
 public interface OrderFacade
@@ -45,4 +46,6 @@ public interface OrderFacade
 	String uploadMediaForOrderEntry(final String entryPK,final MultipartFile media);
 
 	String getMediaForOrderEntry(final String entryPK);
+
+	List<OrderData> getOrdersForCustomer(final String customerPK);
 }

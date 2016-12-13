@@ -19,6 +19,7 @@ import com.third.model.StoreModel;
 public class DefaultOrderDao extends GenericDAO<OrderModel, String> implements OrderDao
 {
 	private final static String FIND_BY_ORDERCODE_SQL = "from com.third.model.OrderModel o where o.code=?";
+	private final static String FIND_BY_CUSTOMERPK_SQL = "from com.third.model.OrderModel o where o.customer.pk=?";
 
 	@Override
 	public OrderModel findOrder(String orderCode)
@@ -42,6 +43,13 @@ public class DefaultOrderDao extends GenericDAO<OrderModel, String> implements O
 			dcOrder.add(Restrictions.like("cellphone", sp.get("cellphone")));
 
 		return findPageByCriteria(dcOrder, pageSize, startIndex);
+	}
+
+	@Override
+	public List<OrderModel> findOrdersForCustomer(String customerPK)
+	{
+		List<OrderModel> orders = find(FIND_BY_CUSTOMERPK_SQL,customerPK);
+		return orders;
 	}
 
 

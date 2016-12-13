@@ -30,7 +30,33 @@ public class DefaultStoreFacade implements StoreFacade
 
 		return stores;
 	}
+	
+	@Override
+	public List<StoreData> getAllStores()
+	{
+		List<StoreModel> storeModels = storeService.getAllStores();
 
+		List<StoreData> stores = new ArrayList<StoreData>();
+
+		storeModels.forEach(s -> {
+			StoreData store = new StoreData();
+			storeDataPopulator.populate(s, store);
+			stores.add(store);
+		});
+
+		return stores;
+	}
+
+	@Override
+	public StoreData getStoreForCode(String storeCode)
+	{
+		StoreModel storeModel = storeService.getStoreForCode(storeCode);
+		StoreData store = new StoreData();
+		storeDataPopulator.populate(storeModel, store);
+		
+		return store;
+	}
+	
 	@Override
 	public void createStore(StoreData store)
 	{
@@ -54,5 +80,6 @@ public class DefaultStoreFacade implements StoreFacade
 	{
 		this.storeDataPopulator = storeDataPopulator;
 	}
+
 
 }

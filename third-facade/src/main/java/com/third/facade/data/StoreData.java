@@ -4,6 +4,7 @@ public class StoreData extends AbstractData
 {
 	private String name;
 	private String code;
+	private AddressData address;
 
 	public String getName()
 	{
@@ -25,4 +26,14 @@ public class StoreData extends AbstractData
 		this.code = code;
 	}
 
+	public AddressData getAddress()
+	{
+		return address;
+	}
+
+	public void setAddress(AddressData address)
+	{
+		this.address = address;
+	}
+	
 }
