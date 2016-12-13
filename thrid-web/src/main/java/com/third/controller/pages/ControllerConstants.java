@@ -39,4 +39,5 @@ public interface ControllerConstants
 		static final String STOREDETAILPAGE = PREFIX+"/storedetail";
 		
 	}
+	
 }

@@ -138,6 +138,10 @@
 	     <property name="mediaStorageStrategy" ref="mediaStorageStrategy" />
 	</bean>
 	
+   <alias name="defaultSessionService" alias="sessionService"></alias>
+	<bean id="defaultSessionService" class="com.third.service.user.impl.DefaultSessionService">
+	</bean>
+	
 	
 </beans>
  

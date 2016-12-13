@@ -86,5 +86,5 @@ public interface UserService
 	 * @return
 	 */
 	PaginationSupport getUserList(String userId, String userName, Integer startIndex, Integer pageSize);
-
+	
 }

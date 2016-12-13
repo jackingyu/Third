@@ -68,6 +68,7 @@
 	    <property name="userService" ref="userService"></property>
 	    <property name="menuService" ref="menuService"></property>
 	    <property name="roleService" ref="roleService"></property>
+	    <property name="sessionService" ref="sessionService"></property>
 	    <property name="menuDataPopulator" ref="menuDataPopulator"></property>
 	    <property name="userGroupDataPopulator" ref="userGroupDataPopulator"></property>
 	    <property name="roleDataPopulator" ref="roleDataPopulator"></property>

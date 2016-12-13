@@ -27,25 +27,31 @@
 
   
     <security:http  pattern="/login" security="none"></security:http>
-    <security:http  pattern="/master" security="none"></security:http>
     <security:http  pattern="/ui/**" security="none"></security:http>
     
 	<!-- Default security config -->
-	<security:http disable-url-rewriting="true"  use-expressions="true">
+	<security:http disable-url-rewriting="true"  use-expressions="true" entry-point-ref="loginUrlAuthenticationEntryPoint">
 	
 		<security:anonymous username="anonymous" granted-authority="ROLE_ANONYMOUS" />
 
 		<!-- SSL / AUTHENTICATED pages -->
+		<security:intercept-url pattern="/master" access="isAuthenticated()"/>
 		<security:intercept-url pattern="/**" />
 		<!-- Everything should be secure -->
 		<!-- <security:custom-filter ref="ajaxTimeoutRedirectFilter" after="EXCEPTION_TRANSLATION_FILTER"/> -->
 	
-		<security:form-login
+		<!--  if not use authentiction handler should configure default target url
+		    <security:form-login
 				login-page="/login"
 				login-processing-url="/j_spring_security_check" 
 				always-use-default-target="true"
 				default-target-url="/master"
 				authentication-failure-url="/loginfailure" />
+		-->
+		<security:form-login login-page="/loginpage"
+		login-processing-url="/j_spring_security_check" 
+		   authentication-failure-handler-ref="loginAuthenticationFailureHandler"
+		   authentication-success-handler-ref="loginAuthenticationSuccessHandler"/>
         <security:csrf disabled="true"/>
 		<!--  <security:logout logout-url="/logout" success-handler-ref="logoutSuccessHandler" />
 
@@ -56,6 +62,10 @@
 		<!--  <security:request-cache ref="httpWithoutPostRequestCache" />
 
 		<security:access-denied-handler ref="anguoAccessDeniedHandler" />-->
+		<security:access-denied-handler ref="thirdAccessDeniedHandler"/>
+		
+		<security:logout logout-url="/logout" success-handler-ref="logoutSuccessHandler" />
+		
 	</security:http>
 	
 	<security:authentication-manager alias="authenticationManager">
@@ -73,7 +83,32 @@
 		<property name="userService" ref="userService"/>
 	</bean>
 
+    <bean id="thirdAccessDeniedHandler" class="com.third.security.ThirdAccessDeniedHandler"/>
+    
     <bean id="filterMultipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
         <property name="maxUploadSize" value="100000000" />
     </bean>
+    
+    <bean id="loginAuthenticationFailureHandler" class="com.third.security.LoginAuthenticationFailureHandler" >
+		<property name="defaultFailureUrl" value="/loginpage?error=true"/>
+	</bean>
+
+	<bean id="loginAuthenticationSuccessHandler" class="com.third.security.LoginAuthenticationSuccessHandler" >
+		<property name="userFacade" ref="userFacade" />
+		<property name="defaultTargetUrl" value="/master"/>
+		<!--  <property name="useReferer" value="true"/>-->
+		<property name="alwaysUseDefaultTargetUrl" value="true"/>
+	</bean>
+	
+	<bean id="logoutSuccessHandler" class="com.third.security.LogoutSuccessHandler" >
+		<property name="defaultTargetUrl" value="/loginpage"/>
+		<property name="alwaysUseDefaultTargetUrl" value="true"/>
+		<property name="useReferer" value="true"/>
+		<property name="userFacade" ref="userFacade"/>
+	</bean>
+    <bean id="httpSessionRequestCache" class="org.springframework.security.web.savedrequest.HttpSessionRequestCache"></bean>
+    
+    <bean id="thirdLoginUrlAuthenticationEntryPoint" class="com.third.security.ThirdLoginUrlAuthenticationEntryPoint"> 
+        <constructor-arg value="http://baidu.com"/>
+     </bean>
 </beans>

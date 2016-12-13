@@ -16,6 +16,7 @@ import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.third.facade.data.MenuData;
+import com.third.facade.data.UserData;
 import com.third.facade.user.UserFacade;
 import com.third.model.UserGroupModel;
 import com.third.model.UserModel;
@@ -37,20 +38,7 @@ public class LoginPageController
 	@RequestMapping(value = "/master", method = RequestMethod.GET)
 	public String getMasterPage()
 	{
-		LOG.info("welcome to master page controller");
-		//		// userService.getUserById("yuxiang");
-		//		UserModel user = new UserModel();
-		//		user.setUserId("yuxiang");
-		//		user.setName("yuxiang");
-		//		user.setPassword("dddd");
-		//		UserGroupModel userGroup = new UserGroupModel();
-		//		userGroup.setGroupId("admin");
-		//		user.setUserGroup(userGroup);
-		//		LOG.info(userService.isExist(user.getUserId()));
-		//userService.createUser(user);
-		ObjectMapper mapper = new ObjectMapper();
-
-		LOG.info("start get menu data");
+		UserData user = userFacade.getCurrentUser();
 		List<MenuData> menus = userFacade.getMenuData();
 		String result = JSON.toJSONString(menus);
 		LOG.info(result);
@@ -65,7 +53,7 @@ public class LoginPageController
 		return userFacade.getMenuData();
 	}
 
-	@RequestMapping(value = "/login", method = RequestMethod.GET)
+	@RequestMapping(value = "/loginpage", method = RequestMethod.GET)
 	public String getLoginPage()
 	{
 		LOG.info("welcome to master page controller");

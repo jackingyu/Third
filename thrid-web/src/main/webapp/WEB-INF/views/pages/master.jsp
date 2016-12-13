@@ -13,17 +13,19 @@
 <body class="easyui-layout" class="layout"  fit="true"   scroll="no">
 <noscript>
 <div class="loading-tips">
-    <img src="images/noscript.gif" alt='抱歉，请开启脚本支持！' />
+    <img src="images/noscript.gif" alt='<spring:message code="text.master.tip1"/>' />
 </div>
 </noscript>
 
 <div id="loading-mask" class="loading-mask">
 <div id="pageloading" class="loading-page"> 
-    <img src="images/loading.gif" align="absmiddle" /> 正在加载中,请稍候...</div>
+    <img src="images/loading.gif" align="absmiddle" /><spring:message code="text.master.loading"/></div>
 </div>
 
     <div region="north" split="true" border="false" class="layout-north">
-        <span style="float:right; padding-right:20px;" class="head">welcome! <a href="#" id="editpass">修改密码</a> <a href="#" id="loginOut">安全退出</a></span>
+        <span style="float:right; padding-right:20px;" class="head"><spring:message code="text.master.welcome"/>${currentUser.name}
+            <a href="#" id="editpass"><spring:message code="text.master.changepassword"/></a> 
+            <a href="<c:url value='/logout' />" id="loginOut"><spring:message code="text.master.logout"/></a></span>
         <span class="north-title"><img src="images/blocks.gif" width="20" height="20" align="absmiddle" /> Blaimar</span>
     </div>
     <div region="south" split="true" style="height: 30px; background: #D2E0F2; ">

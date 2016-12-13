@@ -20,4 +20,8 @@ public interface CustomerFacade
 	List<SourceData> getSources();
 	
 	public CustomerData getCurrentCustomer();
+	
+//	void loginSuccess(CustomerData customer);
+//	
+//	void logout();
 }

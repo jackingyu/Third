@@ -7,7 +7,7 @@
 </head>
 <body>
 	<div>
-	<h1>spring login</h1>
+	<h1>login</h1>
 		<form action="<c:url value='/j_spring_security_check' />" method="post" class="form-signin">
 	       <input type="text" name="username"></input>
 	       <input type="password" name="password"></input>

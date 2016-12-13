@@ -12,11 +12,13 @@ import com.third.facade.data.SourceData;
 import com.third.facade.populator.CustomerDataPopulator;
 import com.third.facade.populator.SourceDataPopulator;
 import com.third.model.AddressModel;
+import com.third.model.CoreConstants;
 import com.third.model.CustomerModel;
 import com.third.model.SourceModel;
 import com.third.service.customer.CustomerService;
 import com.third.service.customer.SourceService;
 import com.third.service.location.I18NService;
+import com.third.service.user.SessionService;
 
 
 public class DefaultCustomerFacade implements CustomerFacade
@@ -107,31 +109,6 @@ public class DefaultCustomerFacade implements CustomerFacade
 
 	}
 
-	public void setCustomerDataPopulator(CustomerDataPopulator customerDataPopulator)
-	{
-		this.customerDataPopulator = customerDataPopulator;
-	}
-
-	public void setSourceDataPopulator(SourceDataPopulator sourceDataPopulator)
-	{
-		this.sourceDataPopulator = sourceDataPopulator;
-	}
-
-	public void setI18NService(I18NService i18nService)
-	{
-		i18NService = i18nService;
-	}
-
-	public void setCustomerService(CustomerService customerService)
-	{
-		this.customerService = customerService;
-	}
-
-	public void setSourceService(SourceService sourceService)
-	{
-		this.sourceService = sourceService;
-	}
-
 	@Override
 	public void updateCustomer(CustomerData customer)
 	{
@@ -181,4 +158,42 @@ public class DefaultCustomerFacade implements CustomerFacade
 	   
 		return customerData;
 	}
+//
+//	@Override
+//	public void loginSuccess(CustomerData customer)
+//	{
+//		sessionService.save(CoreConstants.Session.CURRENT_CUSTOMER,customer);
+//	}
+//	
+//	@Override
+//	public void logout()
+//	{
+//		sessionService.clear(CoreConstants.Session.CURRENT_CUSTOMER);
+//	}
+
+	public void setCustomerDataPopulator(CustomerDataPopulator customerDataPopulator)
+	{
+		this.customerDataPopulator = customerDataPopulator;
+	}
+
+	public void setSourceDataPopulator(SourceDataPopulator sourceDataPopulator)
+	{
+		this.sourceDataPopulator = sourceDataPopulator;
+	}
+
+	public void setI18NService(I18NService i18nService)
+	{
+		i18NService = i18nService;
+	}
+
+	public void setCustomerService(CustomerService customerService)
+	{
+		this.customerService = customerService;
+	}
+
+	public void setSourceService(SourceService sourceService)
+	{
+		this.sourceService = sourceService;
+	}
+	
 }

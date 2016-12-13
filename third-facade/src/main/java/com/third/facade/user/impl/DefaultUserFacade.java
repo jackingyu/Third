@@ -21,12 +21,14 @@ import com.third.facade.populator.RoleDataPopulator;
 import com.third.facade.populator.UserDataPopulator;
 import com.third.facade.populator.UserGroupDataPopulator;
 import com.third.facade.user.UserFacade;
+import com.third.model.CoreConstants;
 import com.third.model.MenuModel;
 import com.third.model.RoleModel;
 import com.third.model.UserGroupModel;
 import com.third.model.UserModel;
 import com.third.service.user.MenuService;
 import com.third.service.user.RoleService;
+import com.third.service.user.SessionService;
 import com.third.service.user.UserService;
 
 
@@ -37,6 +39,7 @@ public class DefaultUserFacade implements UserFacade
 	private MenuService menuService;
 	private UserService userService;
 	private RoleService roleService;
+	private SessionService sessionService;
 
 	private MenuDataPopulator menuDataPopulator;
 	private UserGroupDataPopulator userGroupDataPopulator;
@@ -199,41 +202,6 @@ public class DefaultUserFacade implements UserFacade
 		return grid;
 	}
 
-	public void setUserDataPopulator(UserDataPopulator userDataPopulator)
-	{
-		this.userDataPopulator = userDataPopulator;
-	}
-
-	public void setMenuService(MenuService menuService)
-	{
-		this.menuService = menuService;
-	}
-
-	public void setUserService(UserService userService)
-	{
-		this.userService = userService;
-	}
-
-	public void setRoleService(RoleService roleService)
-	{
-		this.roleService = roleService;
-	}
-
-	public void setMenuDataPopulator(MenuDataPopulator menuDataPopulator)
-	{
-		this.menuDataPopulator = menuDataPopulator;
-	}
-
-	public void setUserGroupDataPopulator(UserGroupDataPopulator userGroupDataPopulator)
-	{
-		this.userGroupDataPopulator = userGroupDataPopulator;
-	}
-
-	public void setRoleDataPopulator(RoleDataPopulator roleDataPopulator)
-	{
-		this.roleDataPopulator = roleDataPopulator;
-	}
-
 	@Override
 	public void updateUser(UserData userData)
 	{
@@ -292,10 +260,64 @@ public class DefaultUserFacade implements UserFacade
 	@Override
 	public UserData getCurrentUser()
 	{
-		UserModel user = userService.getCurrentUser();
-		UserData userData = new UserData();
-		userDataPopulator.populate(user, userData);
+		UserData userData = (UserData) sessionService.get(CoreConstants.Session.CURRENT_USER);
 		return userData;
 	}
 
+	@Override
+	public void loginSuccess(String userId)
+	{
+		UserModel user = userService.getUserById(userId);
+		UserData userData = new UserData();
+		userDataPopulator.populate(user, userData);
+		sessionService.save(CoreConstants.Session.CURRENT_USER, userData);
+		sessionService.save(CoreConstants.Session.CURRENT_USER_ID, userData.getUserId());
+	}
+
+	@Override
+	public void logout()
+	{
+		sessionService.clear(CoreConstants.Session.CURRENT_USER);
+	}
+
+	public void setUserDataPopulator(UserDataPopulator userDataPopulator)
+	{
+		this.userDataPopulator = userDataPopulator;
+	}
+
+	public void setMenuService(MenuService menuService)
+	{
+		this.menuService = menuService;
+	}
+
+	public void setUserService(UserService userService)
+	{
+		this.userService = userService;
+	}
+
+	public void setRoleService(RoleService roleService)
+	{
+		this.roleService = roleService;
+	}
+
+	public void setMenuDataPopulator(MenuDataPopulator menuDataPopulator)
+	{
+		this.menuDataPopulator = menuDataPopulator;
+	}
+
+	public void setUserGroupDataPopulator(UserGroupDataPopulator userGroupDataPopulator)
+	{
+		this.userGroupDataPopulator = userGroupDataPopulator;
+	}
+
+	public void setRoleDataPopulator(RoleDataPopulator roleDataPopulator)
+	{
+		this.roleDataPopulator = roleDataPopulator;
+	}
+
+	public void setSessionService(SessionService sessionService)
+	{
+		this.sessionService = sessionService;
+	}
+	
 }

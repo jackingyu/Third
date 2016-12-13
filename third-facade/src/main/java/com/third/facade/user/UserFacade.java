@@ -67,4 +67,8 @@ public interface UserFacade
 	UserData getUserById(final String userId);
 	
 	UserData getCurrentUser();
+	
+	void loginSuccess(final String userId);
+	
+	void logout();
 }

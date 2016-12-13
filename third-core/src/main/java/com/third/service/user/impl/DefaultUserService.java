@@ -3,13 +3,16 @@ package com.third.service.user.impl;
 
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 
 import com.third.dao.user.UserDao;
 import com.third.dao.user.UserGroupDao;
 import com.third.dao.util.PaginationSupport;
+import com.third.model.CoreConstants;
 import com.third.model.UserGroupModel;
 import com.third.model.UserModel;
+import com.third.service.user.SessionService;
 import com.third.service.user.UserService;
 
 
@@ -18,6 +21,8 @@ public class DefaultUserService implements UserService
 
 	private UserDao userDao;
 	private UserGroupDao userGroupDao;
+	@Autowired
+	private SessionService sessionService;
 
 	public UserModel getUserById(String userId)
 	{
@@ -27,9 +32,8 @@ public class DefaultUserService implements UserService
 
 	public UserModel getCurrentUser()
 	{
-		//String username = (String) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-		//TODO:need to refact the mockup logic
-		return getUserById("yuxiang");
+		String userId =  (String) sessionService.get(CoreConstants.Session.CURRENT_USER_ID);
+		return userDao.findUserById(userId);
 	}
 
 	public void createUser(UserModel user)

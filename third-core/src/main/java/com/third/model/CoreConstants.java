@@ -50,4 +50,10 @@ public interface CoreConstants
 	
 	}
 
+	interface Session
+	{
+		static final String CURRENT_CUSTOMER = "currentCustomer";
+		static final String CURRENT_USER = "currentUser";
+		static final String CURRENT_USER_ID = "currentUserId";
+	}
 }
