@@ -40,7 +40,7 @@ public class WeixinCallbackController
 	@Resource(name = "weixinFacade")
 	private WeixinFacade weixinFacade;
 
-	@RequestMapping(value = "/callback", method = RequestMethod.GET)
+	@RequestMapping(value = "/callback")
 	public @ResponseBody Object callback(@RequestParam(value = "signature", defaultValue = StringUtils.EMPTY) final String signature,
 			@RequestParam(value = "timestamp", defaultValue = StringUtils.EMPTY) final String timestamp,
 			@RequestParam(value = "nonce", defaultValue = StringUtils.EMPTY) final String nonce, 
