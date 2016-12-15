@@ -57,7 +57,7 @@ public class WeixinCallbackController
 		if (checkSignature(signature, timestamp, nonce))
 		{
 			//首次接入模式
-			if (StringUtils.isEmpty(echostr))
+			if (StringUtils.isNotEmpty(echostr))
 			{
 				return echostr;
 			}
