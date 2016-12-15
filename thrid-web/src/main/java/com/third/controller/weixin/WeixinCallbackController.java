@@ -41,8 +41,7 @@ public class WeixinCallbackController
 	private WeixinFacade weixinFacade;
 
 	@RequestMapping(value = "/callback", method = RequestMethod.GET)
-	@ResponseBody
-	public String callback(@RequestParam(value = "signature", defaultValue = StringUtils.EMPTY) final String signature,
+	public @ResponseBody Object callback(@RequestParam(value = "signature", defaultValue = StringUtils.EMPTY) final String signature,
 			@RequestParam(value = "echostr", defaultValue = StringUtils.EMPTY) final String echostr,
 			@RequestParam(value = "timestamp", defaultValue = StringUtils.EMPTY) final String timestamp,
 			@RequestParam(value = "nonce", defaultValue = StringUtils.EMPTY) final String nonce, final HttpServletRequest request,
@@ -59,7 +58,8 @@ public class WeixinCallbackController
 			//首次接入模式
 			if (StringUtils.isNotEmpty(echostr))
 			{
-				return echostr;
+				response.getWriter().write(echostr);
+				return null;
 			}
 			else
 			{
