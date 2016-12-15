@@ -236,7 +236,7 @@ fi
 if [ -z "$JSSE_OPTS" ] ; then
   JSSE_OPTS="-Djdk.tls.ephemeralDHKeySize=2048"
 fi
-JAVA_OPTS="$JAVA_OPTS $JSSE_OPTS"
+JAVA_OPTS="$JAVA_OPTS $JSSE_OPTS -Djava.security.egd=file:/dev/./urandom"
 
 # Set juli LogManager config file if it is present and an override has not been issued
 if [ -z "$LOGGING_CONFIG" ]; then
