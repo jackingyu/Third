@@ -59,7 +59,8 @@ public class WeixinCallbackController
 			if (StringUtils.isNotEmpty(echostr))
 			{
 				response.reset();
-				return echostr;
+				response.getWriter().write(echostr);
+				return null;
 			}
 			else
 			{
