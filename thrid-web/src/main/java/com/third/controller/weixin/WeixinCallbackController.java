@@ -118,7 +118,8 @@ public class WeixinCallbackController
 
 		Collections.sort(stringList);
 
-		String[] tmpStrArray = (String[]) stringList.toArray();
+		String[] tmpStrArray = new String[3];
+		stringList.toArray(tmpStrArray);
 
 		String tmpStr = StringUtils.join(tmpStrArray);
 		tmpStr = DigestUtils.shaHex(tmpStr);
