@@ -42,9 +42,11 @@ public class WeixinCallbackController
 
 	@RequestMapping(value = "/callback", method = RequestMethod.GET)
 	public @ResponseBody Object callback(@RequestParam(value = "signature", defaultValue = StringUtils.EMPTY) final String signature,
-			@RequestParam(value = "echostr", defaultValue = StringUtils.EMPTY) final String echostr,
 			@RequestParam(value = "timestamp", defaultValue = StringUtils.EMPTY) final String timestamp,
-			@RequestParam(value = "nonce", defaultValue = StringUtils.EMPTY) final String nonce, final HttpServletRequest request,
+			@RequestParam(value = "nonce", defaultValue = StringUtils.EMPTY) final String nonce, 
+			@RequestParam(value = "echostr", defaultValue = StringUtils.EMPTY,required=false) final String echostr,
+			@RequestParam(value = "openid",required=false) final String openid,
+			final HttpServletRequest request,
 			final HttpServletResponse response) throws IOException
 	{
 		LOG.debug("signature=" + signature);
