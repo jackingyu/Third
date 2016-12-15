@@ -137,7 +137,7 @@
                pattern="%h %l %u %t &quot;%r&quot; %s %b" />
 
          <!-- here we use path.will try to use platform letter -->
-		<Context path="/thrid-web" docBase="../../../third/thrid-web/target/thrid-web" >
+		<Context path="/thrid-web" docBase="${docBasePath}" >
 		   	<Manager pathname="" />
 		</Context>
       </Host>

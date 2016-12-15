@@ -1,79 +1,108 @@
-<project name="third" default="deployui" basedir="." >   
-   
- <property name="ui_sourcepath" value="${basedir}/thrid-web/src/main/webapp/_ui" description="ui file source path"/>  
- <property name="jsp_sourcepath" value="${basedir}/thrid-web/src/main/webapp/WEB-INF/views" description="jsp source path"/>  
- <property name="tag_sourcepath" value="${basedir}/thrid-web/src/main/webapp/WEB-INF/tags" description="tags source path"/>  
- <property name="ui_targetpath" value="${basedir}/thrid-web/target/thrid-web/_ui" description="ui file target path"/>  
- <property name="jsp_targetpath" value="${basedir}/thrid-web/target/thrid-web/WEB-INF/views" description="jsp target path"/>  
- <property name="tag_targetpath" value="${basedir}/thrid-web/target/thrid-web/WEB-INF/tags" description="tags target path"/>  
- 
- <property name="core_resourcepath" value="${basedir}/third-core/src/main/resources" description="core resource path"/>  
- 
-  <property name="message_targetpath" value="${basedir}/thrid-web/target/thrid-web/WEB-INF/messages" description="message target path"/>  
-  <property name="message_sourcepath" value="${basedir}/thrid-web/src/main/webapp/WEB-INF/messages" description="message source path"/>  
- <property name="jdbc.driver.jar" value="lib/mysql-connector-java-5.1.6.jar" description="mysql database driver"/>  
- <property name="db.user" value="root" description="mysql database driver"/>  
- <property name="db.password" value="jackingyu123" description="mysql database driver"/>  
- <property name="db.url" value="jdbc:mysql://127.0.0.1:3306/test" description="database url"/>  
-   
-<path id="toolslib">
-  <fileset dir="${basedir}">  
-       <include name="tools/hibernatetools/*.jar"/>  
-  </fileset> 
-</path>
+<project name="third" default="deployui" basedir=".">
+	<property environment="SystemVariable" />
+	<property name="platform.home" value="${SystemVariable.PLATFORM_HOME}"></property>
+	<property name="tomcat.home" value="${SystemVariable.TOMCAT_HOME}"></property>
+	<property name="ui_sourcepath" value="${basedir}/thrid-web/src/main/webapp/_ui"
+		description="ui file source path" />
+	<property name="jsp_sourcepath"
+		value="${basedir}/thrid-web/src/main/webapp/WEB-INF/views"
+		description="jsp source path" />
+	<property name="tag_sourcepath"
+		value="${basedir}/thrid-web/src/main/webapp/WEB-INF/tags" description="tags source path" />
+	<property name="ui_targetpath" value="${basedir}/thrid-web/target/thrid-web/_ui"
+		description="ui file target path" />
+	<property name="jsp_targetpath"
+		value="${basedir}/thrid-web/target/thrid-web/WEB-INF/views"
+		description="jsp target path" />
+	<property name="tag_targetpath"
+		value="${basedir}/thrid-web/target/thrid-web/WEB-INF/tags"
+		description="tags target path" />
 
- <target name="deployui">  
- 	<copy todir="${ui_targetpath}">
- 	   <fileset dir="${ui_sourcepath}">
-       </fileset>
- 	</copy>
- 	<copy todir="${jsp_targetpath}">
- 	   <fileset dir="${jsp_sourcepath}">
-       </fileset>
- 	</copy>
- 	<copy todir="${tag_targetpath}">
- 	   <fileset dir="${tag_sourcepath}">
-       </fileset>
- 	</copy>
- 	<copy todir="${message_targetpath}">
- 	   <fileset dir="${message_sourcepath}">
-       </fileset>
- 	</copy>
- </target> 
-   
-  <taskdef name="hibernatetool" 
-         classname="org.hibernate.tool.ant.HibernateToolTask" 
-         classpathref="toolslib" />
-         
-  <target name="codegen">
-        <hibernatetool destdir="${basedir}/third-core/src/main/java">
-        <classpath>
-            <path location="${core_resourcepath}"/>
-        </classpath>
- 
-        <configuration configurationfile="${core_resourcepath}/hibernate.cfg.xml"/>
-        <hbm2java/>
-        </hibernatetool>
-  </target>
- 
-  <target name="databasegen">
-        <echo message="initial database" />
-        <sql driver="com.mysql.jdbc.Driver" url="${db.url}" userid="${db.user}" password="${db.password}" onerror="continue">
-            <classpath>
-                <fileset dir="tools/hibernatetools">
-                    <include name="mysql-connector-java-5.1.6.jar" />
-                </fileset>
-            </classpath>
-            <transaction src="tools/dropdb.sql" />
-        </sql>
-        <hibernatetool destdir="${basedir}">
-        <classpath>
-            <path location="${core_resourcepath}"/>
-        </classpath>
- 
-        <configuration configurationfile="${core_resourcepath}/hibernate.cfg.xml"/>
-        <hbm2ddl/>
-        </hibernatetool>
-  </target>
+	<property name="core_resourcepath" value="${basedir}/third-core/src/main/resources"
+		description="core resource path" />
+
+	<property name="message_targetpath"
+		value="${basedir}/thrid-web/target/thrid-web/WEB-INF/messages"
+		description="message target path" />
+	<property name="message_sourcepath"
+		value="${basedir}/thrid-web/src/main/webapp/WEB-INF/messages"
+		description="message source path" />
+	<property name="jdbc.driver.jar" value="lib/mysql-connector-java-5.1.6.jar"
+		description="mysql database driver" />
+	<property name="db.user" value="root" description="mysql database driver" />
+	<property name="db.password" value="jackingyu123" description="mysql database driver" />
+	<property name="db.url" value="jdbc:mysql://127.0.0.1:3306/test"
+		description="database url" />
+
+
+	<path id="toolslib">
+		<fileset dir="${basedir}">
+			<include name="tools/hibernatetools/*.jar" />
+		</fileset>
+	</path>
+
+	<target name="configureserver">
+		<echo message="${platform.home}"></echo>
+		<copy file="${tomcat.home}/conf/server_template.xml" tofile="${tomcat.home}/conf/server.xml" overwrite="true"/>
+		<replaceregexp byline="true">
+			<regexp pattern="\$\{docBasePath\}" />
+			<substitution expression="${platform.home}/thrid-web/target/thrid-web" />
+			<fileset file="${tomcat.home}/conf/server.xml" />
+		</replaceregexp>
+	</target>
+
+	<target name="deployui">
+		<copy todir="${ui_targetpath}">
+			<fileset dir="${ui_sourcepath}">
+			</fileset>
+		</copy>
+		<copy todir="${jsp_targetpath}">
+			<fileset dir="${jsp_sourcepath}">
+			</fileset>
+		</copy>
+		<copy todir="${tag_targetpath}">
+			<fileset dir="${tag_sourcepath}">
+			</fileset>
+		</copy>
+		<copy todir="${message_targetpath}">
+			<fileset dir="${message_sourcepath}">
+			</fileset>
+		</copy>
+	</target>
+
+	<taskdef name="hibernatetool" classname="org.hibernate.tool.ant.HibernateToolTask"
+		classpathref="toolslib" />
+
+	<target name="codegen">
+		<hibernatetool destdir="${basedir}/third-core/src/main/java">
+			<classpath>
+				<path location="${core_resourcepath}" />
+			</classpath>
+
+			<configuration configurationfile="${core_resourcepath}/hibernate.cfg.xml" />
+			<hbm2java />
+		</hibernatetool>
+	</target>
+
+	<target name="databasegen">
+		<echo message="initial database" />
+		<sql driver="com.mysql.jdbc.Driver" url="${db.url}" userid="${db.user}"
+			password="${db.password}" onerror="continue">
+			<classpath>
+				<fileset dir="tools/hibernatetools">
+					<include name="mysql-connector-java-5.1.6.jar" />
+				</fileset>
+			</classpath>
+			<transaction src="tools/dropdb.sql" />
+		</sql>
+		<hibernatetool destdir="${basedir}">
+			<classpath>
+				<path location="${core_resourcepath}" />
+			</classpath>
+
+			<configuration configurationfile="${core_resourcepath}/hibernate.cfg.xml" />
+			<hbm2ddl />
+		</hibernatetool>
+	</target>
 
 </project>
