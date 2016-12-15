@@ -1,5 +1,5 @@
 package com.third.model;
-// Generated Dec 9, 2016 11:47:25 AM by Hibernate Tools 4.3.1
+// Generated Dec 14, 2016 10:14:28 PM by Hibernate Tools 4.3.1
 
 
 import java.util.Date;
@@ -20,6 +20,7 @@ public class CustomerModel  implements java.io.Serializable {
      private String QQ;
      private SourceModel source;
      private AddressModel address;
+     private SubscribeModel subscribe;
      private Date modificationTime;
      private Date createTime;
      private UserModel createdBy;
@@ -27,7 +28,7 @@ public class CustomerModel  implements java.io.Serializable {
     public CustomerModel() {
     }
 
-    public CustomerModel(String cellphone, String name, Date birthday, Date weddingDate, String comment, String email, String QQ, SourceModel source, AddressModel address, Date modificationTime, Date createTime, UserModel createdBy) {
+    public CustomerModel(String cellphone, String name, Date birthday, Date weddingDate, String comment, String email, String QQ, SourceModel source, AddressModel address, SubscribeModel subscribe, Date modificationTime, Date createTime, UserModel createdBy) {
        this.cellphone = cellphone;
        this.name = name;
        this.birthday = birthday;
@@ -37,6 +38,7 @@ public class CustomerModel  implements java.io.Serializable {
        this.QQ = QQ;
        this.source = source;
        this.address = address;
+       this.subscribe = subscribe;
        this.modificationTime = modificationTime;
        this.createTime = createTime;
        this.createdBy = createdBy;
@@ -111,6 +113,13 @@ public class CustomerModel  implements java.io.Serializable {
     
     public void setAddress(AddressModel address) {
         this.address = address;
+    }
+    public SubscribeModel getSubscribe() {
+        return this.subscribe;
+    }
+    
+    public void setSubscribe(SubscribeModel subscribe) {
+        this.subscribe = subscribe;
     }
     public Date getModificationTime() {
         return this.modificationTime;

@@ -31,6 +31,11 @@
 			fetch="select">
 			<column name="address" />
 		</many-to-one>
+	   <many-to-one name="subscribe" lazy="false"
+			class="com.third.model.SubscribeModel" cascade="refresh"
+			fetch="select">
+			<column name="openid" />
+		</many-to-one>
 		<!-- 此处有一个hbm2dll的bug,必须将update的更新时候的时间字段放到前面,所以modificationTime必须放到creattime之前,否则数据库设置不正确 -->
 	    <property name="modificationTime" update="true" insert="true"
 			type="java.util.Date">

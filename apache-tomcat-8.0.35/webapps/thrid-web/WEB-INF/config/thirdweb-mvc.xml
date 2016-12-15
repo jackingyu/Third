@@ -87,6 +87,9 @@
 
 	<mvc:interceptors>
 		<ref bean="beforeViewHandlerInterceptor" />
-	</mvc:interceptors>        
+	</mvc:interceptors>      
+	
+	<bean id="smsVerifyCodeUtils" class="com.third.web.utils.SmsVerifyCodeUtils" >
+	</bean>  
 
 </beans>

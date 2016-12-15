@@ -38,6 +38,12 @@
     <alias name="defaultCustomerDao" alias="customerDao"></alias>
     <bean id="defaultCustomerDao" class="com.third.dao.customer.impl.DefaultCustomerDao" parent="genericDAO"></bean>
     
+    <alias name="defaultSubscribeDao" alias="subscribeDao"></alias>
+    <bean id="defaultSubscribeDao" class="com.third.dao.customer.impl.DefaultSubscribeDao" parent="genericDAO"></bean>
+    
+    <alias name="defaultWeixinInfoDao" alias="weixinInfoDao"></alias>
+    <bean id="defaultWeixinInfoDao" class="com.third.dao.customer.impl.DefaultWeixinInfoDao" parent="genericDAO"></bean>
+    
     <alias name="defaultSourceDao" alias="sourceDao"></alias>
     <bean id="defaultSourceDao" class="com.third.dao.customer.impl.DefaultSourceDao" parent="genericDAO"></bean>
    
@@ -91,6 +97,16 @@
     <alias name="defaultCustomerService" alias="customerService"></alias>
 	<bean id="defaultCustomerService" class="com.third.service.customer.impl.DefaultCustomerService">
 	     <property name="customerDao" ref="customerDao" />
+	</bean>   
+	 
+    <alias name="defaultSubscribeService" alias="subscribeService"></alias>
+	<bean id="defaultSubscribeService" class="com.third.service.customer.impl.DefaultSubscribeService">
+	     <property name="subscribeDao" ref="subscribeDao" />
+	</bean> 
+	   
+    <alias name="defaultWeixinService" alias="weixinService"></alias>
+	<bean id="defaultWeixinService" class="com.third.service.customer.impl.DefaultWeixinService">
+	     <property name="weixinInfoDao" ref="weixinInfoDao" />
 	</bean>    
 	
 	<alias name="defaultStoreService" alias="storeService"></alias>

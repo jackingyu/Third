@@ -26,11 +26,13 @@
            ">
 
   
-    <security:http  pattern="/login" security="none"></security:http>
+    <!-- ui resource -->
     <security:http  pattern="/ui/**" security="none"></security:http>
+    <!-- weixin related function -->
+    <security:http  pattern="/wx/**" security="none"></security:http>
     
 	<!-- Default security config -->
-	<security:http disable-url-rewriting="true"  use-expressions="true" entry-point-ref="loginUrlAuthenticationEntryPoint">
+	<security:http disable-url-rewriting="true"  use-expressions="true" entry-point-ref="thirdLoginUrlAuthenticationEntryPoint">
 	
 		<security:anonymous username="anonymous" granted-authority="ROLE_ANONYMOUS" />
 
@@ -48,7 +50,7 @@
 				default-target-url="/master"
 				authentication-failure-url="/loginfailure" />
 		-->
-		<security:form-login login-page="/loginpage"
+		<security:form-login login-page="/login"
 		login-processing-url="/j_spring_security_check" 
 		   authentication-failure-handler-ref="loginAuthenticationFailureHandler"
 		   authentication-success-handler-ref="loginAuthenticationSuccessHandler"/>
@@ -90,7 +92,7 @@
     </bean>
     
     <bean id="loginAuthenticationFailureHandler" class="com.third.security.LoginAuthenticationFailureHandler" >
-		<property name="defaultFailureUrl" value="/loginpage?error=true"/>
+		<property name="defaultFailureUrl" value="/login"/>
 	</bean>
 
 	<bean id="loginAuthenticationSuccessHandler" class="com.third.security.LoginAuthenticationSuccessHandler" >
@@ -101,7 +103,7 @@
 	</bean>
 	
 	<bean id="logoutSuccessHandler" class="com.third.security.LogoutSuccessHandler" >
-		<property name="defaultTargetUrl" value="/loginpage"/>
+		<property name="defaultTargetUrl" value="/login"/>
 		<property name="alwaysUseDefaultTargetUrl" value="true"/>
 		<property name="useReferer" value="true"/>
 		<property name="userFacade" ref="userFacade"/>
@@ -109,6 +111,6 @@
     <bean id="httpSessionRequestCache" class="org.springframework.security.web.savedrequest.HttpSessionRequestCache"></bean>
     
     <bean id="thirdLoginUrlAuthenticationEntryPoint" class="com.third.security.ThirdLoginUrlAuthenticationEntryPoint"> 
-        <constructor-arg value="http://baidu.com"/>
+        <constructor-arg value="/login"/>
      </bean>
 </beans>

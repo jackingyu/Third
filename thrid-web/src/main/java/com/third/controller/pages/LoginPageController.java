@@ -53,7 +53,7 @@ public class LoginPageController
 		return userFacade.getMenuData();
 	}
 
-	@RequestMapping(value = "/loginpage", method = RequestMethod.GET)
+	@RequestMapping(value = "/login", method = RequestMethod.GET)
 	public String getLoginPage()
 	{
 		LOG.info("welcome to master page controller");

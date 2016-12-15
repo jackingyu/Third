@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.third.dao.util.PaginationSupport;
+import com.third.exceptions.BussinessException;
 import com.third.facade.customer.CustomerFacade;
 import com.third.facade.data.AddressData;
 import com.third.facade.data.CustomerData;
@@ -15,8 +16,10 @@ import com.third.model.AddressModel;
 import com.third.model.CoreConstants;
 import com.third.model.CustomerModel;
 import com.third.model.SourceModel;
+import com.third.model.SubscribeModel;
 import com.third.service.customer.CustomerService;
 import com.third.service.customer.SourceService;
+import com.third.service.customer.SubscribeService;
 import com.third.service.location.I18NService;
 import com.third.service.user.SessionService;
 
@@ -28,6 +31,8 @@ public class DefaultCustomerFacade implements CustomerFacade
 	private I18NService i18NService;
 	private CustomerService customerService;
 	private SourceService sourceService;
+	private SessionService sessionService;
+	private SubscribeService subscribeService;
 
 	@Override
 	public void createCustomer(CustomerData customer)
@@ -146,6 +151,42 @@ public class DefaultCustomerFacade implements CustomerFacade
 		customerService.updateCustomer(customerModel);
 	}
 
+	 @Override
+	public CustomerData bindCustomer(String openId, String cellphone) throws BussinessException{
+	    	
+			SubscribeModel subscribeModel = subscribeService.getSubscribeModel(openId);
+			if(subscribeModel == null) {
+				throw new BussinessException("请先关注铂玛微信号");
+			}
+			
+			CustomerModel customerModel = customerService.getCustomerByCellphone(cellphone);
+			
+			if(customerModel == null) {
+				throw new BussinessException("您还不是铂玛会员，请使用加入铂玛功能");
+			}
+			
+			customerModel.setSubscribe(subscribeModel);
+//			
+//			//如果该客户还没有分组或者分组为默认分组时，设置默认微信分组
+//			if ( customer.getCustomerGroupModel() == null || customer.getCustomerGroupModel().getId() == 0 ) {
+//				CustomerGroupModel custGroup = customerGroupService.getCustomerGroupModel(0);
+//				customer.setCustomerGroupModel(custGroup);
+//			} else {
+//				try {
+//					//同步微信分组
+//					this.getWxService().updateCustomerGroup(openId, customer.getCustomerGroupModel().getId().toString());
+//				} catch (IOException e) {
+//					//Do nothing
+//				}
+//			}
+			
+			customerService.updateCustomer(customerModel);
+			CustomerData customer = new CustomerData();
+			customerDataPopulator.populate(customerModel, customer);
+			
+			return customer;
+	}
+	 
 	@Override
 	public CustomerData getCurrentCustomer()
 	{
@@ -159,11 +200,11 @@ public class DefaultCustomerFacade implements CustomerFacade
 		return customerData;
 	}
 //
-//	@Override
-//	public void loginSuccess(CustomerData customer)
-//	{
-//		sessionService.save(CoreConstants.Session.CURRENT_CUSTOMER,customer);
-//	}
+	@Override
+	public void loginSuccess(CustomerData customer)
+	{
+		sessionService.save(CoreConstants.Session.CURRENT_CUSTOMER,customer);
+	}
 //	
 //	@Override
 //	public void logout()
@@ -194,6 +235,16 @@ public class DefaultCustomerFacade implements CustomerFacade
 	public void setSourceService(SourceService sourceService)
 	{
 		this.sourceService = sourceService;
+	}
+
+	public void setSessionService(SessionService sessionService)
+	{
+		this.sessionService = sessionService;
+	}
+
+	public void setSubscribeService(SubscribeService subscribeService)
+	{
+		this.subscribeService = subscribeService;
 	}
 	
 }

@@ -84,6 +84,12 @@
 	    <property name="sourceDataPopulator" ref="sourceDataPopulator"></property>
 	</bean>
 	
+	<alias name="defaultWeixinFacade" alias="weixinFacade"></alias>
+	<bean id="defaultWeixinFacade" class="com.third.facade.customer.impl.DefaultWeixinFacade">
+	    <property name="subscribeService" ref="subscribeService"></property>
+	    <property name="weixinService" ref="weixinService"></property>
+	</bean>
+	
 	<alias name="defaultI18NFacade" alias="i18NFacade"></alias>
 	<bean id="defaultI18NFacade" class="com.third.facade.local.impl.DefaultI18NFacade">
 	    <property name="i18NService" ref="i18NService"></property>

@@ -66,6 +66,8 @@
 			   <value>/hbm/Payment.hbm.xml</value>
 			   <value>/hbm/SizeAttribute.hbm.xml</value>
 			   <value>/hbm/Reservation.hbm.xml</value>
+			   <value>/hbm/Subscribe.hbm.xml</value>
+			   <value>/hbm/WeixinInfo.hbm.xml</value>
 			</list>
 		</property>
 		<property name="hibernateProperties">

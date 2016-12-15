@@ -36,6 +36,8 @@
         <mapping resource="hbm/SizeAttribute.hbm.xml"/>
         <mapping resource="hbm/Reservation.hbm.xml"/>
         <mapping resource="hbm/OrderProcessRecord.hbm.xml"/>
+        <mapping resource="hbm/Subscribe.hbm.xml"/>
+        <mapping resource="hbm/WeixinInfo.hbm.xml"/>
           
     </session-factory>  
 </hibernate-configuration>  
