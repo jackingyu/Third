@@ -58,7 +58,7 @@ public class DefaultThirdDaoAuthenticationProvider implements AuthenticationProv
     
 	public Authentication authenticate(Authentication authentication)
 			throws AuthenticationException {
-		System.out.println("hit third authentication provider");
+
 		final Object credential = authentication.getCredentials();
 		final String username = authentication.getName();
 		
@@ -73,6 +73,11 @@ public class DefaultThirdDaoAuthenticationProvider implements AuthenticationProv
 		}
 		
 		UserModel user = userService.getUserById(username);
+		
+		if (user == null)
+		{
+			throw new BadCredentialsException("login.error.account.notexist");
+		}
 		
 		checkPassword(authentication, user);
 		

@@ -38,7 +38,7 @@ public class StoreDataBuilder implements DataBuilder
 		CityModel city = buildCity("cn12", "上海市", region);
 		RegionModel region1 = buildRegion("CN13", "江苏省");
 		CityModel city1 = buildCity("CN14", "泰州市", region);
-		AddressModel address = buildAddress(region, city, "闵行区平吉路88弄");
+		AddressModel address = buildAddress(region, city, "闵行区古龙路XX弄");
 		AddressModel address1 = buildAddress(region1, city1, "泰兴市江平路22号");
 		StoreModel store = buildStore("s-1", "南方一店", address);
 
@@ -82,7 +82,7 @@ public class StoreDataBuilder implements DataBuilder
 			userDao.update(user);
 		}
 
-		UserModel user1 = userDao.findUserById("yuxiang");
+		UserModel user1 = userDao.findUserById("test");
 		user1.setStores(Arrays.asList(store));
 		userDao.update(user1);
 

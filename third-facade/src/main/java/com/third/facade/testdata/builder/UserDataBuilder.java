@@ -23,9 +23,9 @@ public class UserDataBuilder implements DataBuilder
 	public void buildData()
 	{
 		UserModel admin = new UserModel();
-		admin.setUserId("yuxiang");
-		admin.setName("与非");
-		admin.setPassword("密码");
+		admin.setUserId("test");
+		admin.setName("test user");
+		admin.setPassword("test");
 		UserGroupModel userGroup = new UserGroupModel();
 		userGroup.setGroupId("admin");
 		userGroup.setName("管理员");

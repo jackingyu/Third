@@ -1,5 +1,6 @@
 <%@ page contentType="text/html;charset=utf-8" %> 
 <%@taglib uri="http://www.springframework.org/tags" prefix="spring"%>
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
@@ -14,6 +15,13 @@
 	       <input type="submit" value="login"/>
 		</form>
 	</div>
-
+	<div>
+	   <c:if test="${not empty login_error_message}">
+	     <spring:message code="${login_error_message}"></spring:message>
+	   </c:if>
+	</div>
+    <div>
+     测试用户名:test,密码:test
+    </div>
 </body>
 </html>
