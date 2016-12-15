@@ -58,6 +58,7 @@ public class WeixinCallbackController
 			//首次接入模式
 			if (StringUtils.isNotEmpty(echostr))
 			{
+				response.reset();
 				response.getWriter().write(echostr);
 				return null;
 			}
