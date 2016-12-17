@@ -32,6 +32,7 @@
     <security:http  pattern="/wx/getBindCustomerPage" security="none"></security:http>
     <security:http  pattern="/wx/callback" security="none"></security:http>
     <security:http  pattern="/wx/getStoreDetail" security="none"></security:http>
+    <security:http  pattern="/wx/bindCustomer" security="none"></security:http>
     <!-- weixin related function -->
 <!--     <security:http  pattern="/wx/**" security="none"></security:http> -->
     
