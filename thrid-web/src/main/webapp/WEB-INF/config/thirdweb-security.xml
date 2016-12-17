@@ -45,6 +45,7 @@
 		   authentication-failure-handler-ref="loginAuthenticationFailureHandler"
 		   authentication-success-handler-ref="loginAuthenticationSuccessHandler"/>
 		<!--  <security:access-denied-handler ref="weixinAccessDeniedHandler"/>-->
+		<security:csrf disabled="true"/>
 	</security:http>
 	
 	<!-- Default security config -->

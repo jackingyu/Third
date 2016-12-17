@@ -59,8 +59,10 @@ public class WeixinMemberController extends AbstractWeixinController
 	
 	@RequestMapping(value = "/bindCustomer")
 	public void bindCustomer(
-			@RequestParam(value="vcode") final String vcode,@RequestParam(value="cellphone") final String cellphone,final Model model)
+			@RequestParam(value="vcode",required=false) final String vcode,@RequestParam(value="cellphone",required=false) final String cellphone,final Model model)
 	{
+		LOG.debug("vcode  is" +vcode);
+		LOG.debug("cellphone is"+cellphone);
 		if(smsVerifyCodeUtils.verifyVcode(vcode))
 		{
 				try
