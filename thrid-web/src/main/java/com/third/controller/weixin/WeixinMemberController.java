@@ -1,6 +1,8 @@
 package com.third.controller.weixin;
 
 
+import java.io.IOException;
+
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 
@@ -11,8 +13,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.third.controller.pages.ControllerConstants;
+import com.third.core.util.WXConstant;
 import com.third.facade.customer.CustomerFacade;
 import com.third.facade.data.CustomerData;
+import com.third.service.customer.WeixinService;
+import com.third.service.user.SessionService;
 import com.third.web.utils.SmsVerifyCodeUtils;
 
 
@@ -25,11 +30,34 @@ public class WeixinMemberController extends AbstractWeixinController
 	@Resource(name="customerFacade")
 	private CustomerFacade customerFacade;
 	
+	@Resource(name="sesionService")
+	private SessionService sessionService;
+	
+	@Resource(name="weixinService")
+	private WeixinService weixinService;
+	
 	@Resource(name="smsVerifyCodeUtils")
 	SmsVerifyCodeUtils smsVerifyCodeUtils;
 	@RequestMapping(value = "/getBindCustomerPage")
-	public String getBindCustomerPage(final HttpServletRequest request,final Model model)
+	public String getBindCustomerPage(
+			final HttpServletRequest request,
+			final Model model,
+			@RequestParam(value="code",required=false)final String code,
+			@RequestParam(value="state",required=false)final String state)
 	{
+		String openId = "";
+		
+		try
+		{
+			openId = weixinService.getOpenID(code);
+		}
+		catch (IOException e)
+		{
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		LOG.info("IN GET BIND1-"+openId);
+		LOG.info("IN GET BIND2-"+sessionService.get(WXConstant.WX_OPENID));
 		return ControllerConstants.WeiXin.BIND;
 		
 	}
