@@ -28,7 +28,7 @@
 					<span class="wx_label"><spring:message code="wx.bind.cellphone" /></span>
 				</div>
 				<div class="col-md-8  col-xs-8 col-sm-8 col-lg-8">
-					<input id="phone" name="phone" type="text" class="wx_formcontrol"
+					<input id="phone" name="cellphone" type="text" class="wx_formcontrol"
 						placeholder="<spring:message code="wx.bind.cellphone"/>" value="${cellphone}" />
 				</div>
 			</div>
