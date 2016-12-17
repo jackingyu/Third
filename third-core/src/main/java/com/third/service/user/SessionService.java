@@ -7,5 +7,6 @@ public interface SessionService
 	public Object get(final String key);
 
 	void clear(String key);
-
+	
+	boolean contains(String key);
 }

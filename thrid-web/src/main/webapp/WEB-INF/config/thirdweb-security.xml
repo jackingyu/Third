@@ -28,9 +28,23 @@
   
     <!-- ui resource -->
     <security:http  pattern="/ui/**" security="none"></security:http>
+    <security:http  pattern="/wx/getStoreList" security="none"></security:http>
+    <security:http  pattern="/wx/getBindCustomerPage" security="none"></security:http>
+    <security:http  pattern="/wx/callback" security="none"></security:http>
     <!-- weixin related function -->
-    <security:http  pattern="/wx/**" security="none"></security:http>
+<!--     <security:http  pattern="/wx/**" security="none"></security:http> -->
     
+	<security:http disable-url-rewriting="true" pattern="/wx/**" use-expressions="true"  entry-point-ref="weixinLoginUrlAuthenticationEntryPoint">
+        <security:anonymous username="anonymous" granted-authority="ROLE_ANONYMOUS" />
+<!--         <security:intercept-url pattern="/wx/**" access="@weixinAuthorizationFilter.check(authentication,request)" /> -->
+		<security:custom-filter ref="weixinAuthorizationFilter" after="EXCEPTION_TRANSLATION_FILTER"/>
+		<security:form-login login-page="/login"
+		login-processing-url="/j_spring_security_check" 
+		   authentication-failure-handler-ref="loginAuthenticationFailureHandler"
+		   authentication-success-handler-ref="loginAuthenticationSuccessHandler"/>
+		<!--  <security:access-denied-handler ref="weixinAccessDeniedHandler"/>-->
+	</security:http>
+	
 	<!-- Default security config -->
 	<security:http disable-url-rewriting="true"  use-expressions="true" entry-point-ref="thirdLoginUrlAuthenticationEntryPoint">
 	
@@ -62,8 +76,8 @@
 		</security:port-mappings>-->
 
 		<!--  <security:request-cache ref="httpWithoutPostRequestCache" />
+		-->
 
-		<security:access-denied-handler ref="anguoAccessDeniedHandler" />-->
 		<security:access-denied-handler ref="thirdAccessDeniedHandler"/>
 		
 		<security:logout logout-url="/logout" success-handler-ref="logoutSuccessHandler" />
@@ -86,6 +100,7 @@
 	</bean>
 
     <bean id="thirdAccessDeniedHandler" class="com.third.security.ThirdAccessDeniedHandler"/>
+    <bean id="weixinAccessDeniedHandler" class="com.third.security.WeixinAccessDeniedHandler"/>
     
     <bean id="filterMultipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
         <property name="maxUploadSize" value="100000000" />
@@ -112,5 +127,12 @@
     
     <bean id="thirdLoginUrlAuthenticationEntryPoint" class="com.third.security.ThirdLoginUrlAuthenticationEntryPoint"> 
         <constructor-arg value="/login"/>
+     </bean>
+     
+    <bean id="weixinLoginUrlAuthenticationEntryPoint" class="com.third.security.WeixinLoginUrlAuthenticationEntryPoint"> 
+        <constructor-arg value="/login"/>
+     </bean>
+     
+    <bean id="weixinAuthorizationFilter" class="com.third.security.WeixinAuthorizationFilter"> 
      </bean>
 </beans>

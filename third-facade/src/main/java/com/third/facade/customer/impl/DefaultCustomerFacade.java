@@ -192,10 +192,13 @@ public class DefaultCustomerFacade implements CustomerFacade
 	{
 		//TODO: need to get the user from session
 	   CustomerModel customer = customerService.getCustomerByCellphone("13800138000");
-	   CustomerData customerData = new CustomerData();
+	   CustomerData customerData = null;
 	   
 	   if(customer!=null)
+	   {
+	   	customerData = new CustomerData();
 	   	customerDataPopulator.populate(customer, customerData);
+	   }
 	   
 		return customerData;
 	}
@@ -245,6 +248,18 @@ public class DefaultCustomerFacade implements CustomerFacade
 	public void setSubscribeService(SubscribeService subscribeService)
 	{
 		this.subscribeService = subscribeService;
+	}
+
+	@Override
+	public CustomerData loginCustomer(String openId)
+	{
+		CustomerModel customerModel = customerService.getCustomerByOpenId(openId);
+		if(customerModel == null)
+			return null;
+		
+		CustomerData customer = new CustomerData();
+		customerDataPopulator.populate(customerModel, customer);
+		return customer;
 	}
 	
 }

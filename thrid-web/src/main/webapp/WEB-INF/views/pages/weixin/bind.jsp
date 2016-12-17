@@ -1,5 +1,5 @@
 ﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<%@ page import="com.third.controller.weixin.WXConstant"%>
+<%@ page import="com.third.core.util.WXConstant"%>
 <%@ taglib prefix="template" tagdir="/WEB-INF/tags/template"%>
 <%@ taglib prefix="common" tagdir="/WEB-INF/tags/common"%>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
@@ -51,7 +51,7 @@
 			</div>
 			<div class="row wx_button_row">
 				<button id="submit_btn" type="button" class="btn btn-default btn_submit">
-					<spring:message code="wx.bind.bindmemeber" />
+					<spring:message code="wx.bind.bindmember" />
 				</button>
 			</div>
 		</div>
@@ -75,12 +75,7 @@
 	<script>
 	
 	//判断是否需要显示错误消息
-	<%String error_msg = (String) request
-					.getAttribute(WXConstant.WX_ERROR_MSG);
-			if (error_msg != null && !error_msg.equals("")) {%>
-			show_error("<%=error_msg%>
-		");
-	<%}%>
+
 		$('#verf_btn').click(function() {
 
 			var re = re = /^1\d{10}$/;

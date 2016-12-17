@@ -15,9 +15,9 @@ import org.apache.log4j.Logger;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.third.core.util.WXConstant;
 import com.third.dao.customer.WeixinInfoDao;
 import com.third.dao.util.HttpClientUtil;
-import com.third.dao.util.WXConstant;
 import com.third.model.AccessToken;
 import com.third.model.SubscribeData;
 import com.third.model.WeixinInfoModel;
@@ -43,6 +43,10 @@ public class DefaultWeixinService implements WeixinService
 		try
 		{
 			WeixinInfoModel wxInfo = getWeixinInfo(1);
+			
+			if(wxInfo==null)
+				LOG.fatal("请补充weixininfo appID appsecret!");
+			
 			String uri = new StringBuffer().append(WXConstant.getAccessTokenURL).append("&appid=").append(wxInfo.getAppId())
 					.append("&secret=").append(wxInfo.getAppSecret()).toString();
 			LOG.debug("请求新的Access Token");

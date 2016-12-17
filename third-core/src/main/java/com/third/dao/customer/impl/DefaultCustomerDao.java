@@ -16,6 +16,7 @@ import com.third.model.CustomerModel;
 public class DefaultCustomerDao extends GenericDAO<CustomerModel, String> implements CustomerDao
 {
 	private final static String FIND_BY_CELLPHONE_SQL = "from com.third.model.CustomerModel c where c.cellphone=?";
+	private final static String FIND_BY_OPENID_SQL = "from com.third.model.CustomerModel c where c.subscribe.openId=?";
 
 	@Override
 	public CustomerModel getCustomerByCellphone(String cellphone)
@@ -38,6 +39,13 @@ public class DefaultCustomerDao extends GenericDAO<CustomerModel, String> implem
 		PaginationSupport ps = findPageByCriteria(dcCustomer, pageSize, startIndex);
 
 		return ps;
+	}
+
+	@Override
+	public CustomerModel findCustomerByOpenId(String openId)
+	{
+		List<CustomerModel> customers = this.find(FIND_BY_OPENID_SQL, openId);
+		return CollectionUtils.isEmpty(customers) ? null : customers.get(0);
 	}
 
 

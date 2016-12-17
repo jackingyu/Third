@@ -7,9 +7,9 @@ import org.dom4j.Document;
 import org.dom4j.DocumentHelper;
 import org.dom4j.Element;
 
+import com.third.core.util.WXConstant;
 import com.third.facade.customer.WeixinFacade;
 import com.third.facade.data.WXMessage;
-import com.third.facade.utils.WXConstant;
 import com.third.model.SubscribeData;
 import com.third.model.SubscribeModel;
 import com.third.service.customer.SubscribeService;

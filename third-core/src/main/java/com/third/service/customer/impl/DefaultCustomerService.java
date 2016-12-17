@@ -40,4 +40,10 @@ public class DefaultCustomerService implements CustomerService
 		customerDao.update(customer);
 	}
 
+	@Override
+	public CustomerModel getCustomerByOpenId(String openId)
+	{
+		return customerDao.findCustomerByOpenId(openId);
+	}
+
 }

@@ -6,9 +6,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import com.third.service.user.SessionService;
 
+
 public class DefaultSessionService implements SessionService
 {
-	@Autowired 
+	@Autowired
 	private HttpSession httpSession;
 
 	@Override
@@ -27,5 +28,12 @@ public class DefaultSessionService implements SessionService
 	public void clear(String key)
 	{
 		httpSession.removeAttribute(key);
+	}
+
+	@Override
+	public boolean contains(final String key)
+	{
+		Object o = this.get(key);
+		return null != o;
 	}
 }

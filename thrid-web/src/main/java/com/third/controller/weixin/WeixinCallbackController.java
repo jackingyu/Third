@@ -4,7 +4,6 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
@@ -22,17 +21,15 @@ import org.dom4j.Element;
 import org.dom4j.io.SAXReader;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.third.facade.customer.WeixinFacade;
 import com.third.facade.data.WXMessage;
-
+import com.third.core.util.WXConstant;
 
 
 @Controller
-@RequestMapping("/wx")
 public class WeixinCallbackController
 {
 	private String TOKEN = "blaimar";
@@ -40,7 +37,7 @@ public class WeixinCallbackController
 	@Resource(name = "weixinFacade")
 	private WeixinFacade weixinFacade;
 
-	@RequestMapping(value = "/callback")
+	@RequestMapping(value = "/wx/callback")
 	public @ResponseBody Object callback(@RequestParam(value = "signature", defaultValue = StringUtils.EMPTY) final String signature,
 			@RequestParam(value = "timestamp", defaultValue = StringUtils.EMPTY) final String timestamp,
 			@RequestParam(value = "nonce", defaultValue = StringUtils.EMPTY) final String nonce, 

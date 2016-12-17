@@ -2,6 +2,7 @@ package com.third.controller.weixin;
 
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
 
 import org.apache.log4j.Logger;
 import org.springframework.stereotype.Controller;
@@ -26,9 +27,16 @@ public class WeixinMemberController extends AbstractWeixinController
 	
 	@Resource(name="smsVerifyCodeUtils")
 	SmsVerifyCodeUtils smsVerifyCodeUtils;
+	@RequestMapping(value = "/getBindCustomerPage")
+	public String getBindCustomerPage(final HttpServletRequest request,final Model model)
+	{
+		return ControllerConstants.WeiXin.BIND;
+		
+	}
 	
 	@RequestMapping(value = "/bindCustomer")
-	public void bindCustomer(@RequestParam(value="vcode") final String vcode,@RequestParam(value="cellphone") final String cellphone,final Model model)
+	public void bindCustomer(
+			@RequestParam(value="vcode") final String vcode,@RequestParam(value="cellphone") final String cellphone,final Model model)
 	{
 		if(smsVerifyCodeUtils.verifyVcode(vcode))
 		{

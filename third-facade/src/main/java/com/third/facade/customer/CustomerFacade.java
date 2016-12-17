@@ -24,6 +24,8 @@ public interface CustomerFacade
 	
 	void loginSuccess(CustomerData customer);
 	
+	CustomerData loginCustomer(String openId);
+	
 	public CustomerData bindCustomer(String openId, String cellphone) throws BussinessException;
 //	
 //	void logout();

@@ -1,4 +1,4 @@
-package com.third.facade.utils;
+package com.third.core.util;
 
 public class WXConstant {
 	public static final String getAccessTokenURL = "https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential";
@@ -24,6 +24,7 @@ public class WXConstant {
 	public static final String WX_NAME = "name";
 	public static final String WX_PHONE = "phone";
 	
+	public static final String WX_ERR_NOT_BIND_CUST = "此OpenId 未绑定任何顾客";
 	public static final String WX_ERR_MUST_FROM_WX = "请从微信服务号中访问铂玛";
 	public static final String WX_ERRO_NO_AUTH = "没有权限访问";
 	public static final String WX_ERR_CANNOT_GET_OPENID = "不能获取微信openID信息，请稍后再试";

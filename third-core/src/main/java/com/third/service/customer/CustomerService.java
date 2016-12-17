@@ -12,6 +12,8 @@ public interface CustomerService
 
 	public CustomerModel getCustomerByCellphone(final String cellphone);
 
+	public CustomerModel getCustomerByOpenId(final String openId);
+
 	public void updateCustomer(CustomerModel customer);
 
 }
