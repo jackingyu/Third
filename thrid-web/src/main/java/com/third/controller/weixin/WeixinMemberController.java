@@ -14,7 +14,11 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.third.controller.pages.ControllerConstants;
 import com.third.core.util.WXConstant;
+import com.third.exceptions.BussinessException;
+import com.third.exceptions.NotFoundException;
+import com.third.exceptions.SubscribeException;
 import com.third.facade.customer.CustomerFacade;
+import com.third.facade.customer.WeixinFacade;
 import com.third.facade.data.CustomerData;
 import com.third.service.customer.WeixinService;
 import com.third.service.user.SessionService;
@@ -33,8 +37,8 @@ public class WeixinMemberController extends AbstractWeixinController
 	@Resource(name="sessionService")
 	private SessionService sessionService;
 	
-	@Resource(name="weixinService")
-	private WeixinService weixinService;
+	@Resource(name="weixinFacade")
+	private WeixinFacade weixinFacade;
 	
 	@Resource(name="smsVerifyCodeUtils")
 	SmsVerifyCodeUtils smsVerifyCodeUtils;
@@ -47,17 +51,8 @@ public class WeixinMemberController extends AbstractWeixinController
 	{
 		String openId = "";
 		
-		try
-		{
-			openId = weixinService.getOpenID(code);
-		}
-		catch (IOException e)
-		{
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		LOG.info("IN GET BIND1-"+openId);
-		LOG.info("IN GET BIND2-"+sessionService.get(WXConstant.WX_OPENID));
+	   openId = weixinFacade.getOpenId(code);
+	
 		return ControllerConstants.WeiXin.BIND;
 		
 	}
@@ -68,7 +63,19 @@ public class WeixinMemberController extends AbstractWeixinController
 	{
 		if(smsVerifyCodeUtils.verifyVcode(vcode))
 		{
-			CustomerData customer = customerFacade.getCustomerByCellphone(cellphone);
+				try
+				{
+					customerFacade.bindCustomer((String)sessionService.get(WXConstant.WX_OPENID), cellphone);
+				}
+				catch (NotFoundException e)
+				{
+					e.printStackTrace();
+				}
+				catch (SubscribeException e)
+				{
+					e.printStackTrace();
+				}
+			
 		}
 	}
 	

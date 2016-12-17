@@ -32,8 +32,8 @@ public class WeixinAuthorizationFilter extends GenericFilterBean
 	@Resource(name="customerFacade")
 	private CustomerFacade customerFacade;
 
-	@Resource(name="weixinService")
-	private WeixinService weixinService;
+	@Resource(name="weixinFacade")
+	private WeixinFacade weixinFacade;
 	
 	@Override
 	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException
@@ -56,7 +56,7 @@ public class WeixinAuthorizationFilter extends GenericFilterBean
 				throw new WeixinAuthenticationException(WXConstant.WX_ERR_MUST_FROM_WX);
 			else
 			{
-				final String openId = weixinService.getOpenID(code);
+				final String openId = weixinFacade.getOpenId(code);
 				LOG.debug("get open id "+openId);
 				sessionService.save(WXConstant.WX_OPENID,openId );
 				CustomerData customer = customerFacade.loginCustomer(openId);

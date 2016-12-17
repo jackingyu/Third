@@ -3,6 +3,8 @@ package com.third.facade.customer;
 import java.util.List;
 
 import com.third.exceptions.BussinessException;
+import com.third.exceptions.NotFoundException;
+import com.third.exceptions.SubscribeException;
 import com.third.facade.data.CustomerData;
 import com.third.facade.data.ListData;
 import com.third.facade.data.SourceData;
@@ -22,11 +24,11 @@ public interface CustomerFacade
 	
 	public CustomerData getCurrentCustomer();
 	
-	void loginSuccess(CustomerData customer);
-	
 	CustomerData loginCustomer(String openId);
 	
-	public CustomerData bindCustomer(String openId, String cellphone) throws BussinessException;
+	public CustomerData bindCustomer(String openId, String cellphone) throws NotFoundException,SubscribeException;
 //	
 //	void logout();
+
+	void loginCustomer(CustomerData customer);
 }

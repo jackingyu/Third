@@ -12,5 +12,5 @@ public interface WeixinFacade
 
 	String getTransferMsg(WXMessage wxMsg);
 
-
+   String getOpenId(final String code);
 }

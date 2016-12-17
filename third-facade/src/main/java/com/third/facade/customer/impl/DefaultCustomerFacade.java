@@ -5,6 +5,8 @@ import java.util.List;
 
 import com.third.dao.util.PaginationSupport;
 import com.third.exceptions.BussinessException;
+import com.third.exceptions.NotFoundException;
+import com.third.exceptions.SubscribeException;
 import com.third.facade.customer.CustomerFacade;
 import com.third.facade.data.AddressData;
 import com.third.facade.data.CustomerData;
@@ -152,17 +154,17 @@ public class DefaultCustomerFacade implements CustomerFacade
 	}
 
 	 @Override
-	public CustomerData bindCustomer(String openId, String cellphone) throws BussinessException{
+	public CustomerData bindCustomer(String openId, String cellphone) throws SubscribeException,NotFoundException{
 	    	
 			SubscribeModel subscribeModel = subscribeService.getSubscribeModel(openId);
 			if(subscribeModel == null) {
-				throw new BussinessException("请先关注铂玛微信号");
+				throw new SubscribeException("请先关注铂玛微信号");
 			}
 			
 			CustomerModel customerModel = customerService.getCustomerByCellphone(cellphone);
 			
 			if(customerModel == null) {
-				throw new BussinessException("您还不是铂玛会员，请使用加入铂玛功能");
+				throw new NotFoundException("您还不是铂玛会员，请使用加入铂玛功能");
 			}
 			
 			customerModel.setSubscribe(subscribeModel);
@@ -183,7 +185,7 @@ public class DefaultCustomerFacade implements CustomerFacade
 			customerService.updateCustomer(customerModel);
 			CustomerData customer = new CustomerData();
 			customerDataPopulator.populate(customerModel, customer);
-			
+			loginCustomer(customer);
 			return customer;
 	}
 	 
@@ -204,7 +206,7 @@ public class DefaultCustomerFacade implements CustomerFacade
 	}
 //
 	@Override
-	public void loginSuccess(CustomerData customer)
+	public void loginCustomer(CustomerData customer)
 	{
 		sessionService.save(CoreConstants.Session.CURRENT_CUSTOMER,customer);
 	}
@@ -259,6 +261,7 @@ public class DefaultCustomerFacade implements CustomerFacade
 		
 		CustomerData customer = new CustomerData();
 		customerDataPopulator.populate(customerModel, customer);
+		loginCustomer(customer);;
 		return customer;
 	}
 	

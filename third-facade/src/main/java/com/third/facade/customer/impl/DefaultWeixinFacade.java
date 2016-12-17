@@ -2,6 +2,7 @@ package com.third.facade.customer.impl;
 
 import java.io.IOException;
 
+import org.apache.commons.lang3.StringUtils;
 import org.apache.log4j.Logger;
 import org.dom4j.Document;
 import org.dom4j.DocumentHelper;
@@ -111,6 +112,22 @@ public class DefaultWeixinFacade implements WeixinFacade
 	public void setWeixinService(WeixinService weixinService)
 	{
 		this.weixinService = weixinService;
+	}
+
+	@Override
+	public String getOpenId(String code)
+	{
+		try
+		{
+			return weixinService.getOpenID(code);
+		}
+		catch (IOException e)
+		{
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return StringUtils.EMPTY;
 	}
 
 }
