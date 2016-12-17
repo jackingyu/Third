@@ -30,7 +30,7 @@ public class WeixinMemberController extends AbstractWeixinController
 	@Resource(name="customerFacade")
 	private CustomerFacade customerFacade;
 	
-	@Resource(name="sesionService")
+	@Resource(name="sessionService")
 	private SessionService sessionService;
 	
 	@Resource(name="weixinService")
