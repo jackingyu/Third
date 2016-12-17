@@ -32,6 +32,7 @@ public class WeixinAuthorizationFilter extends GenericFilterBean
 	@Resource(name="customerFacade")
 	private CustomerFacade customerFacade;
 
+	@Resource(name="weixinService")
 	private WeixinService weixinService;
 	
 	@Override
