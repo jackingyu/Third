@@ -44,10 +44,11 @@ public class WeixinAuthorizationFilter extends GenericFilterBean
 		if(sessionService.contains(WXConstant.WX_OPENID))
 		{
 			//该微信已经绑定了有效账户,且已经存在了
+			LOG.info("there is openid");
 			if(sessionService.contains(WXConstant.WX_CUSTOMER))
 				chain.doFilter(request, response);
 			else
-				LOG.debug("not exist suitation");
+				LOG.info("not exist suitation");
 		}
 		else
 		{
@@ -57,7 +58,7 @@ public class WeixinAuthorizationFilter extends GenericFilterBean
 			else
 			{
 				final String openId = weixinFacade.getOpenId(code);
-				LOG.debug("get open id "+openId);
+				LOG.info("get open id "+openId);
 				sessionService.save(WXConstant.WX_OPENID,openId );
 				CustomerData customer = customerFacade.loginCustomer(openId);
 
