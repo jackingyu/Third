@@ -1,3 +1,10 @@
 eclipse.preferences.version=1
 encoding//thrid-web/src/main/webapp/WEB-INF/messages/locales_zh_CN.properties=UTF-8
 encoding//thrid-web/src/main/webapp/WEB-INF/tags/sales/sizeDataPanel.tag=UTF-8
+encoding//thrid-web/src/main/webapp/WEB-INF/views/pages/weixin/error.jsp=UTF-8
+encoding//thrid-web/src/main/webapp/WEB-INF/views/pages/weixin/first_page.jsp=UTF-8
+encoding//thrid-web/src/main/webapp/WEB-INF/views/pages/weixin/member.jsp=UTF-8
+encoding//thrid-web/src/main/webapp/WEB-INF/views/pages/weixin/message.jsp=UTF-8
+encoding//thrid-web/src/main/webapp/WEB-INF/views/pages/weixin/register.jsp=UTF-8
+encoding//thrid-web/src/main/webapp/WEB-INF/views/pages/weixin/reservation.jsp=UTF-8
+encoding//thrid-web/src/main/webapp/WEB-INF/views/pages/weixin/reservationmodify.jsp=UTF-8
