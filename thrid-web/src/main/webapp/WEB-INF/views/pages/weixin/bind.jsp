@@ -18,7 +18,7 @@
 	<%@ include file="inc/nav.jsp"%>
 	<%@ include file="inc/msg.jsp"%>
 
-	<form id="bindform" class="form-horizontal" role="form" action="${WXCssPath}/wx/bindCustomer" method="post">
+	<form id="bindform" class="form-horizontal" role="form" action="${contextPath}/wx/bindCustomer" method="post">
 		<div class="container wx_container" style="margin-top: 20px">
 			<div class="row wx_row">
 				<div class="col-md-1 col-xs-1 col-sm-1 col-lg-1">
