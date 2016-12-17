@@ -16,6 +16,7 @@ import com.third.core.util.WXConstant;
 import com.third.facade.customer.CustomerFacade;
 import com.third.facade.customer.WeixinFacade;
 import com.third.facade.data.CustomerData;
+import com.third.model.CoreConstants;
 import com.third.security.exceptions.WeixinAuthenticationException;
 import com.third.service.customer.CustomerService;
 import com.third.service.customer.WeixinService;
@@ -45,7 +46,7 @@ public class WeixinAuthorizationFilter extends GenericFilterBean
 		{
 			//该微信已经绑定了有效账户,且已经存在了
 			LOG.info("there is openid");
-			if(sessionService.contains(WXConstant.WX_CUSTOMER))
+			if(sessionService.contains(CoreConstants.Session.CURRENT_CUSTOMER))
 				chain.doFilter(request, response);
 			else
 				LOG.info("not exist suitation");
