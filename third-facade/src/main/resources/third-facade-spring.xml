@@ -80,6 +80,8 @@
 	    <property name="customerService" ref="customerService"></property>
 	    <property name="i18NService" ref="i18NService"></property>
 	    <property name="sourceService" ref="sourceService"></property>
+	    <property name="subscribeService" ref="subscribeService"></property>
+	    <property name="sessionService" ref="sessionService"></property>
 	    <property name="customerDataPopulator" ref="customerDataPopulator"></property>
 	    <property name="sourceDataPopulator" ref="sourceDataPopulator"></property>
 	</bean>

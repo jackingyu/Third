@@ -3,6 +3,8 @@ package com.third.facade.customer.impl;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.log4j.Logger;
+
 import com.third.dao.util.PaginationSupport;
 import com.third.exceptions.BussinessException;
 import com.third.exceptions.NotFoundException;
@@ -28,6 +30,7 @@ import com.third.service.user.SessionService;
 
 public class DefaultCustomerFacade implements CustomerFacade
 {
+	private final static Logger LOG = Logger.getLogger(DefaultCustomerFacade.class);
 	private CustomerDataPopulator customerDataPopulator;
 	private SourceDataPopulator sourceDataPopulator;
 	private I18NService i18NService;
@@ -149,14 +152,15 @@ public class DefaultCustomerFacade implements CustomerFacade
 		addressModel.setTel2(address.getTel2());
 
 		customerModel.setAddress(addressModel);
-
 		customerService.updateCustomer(customerModel);
 	}
 
 	 @Override
 	public CustomerData bindCustomer(String openId, String cellphone) throws SubscribeException,NotFoundException{
-	    	
+	    	LOG.info("开始绑定顾客"+openId+"/"+cellphone);
 			SubscribeModel subscribeModel = subscribeService.getSubscribeModel(openId);
+			
+			
 			if(subscribeModel == null) {
 				throw new SubscribeException("请先关注铂玛微信号");
 			}
