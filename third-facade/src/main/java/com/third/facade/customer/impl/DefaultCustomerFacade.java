@@ -197,16 +197,17 @@ public class DefaultCustomerFacade implements CustomerFacade
 	public CustomerData getCurrentCustomer()
 	{
 		//TODO: need to get the user from session
-	   CustomerModel customer = customerService.getCustomerByCellphone("13800138000");
-	   CustomerData customerData = null;
-	   
-	   if(customer!=null)
-	   {
-	   	customerData = new CustomerData();
-	   	customerDataPopulator.populate(customer, customerData);
-	   }
-	   
-		return customerData;
+//	   CustomerModel customer = customerService.getCustomerByCellphone("13800138000");
+//	   CustomerData customerData = null;
+//	   
+//	   if(customer!=null)
+//	   {
+//	   	customerData = new CustomerData();
+//	   	customerDataPopulator.populate(customer, customerData);
+//	   }
+		
+		CustomerData customer = (CustomerData) sessionService.get(CoreConstants.Session.CURRENT_CUSTOMER);
+		return customer;
 	}
 //
 	@Override
