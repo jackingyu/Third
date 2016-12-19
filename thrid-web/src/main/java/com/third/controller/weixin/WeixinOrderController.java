@@ -32,11 +32,6 @@ public class WeixinOrderController extends AbstractWeixinController
 	@Resource(name="customerFacade")
 	private CustomerFacade customerFacade;
 
-	@RequestMapping(value = "/getRegisterPage")
-	public String getRegisterPage()
-	{
-		return ControllerConstants.WeiXin.REGISTERPAGE;
-	}
 	
 	@RequestMapping(value = "/getOrderList")
 	public String getOrderList(final Model model)
