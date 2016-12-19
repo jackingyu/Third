@@ -42,16 +42,16 @@
 	<div class="container wx_container">
 		<div class="row wx_row">
 			<div class="col-md-12">
-				<a href="${contextPath}/wx/orderlist" class="list-group-item wx-list-group-item"><span
+				<a href="${contextPath}/wx/getOrderList" class="list-group-item wx-list-group-item"><span
 					class="glyphicon glyphicon-shopping-cart" aria-hidden="true"></span>
-					<spring:message code="wx.member.mysalesorder"/> <span class="badge">${numberOfSo}</span></a>
+					<spring:message code="wx.member.mysalesorder"/> <span class="badge">${numberOfOrder}</span></a>
 			</div>
 		</div>
 		<div class="row wx_row">
 			<div class="col-md-12">
-				<a href="${contextPath}/wx/reservelist" class="list-group-item wx-list-group-item"><span
+				<a href="${contextPath}/wx/getReservationList " class="list-group-item wx-list-group-item"><span
 					class="glyphicon glyphicon-earphone" aria-hidden="true"></span>
-					<spring:message code="wx.member.myreservation"/><span class="badge">${numberOfRv}</span></a>
+					<spring:message code="wx.member.myreservation"/><span class="badge">${numberOfReservation}</span></a>
 			</div>
 		</div>
 	</div>

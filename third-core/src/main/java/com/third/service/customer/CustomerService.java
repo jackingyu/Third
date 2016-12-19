@@ -15,5 +15,9 @@ public interface CustomerService
 	public CustomerModel getCustomerByOpenId(final String openId);
 
 	public void updateCustomer(CustomerModel customer);
+	
+	Integer getNumberOfSalesOrder(final String cellphone);
+	
+	Integer getNumberOfReservation(final String cellphone);
 
 }

@@ -39,7 +39,7 @@ public class WeixinAuthorizationFilter extends GenericFilterBean
 	@Override
 	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException
 	{
-		LOG.info("in custom filter");
+		LOG.debug("in custom filter");
 		
 		// session 中有open id ,证明当前页面是通过微信进入
 		if(sessionService.contains(WXConstant.WX_OPENID))
@@ -52,8 +52,8 @@ public class WeixinAuthorizationFilter extends GenericFilterBean
 			}
 			else
 			{
-				//如registerCustomer应该是这种情形
-				LOG.info("not exist suitation");
+				//如registerCustomer应该是这种情形,但是为了暂时保持逻辑的简单,不通过此filter实现
+				LOG.debug("not exist suitation");
 			}
 		}
 		else
@@ -85,10 +85,6 @@ public class WeixinAuthorizationFilter extends GenericFilterBean
 			}
 		}
 		
-		
-      
-			
-
 	}
 
 }

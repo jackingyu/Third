@@ -66,8 +66,22 @@ public class WeixinMemberController extends AbstractWeixinController
 
 	   sessionService.save(WXConstant.WX_OPENID, openId);
 	
-		return ControllerConstants.WeiXin.REGISTER;
+		return "redirect:/wx/member/home";
 		
+	}
+	
+	@RequestMapping(value = "/home")
+	public String getMemberPage(final HttpServletRequest request,final Model model)
+	{
+		CustomerData customer = customerFacade.getCurrentCustomer();
+		Integer numberOfOrder = customerFacade.countOrder(customer.getCellphone());
+		Integer numberOfReservation = customerFacade.countReservation(customer.getCellphone());
+		
+		model.addAttribute("numberOfOrder",numberOfOrder);
+		model.addAttribute("numberOfReservation",numberOfReservation);
+		model.addAttribute("customer",customer);
+		
+		return ControllerConstants.WeiXin.MEMBERPAGE;
 	}
 	
 	@RequestMapping(value = "/registerCustomer")

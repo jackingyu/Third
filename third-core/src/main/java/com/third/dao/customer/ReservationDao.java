@@ -14,4 +14,6 @@ public interface ReservationDao extends IGenericDAO<ReservationModel, String>
 			Integer pageSize);
 	
 	List<ReservationModel> findReservationsForCustomer(final String customerPK);
+	
+	Integer countReservationForCustomer(final String cellphone);
 }

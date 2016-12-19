@@ -39,6 +39,7 @@ public interface ControllerConstants
 		static final String STOREDETAILPAGE = PREFIX+"/storedetail";
 		static final String REGISTER = PREFIX+"/register";
 		static final String BIND = PREFIX+"/bind";
+		static final String MEMBERPAGE = PREFIX+"/member";
 		
 	}
 	

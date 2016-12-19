@@ -20,6 +20,8 @@ public class DefaultOrderDao extends GenericDAO<OrderModel, String> implements O
 {
 	private final static String FIND_BY_ORDERCODE_SQL = "from com.third.model.OrderModel o where o.code=?";
 	private final static String FIND_BY_CUSTOMERPK_SQL = "from com.third.model.OrderModel o where o.customer.pk=?";
+	private final static String COUNT_ORDER_BY_CUSTOMER = "select count(*) from com.third.model.OrderModel o where o.customer.cellphone=:cellphone";
+
 
 	@Override
 	public OrderModel findOrder(String orderCode)
@@ -50,6 +52,14 @@ public class DefaultOrderDao extends GenericDAO<OrderModel, String> implements O
 	{
 		List<OrderModel> orders = find(FIND_BY_CUSTOMERPK_SQL,customerPK);
 		return orders;
+	}
+
+	@Override
+	public Integer countOrderForCustomer(String cellphone)
+	{
+		Long numberOfOrder= (Long) this.currentSession().createQuery(COUNT_ORDER_BY_CUSTOMER).setParameter("cellphone", cellphone)
+				.uniqueResult();
+		return numberOfOrder.intValue();
 	}
 
 

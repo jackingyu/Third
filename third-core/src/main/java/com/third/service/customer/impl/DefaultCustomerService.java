@@ -1,6 +1,8 @@
 package com.third.service.customer.impl;
 
 import com.third.dao.customer.CustomerDao;
+import com.third.dao.customer.ReservationDao;
+import com.third.dao.order.OrderDao;
 import com.third.dao.util.PaginationSupport;
 import com.third.model.CustomerModel;
 import com.third.model.UserModel;
@@ -10,6 +12,8 @@ import com.third.service.customer.CustomerService;
 public class DefaultCustomerService implements CustomerService
 {
 	private CustomerDao customerDao;
+	private ReservationDao reservationDao;
+	private OrderDao orderDao;
 
 	@Override
 	public void createCustomer(CustomerModel customer)
@@ -29,11 +33,6 @@ public class DefaultCustomerService implements CustomerService
 		return customerDao.getCustomerByCellphone(cellphone);
 	}
 
-	public void setCustomerDao(CustomerDao customerDao)
-	{
-		this.customerDao = customerDao;
-	}
-
 	@Override
 	public void updateCustomer(CustomerModel customer)
 	{
@@ -45,5 +44,35 @@ public class DefaultCustomerService implements CustomerService
 	{
 		return customerDao.findCustomerByOpenId(openId);
 	}
+	
+	public void setCustomerDao(CustomerDao customerDao)
+	{
+		this.customerDao = customerDao;
+	}
+
+	public void setReservationDao(ReservationDao reservationDao)
+	{
+		this.reservationDao = reservationDao;
+	}
+
+	public void setOrderDao(OrderDao orderDao)
+	{
+		this.orderDao = orderDao;
+	}
+
+	@Override
+	public Integer getNumberOfSalesOrder(String cellphone)
+	{
+		return orderDao.countOrderForCustomer(cellphone);
+	}
+
+	@Override
+	public Integer getNumberOfReservation(String cellphone)
+	{
+		return reservationDao.countReservationForCustomer(cellphone);
+	}
+	
+	
+
 
 }

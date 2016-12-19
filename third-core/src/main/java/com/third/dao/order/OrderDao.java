@@ -17,4 +17,6 @@ public interface OrderDao extends IGenericDAO<OrderModel, String>
 			Map<String, String> searchParameter);
 
 	List<OrderModel> findOrdersForCustomer(final String customerPK);
+	
+	Integer countOrderForCustomer(final String cellphone);
 }

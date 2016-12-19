@@ -97,6 +97,8 @@
     <alias name="defaultCustomerService" alias="customerService"></alias>
 	<bean id="defaultCustomerService" class="com.third.service.customer.impl.DefaultCustomerService">
 	     <property name="customerDao" ref="customerDao" />
+	     <property name="reservationDao" ref="reservationDao" />
+	     <property name="orderDao" ref="orderDao" />
 	</bean>   
 	 
     <alias name="defaultSubscribeService" alias="subscribeService"></alias>

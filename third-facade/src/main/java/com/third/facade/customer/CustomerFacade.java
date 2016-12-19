@@ -29,4 +29,9 @@ public interface CustomerFacade
 	void loginCustomer(CustomerData customer);
 
 	CustomerData registerCustomer(String openId, String cellphone, String name) throws SubscribeException;
+	
+	Integer countReservation(final String cellphone);
+
+	Integer countOrder(String cellphone);
+	
 }

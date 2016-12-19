@@ -18,6 +18,7 @@ public class DefaultReservationDao extends GenericDAO<ReservationModel, String> 
 {
 	private String FIND_RESERVATION = "from com.third.model.ReservatioModel r where r.reservationDate >= ? and r.reservationDate <= ?";
 	private String FIND_CUST_RESERVATION = "from com.third.model.ReservationModel r where r.customer.pk= ?";
+	private String COUNT_CUST_RESERVATION = "select count(*) from com.third.model.ReservationModel r where r.customer.cellphone=:cellphone";
 
 	@Override
 	public PaginationSupport findReservations(final String storeCode,final String cellphone, final String name, final Date fromDate, final Date toDate,
@@ -43,6 +44,15 @@ public class DefaultReservationDao extends GenericDAO<ReservationModel, String> 
 	public List<ReservationModel> findReservationsForCustomer(String customerPK)
 	{
 		return find(FIND_CUST_RESERVATION, customerPK);
+	}
+	
+	
+	@Override
+	public Integer countReservationForCustomer(final String cellphone)
+	{
+		Long numberOfReservation = (Long) this.currentSession().createQuery(COUNT_CUST_RESERVATION).setParameter("cellphone", cellphone)
+				.uniqueResult();
+		return numberOfReservation.intValue();
 	}
 
 

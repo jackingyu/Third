@@ -282,8 +282,20 @@ public class DefaultCustomerFacade implements CustomerFacade
 		CustomerData customer = new CustomerData();
 		customerDataPopulator.populate(customerModel, customer);
 		loginCustomer(customer);
-		;
+
 		return customer;
+	}
+
+	@Override
+	public Integer countOrder(String cellphone)
+	{
+		return customerService.getNumberOfSalesOrder(cellphone);
+	}
+
+	@Override
+	public Integer countReservation(String cellphone)
+	{
+		return customerService.getNumberOfSalesOrder(cellphone);
 	}
 
 }
