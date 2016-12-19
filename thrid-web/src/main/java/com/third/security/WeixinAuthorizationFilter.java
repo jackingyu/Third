@@ -54,6 +54,8 @@ public class WeixinAuthorizationFilter extends GenericFilterBean
 			{
 				//如registerCustomer应该是这种情形,但是为了暂时保持逻辑的简单,不通过此filter实现
 				LOG.debug("not exist suitation");
+				LOG.debug("未找到对应的客户主数据");
+				throw new WeixinAuthenticationException(WXConstant.WX_ERR_NOT_BIND_CUST);
 			}
 		}
 		else
