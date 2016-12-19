@@ -49,11 +49,16 @@ public class WeixinAuthorizationFilter extends GenericFilterBean
 			if(sessionService.contains(CoreConstants.Session.CURRENT_CUSTOMER))
 				chain.doFilter(request, response);
 			else
+			{
+				//如registerCustomer应该是这种情形
 				LOG.info("not exist suitation");
+			}
 		}
 		else
 		{
 			String code = request.getParameter("code");
+			
+			//该URL是在security的管控下,必须通过微信的页面来访问的
 			if (StringUtils.isEmpty(code))
 				throw new WeixinAuthenticationException(WXConstant.WX_ERR_MUST_FROM_WX);
 			else

@@ -1,22 +1,24 @@
 ﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<%@ page contentType="text/html;charset=utf-8"%>
 <%@ taglib prefix="template" tagdir="/WEB-INF/tags/template"%>
 <%@ taglib prefix="common" tagdir="/WEB-INF/tags/common"%>
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
+
 <html lang="zh-cn">
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
-    <title>会员注册</title>
+    <title><spring:message code="wx.register.title"/></title>
     
 <!-- Bootstrap -->
 <template:wxcss></template:wxcss>
 </head>
-
   <body>
 	<%@ include file="inc/nav.jsp"%>
 	<%@ include file="inc/msg.jsp"%>
 	
-	<form id="regform" class="form-horizontal" role="form" action="${pageContext.request.contextPath}/wx/register" method="post">
+	<form id="regform" class="form-horizontal" role="form" action="${contextPath}/wx/register" method="post">
 	
 		<div class="container wx_container" style="margin-top:20px">
 			<div class="row wx_row">
@@ -24,10 +26,10 @@
 					<span class="glyphicon glyphicon-user wx_label" aria-hidden="true"></span>
 				</div>
 				<div class="col-md-3 col-xs-3 col-sm-3 col-lg-3">
-					<span class="wx_label">姓名</span>
+					<span class="wx_label"><spring:message code="wx.register.name"/></span>
 				</div>
 				<div class="col-md-8  col-xs-8 col-sm-8 col-lg-8">
-					<input id="name" name="name" type="text" class="wx_formcontrol" placeholder="请输入姓名" value="${requestScope.name}" />
+					<input id="name" name="name" type="text" class="wx_formcontrol" placeholder="<spring:message code='wx.register.nameinputhint'/>" value="${requestScope.name}" />
 				</div>
 			</div>
 			<div class="row wx_row">
@@ -35,10 +37,10 @@
 					<span class="glyphicon glyphicon-phone wx_label" aria-hidden="true"></span>
 				</div>
 				<div class="col-md-3 col-xs-3 col-sm-3 col-lg-3">
-					<span class="wx_label">手机号</span>
+					<span class="wx_label"><spring:message code="wx.register.cellphone"/></span>
 				</div>
 				<div class="col-md-8 col-xs-8 col-sm-8 col-lg-8">
-					<input id="phone" name="phone" type="text" class="wx_formcontrol" placeholder="请输入手机号" value="${requestScope.phone}" />
+					<input id="phone" name="phone" type="text" class="wx_formcontrol" placeholder="<spring:message code='wx.register.cellphoneinput'/>" value="${requestScope.phone}" />
 				</div>
 			</div>
 			<div class="row wx_row">
@@ -46,13 +48,13 @@
 					<span class="glyphicon glyphicon-th wx_label" aria-hidden="true"></span>
 				</div>
 				<div class="col-md-3 col-xs-3 col-sm-3 col-lg-3">
-					<span class="wx_label">验证码</span>
+					<span class="wx_label"><spring:message code="wx.register.verifycode"></spring:message></span>
 				</div>
 				<div class="col-md-4 col-xs-4 col-sm-4 col-lg-4">
-					<input id="vcode" name="vcode" type="text" class="wx_formcontrol" placeholder="请输入验证码">
+					<input id="vcode" name="vcode" type="text" class="wx_formcontrol" placeholder="<spring:message code="wx.register.inputverifycode"/>">
 				</div>
 				<div class="col-md-4 col-xs-4 col-sm-4 col-lg-4" style="text-align:right">
-					<button id="verf_btn" type="button" class="btn btn-default wx_button">获取验证码</button>
+					<button id="verf_btn" type="button" class="btn btn-default wx_button"><spring:message code="wx.register.getverifycode"/></button>
 				</div>
 			</div>
 			<div class="row wx_button_row">
@@ -60,8 +62,9 @@
 			</div>
 		</div>
 		<div class="panel-heading">
-			<p>温馨提示</p>
-			<p>1. 根据省份，城市，地区不同，一般会在5秒-60秒内收到验证码。如未收到，您可以在60秒后重新获取。</p>
+			<p><spring:message code="wx.register.tip"></spring:message></p>
+			<p><spring:message code="wx.register.tip1"></spring:message></p>
+			<p><spring:message code="wx.register.tip2"></spring:message></p>
 		</div>
 	</form>
     <template:wxjs/>

@@ -10,6 +10,11 @@
            "sub_button":[
            {	
                "type":"view",
+               "name":"注册",
+               "url":"https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx095f3e1260a6b827&redirect_uri=http%3a%2f%2f106.14.65.76%2fthrid-web%2fwx%2fgetRegisterPage&response_type=code&scope=snsapi_base&state=123#wechat_redirect"
+            },
+           {	
+               "type":"view",
                "name":"我的订单",
                "url":"https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx095f3e1260a6b827&redirect_uri=http%3a%2f%2f106.14.65.76%2fthrid-web%2fwx%2fgetOrderList&response_type=code&scope=snsapi_base&state=123#wechat_redirect"
             },

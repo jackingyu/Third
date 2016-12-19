@@ -23,11 +23,14 @@ public class CustomerDataPopulator implements Populator<CustomerModel, CustomerD
 		target.setQQ(source.getQQ());
 		target.setName(source.getName());
 
-		AddressData address = new AddressData();
-		addressDataPopulator.populate(source.getAddress(), address);
+		if (source.getAddress() != null)
+		{
+			AddressData address = new AddressData();
+			addressDataPopulator.populate(source.getAddress(), address);
 
-		target.setAddress(address);
-
+			target.setAddress(address);
+		}
+		
 		SourceData sourceData = new SourceData();
 		if (source.getSource() != null)
 			sourceDataPopulator.populate(source.getSource(), sourceData);

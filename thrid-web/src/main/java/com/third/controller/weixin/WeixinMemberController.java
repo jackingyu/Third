@@ -42,8 +42,9 @@ public class WeixinMemberController extends AbstractWeixinController
 	
 	@Resource(name="smsVerifyCodeUtils")
 	SmsVerifyCodeUtils smsVerifyCodeUtils;
-	@RequestMapping(value = "/getBindCustomerPage")
-	public String getBindCustomerPage(
+	
+	@RequestMapping(value = "/getRegisterPage")
+	public String getRegisterPage(
 			final HttpServletRequest request,
 			final Model model,
 			@RequestParam(value="code",required=false)final String code,
@@ -52,26 +53,29 @@ public class WeixinMemberController extends AbstractWeixinController
 		String openId = "";
 		
 	   openId = weixinFacade.getOpenId(code);
+
+	   sessionService.save(WXConstant.WX_OPENID, openId);
 	
-		return ControllerConstants.WeiXin.BIND;
+		return ControllerConstants.WeiXin.REGISTER;
 		
 	}
 	
-	@RequestMapping(value = "/bindCustomer")
+	@RequestMapping(value = "/registerCustomer")
 	public void bindCustomer(
-			@RequestParam(value="vcode",required=false) final String vcode,@RequestParam(value="cellphone",required=false) final String cellphone,final Model model)
+			@RequestParam(value="vcode",required=false) final String vcode,
+			@RequestParam(value="cellphone",required=false) final String cellphone,
+			@RequestParam(value="name",required=false) final String name,
+			final Model model)
 	{
 		LOG.debug("vcode  is" +vcode);
 		LOG.debug("cellphone is"+cellphone);
+		
 		if(smsVerifyCodeUtils.verifyVcode(vcode))
 		{
 				try
 				{
-					customerFacade.bindCustomer((String)sessionService.get(WXConstant.WX_OPENID), cellphone);
-				}
-				catch (NotFoundException e)
-				{
-					e.printStackTrace();
+					LOG.debug("openId:"+sessionService.get(WXConstant.WX_OPENID));
+					customerFacade.registerCustomer((String)sessionService.get(WXConstant.WX_OPENID), cellphone,name);
 				}
 				catch (SubscribeException e)
 				{

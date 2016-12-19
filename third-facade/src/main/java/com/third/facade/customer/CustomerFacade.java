@@ -26,9 +26,7 @@ public interface CustomerFacade
 	
 	CustomerData loginCustomer(String openId);
 	
-	public CustomerData bindCustomer(String openId, String cellphone) throws NotFoundException,SubscribeException;
-//	
-//	void logout();
-
 	void loginCustomer(CustomerData customer);
+
+	CustomerData registerCustomer(String openId, String cellphone, String name) throws SubscribeException;
 }

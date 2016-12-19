@@ -155,72 +155,87 @@ public class DefaultCustomerFacade implements CustomerFacade
 		customerService.updateCustomer(customerModel);
 	}
 
-	 @Override
-	public CustomerData bindCustomer(String openId, String cellphone) throws SubscribeException,NotFoundException{
-	    	LOG.info("开始绑定顾客"+openId+"/"+cellphone);
-			SubscribeModel subscribeModel = subscribeService.getSubscribeModel(openId);
-			
-			
-			if(subscribeModel == null) {
-				throw new SubscribeException("请先关注铂玛微信号");
-			}
-			
-			CustomerModel customerModel = customerService.getCustomerByCellphone(cellphone);
-			
-			if(customerModel == null) {
-				throw new NotFoundException("您还不是铂玛会员，请使用加入铂玛功能");
-			}
-			
+	@Override
+	public CustomerData registerCustomer(final String openId, final String cellphone, final String name) throws SubscribeException
+	{
+		LOG.debug("开始绑定顾客" + openId + "/" + cellphone);
+		SubscribeModel subscribeModel = subscribeService.getSubscribeModel(openId);
+
+
+		if (subscribeModel == null)
+		{
+			throw new SubscribeException("请先关注铂玛微信号");
+		}
+
+		CustomerModel customerModel = customerService.getCustomerByCellphone(cellphone);
+
+		//如果该顾客数据不存在直接创建一个否则执行绑定功能
+		if (customerModel == null)
+		{
+			customerModel = new CustomerModel();
+			customerModel.setCellphone(cellphone);
+			customerModel.setName(name);
 			customerModel.setSubscribe(subscribeModel);
-//			
-//			//如果该客户还没有分组或者分组为默认分组时，设置默认微信分组
-//			if ( customer.getCustomerGroupModel() == null || customer.getCustomerGroupModel().getId() == 0 ) {
-//				CustomerGroupModel custGroup = customerGroupService.getCustomerGroupModel(0);
-//				customer.setCustomerGroupModel(custGroup);
-//			} else {
-//				try {
-//					//同步微信分组
-//					this.getWxService().updateCustomerGroup(openId, customer.getCustomerGroupModel().getId().toString());
-//				} catch (IOException e) {
-//					//Do nothing
-//				}
-//			}
-			
+			customerService.createCustomer(customerModel);
+			LOG.debug("创建顾客"+cellphone);
+		}
+		else
+		{
+			customerModel.setSubscribe(subscribeModel);
+			//			
+			//			//如果该客户还没有分组或者分组为默认分组时，设置默认微信分组
+			//			if ( customer.getCustomerGroupModel() == null || customer.getCustomerGroupModel().getId() == 0 ) {
+			//				CustomerGroupModel custGroup = customerGroupService.getCustomerGroupModel(0);
+			//				customer.setCustomerGroupModel(custGroup);
+			//			} else {
+			//				try {
+			//					//同步微信分组
+			//					this.getWxService().updateCustomerGroup(openId, customer.getCustomerGroupModel().getId().toString());
+			//				} catch (IOException e) {
+			//					//Do nothing
+			//				}
+			//			}
+
+			LOG.debug("更新顾客"+cellphone);
 			customerService.updateCustomer(customerModel);
-			CustomerData customer = new CustomerData();
-			customerDataPopulator.populate(customerModel, customer);
-			loginCustomer(customer);
-			return customer;
+		}
+		
+		CustomerData customer = new CustomerData();
+		customerDataPopulator.populate(customerModel, customer);
+		loginCustomer(customer);
+		return customer;
 	}
-	 
+
 	@Override
 	public CustomerData getCurrentCustomer()
 	{
 		//TODO: need to get the user from session
-//	   CustomerModel customer = customerService.getCustomerByCellphone("13800138000");
-//	   CustomerData customerData = null;
-//	   
-//	   if(customer!=null)
-//	   {
-//	   	customerData = new CustomerData();
-//	   	customerDataPopulator.populate(customer, customerData);
-//	   }
-		
+		//	   CustomerModel customer = customerService.getCustomerByCellphone("13800138000");
+		//	   CustomerData customerData = null;
+		//	   
+		//	   if(customer!=null)
+		//	   {
+		//	   	customerData = new CustomerData();
+		//	   	customerDataPopulator.populate(customer, customerData);
+		//	   }
+
 		CustomerData customer = (CustomerData) sessionService.get(CoreConstants.Session.CURRENT_CUSTOMER);
 		return customer;
 	}
-//
+
+	//
 	@Override
 	public void loginCustomer(CustomerData customer)
 	{
-		sessionService.save(CoreConstants.Session.CURRENT_CUSTOMER,customer);
+		sessionService.save(CoreConstants.Session.CURRENT_CUSTOMER, customer);
 	}
-//	
-//	@Override
-//	public void logout()
-//	{
-//		sessionService.clear(CoreConstants.Session.CURRENT_CUSTOMER);
-//	}
+
+	//	
+	//	@Override
+	//	public void logout()
+	//	{
+	//		sessionService.clear(CoreConstants.Session.CURRENT_CUSTOMER);
+	//	}
 
 	public void setCustomerDataPopulator(CustomerDataPopulator customerDataPopulator)
 	{
@@ -261,13 +276,14 @@ public class DefaultCustomerFacade implements CustomerFacade
 	public CustomerData loginCustomer(String openId)
 	{
 		CustomerModel customerModel = customerService.getCustomerByOpenId(openId);
-		if(customerModel == null)
+		if (customerModel == null)
 			return null;
-		
+
 		CustomerData customer = new CustomerData();
 		customerDataPopulator.populate(customerModel, customer);
-		loginCustomer(customer);;
+		loginCustomer(customer);
+		;
 		return customer;
 	}
-	
+
 }

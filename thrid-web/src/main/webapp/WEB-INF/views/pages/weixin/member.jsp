@@ -1,4 +1,5 @@
 ﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<%@ page contentType="text/html;charset=utf-8"%>
 <%@ taglib prefix="template" tagdir="/WEB-INF/tags/template"%>
 <%@ taglib prefix="common" tagdir="/WEB-INF/tags/common"%>
 <html lang="zh-cn">
@@ -40,14 +41,14 @@
 	<div class="container wx_container">
 		<div class="row wx_row">
 			<div class="col-md-12">
-				<a href="${pageContext.request.contextPath}/wx/orderlist" class="list-group-item wx-list-group-item"><span
+				<a href="${contextPath}/wx/orderlist" class="list-group-item wx-list-group-item"><span
 					class="glyphicon glyphicon-shopping-cart" aria-hidden="true"></span>
 					我的订单 <span class="badge">${requestScope.SOCount}</span></a>
 			</div>
 		</div>
 		<div class="row wx_row">
 			<div class="col-md-12">
-				<a href="${pageContext.request.contextPath}/wx/reservelist" class="list-group-item wx-list-group-item"><span
+				<a href="${contextPath}/wx/reservelist" class="list-group-item wx-list-group-item"><span
 					class="glyphicon glyphicon-earphone" aria-hidden="true"></span>
 					我的预约<span class="badge">${requestScope.REVCount}</span></a>
 			</div>
