@@ -55,7 +55,7 @@ public class WeixinLoginUrlAuthenticationEntryPoint extends LoginUrlAuthenticati
 					.sendRedirect(
 							request,
 							response,
-							"/wx/member/getRegisterPage");
+							"https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx095f3e1260a6b827&redirect_uri=http%3A%2F%2F106.14.65.76%2Fthrid-web%2Fwx%2Fmember%2FgetRegisterPage&response_type=code&scope=snsapi_base&state=123#wechat_redirect");
 	}
 
 }
