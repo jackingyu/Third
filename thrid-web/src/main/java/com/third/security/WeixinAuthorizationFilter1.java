@@ -23,10 +23,10 @@ import com.third.service.customer.WeixinService;
 import com.third.service.user.SessionService;
 
 
-public class WeixinAuthorizationFilter extends GenericFilterBean
+public class WeixinAuthorizationFilter1 extends GenericFilterBean
 {
 
-	protected static final Logger LOG = Logger.getLogger(WeixinAuthorizationFilter.class);
+	protected static final Logger LOG = Logger.getLogger(WeixinAuthorizationFilter1.class);
 	@Resource(name="sessionService")
 	private SessionService sessionService;
 	

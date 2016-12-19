@@ -1,8 +1,8 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <%@ page contentType="text/html;charset=utf-8"%>
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 <%@ taglib prefix="template" tagdir="/WEB-INF/tags/template"%>
 <%@ taglib prefix="common" tagdir="/WEB-INF/tags/common"%>
-<%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 <%@ page import="java.text.SimpleDateFormat" %>
 <%@ page import="java.util.*" %>
 <html lang="zh-cn">

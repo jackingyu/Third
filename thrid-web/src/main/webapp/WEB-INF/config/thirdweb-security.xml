@@ -31,9 +31,23 @@
     <security:http  pattern="/wx/getStoreList" security="none"></security:http>
     <security:http  pattern="/wx/callback" security="none"></security:http>
     <security:http  pattern="/wx/getStoreDetail" security="none"></security:http>
+    <security:http  pattern="/wx/member/getRegisterPage" security="none"></security:http>
+    <security:http  pattern="/wx/member/registerCustomer" security="none"></security:http>
     <!-- weixin related function -->
 <!--     <security:http  pattern="/wx/**" security="none"></security:http> -->
     
+	<security:http disable-url-rewriting="true" pattern="/wx/member/*" use-expressions="true"  entry-point-ref="weixinLoginUrlAuthenticationEntryPoint">
+        <security:anonymous username="anonymous" granted-authority="ROLE_ANONYMOUS" />
+<!--         <security:intercept-url pattern="/wx/**" access="@weixinAuthorizationFilter.check(authentication,request)" /> -->
+		<security:custom-filter ref="weixinAuthorizationFilter1" after="EXCEPTION_TRANSLATION_FILTER"/>
+		<security:form-login login-page="/login"
+		login-processing-url="/j_spring_security_check" 
+		   authentication-failure-handler-ref="loginAuthenticationFailureHandler"
+		   authentication-success-handler-ref="loginAuthenticationSuccessHandler"/>
+		<!--  <security:access-denied-handler ref="weixinAccessDeniedHandler"/>-->
+		<security:csrf disabled="true"/>
+	</security:http>
+	
 	<security:http disable-url-rewriting="true" pattern="/wx/**" use-expressions="true"  entry-point-ref="weixinLoginUrlAuthenticationEntryPoint">
         <security:anonymous username="anonymous" granted-authority="ROLE_ANONYMOUS" />
 <!--         <security:intercept-url pattern="/wx/**" access="@weixinAuthorizationFilter.check(authentication,request)" /> -->
@@ -135,5 +149,7 @@
      </bean>
      
     <bean id="weixinAuthorizationFilter" class="com.third.security.WeixinAuthorizationFilter"> 
+     </bean>
+    <bean id="weixinAuthorizationFilter1" class="com.third.security.WeixinAuthorizationFilter1"> 
      </bean>
 </beans>

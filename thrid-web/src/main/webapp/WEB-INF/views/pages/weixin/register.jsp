@@ -18,7 +18,7 @@
 	<%@ include file="inc/nav.jsp"%>
 	<%@ include file="inc/msg.jsp"%>
 	
-	<form id="regform" class="form-horizontal" role="form" action="${contextPath}/wx/registerCustomer" method="post">
+	<form id="regform" class="form-horizontal" role="form" action="${contextPath}/wx/member/registerCustomer" method="post">
 	
 		<div class="container wx_container" style="margin-top:20px">
 			<div class="row wx_row">
@@ -29,7 +29,7 @@
 					<span class="wx_label"><spring:message code="wx.register.name"/></span>
 				</div>
 				<div class="col-md-8  col-xs-8 col-sm-8 col-lg-8">
-					<input id="name" name="name" type="text" class="wx_formcontrol" placeholder="<spring:message code='wx.register.nameinputhint'/>" value="${requestScope.name}" />
+					<input id="name" name="name" type="text" class="wx_formcontrol" placeholder="<spring:message code='wx.register.nameinputhint'/>" value="${name}" />
 				</div>
 			</div>
 			<div class="row wx_row">
@@ -40,7 +40,7 @@
 					<span class="wx_label"><spring:message code="wx.register.cellphone"/></span>
 				</div>
 				<div class="col-md-8 col-xs-8 col-sm-8 col-lg-8">
-					<input id="phone" name="phone" type="text" class="wx_formcontrol" placeholder="<spring:message code='wx.register.cellphoneinput'/>" value="${requestScope.phone}" />
+					<input id="phone" name="cellphone" type="text" class="wx_formcontrol" placeholder="<spring:message code='wx.register.cellphoneinput'/>" value="${phone}" />
 				</div>
 			</div>
 			<div class="row wx_row">

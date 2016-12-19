@@ -1,5 +1,6 @@
 ﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <%@ page contentType="text/html;charset=utf-8"%>
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 <%@ taglib prefix="template" tagdir="/WEB-INF/tags/template"%>
 <%@ taglib prefix="common" tagdir="/WEB-INF/tags/common"%>
 <html lang="zh-cn">
@@ -8,7 +9,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport"
 	content="width=device-width, initial-scale=1.0, user-scalable=no">
-<title>我的铂玛</title>
+<title><spring:message code="wx.member.title"></spring:message></title>
 
 <!-- Bootstrap -->
 <template:wxcss />
@@ -27,11 +28,11 @@
 	<div class="container wx_container">
 		<div class="row wx_row">
 			<div class="col-xs-4">
-				<div class="wx_logo"><img src="${pageContext.request.contextPath}/wx/img/blaimar.png" /></div>
+				<div class="wx_logo"><img src="${WXImagePath}/blaimar.png" /></div>
 			</div>
 			<div class="col-xs-8">
-				<div class="wx_logo_name">${sessionScope.wx_customer.name}</div>
-				<div class="wx_logo_cid">会员号：${sessionScope.wx_customer.id}</div>
+				<div class="wx_logo_name">${customer.name}</div>
+				<div class="wx_logo_cid">${customer.cellphone}</div>
 			</div>
 		</div>
 	</div>
@@ -43,14 +44,14 @@
 			<div class="col-md-12">
 				<a href="${contextPath}/wx/orderlist" class="list-group-item wx-list-group-item"><span
 					class="glyphicon glyphicon-shopping-cart" aria-hidden="true"></span>
-					我的订单 <span class="badge">${requestScope.SOCount}</span></a>
+					<spring:message code="wx.member.mysalesorder"/> <span class="badge">${numberOfSo}</span></a>
 			</div>
 		</div>
 		<div class="row wx_row">
 			<div class="col-md-12">
 				<a href="${contextPath}/wx/reservelist" class="list-group-item wx-list-group-item"><span
 					class="glyphicon glyphicon-earphone" aria-hidden="true"></span>
-					我的预约<span class="badge">${requestScope.REVCount}</span></a>
+					<spring:message code="wx.member.myreservation"/><span class="badge">${numberOfRv}</span></a>
 			</div>
 		</div>
 	</div>
