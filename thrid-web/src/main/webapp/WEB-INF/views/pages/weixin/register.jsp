@@ -71,12 +71,7 @@
 	<script>
 	
 	//判断是否需要显示错误消息
-	<% 
-		String error_msg = (String)request.getAttribute( WXConstant.WX_ERROR_MSG );
-		if( error_msg != null && !error_msg.equals("") ){
-	%>
-			show_error("<%=error_msg %>");
-	<%  } %>
+
 
 	$('#verf_btn').click(function(){
 		
