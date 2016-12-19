@@ -55,7 +55,7 @@ public class WeixinMemberController extends AbstractWeixinController
 		if(sessionService.contains(CoreConstants.Session.CURRENT_CUSTOMER))
 		{
 			LOG.debug("有已绑定的顾客,跳转到member页");
-			return ControllerConstants.WeiXin.ORDERLISTPAGE;
+			return "redirect:/wx/member/home";
 		}
 
 		//code 必须存在,此处不在进行code 必须输入的判断,直接通过参数进行404控制
@@ -66,7 +66,7 @@ public class WeixinMemberController extends AbstractWeixinController
 
 	   sessionService.save(WXConstant.WX_OPENID, openId);
 	
-		return "redirect:/wx/member/home";
+	   return ControllerConstants.WeiXin.REGISTERPAGE;
 		
 	}
 	
@@ -85,7 +85,7 @@ public class WeixinMemberController extends AbstractWeixinController
 	}
 	
 	@RequestMapping(value = "/registerCustomer")
-	public void bindCustomer(
+	public String bindCustomer(
 			@RequestParam(value="vcode",required=false) final String vcode,
 			@RequestParam(value="cellphone",required=false) final String cellphone,
 			@RequestParam(value="name",required=false) final String name,
@@ -97,7 +97,7 @@ public class WeixinMemberController extends AbstractWeixinController
 		if(!sessionService.contains(WXConstant.WX_OPENID))
 		{
 			LOG.fatal("必须通过微信页面进行用户注册");
-			return;
+			return null;
 		}
 		
 		if(smsVerifyCodeUtils.verifyVcode(vcode))
@@ -111,8 +111,11 @@ public class WeixinMemberController extends AbstractWeixinController
 				{
 					e.printStackTrace();
 				}
-			
+				
+				return "redirect:/wx/member/home";			
 		}
+		
+		return null;
 	}
 	
 	//@RequestMapping(value = "/getStoreDetail")
