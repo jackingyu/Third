@@ -55,7 +55,7 @@ public class WeixinMemberController extends AbstractWeixinController
 		if(sessionService.contains(CoreConstants.Session.CURRENT_CUSTOMER))
 		{
 			LOG.debug("有已绑定的顾客,跳转到member页");
-			return "redirect:/wx/member/home";
+			return getMemberPage(request, model);
 		}
 
 		//code 必须存在,此处不在进行code 必须输入的判断,直接通过参数进行404控制

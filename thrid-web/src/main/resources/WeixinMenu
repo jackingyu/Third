@@ -22,6 +22,12 @@
                "type":"view",
                "name":"我的预定",
                "url":"https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx095f3e1260a6b827&redirect_uri=http%3A%2F%2F106.14.65.76%2Fthrid-web%2Fwx%2FgetReservationList&response_type=code&scope=snsapi_base&state=123#wechat_redirect"
-            }]
+            },
+            {
+               "type":"view",
+               "name":"我的会员",
+               "url":"https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx095f3e1260a6b827&redirect_uri=http%3A%2F%2F106.14.65.76%2Fthrid-web%2Fwx%2Fmember%2Fhome&response_type=code&scope=snsapi_base&state=123#wechat_redirect"
+            }
+            ]
        }]
 }
