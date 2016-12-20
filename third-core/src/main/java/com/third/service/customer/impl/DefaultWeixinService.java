@@ -165,6 +165,7 @@ public class DefaultWeixinService implements WeixinService
 		HttpGet get = new HttpGet();
 		String uri = new StringBuffer().append(WXConstant.getUserInfoURL).append("access_token=")
 				.append(this.getAccessToken().getAccessToken()).append("&openid=").append(openid).append("&lang=zh_CN").toString();
+		
 		LOG.debug("获取用户基本信息");
 		LOG.debug(uri);
 

@@ -85,7 +85,7 @@ public class WeixinMemberController extends AbstractWeixinController
 	}
 	
 	@RequestMapping(value = "/registerCustomer")
-	public String bindCustomer(
+	public String bindCustomer(final HttpServletRequest request,
 			@RequestParam(value="vcode",required=false) final String vcode,
 			@RequestParam(value="cellphone",required=false) final String cellphone,
 			@RequestParam(value="name",required=false) final String name,
@@ -104,15 +104,18 @@ public class WeixinMemberController extends AbstractWeixinController
 		{
 				try
 				{
-					LOG.debug("openId:"+sessionService.get(WXConstant.WX_OPENID));
-					customerFacade.registerCustomer((String)sessionService.get(WXConstant.WX_OPENID), cellphone,name);
+					final String openId =(String) sessionService.get(WXConstant.WX_OPENID);
+					LOG.debug("openId:"+ openId);
+					customerFacade.registerCustomer(openId, cellphone,name);
+					//注册成功之后执行登录才能保证之后返回的会员主页可以取到当前用户,否则应该使用redirect
+					customerFacade.loginCustomer(openId);
 				}
 				catch (SubscribeException e)
 				{
 					e.printStackTrace();
 				}
 				
-				return "redirect:/wx/member/home";			
+				return getMemberPage(request,model);			
 		}
 		
 		return null;
