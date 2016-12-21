@@ -13,8 +13,7 @@ public class SmsVerifyCodeUtils
 
 	public boolean verifyVcode(final String inputVCode){
 		String vcode = (String) sessionService.get(VCODE);
-		//return inputVCode.equals(vcode);
-		return true;
+		return inputVCode.equals(vcode);
 	}
 	
 	public void generateVCode(){

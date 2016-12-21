@@ -104,7 +104,7 @@
 		$.ajax({
         	type: "get",//使用get方法访问后台
         	dataType: "json",//返回json格式的数据
-        	url: "${pageContext.request.contextPath}/wx/sms",
+        	url: "${contextPath}/sms/generateVCode",
         	data: "to=" + $('#phone').val(),	//要发送的数据
         	complete :function(){},
         	success: function(msg){	//msg为返回的数据，在这里做数据绑定

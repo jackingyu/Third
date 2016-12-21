@@ -8,6 +8,7 @@ import org.dom4j.Document;
 import org.dom4j.DocumentHelper;
 import org.dom4j.Element;
 
+import com.third.core.util.Config;
 import com.third.core.util.WXConstant;
 import com.third.facade.customer.WeixinFacade;
 import com.third.facade.data.WXMessage;
@@ -123,8 +124,12 @@ public class DefaultWeixinFacade implements WeixinFacade
 		}
 		catch (IOException e)
 		{
-			// TODO Auto-generated catch block
 			e.printStackTrace();
+			
+			if(Config.getParameter("weixin.enabledev")!=null&&(boolean)Config.getParameter("weixin.enabledev"))
+			{
+				return "mockupopenid";
+			}
 		}
 		
 		return StringUtils.EMPTY;

@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.third.controller.pages.ControllerConstants;
+import com.third.core.util.Config;
 import com.third.core.util.WXConstant;
 import com.third.exceptions.BussinessException;
 import com.third.exceptions.NotFoundException;
@@ -64,6 +65,7 @@ public class WeixinMemberController extends AbstractWeixinController
 		
 	   openId = weixinFacade.getOpenId(code);
 
+	   if(StringUtils.isNotEmpty(openId))
 	   sessionService.save(WXConstant.WX_OPENID, openId);
 	
 	   return ControllerConstants.WeiXin.REGISTERPAGE;
@@ -86,18 +88,20 @@ public class WeixinMemberController extends AbstractWeixinController
 	
 	@RequestMapping(value = "/registerCustomer")
 	public String bindCustomer(final HttpServletRequest request,
+			final HttpServletRequest response,
 			@RequestParam(value="vcode",required=false) final String vcode,
 			@RequestParam(value="cellphone",required=false) final String cellphone,
 			@RequestParam(value="name",required=false) final String name,
 			final Model model)
 	{
-		LOG.debug("vcode  is" +vcode);
-		LOG.debug("cellphone is"+cellphone);
+		LOG.debug("vcode=" +vcode);
+		LOG.debug("cellphone="+cellphone);
       
 		if(!sessionService.contains(WXConstant.WX_OPENID))
 		{
 			LOG.fatal("必须通过微信页面进行用户注册");
-			return null;
+			model.addAttribute("wx_error_msg","必须通过微信页面进行用户注册");
+			return "forward:"+ControllerConstants.WeiXin.ERRORPAGE;
 		}
 		
 		if(smsVerifyCodeUtils.verifyVcode(vcode))
@@ -118,7 +122,9 @@ public class WeixinMemberController extends AbstractWeixinController
 				return getMemberPage(request,model);			
 		}
 		
-		return null;
+		LOG.debug("验证码不正确");
+		model.addAttribute("WxErrorMessage","验证码不正确");
+		return "forward:"+ControllerConstants.WeiXin.ERRORURL;
 	}
 	
 	//@RequestMapping(value = "/getStoreDetail")

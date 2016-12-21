@@ -19,7 +19,7 @@
 		style="display: block" role="alert">
 		<button type="button" class="close" data-dismiss="alert"></button>
 		<span class="glyphicon glyphicon-info-sign"></span>
-		<span id="err_msg"><spring:message code="wx.error.error1"/>${requestScope.wx_error_msg}</span>
+		<span id="err_msg"><spring:message code="wx.error.error1"/>${WxErrorMessage}</span>
 	</div>
 </body>
 </html>

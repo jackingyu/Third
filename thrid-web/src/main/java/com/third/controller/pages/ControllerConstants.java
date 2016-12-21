@@ -40,6 +40,8 @@ public interface ControllerConstants
 		static final String REGISTER = PREFIX+"/register";
 		static final String BIND = PREFIX+"/bind";
 		static final String MEMBERPAGE = PREFIX+"/member";
+		static final String ERRORPAGE = PREFIX+"/error";
+		static final String ERRORURL = "/wxerror";
 		
 	}
 	
