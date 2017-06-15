@@ -33,6 +33,11 @@
 			type="java.math.BigDecimal" />
 		<property column="status" lazy="false" name="status"
 			type="java.lang.Integer"/>
+		<property column="currentPaymentEntry" lazy="false" name="currentPaymentEntry"
+			type="java.lang.Integer"/>
+		<property column="currentOrderEntry" lazy="false" name="currentOrderEntry"
+			type="java.lang.Integer"/>
+			
 		<property name="modificationTime" update="true" insert="true"
 			type="java.util.Date">
 			<column name="modification_time" sql-type="timestamp"/>

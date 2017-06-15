@@ -160,6 +160,11 @@
 	<bean id="defaultSessionService" class="com.third.service.user.impl.DefaultSessionService">
 	</bean>
 	
+	<alias name="defaultPaymentService" alias="paymentService"></alias>
+	<bean id="defaultPaymentService" class="com.third.service.order.impl.DefaultPaymentService">
+	     <property name="paymentDao" ref="paymentDao" />
+	</bean>
+	
 	<bean id="config"
 		class="com.third.core.util.Config">
 		<property name="location">

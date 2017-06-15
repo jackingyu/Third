@@ -22,6 +22,7 @@ import com.third.dao.util.PaginationSupport;
 import com.third.facade.data.ListData;
 import com.third.facade.data.OrderData;
 import com.third.facade.data.OrderEntryData;
+import com.third.facade.data.PaymentData;
 import com.third.facade.data.SizeAttributeData;
 import com.third.facade.data.SizeAttributeGroupData;
 import com.third.facade.data.TextMapper;
@@ -42,6 +43,7 @@ import com.third.service.customer.CustomerService;
 import com.third.service.customer.SourceService;
 import com.third.service.media.MediaService;
 import com.third.service.order.OrderService;
+import com.third.service.order.PaymentService;
 import com.third.service.product.SizeAttributeService;
 import com.third.service.store.StoreService;
 import com.third.service.user.UserService;
@@ -51,6 +53,7 @@ public class DefaultOrderFacade implements OrderFacade
 {
 	private OrderService orderService;
 	private CustomerService customerService;
+	private PaymentService paymentService;
 	private OrderDataPopulator orderDataPopulator;
 	private ConfigurablePopulator<OrderModel, OrderData, OrderOption> orderConfiguredPopulator;
 	private OrderEntryDataPopulator orderEntryDataPopulator;
@@ -68,8 +71,8 @@ public class DefaultOrderFacade implements OrderFacade
 		OrderModel order = new OrderModel();
 
 		//TODO: 需要考虑订单上店铺的拉取策略,可以考虑改完前台手工设置
-		Optional<StoreModel> store = userService.getCurrentUser().getStores().stream().findFirst();//(StoreModel) userService.getCurrentUser().getStores().iterator().next();
-
+      StoreModel store = storeService.getStoreForCode(orderData.getStore().getCode());
+     
 		order.setCode(orderData.getOrderCode());
 		order.setCellphone(orderData.getCellphone());
 		order.setComment(orderData.getComment());
@@ -85,7 +88,12 @@ public class DefaultOrderFacade implements OrderFacade
 		order.setSource(customer.getSource());
 		order.setTryDate(orderData.getTryDate());
 		order.setWeddingDate(orderData.getWeddingDate());
-		order.setStore(store.get());
+		//init order status
+		order.setStatus(0);
+		
+		//TODO:need to update
+		//order.setStore(store.get());
+		order.setStore(store);
 
 		if (!CollectionUtils.isEmpty(orderData.getPayments()))
 		{
@@ -97,7 +105,8 @@ public class DefaultOrderFacade implements OrderFacade
 				payment.setPaidTime(new Date());
 				payment.setPaymentMethod(p.getPaymentMethod());
 				payment.setPaymentType(p.getPaymentType());
-				payment.setStore(store.get());
+				//TODO:
+				payment.setStore(store);
 				paymentModels.add(payment);
 			});
 			order.setPayments(paymentModels);
@@ -203,8 +212,6 @@ public class DefaultOrderFacade implements OrderFacade
 		}
 
 		orderService.upateOrder(order);
-
-
 	}
 
 	@Override
@@ -222,10 +229,18 @@ public class DefaultOrderFacade implements OrderFacade
 		orderEntry.setTryDate(orderEntryData.getTryDate());
 		orderEntry.setStyle(orderEntryData.getStyle());
 		orderEntry.setCustomerName(orderEntryData.getCustomerName());
-
+      
 		OrderModel order = orderService.getOrderForCode(orderEntryData.getOrderCode());
 		orderEntry.setOrder(order);
 		orderEntry.setCreatedBy(userService.getCurrentUser());
+	   
+		StoreModel store = null;
+      if(orderEntryData.getStore()!=null)
+      	store =  storeService.getStoreForCode(orderEntryData.getStore().getCode());
+      else
+      	store = order.getStore();
+      orderEntry.setStore(store);
+      
 		orderService.createOrderEntry(orderEntry);
 		orderEntryData.setPk(orderEntry.getPk());
 	}
@@ -333,6 +348,50 @@ public class DefaultOrderFacade implements OrderFacade
 		return entry.getSizeImage();
 	}
 
+	@Override
+	public List<OrderData> getOrdersForCustomer(String cellphone)
+	{
+		CustomerModel customer = customerService.getCustomerByCellphone(cellphone);
+		List<OrderModel> orders = orderService.getOrdersForCustomer(customer.getPk());
+		if(CollectionUtils.isEmpty(orders))
+			return Collections.EMPTY_LIST;
+		
+		List<OrderData> orderDatas = new ArrayList<OrderData>();
+		List<OrderOption> orderOptions = Arrays.asList(OrderOption.BASIC);
+		orders.forEach( o-> {
+			OrderData od = new OrderData();
+			orderConfiguredPopulator.populate(o, od, orderOptions);
+			orderDatas.add(od);
+		});
+		
+		return orderDatas;
+	}
+
+	@Override
+	public void createPayment(PaymentData payment)
+	{
+		OrderModel orderModel = orderService.getOrderForCode(payment.getOrderCode());
+		Integer paymentEntryNo = orderModel.getPayments().size();
+		
+		PaymentModel paymentModel = new PaymentModel();
+		paymentModel.setAmount(payment.getAmount());
+		paymentModel.setPaidTime(payment.getPaidTime());
+		paymentModel.setCreateTime(new Date());
+		paymentModel.setPaymentEntryNo(paymentEntryNo);
+		paymentModel.setPaymentMethod(payment.getPaymentMethod());
+		paymentModel.setPaymentType(payment.getPaymentType());
+		paymentModel.setOrder(orderModel);
+		
+		paymentService.createPayment(paymentModel);
+		
+	}
+	
+	@Override
+	public void removePayment(final String paymentPK)
+	{
+		paymentService.removePayment(paymentPK);		
+	}
+	
 	public void setOrderService(OrderService orderService)
 	{
 		this.orderService = orderService;
@@ -388,23 +447,18 @@ public class DefaultOrderFacade implements OrderFacade
 		this.orderConfiguredPopulator = orderConfiguredPopulator;
 	}
 
-	@Override
-	public List<OrderData> getOrdersForCustomer(String cellphone)
+	public void setPaymentService(PaymentService paymentService)
 	{
-		CustomerModel customer = customerService.getCustomerByCellphone(cellphone);
-		List<OrderModel> orders = orderService.getOrdersForCustomer(customer.getPk());
-		if(CollectionUtils.isEmpty(orders))
-			return Collections.EMPTY_LIST;
-		
-		List<OrderData> orderDatas = new ArrayList<OrderData>();
-		List<OrderOption> orderOptions = Arrays.asList(OrderOption.BASIC);
-		orders.forEach( o-> {
-			OrderData od = new OrderData();
-			orderConfiguredPopulator.populate(o, od, orderOptions);
-			orderDatas.add(od);
-		});
-		
-		return orderDatas;
+		this.paymentService = paymentService;
+	}
+
+	@Override
+	public OrderEntryData getOrderEntry(String orderEntryPK)
+	{
+		OrderEntryModel orderEntryModel = orderService.getOrderEntry(orderEntryPK);
+		OrderEntryData orderEntry = new OrderEntryData();
+		orderEntryDataPopulator.populate(orderEntryModel, orderEntry);
+		return orderEntry;
 	}
 
 	

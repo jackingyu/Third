@@ -45,4 +45,30 @@ public interface ControllerConstants
 		
 	}
 	
+	interface LTE{
+		final static String PREFIX = "/lte";
+		
+		final static String PAGE = "/lte/pages";
+
+		final static String HOMEPAGE = PAGE+"/home";
+		
+		
+		final static String ORDERLISTPAGE = PAGE+"/sales/orderList";
+		final static String ORDERDETAILSPAGE = PAGE+"/sales/orderDetails";
+		final static String CREATEORDERPAGE = PAGE+"/sales/createOrder";
+		final static String MODIFYORDERPAGE = PAGE+"/sales/modifyOrder";
+		static final String CREATESIZEORDERPAGE = PAGE +"/sales/createSizeOrder";
+		static final String ORDERENTRYDETAILPAGE = PAGE +"/sales/orderEntryDetails";
+		
+		final static String LOGINPAGE = PAGE+"/security/login";
+		
+		final static String CUSTOMERLISTPAGE = PAGE+"/customer/customerList";
+		final static String CREATECUSTOMERPAGE = PAGE+"/customer/customerDetails";
+		final static String MODIFYCUSTOMERPAGE = PAGE+"/customer/customerDetails";
+
+		final static String USERLISTPAGE = PAGE+"/user/userList";
+		final static String USERDETAILSPAGE = PAGE+"/user/userDetails";
+
+	}
+	
 }

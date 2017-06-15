@@ -13,26 +13,14 @@
  */
 package com.third.security;
 
-import java.util.Calendar;
-import java.util.Collections;
-import java.util.Date;
-
-import org.springframework.beans.factory.annotation.Required;
-import org.springframework.security.authentication.AbstractAuthenticationToken;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.BadCredentialsException;
-import org.springframework.security.authentication.CredentialsExpiredException;
-import org.springframework.security.authentication.LockedException;
 import org.springframework.security.authentication.RememberMeAuthenticationToken;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UserDetailsChecker;
 import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.util.StringUtils;
 
 import com.third.model.UserModel;
@@ -56,6 +44,7 @@ public class DefaultThirdDaoAuthenticationProvider implements AuthenticationProv
     private UserDetailsService userDetailsService;
     private UserService userService;
     
+	@Override
 	public Authentication authenticate(Authentication authentication)
 			throws AuthenticationException {
 
@@ -86,6 +75,7 @@ public class DefaultThirdDaoAuthenticationProvider implements AuthenticationProv
 		return createSuccessAuthentication(authentication, userDetails);
 	}
 
+	@Override
 	public boolean supports(Class<?> authentication) {
 		return (RememberMeAuthenticationToken.class.isAssignableFrom(authentication))
 				|| (UsernamePasswordAuthenticationToken.class.isAssignableFrom(authentication));

@@ -1,5 +1,5 @@
 package com.third.model;
-// Generated Dec 14, 2016 10:14:28 PM by Hibernate Tools 4.3.1
+// Generated Jun 14, 2017 8:55:17 AM by Hibernate Tools 4.3.1
 
 
 import java.util.Date;
@@ -11,6 +11,7 @@ public class OrderEntryModel  implements java.io.Serializable {
 
 
      private String pk;
+     private String code;
      private Integer entryNo;
      private String style;
      private String itemCategory;
@@ -19,6 +20,7 @@ public class OrderEntryModel  implements java.io.Serializable {
      private Integer quantity;
      private String designer;
      private String customerName;
+     private StoreModel store;
      private Date deliveryDate;
      private Date sizeDate;
      private Date tryDate;
@@ -33,7 +35,8 @@ public class OrderEntryModel  implements java.io.Serializable {
     public OrderEntryModel() {
     }
 
-    public OrderEntryModel(Integer entryNo, String style, String itemCategory, ProductModel product, String productTitle, Integer quantity, String designer, String customerName, Date deliveryDate, Date sizeDate, Date tryDate, String comment, String sizeDetails, String sizeImage, OrderModel order, Date modificationTime, Date createTime, UserModel createdBy) {
+    public OrderEntryModel(String code, Integer entryNo, String style, String itemCategory, ProductModel product, String productTitle, Integer quantity, String designer, String customerName, StoreModel store, Date deliveryDate, Date sizeDate, Date tryDate, String comment, String sizeDetails, String sizeImage, OrderModel order, Date modificationTime, Date createTime, UserModel createdBy) {
+       this.code = code;
        this.entryNo = entryNo;
        this.style = style;
        this.itemCategory = itemCategory;
@@ -42,6 +45,7 @@ public class OrderEntryModel  implements java.io.Serializable {
        this.quantity = quantity;
        this.designer = designer;
        this.customerName = customerName;
+       this.store = store;
        this.deliveryDate = deliveryDate;
        this.sizeDate = sizeDate;
        this.tryDate = tryDate;
@@ -60,6 +64,13 @@ public class OrderEntryModel  implements java.io.Serializable {
     
     public void setPk(String pk) {
         this.pk = pk;
+    }
+    public String getCode() {
+        return this.code;
+    }
+    
+    public void setCode(String code) {
+        this.code = code;
     }
     public Integer getEntryNo() {
         return this.entryNo;
@@ -116,6 +127,13 @@ public class OrderEntryModel  implements java.io.Serializable {
     
     public void setCustomerName(String customerName) {
         this.customerName = customerName;
+    }
+    public StoreModel getStore() {
+        return this.store;
+    }
+    
+    public void setStore(StoreModel store) {
+        this.store = store;
     }
     public Date getDeliveryDate() {
         return this.deliveryDate;

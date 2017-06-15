@@ -48,9 +48,11 @@ public class UserDataBuilder implements DataBuilder
 			user.setUserId("测试用户" + i);
 			user.setName("测试用户" + i);
 			user.setPassword("密码");
+			user.setUserGroup(userGroup);
 			userService.createUser(user);
 		}
-
+      /*
+       * 创建符合easy-ui的菜单,如果需要启用easyui需要将这段注释掉
 		MenuModel lv2_user = this.buildMenu("1", 2, "系统管理", "#", "menu-icon-sys");
 		menuService.createMenu(lv2_user);
 
@@ -83,7 +85,41 @@ public class UserDataBuilder implements DataBuilder
 		MenuModel lv3_orderprocesslist = this.buildMenu("25", 3, "扫码记录查询管理", "/getOrderProcessListPage", "menu-icon-file");
 		lv3_orderprocesslist.setParentMenu(lv2_sales);
 		menuService.createMenu(lv3_orderprocesslist);
+		*/
+      
+		MenuModel lv2_user = this.buildMenu("1", 2, "系统管理", "#", "fa-opera");
+		menuService.createMenu(lv2_user);
 
+		MenuModel lv3_usergroup = this.buildMenu("11", 3, "用户组列表", "/user/usergrouplistpage", "fa-users");
+		MenuModel lv3_userlist = this.buildMenu("12", 3, "用户列表", "/user/userlistpage", "fa-user");
+		lv3_usergroup.setParentMenu(lv2_user);
+		lv3_userlist.setParentMenu(lv2_user);
+		menuService.createMenu(lv3_usergroup);
+		menuService.createMenu(lv3_userlist);
+
+		MenuModel lv2_sales = this.buildMenu("2", 2, "销售管理", "#", "fa-book");
+		menuService.createMenu(lv2_sales);
+
+		MenuModel lv3_customer = this.buildMenu("21", 3, "顾客管理", "/customer/customerlistpage", "fa-users");
+		lv3_customer.setParentMenu(lv2_sales);
+		menuService.createMenu(lv3_userlist);
+
+		MenuModel lv3_orders = this.buildMenu("22", 3, "订单管理", "/order/orderlistpage", "fa-book");
+		lv3_orders.setParentMenu(lv2_sales);
+		menuService.createMenu(lv3_orders);
+
+		MenuModel lv3_reservation = this.buildMenu("23", 3, "创建订单", "/order/createorderpage", "fa-edit");
+		lv3_reservation.setParentMenu(lv2_sales);
+		menuService.createMenu(lv3_reservation);
+
+		MenuModel lv3_orderprocess = this.buildMenu("24", 3, "条码管理", "/orderprocess/orderprocesspage", "fa-barcode");
+		lv3_orderprocess.setParentMenu(lv2_sales);
+		menuService.createMenu(lv3_orderprocess);
+
+		MenuModel lv3_orderprocesslist = this.buildMenu("25", 3, "扫码记录查询管理", "/orderprocess/searchprocessrecordspage", "fa-search");
+		lv3_orderprocesslist.setParentMenu(lv2_sales);
+		menuService.createMenu(lv3_orderprocesslist);
+		
 		//create role
 		RoleModel role = new RoleModel();
 		role.setRoleId("adminRole");

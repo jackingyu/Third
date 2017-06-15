@@ -41,6 +41,7 @@ public class StoreDataBuilder implements DataBuilder
 		AddressModel address = buildAddress(region, city, "闵行区古龙路XX弄");
 		AddressModel address1 = buildAddress(region1, city1, "泰兴市江平路22号");
 		StoreModel store = buildStore("s-1", "南方一店", address);
+		StoreModel store1 = buildStore("a-1", "王者荣耀店", address);
 
 		for (int i = 2; i < 30; i++)
 		{
@@ -77,13 +78,13 @@ public class StoreDataBuilder implements DataBuilder
 		{
 			UserModel user = userList.get(i);
 
-			user.setStores(Arrays.asList(store));
+			user.setStores(Arrays.asList(store,store1));
 
 			userDao.update(user);
 		}
 
 		UserModel user1 = userDao.findUserById("test");
-		user1.setStores(Arrays.asList(store));
+		user1.setStores(Arrays.asList(store,store1));
 		userDao.update(user1);
 
 		for (int i = 0; i < 100; i++)

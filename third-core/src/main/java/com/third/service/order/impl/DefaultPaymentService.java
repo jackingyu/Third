@@ -20,4 +20,11 @@ public class DefaultPaymentService implements PaymentService
 		paymentDao.save(payment);
 	}
 
+	@Override
+	public void removePayment(String paymentPK)
+	{
+		PaymentModel t = paymentDao.get(paymentPK);
+		paymentDao.delete(t);
+	}
+
 }

@@ -7,6 +7,11 @@
 			<column name="pk" unique="true" />
 			<generator class="uuid" />
 		</id>
+		<property name="code" type="java.lang.String">
+			<column name="code">
+				<comment>量身单号</comment>
+			</column>
+		</property>
 		<property name="entryNo" type="java.lang.Integer">
 			<column name="entryno">
 				<comment>行项目编号</comment>
@@ -45,6 +50,11 @@
 				<comment>顾客姓名</comment>
 			</column>
 		</property>
+	    <many-to-one name="store" lazy="false"
+			class="com.third.model.StoreModel" cascade="refresh"
+			fetch="select">
+			<column name="store" />
+		</many-to-one>
 		<property column="deliverydate" lazy="false" name="deliveryDate"
 			type="java.util.Date" />
 		<property column="sizedate" lazy="false" name="sizeDate"

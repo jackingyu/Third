@@ -65,7 +65,7 @@ public class OrderDataPopulator implements Populator<OrderModel, OrderData>
 		List<PaymentModel> paymentModels = (List<PaymentModel>) source.getPayments();
 
 		if (!CollectionUtils.isEmpty(paymentModels))
-			paymentModels.forEach(p -> {
+			paymentModels.stream().filter((p)-> p!=null ).forEach(p -> {
 				PaymentData paymentData = new PaymentData();
 				paymentDataPopulator.populate(p, paymentData);
 				payments.add(paymentData);
@@ -84,7 +84,7 @@ public class OrderDataPopulator implements Populator<OrderModel, OrderData>
 		List<OrderEntryModel> orderEntryModels = (List<OrderEntryModel>) source.getOrderEntries();
 
 		if (!CollectionUtils.isEmpty(orderEntryModels))
-			orderEntryModels.forEach(o -> {
+			orderEntryModels.stream().filter( (o) -> o!=null ).forEach(o -> {
 				if (o == null)
 					return;
 				OrderEntryData orderEntryData = new OrderEntryData();

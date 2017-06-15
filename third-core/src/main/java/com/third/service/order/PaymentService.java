@@ -7,5 +7,7 @@ import com.third.model.PaymentModel;
 public interface PaymentService
 {
 	void createPayment(PaymentModel payment);
+	
+	void removePayment(final String paymentPK);
 
 }

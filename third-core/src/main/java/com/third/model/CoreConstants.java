@@ -55,5 +55,7 @@ public interface CoreConstants
 		static final String CURRENT_CUSTOMER = "currentCustomer";
 		static final String CURRENT_USER = "currentUser";
 		static final String CURRENT_USER_ID = "currentUserId";
+		static final String MENU = "menu";
+		static final String STORE = "avaliableStore";
 	}
 }

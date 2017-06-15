@@ -89,6 +89,7 @@ public class OrderDataBuilder implements DataBuilder
 		paymentModel.setPaymentType(PaymentType.DownPayment);
 		paymentModel.setPaymentEntryNo(10);
 		paymentModel.setAmount(BigDecimal.valueOf(100.00));
+		paymentModel.setPaidTime(Calendar.getInstance().getTime());
 
 
 		List<PaymentModel> payments = new ArrayList<PaymentModel>();
@@ -101,6 +102,7 @@ public class OrderDataBuilder implements DataBuilder
 			paymentModel1.setPaymentType(PaymentType.NormalPayment);
 			paymentModel1.setPaymentEntryNo(10 + i);
 			paymentModel1.setAmount(BigDecimal.valueOf(100.00 + i));
+			paymentModel1.setPaidTime(Calendar.getInstance().getTime());
 			payments.add(paymentModel1);
 		}
 
@@ -119,6 +121,7 @@ public class OrderDataBuilder implements DataBuilder
 		entry.setDesigner("设计师");
 		entry.setTryDate(new Date());
 		entry.setComment("我是一个备注备注备注");
+		entry.setStore(store);
 		//entry.setProduct(productService.getProductForCode("p-1"));
 		List<OrderEntryModel> entries = new ArrayList<OrderEntryModel>();
 		entries.add(entry);

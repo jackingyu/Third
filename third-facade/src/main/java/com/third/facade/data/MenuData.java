@@ -14,6 +14,7 @@ public class MenuData
 	private String icon;
 	private String url;
 	private String menuname;
+	private boolean active = false;
 	private List<MenuData> menus = new ArrayList<MenuData>();
 
 	public void setMenuid(String menuid)
@@ -69,5 +70,15 @@ public class MenuData
 	public void addSubMenu(MenuData subMenuData)
 	{
 		this.getMenus().add(subMenuData);
+	}
+
+	public boolean isActive()
+	{
+		return active;
+	}
+
+	public void setActive(boolean active)
+	{
+		this.active = active;
 	}
 }

@@ -4,7 +4,7 @@ public class ComboboxData
 {
 	private String code;
 	private String text;
-	private boolean selected;
+	private boolean selected = false;
 
 	public String getCode()
 	{

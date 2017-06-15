@@ -3,6 +3,7 @@ encoding//src/main/webapp/WEB-INF/messages/locales.properties=UTF-8
 encoding//src/main/webapp/WEB-INF/messages/locales_zh_CN.properties=UTF-8
 encoding//src/main/webapp/WEB-INF/properties/log4j.properties=UTF-8
 encoding//src/main/webapp/WEB-INF/tags/common/fileupload.tag=UTF-8
+encoding//src/main/webapp/WEB-INF/tags/lte/template/js.tag=UTF-8
 encoding//src/main/webapp/WEB-INF/views/fragments/nav/menu.jsp=UTF-8
 encoding//src/main/webapp/WEB-INF/views/pages/master.jsp=UTF-8
 encoding//src/main/webapp/WEB-INF/views/pages/weixin/depracted/bind.jsp=UTF-8

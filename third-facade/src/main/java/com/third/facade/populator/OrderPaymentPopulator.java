@@ -25,7 +25,7 @@ public class OrderPaymentPopulator implements Populator<OrderModel, OrderData>
 		List<PaymentModel> paymentModels = (List<PaymentModel>) source.getPayments();
 
 		if (!CollectionUtils.isEmpty(paymentModels))
-			paymentModels.forEach(p -> {
+			paymentModels.stream().filter( p -> p!=null ).forEach(p -> {
 				PaymentData paymentData = new PaymentData();
 				paymentDataPopulator.populate(p, paymentData);
 				payments.add(paymentData);

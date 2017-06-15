@@ -3,6 +3,7 @@ package com.third.facade.populator;
 import org.apache.commons.lang3.StringUtils;
 
 import com.third.facade.data.OrderEntryData;
+import com.third.facade.data.StoreData;
 import com.third.facade.data.TextMapper;
 import com.third.facade.data.UserData;
 import com.third.model.OrderEntryModel;
@@ -12,10 +13,12 @@ public class OrderEntryDataPopulator implements Populator<OrderEntryModel, Order
 {
 
 	private UserDataPopulator userDataPopulator;
+	private StoreDataPopulator storeDataPopulator;
 
 	@Override
 	public void populate(OrderEntryModel source, OrderEntryData target)
 	{
+		target.setCode(source.getCode());
 		target.setDeliveryDate(source.getDeliveryDate());
 		target.setDesigner(source.getDesigner());
 		target.setEntryNo(source.getEntryNo());
@@ -31,12 +34,16 @@ public class OrderEntryDataPopulator implements Populator<OrderEntryModel, Order
 		target.setTryDate(source.getTryDate());
 		target.setComment(source.getComment());
 		target.setOrderCode(source.getOrder().getCode());
-		target.setStoreName(source.getOrder().getStore().getName());
+		target.setStoreName(source.getStore().getName());
 		target.setCustomerName(StringUtils.isBlank(source.getCustomerName()) ? source.getOrder().getCustomerName() : source
 				.getCustomerName());
       target.setSizeDetails(source.getSizeDetails());
       target.setSizeImageUrl(source.getSizeImage());
-   
+       
+      StoreData store = new StoreData();
+      storeDataPopulator.populate(source.getStore(), store);
+      target.setStore(store);
+      
 		if (source.getCreatedBy() != null)
 		{
 			UserData user = new UserData();
@@ -49,6 +56,11 @@ public class OrderEntryDataPopulator implements Populator<OrderEntryModel, Order
 	public void setUserDataPopulator(UserDataPopulator userDataPopulator)
 	{
 		this.userDataPopulator = userDataPopulator;
+	}
+
+	public void setStoreDataPopulator(StoreDataPopulator storeDataPopulator)
+	{
+		this.storeDataPopulator = storeDataPopulator;
 	}
 
 }

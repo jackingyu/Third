@@ -10,6 +10,7 @@ import com.third.model.UserModel;
 public class OrderEntryData extends AbstractData
 {
 	private Integer entryNo;
+	private String code;
 	private String itemCategory;
 	private String itemCategoryText;
 	private String style;
@@ -30,6 +31,7 @@ public class OrderEntryData extends AbstractData
 	private String customerName;
 	private Map<String, SizeAttributeGroupData> sizeDatas;
 	private String sizeImageUrl;
+	private StoreData store;
 
 	public Integer getEntryNo()
 	{
@@ -240,6 +242,26 @@ public class OrderEntryData extends AbstractData
 	public void setSizeImageUrl(String sizeImageUrl)
 	{
 		this.sizeImageUrl = sizeImageUrl;
+	}
+
+	public String getCode()
+	{
+		return code;
+	}
+
+	public void setCode(String code)
+	{
+		this.code = code;
+	}
+
+	public StoreData getStore()
+	{
+		return store;
+	}
+
+	public void setStore(StoreData store)
+	{
+		this.store = store;
 	}
 
 }

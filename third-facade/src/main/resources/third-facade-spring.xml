@@ -68,6 +68,7 @@
 	    <property name="userService" ref="userService"></property>
 	    <property name="menuService" ref="menuService"></property>
 	    <property name="roleService" ref="roleService"></property>
+	    <property name="storeService" ref="storeService"></property>
 	    <property name="sessionService" ref="sessionService"></property>
 	    <property name="menuDataPopulator" ref="menuDataPopulator"></property>
 	    <property name="userGroupDataPopulator" ref="userGroupDataPopulator"></property>
@@ -111,6 +112,7 @@
 	    <property name="storeService" ref="storeService"></property>
 	    <property name="userService" ref="userService"></property>
 	    <property name="customerService" ref="customerService"></property>
+	    <property name="paymentService" ref="paymentService"></property>
 	    <property name="mediaService" ref="mediaService"></property>
 	    <property name="sizeAttributeService" ref="sizeAttributeService"></property>
 	    <property name="orderDataPopulator" ref="orderDataPopulator"></property>
@@ -143,6 +145,7 @@
     <alias name="defaultUserDataPopulator" alias="userDataPopulator"></alias>
     <bean id="defaultUserDataPopulator" class="com.third.facade.populator.UserDataPopulator">
         <property name="storeDataPopulator" ref="storeDataPopulator"></property>
+        <property name="userGroupDataPopulator" ref="userGroupDataPopulator"></property>
     </bean>
     
     <alias name="defaultUserGroupDataPopulator" alias="userGroupDataPopulator"></alias>
@@ -195,6 +198,7 @@
     <alias name="defaultOrderEntryDataPopulator" alias="orderEntryDataPopulator"></alias>
     <bean id="defaultOrderEntryDataPopulator" class="com.third.facade.populator.OrderEntryDataPopulator">
           <property name="userDataPopulator" ref="userDataPopulator"></property>
+          <property name="storeDataPopulator" ref="storeDataPopulator"></property>
     </bean>
     
     <alias name="defaultPaymentDataPopulator" alias="paymentDataPopulator"></alias>

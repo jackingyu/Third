@@ -11,6 +11,7 @@ import org.springframework.web.multipart.MultipartFile;
 import com.third.facade.data.ListData;
 import com.third.facade.data.OrderData;
 import com.third.facade.data.OrderEntryData;
+import com.third.facade.data.PaymentData;
 import com.third.facade.data.SizeAttributeGroupData;
 import com.third.facade.populator.option.OrderOption;
 import com.third.model.OrderModel;
@@ -34,6 +35,12 @@ public interface OrderFacade
 	void updateOrderEntry(final OrderEntryData orderEntryData);
 
 	void removeOrderEntry(final String orderEntryPK);
+	
+	OrderEntryData getOrderEntry(final String orderEntryPK);
+	
+	void createPayment(final PaymentData payment);
+	
+	void removePayment(final String paymentPK);
 
 	/**
 	 * @param itemCategory

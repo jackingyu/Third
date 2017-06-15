@@ -1,0 +1,6 @@
+2017-6-5
+tried to add admin lte to thrid-web.still consider if introduce react
+
+http://localhost:8080/thrid-web/master 为easyui draft 版本入口,可能需要修改security
+
+http://localhost:8080/thrid-web/loginPage 为正式版本登录入口

@@ -11,6 +11,7 @@ import org.springframework.util.CollectionUtils;
 import org.springframework.util.StringUtils;
 
 import com.third.dao.util.PaginationSupport;
+import com.third.facade.data.ComboboxData;
 import com.third.facade.data.ListData;
 import com.third.facade.data.MenuData;
 import com.third.facade.data.RoleData;
@@ -24,8 +25,10 @@ import com.third.facade.user.UserFacade;
 import com.third.model.CoreConstants;
 import com.third.model.MenuModel;
 import com.third.model.RoleModel;
+import com.third.model.StoreModel;
 import com.third.model.UserGroupModel;
 import com.third.model.UserModel;
+import com.third.service.store.StoreService;
 import com.third.service.user.MenuService;
 import com.third.service.user.RoleService;
 import com.third.service.user.SessionService;
@@ -40,6 +43,7 @@ public class DefaultUserFacade implements UserFacade
 	private UserService userService;
 	private RoleService roleService;
 	private SessionService sessionService;
+	private StoreService storeService;
 
 	private MenuDataPopulator menuDataPopulator;
 	private UserGroupDataPopulator userGroupDataPopulator;
@@ -52,8 +56,17 @@ public class DefaultUserFacade implements UserFacade
 		userModel.setName(user.getName());
 		userModel.setUserId(user.getUserId());
 		userModel.setPassword(user.getPassword() != null ? user.getPassword() : "111111");
-		userModel.setUserGroup(userService.getUserGroup(user.getUserGroup().getPk()));
+		if (null != user.getUserGroup())
+			userModel.setUserGroup(userService.getUserGroup(user.getUserGroup().getPk()));
 		userModel.setBlocked(user.isBlocked());
+
+		List<StoreModel> stores = new ArrayList<StoreModel>();
+		user.stores.forEach(s -> {
+			StoreModel store = storeService.getStoreForCode(s.getCode());
+			stores.add(store);
+		});
+		userModel.setStores(stores);
+
 		userService.createUser(userModel);
 	}
 
@@ -207,11 +220,20 @@ public class DefaultUserFacade implements UserFacade
 	{
 		UserModel user = userService.getUserById(userData.getUserId());
 		user.setName(userData.getName());
-		user.setUserGroup(userService.getUserGroup(userData.getUserGroup().getPk()));
+		if (null != userData.getUserGroup())
+			user.setUserGroup(userService.getUserGroup(userData.getUserGroup().getPk()));
+
 		user.setBlocked(userData.isBlocked());
 
 		if (!StringUtils.isEmpty(userData.getPassword()))
 			user.setPassword(userData.getPassword());
+
+		List<StoreModel> stores = new ArrayList<StoreModel>();
+		userData.stores.forEach(s -> {
+			StoreModel store = storeService.getStoreForCode(s.getCode());
+			stores.add(store);
+		});
+		user.setStores(stores);
 
 		userService.updateUser(user);
 	}
@@ -272,6 +294,7 @@ public class DefaultUserFacade implements UserFacade
 		userDataPopulator.populate(user, userData);
 		sessionService.save(CoreConstants.Session.CURRENT_USER, userData);
 		sessionService.save(CoreConstants.Session.CURRENT_USER_ID, userData.getUserId());
+		sessionService.save(CoreConstants.Session.MENU, getMenuData());
 	}
 
 	@Override
@@ -319,5 +342,10 @@ public class DefaultUserFacade implements UserFacade
 	{
 		this.sessionService = sessionService;
 	}
-	
+
+	public void setStoreService(StoreService storeService)
+	{
+		this.storeService = storeService;
+	}
+
 }

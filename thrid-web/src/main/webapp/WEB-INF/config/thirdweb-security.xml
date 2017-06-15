@@ -27,7 +27,12 @@
 
   
     <!-- ui resource -->
-    <security:http  pattern="/ui/**" security="none"></security:http>
+    <security:http  pattern="/_ui/**" security="none"></security:http>
+    <!-- easyui master page -->
+    <security:http  pattern="/master" security="none"></security:http>
+    <!-- test data initial controller -->
+    <security:http  pattern="/data" security="none"></security:http>
+    <security:http  pattern="/login" security="none"></security:http>
     <security:http  pattern="/wx/getStoreList" security="none"></security:http>
     <security:http  pattern="/wx/callback" security="none"></security:http>
     <security:http  pattern="/wx/getStoreDetail" security="none"></security:http>
@@ -54,8 +59,7 @@
 		<security:anonymous username="anonymous" granted-authority="ROLE_ANONYMOUS" />
 
 		<!-- SSL / AUTHENTICATED pages -->
-		<security:intercept-url pattern="/master" access="isAuthenticated()"/>
-		<security:intercept-url pattern="/**" />
+		<security:intercept-url pattern="/**" access="isAuthenticated()"/>
 		<!-- Everything should be secure -->
 		<!-- <security:custom-filter ref="ajaxTimeoutRedirectFilter" after="EXCEPTION_TRANSLATION_FILTER"/> -->
 	
@@ -115,7 +119,7 @@
 
 	<bean id="loginAuthenticationSuccessHandler" class="com.third.security.LoginAuthenticationSuccessHandler" >
 		<property name="userFacade" ref="userFacade" />
-		<property name="defaultTargetUrl" value="/master"/>
+		<property name="defaultTargetUrl" value="/home"/>
 		<!--  <property name="useReferer" value="true"/>-->
 		<property name="alwaysUseDefaultTargetUrl" value="true"/>
 	</bean>

@@ -31,7 +31,7 @@
 		description="mysql database driver" />
 	<property name="db.user" value="root" description="mysql database driver" />
 	<property name="db.password" value="jackingyu123" description="mysql database driver" />
-	<property name="db.url" value="jdbc:mysql://127.0.0.1:3306/test"
+	<property name="db.url" value="jdbc:mysql://127.0.0.1:3306/blaimar"
 		description="database url" />
 
 

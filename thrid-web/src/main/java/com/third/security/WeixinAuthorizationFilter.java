@@ -18,8 +18,6 @@ import com.third.facade.customer.WeixinFacade;
 import com.third.facade.data.CustomerData;
 import com.third.model.CoreConstants;
 import com.third.security.exceptions.WeixinAuthenticationException;
-import com.third.service.customer.CustomerService;
-import com.third.service.customer.WeixinService;
 import com.third.service.user.SessionService;
 
 

@@ -1,5 +1,5 @@
 package com.third.model;
-// Generated Dec 14, 2016 10:14:28 PM by Hibernate Tools 4.3.1
+// Generated Jun 14, 2017 8:55:17 AM by Hibernate Tools 4.3.1
 
 
 import java.math.BigDecimal;
@@ -27,6 +27,8 @@ public class OrderModel  implements java.io.Serializable {
      private BigDecimal receiveable;
      private BigDecimal openamount;
      private Integer status;
+     private Integer currentPaymentEntry;
+     private Integer currentOrderEntry;
      private Date modificationTime;
      private Date createTime;
      private CustomerModel customer;
@@ -39,7 +41,7 @@ public class OrderModel  implements java.io.Serializable {
     public OrderModel() {
     }
 
-    public OrderModel(String code, String customerName, String cellphone, Date weddingDate, Date tryDate, Date photoDate, Date deliveryDate, Date orderDate, String coSalesperson, String comment, BigDecimal receiveable, BigDecimal openamount, Integer status, Date modificationTime, Date createTime, CustomerModel customer, UserModel salesperson, SourceModel source, StoreModel store, List payments, List orderEntries) {
+    public OrderModel(String code, String customerName, String cellphone, Date weddingDate, Date tryDate, Date photoDate, Date deliveryDate, Date orderDate, String coSalesperson, String comment, BigDecimal receiveable, BigDecimal openamount, Integer status, Integer currentPaymentEntry, Integer currentOrderEntry, Date modificationTime, Date createTime, CustomerModel customer, UserModel salesperson, SourceModel source, StoreModel store, List payments, List orderEntries) {
        this.code = code;
        this.customerName = customerName;
        this.cellphone = cellphone;
@@ -53,6 +55,8 @@ public class OrderModel  implements java.io.Serializable {
        this.receiveable = receiveable;
        this.openamount = openamount;
        this.status = status;
+       this.currentPaymentEntry = currentPaymentEntry;
+       this.currentOrderEntry = currentOrderEntry;
        this.modificationTime = modificationTime;
        this.createTime = createTime;
        this.customer = customer;
@@ -160,6 +164,20 @@ public class OrderModel  implements java.io.Serializable {
     
     public void setStatus(Integer status) {
         this.status = status;
+    }
+    public Integer getCurrentPaymentEntry() {
+        return this.currentPaymentEntry;
+    }
+    
+    public void setCurrentPaymentEntry(Integer currentPaymentEntry) {
+        this.currentPaymentEntry = currentPaymentEntry;
+    }
+    public Integer getCurrentOrderEntry() {
+        return this.currentOrderEntry;
+    }
+    
+    public void setCurrentOrderEntry(Integer currentOrderEntry) {
+        this.currentOrderEntry = currentOrderEntry;
     }
     public Date getModificationTime() {
         return this.modificationTime;

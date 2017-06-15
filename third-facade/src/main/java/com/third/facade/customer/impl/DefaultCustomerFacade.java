@@ -3,6 +3,7 @@ package com.third.facade.customer.impl;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.commons.lang3.StringUtils;
 import org.apache.log4j.Logger;
 
 import com.third.dao.util.PaginationSupport;
@@ -52,8 +53,11 @@ public class DefaultCustomerFacade implements CustomerFacade
 		customerModel.setEmail(customer.getEmail());
 		customerModel.setQQ(customer.getQQ());
 
-		SourceModel sourceModel = sourceService.getSource(customer.getSource().getPk());
-		customerModel.setSource(sourceModel);
+		if (StringUtils.isNotEmpty(customer.getSource().getPk()))
+		{
+			SourceModel sourceModel = sourceService.getSource(customer.getSource().getPk());
+			customerModel.setSource(sourceModel);
+		}
 
 		AddressModel addressModel = new AddressModel();
 		AddressData address = customer.getAddress();
@@ -177,7 +181,7 @@ public class DefaultCustomerFacade implements CustomerFacade
 			customerModel.setName(name);
 			customerModel.setSubscribe(subscribeModel);
 			customerService.createCustomer(customerModel);
-			LOG.debug("创建顾客"+cellphone);
+			LOG.debug("创建顾客" + cellphone);
 		}
 		else
 		{
@@ -196,10 +200,10 @@ public class DefaultCustomerFacade implements CustomerFacade
 			//				}
 			//			}
 
-			LOG.debug("更新顾客"+cellphone);
+			LOG.debug("更新顾客" + cellphone);
 			customerService.updateCustomer(customerModel);
 		}
-		
+
 		CustomerData customer = new CustomerData();
 		customerDataPopulator.populate(customerModel, customer);
 		loginCustomer(customer);
