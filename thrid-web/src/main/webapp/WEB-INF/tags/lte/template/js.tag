@@ -7,7 +7,7 @@
 <!-- jQuery 2.2.3 -->
 <script src="${lteResourcePath}/plugins/jQuery/jquery-2.2.3.min.js"></script>
 <!-- jQuery UI 1.11.4 -->
-<script src="https://code.jquery.com/ui/1.11.4/jquery-ui.min.js"></script>
+<script src="${lteResourcePath}/plugins/jQueryUI/jquery-ui.min.js"></script>
 <!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
 <script>
   $.widget.bridge('uibutton', $.ui.button);
@@ -32,6 +32,10 @@
 <script src="${lteResourcePath}/plugins/daterangepicker/daterangepicker.js"></script>
 <!-- datepicker -->
 <script src="${lteResourcePath}/plugins/datepicker/bootstrap-datepicker.js"></script>
+<script src="${lteResourcePath}/plugins/datepicker/locales/bootstrap-datepicker.zh-CN.js"></script>
+<!-- Bootstrap WYSIHTML5 -->
+<script src="${lteResourcePath}/plugins/datetimepicker/bootstrap-datetimepicker.min.js"></script>
+<script src="${lteResourcePath}/plugins/datetimepicker/locales/bootstrap-datetimepicker.zh-CN.js"></script>
 <!-- Bootstrap WYSIHTML5 -->
 <script src="${lteResourcePath}/plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.all.min.js"></script>
 <!-- Slimscroll -->

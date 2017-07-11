@@ -28,6 +28,7 @@
   
     <!-- ui resource -->
     <security:http  pattern="/_ui/**" security="none"></security:http>
+    <security:http  pattern="/medias/**" security="none"></security:http>
     <!-- easyui master page -->
     <security:http  pattern="/master" security="none"></security:http>
     <!-- test data initial controller -->

@@ -183,6 +183,11 @@
 			<artifactId>fastjson</artifactId>
 			<version>1.2.20</version>
 		</dependency>
+	<!-- 	<dependency>
+  <groupId>net.sourceforge.tess4j</groupId>
+    <artifactId>tess4j</artifactId>
+    <version>3.4.0</version>
+</dependency> -->
 		<!-- https://mvnrepository.com/artifact/org.apache.poi/poi -->
 <dependency>
     <groupId>org.apache.poi</groupId>

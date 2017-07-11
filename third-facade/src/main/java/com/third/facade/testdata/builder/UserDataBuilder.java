@@ -120,13 +120,17 @@ public class UserDataBuilder implements DataBuilder
 		lv3_orderprocesslist.setParentMenu(lv2_sales);
 		menuService.createMenu(lv3_orderprocesslist);
 		
+		MenuModel lv3_reservationlist = this.buildMenu("26", 3, "预约管理", "/reservation/reservationlistpage", "fa-search");
+		lv3_reservationlist.setParentMenu(lv2_sales);
+		menuService.createMenu(lv3_reservationlist);
+		
 		//create role
 		RoleModel role = new RoleModel();
 		role.setRoleId("adminRole");
 		role.setRoleName("管理员角色");
 		role.setDescription("测试管理员的角色的描述文本的橘色");
 		role.setMenus(Arrays.asList(lv3_usergroup, lv3_userlist, lv3_customer, lv3_orders, lv3_reservation, lv3_orderprocess,
-				lv3_orderprocesslist));
+				lv3_orderprocesslist,lv3_reservationlist));
 
 		roleService.createRole(role);
 

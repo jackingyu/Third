@@ -49,6 +49,7 @@ public interface ControllerConstants
 		final static String PREFIX = "/lte";
 		
 		final static String PAGE = "/lte/pages";
+		final static String FRAGEMENTS = "/fragments/lte";
 
 		final static String HOMEPAGE = PAGE+"/home";
 		
@@ -68,6 +69,10 @@ public interface ControllerConstants
 
 		final static String USERLISTPAGE = PAGE+"/user/userList";
 		final static String USERDETAILSPAGE = PAGE+"/user/userDetails";
+
+		static final String RESERVATIONLISTPAGE = PAGE+"/customer/reservationList";
+
+		static final String RESERVATIONDETAILSPAGE = FRAGEMENTS + "/customer/reservationDetails";
 
 	}
 	

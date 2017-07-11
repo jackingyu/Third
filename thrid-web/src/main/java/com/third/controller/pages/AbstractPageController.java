@@ -6,6 +6,7 @@ import java.util.List;
 import javax.annotation.Resource;
 
 import org.apache.commons.collections4.CollectionUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.ui.Model;
 
 import com.third.controller.pages.lte.DTResults;
@@ -56,6 +57,10 @@ public abstract class AbstractPageController
 		return data;
 	}
 	
+	/**
+	 * only the store could be used by current user
+	 * @param model
+	 */
 	protected void fillAllStore2View(final Model model){
 		List<ComboboxData> stores = new ArrayList<ComboboxData>();
 		List<StoreData> storeDatas=userFacade.getCurrentUser().getStores();
@@ -114,10 +119,10 @@ public abstract class AbstractPageController
 		model.addAttribute("stores",stores);
 	}
 	
-	protected void fillAddressInModel(final Model model){
+	protected void fillAddressInModel(final Model model,final String selectedRegion){
 		List<ComboboxData> regions = new ArrayList<ComboboxData>();
 		List<RegionData> regionDatas = i18NFacade.getRegions();
-		String regionISOCode = regionDatas.get(0).getIsoCode();
+		String regionISOCode = StringUtils.isEmpty(selectedRegion)?regionDatas.get(0).getIsoCode():selectedRegion;
 		
 		for(int i = 0 ;i < regionDatas.size();i++){
 			   RegionData r = regionDatas.get(i);
@@ -125,7 +130,7 @@ public abstract class AbstractPageController
          	region.setCode(r.getIsoCode());
          	region.setText(r.getName());
             
-            if(i == 0)
+            if(regionISOCode.equals(r.getIsoCode()))
             	region.setSelected(true);
             	
             regions.add(region);

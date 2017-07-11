@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Map;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
 
 import org.apache.commons.lang3.StringUtils;
 import org.apache.log4j.Logger;
@@ -17,6 +18,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.alibaba.fastjson.JSON;
@@ -171,4 +174,12 @@ public class SizeOrderPageController extends AbstractPageController
 		attr.addFlashAttribute("message", "保存成功!");
 		return REDIRECT_PREFIX+"/orderentry/modifyentrypage/"+orderEntryData.getPk();
 	}
+	
+	@RequestMapping(value = "/sizeorder/uploadsizeimage", method = RequestMethod.POST)
+	public @ResponseBody Object uploadSizeImage(@RequestParam(value = "fileUpload") final MultipartFile file,
+			@RequestParam(value = "entryPK", required = false) final String entryPK, final HttpServletRequest request)
+	{
+		return orderFacade.uploadMediaForOrderEntry(entryPK, file);
+	}
+
 }

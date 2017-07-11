@@ -60,7 +60,7 @@ public class CustomerPageController extends AbstractPageController
 	public String getCreateCustomerPage(final Model model, final HttpServletRequest request, final HttpServletResponse response)
 	{
 		fillSourceInModel(model);
-		fillAddressInModel(model);
+		fillAddressInModel(model,null);
 
 		return ControllerConstants.LTE.CREATECUSTOMERPAGE;
 	}
@@ -72,7 +72,7 @@ public class CustomerPageController extends AbstractPageController
 		CustomerData customer = customerFacade.getCustomerByCellphone(cellphone);
 
 		fillSourceInModel(model);
-		fillAddressInModel(model);
+		fillAddressInModel(model,customer.getAddress()!=null?customer.getAddress().getRegion().getIsoCode():null);
 		model.addAttribute("customer", customer);
 		return ControllerConstants.LTE.MODIFYCUSTOMERPAGE;
 	}

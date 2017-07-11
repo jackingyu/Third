@@ -44,7 +44,7 @@
 			</div>
 
 			<div class="form-group">
-			    <common:selection2 name="source" data="${sources}" value="${customer.source.pk}" label="lte.customer.source"/>
+			    <common:selection2 name="source" data="${sources}"  label="lte.customer.source"/>
 			</div>
 
 			<div class="form-group">

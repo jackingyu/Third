@@ -4,6 +4,7 @@
 <%@ attribute name="label" type="java.lang.String" required="false"%>
 <%@ attribute name="name" type="java.lang.String" required="false"%>
 <%@ attribute name="id" type="java.lang.String" required="false"%>
+<%@ attribute name="value" type="java.lang.String" required="false"%>
 <%@ attribute name="data" type="java.util.List" required="true"%>
 <%@ attribute name="multiple" type="java.lang.Boolean" required="false" %>
 <%@ attribute name="disabled" type="java.lang.String" required="false"%>
@@ -24,7 +25,7 @@
 		<select name="${name}" id="${id}" <c:if test="${not empty disabled}">disabled="${disabled}"</c:if>
 			class="form-control select2" style="width: 100%;">
 			<c:forEach var="item" items="${data}">
-				<option value="${item.code}" <c:if test="${item.selected}">selected="selected"</c:if>>${item.text}</option>
+				<option value="${item.code}" <c:if test="${value == item.code}">selected="selected"</c:if>>${item.text}</option>
 			</c:forEach>
 		</select>
 	</c:otherwise>

@@ -49,9 +49,7 @@
 					      <td>${payment.paymentMethodText}</td>
 					      <td>${payment.amount}</td>
 					      <td>${payment.paidTime}</td>
-					      <td>
-					      ${payment.pk}
-					       </td>
+					      <td>${payment.pk}</td>
 					   </tr>
 					   </c:forEach>
 					</tbody>
