@@ -97,12 +97,6 @@ public class SizeOrderPageController extends AbstractPageController
 	{
 		Map<String, SizeAttributeGroupData> sizeDatas = null;
 		
-		
-		//			OrderEntryData entry = orderFacade.getSizeDatas(entryPK);
-		//			model.addAttribute("itemCategory", entry.getItemCategory());
-		//			sizeDatas = entry.getSizeDatas();
-		
-		
 		//set up item category
 		OrderEntryData orderEntry = orderFacade.getOrderEntry(orderEntryPK);
 	  
@@ -116,6 +110,9 @@ public class SizeOrderPageController extends AbstractPageController
 			}
 		}
 		
+		//set size details data
+		OrderEntryData entry = orderFacade.getSizeDatas(orderEntry.getPk());
+		orderEntry.setSizeDatas(entry.getSizeDatas());
 		
 		
 		model.addAttribute("itemCategorys",itemCategorys);

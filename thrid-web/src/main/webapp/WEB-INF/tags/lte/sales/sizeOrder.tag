@@ -78,7 +78,7 @@
         </div>
 	</div>
 </div>
-<input type="hidden" id="sizeDatas"></input>
+<input type="hidden" id="sizeDatas" name="sizeDetails"></input>
 </div>
 </form>
 

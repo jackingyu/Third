@@ -28,7 +28,7 @@
   <link rel="stylesheet" href="${lteResourcePath}/plugins/datatables/dataTables.bootstrap.css">
   <link rel="stylesheet" href="${lteResourcePath}/plugins/datatables/jquery.dataTables.min.css">
     <!-- Theme style -->
-  <link rel="stylesheet" href="${lteResourcePath}/dist/css/AdminLTE.min.css">
+  <link rel="stylesheet" href="${lteResourcePath}/dist/css/AdminLTE.css">
   <link rel="stylesheet" href="${lteResourcePath}/dist/css/skins/_all-skins.min.css">
   <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
   <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->

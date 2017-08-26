@@ -25,6 +25,11 @@
 				<comment>项目类别,表明是衣服还是一次性物料,如果是衣服就是量身单类型</comment>
 			</column>
 		</property>
+	    <property name="isSizeItem" type="java.lang.Boolean">
+			<column name="isSizeItem" >
+				<comment>量身单的数据的序列化</comment>
+			</column>
+		</property>
 		<many-to-one name="product" lazy="proxy"
 			class="com.third.model.ProductModel" cascade="refresh"
 			fetch="select">
@@ -69,6 +74,7 @@
 				<comment>量身单的数据的序列化</comment>
 			</column>
 		</property>
+		
 		<property name="sizeImage" type="java.lang.String">
 			<column name="sizeimage" length="300">
 				<comment>量身单图片</comment>

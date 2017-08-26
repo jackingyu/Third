@@ -59,6 +59,8 @@ public class OrderPageController extends AbstractPageController
 	@ResponseBody
 	public Object getOrderList(@RequestParam(value = "orderCode", required = false) final String orderCode,
 			@RequestParam(value = "cellphone", required = false) final String cellphone,
+			@RequestParam(value = "orderDate", required = false) final String orderDate,
+			@RequestParam(value = "storeCodes",required = false) final String storeCodes,
 			@RequestParam(value = "startDate", required = false) @DateTimeFormat(pattern = "yyyy-MM-dd") Date startDate,
 			@RequestParam(value = "endDate", required = false) @DateTimeFormat(pattern = "yyyy-MM-dd") Date endDate,
 			final DataTableCriterias criterias)

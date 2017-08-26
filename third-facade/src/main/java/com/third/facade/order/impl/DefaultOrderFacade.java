@@ -129,7 +129,7 @@ public class DefaultOrderFacade implements OrderFacade
 		{
 			orders.forEach(o -> {
 				OrderData orderData = new OrderData();
-				orderDataPopulator.populate(o, orderData);
+				orderConfiguredPopulator.populate(o, orderData, Arrays.asList(OrderOption.BASIC));
 				orderDatas.add(orderData);
 			});
 

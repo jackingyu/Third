@@ -36,14 +36,14 @@ public class DefaultOrderDao extends GenericDAO<OrderModel, String> implements O
 	{
 		DetachedCriteria dcOrder = DetachedCriteria.forClass(OrderModel.class);
 
-		dcOrder.add(Restrictions.between("orderDate", startDate, endDate));
-
 		if (sp != null && sp.containsKey("orderCode") && StringUtils.isNotBlank(sp.get("orderCode")))
-			dcOrder.add(Restrictions.like("code", sp.get("orderCode")));
+			dcOrder.add(Restrictions.eq("code", sp.get("orderCode")));
 
 		if (sp != null && sp.containsKey("cellphone") && StringUtils.isNotBlank(sp.get("cellphone")))
-			dcOrder.add(Restrictions.like("cellphone", sp.get("cellphone")));
+			dcOrder.add(Restrictions.eq("cellphone", sp.get("cellphone")));
 
+		dcOrder.add(Restrictions.between("orderDate", startDate, endDate));
+		
 		return findPageByCriteria(dcOrder, pageSize, startIndex);
 	}
 

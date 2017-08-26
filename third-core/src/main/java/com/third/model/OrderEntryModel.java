@@ -1,5 +1,5 @@
 package com.third.model;
-// Generated Jun 14, 2017 8:55:17 AM by Hibernate Tools 4.3.1
+// Generated Aug 23, 2017 5:05:46 PM by Hibernate Tools 4.3.1
 
 
 import java.util.Date;
@@ -15,6 +15,7 @@ public class OrderEntryModel  implements java.io.Serializable {
      private Integer entryNo;
      private String style;
      private String itemCategory;
+     private Boolean isSizeItem;
      private ProductModel product;
      private String productTitle;
      private Integer quantity;
@@ -35,11 +36,12 @@ public class OrderEntryModel  implements java.io.Serializable {
     public OrderEntryModel() {
     }
 
-    public OrderEntryModel(String code, Integer entryNo, String style, String itemCategory, ProductModel product, String productTitle, Integer quantity, String designer, String customerName, StoreModel store, Date deliveryDate, Date sizeDate, Date tryDate, String comment, String sizeDetails, String sizeImage, OrderModel order, Date modificationTime, Date createTime, UserModel createdBy) {
+    public OrderEntryModel(String code, Integer entryNo, String style, String itemCategory, Boolean isSizeItem, ProductModel product, String productTitle, Integer quantity, String designer, String customerName, StoreModel store, Date deliveryDate, Date sizeDate, Date tryDate, String comment, String sizeDetails, String sizeImage, OrderModel order, Date modificationTime, Date createTime, UserModel createdBy) {
        this.code = code;
        this.entryNo = entryNo;
        this.style = style;
        this.itemCategory = itemCategory;
+       this.isSizeItem = isSizeItem;
        this.product = product;
        this.productTitle = productTitle;
        this.quantity = quantity;
@@ -92,6 +94,13 @@ public class OrderEntryModel  implements java.io.Serializable {
     
     public void setItemCategory(String itemCategory) {
         this.itemCategory = itemCategory;
+    }
+    public Boolean getIsSizeItem() {
+        return this.isSizeItem;
+    }
+    
+    public void setIsSizeItem(Boolean isSizeItem) {
+        this.isSizeItem = isSizeItem;
     }
     public ProductModel getProduct() {
         return this.product;

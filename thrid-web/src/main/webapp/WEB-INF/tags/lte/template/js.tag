@@ -45,13 +45,13 @@
 
 <script src="${lteResourcePath}/plugins/iCheck/icheck.min.js"></script>
 <!-- AdminLTE App -->
-<script src="${lteResourcePath}/dist/js/app.min.js"></script>
+<script src="${lteResourcePath}/dist/js/app.js"></script>
 <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
 <!-- AdminLTE for demo purposes -->
 <script src="${lteResourcePath}/dist/js/demo.js"></script>
 <script src="${lteResourcePath}/js/jquery.validate.js"></script>
 <script src="${lteResourcePath}/js/jquery.validate.customize.js"></script>
-
+<script src="${lteResourcePath}/js/acc.common.js"></script>
     <script type="text/javascript">
     function getQuery(formId){  
         var fid = "#" + formId;  
@@ -102,6 +102,14 @@
           result[1] = endDate.Format("yyyy-MM-dd");
           return result;
       }
-    </script>
+      
+      function isMobile(){
+    	 if( /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) )
+    	     return true;
+    	 else 
+    		 return false;
+      }
+      
+</script>
     
     
