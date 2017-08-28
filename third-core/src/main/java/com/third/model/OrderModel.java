@@ -1,5 +1,5 @@
 package com.third.model;
-// Generated Aug 23, 2017 5:05:46 PM by Hibernate Tools 4.3.1
+// Generated Aug 27, 2017 10:39:03 PM by Hibernate Tools 4.3.1
 
 
 import java.math.BigDecimal;
@@ -26,6 +26,7 @@ public class OrderModel  implements java.io.Serializable {
      private String comment;
      private BigDecimal receiveable;
      private BigDecimal openamount;
+     private BigDecimal paidamount;
      private Integer status;
      private Integer currentPaymentEntry;
      private Integer currentOrderEntry;
@@ -41,7 +42,7 @@ public class OrderModel  implements java.io.Serializable {
     public OrderModel() {
     }
 
-    public OrderModel(String code, String customerName, String cellphone, Date weddingDate, Date tryDate, Date photoDate, Date deliveryDate, Date orderDate, String coSalesperson, String comment, BigDecimal receiveable, BigDecimal openamount, Integer status, Integer currentPaymentEntry, Integer currentOrderEntry, Date modificationTime, Date createTime, CustomerModel customer, UserModel salesperson, SourceModel source, StoreModel store, List payments, List orderEntries) {
+    public OrderModel(String code, String customerName, String cellphone, Date weddingDate, Date tryDate, Date photoDate, Date deliveryDate, Date orderDate, String coSalesperson, String comment, BigDecimal receiveable, BigDecimal openamount, BigDecimal paidamount, Integer status, Integer currentPaymentEntry, Integer currentOrderEntry, Date modificationTime, Date createTime, CustomerModel customer, UserModel salesperson, SourceModel source, StoreModel store, List payments, List orderEntries) {
        this.code = code;
        this.customerName = customerName;
        this.cellphone = cellphone;
@@ -54,6 +55,7 @@ public class OrderModel  implements java.io.Serializable {
        this.comment = comment;
        this.receiveable = receiveable;
        this.openamount = openamount;
+       this.paidamount = paidamount;
        this.status = status;
        this.currentPaymentEntry = currentPaymentEntry;
        this.currentOrderEntry = currentOrderEntry;
@@ -157,6 +159,13 @@ public class OrderModel  implements java.io.Serializable {
     
     public void setOpenamount(BigDecimal openamount) {
         this.openamount = openamount;
+    }
+    public BigDecimal getPaidamount() {
+        return this.paidamount;
+    }
+    
+    public void setPaidamount(BigDecimal paidamount) {
+        this.paidamount = paidamount;
     }
     public Integer getStatus() {
         return this.status;

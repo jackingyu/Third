@@ -68,7 +68,7 @@ public class OrderPage1Controller extends AbstractPageController
 		endDate.setHours(23);
 		endDate.setMinutes(59);
 		endDate.setSeconds(59);
-		ListData results = orderFacade.getOrders(startDate, endDate, (page - 1) * rows, rows, sp);
+		ListData results = null;//orderFacade.getOrders(startDate, endDate, (page - 1) * rows, rows, sp);
 		return results;
 	}
 

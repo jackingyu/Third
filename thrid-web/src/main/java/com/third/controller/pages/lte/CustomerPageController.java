@@ -89,7 +89,7 @@ public class CustomerPageController extends AbstractPageController
 
 		List<String[]> listDatas = new ArrayList<String[]>();
 
-		DTResults dtResult = initDTResults(results);
+		DTResultsV dtResult = initDTResults(results);
 
 		for (int i = 0; i < customers.size(); i++)
 		{

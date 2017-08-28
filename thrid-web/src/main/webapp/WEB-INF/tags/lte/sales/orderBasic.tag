@@ -39,6 +39,29 @@
 				<label><spring:message code="lte.order.basic.cosalesperson"></spring:message></label>
 		         <input name="coSalesPerson" value="${orderData.coSalesperson}" class="form-control" placeholder="" type="text">
 			</div>
+			<div class="col-lg-3 cl-md-3 cl-sm-12 cl-xs-12">
+				<label><spring:message code="lte.order.basic.salesperson"></spring:message></label>
+		        <input  name="salesperson" value="${orderData.salesPerson.name}" disabled="disabled" class="form-control" placeholder="" type="text">
+			</div>
+			<div class="col-lg-3 cl-md-3 cl-sm-12 cl-xs-12">
+				<label><spring:message code="lte.order.basic.orderdate"></spring:message></label>
+		         <input name="orderDate" value="${orderData.orderDate}" disabled="disabled" class="form-control" placeholder="" type="text">
+			</div>
+		</div>
+		
+		<div class="row">
+			<div class="col-lg-3 cl-md-3 cl-sm-12 cl-xs-12">
+				<label><spring:message code="lte.order.basic.receiveable"></spring:message></label>
+		         <input name="receiveable" value="${orderData.receiveable}"  class="form-control" placeholder="" type="text">
+			</div>
+			<div class="col-lg-3 cl-md-3 cl-sm-12 cl-xs-12">
+				<label><spring:message code="lte.order.basic.openamount"></spring:message></label>
+		        <input  value="${orderData.openamount}" disabled="disabled" class="form-control" placeholder="" type="text">
+			</div>
+			<div class="col-lg-3 cl-md-3 cl-sm-12 cl-xs-12">
+				<label><spring:message code="lte.order.basic.paidamount"></spring:message></label>
+		        <input  value="" class="form-control" disabled="disabled" placeholder="" type="text">
+			</div>
 		</div>
 	</div>
 </div>

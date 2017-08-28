@@ -8,6 +8,7 @@ import java.util.Map;
 
 import org.springframework.web.multipart.MultipartFile;
 
+import com.third.facade.data.DTResults;
 import com.third.facade.data.ListData;
 import com.third.facade.data.OrderData;
 import com.third.facade.data.OrderEntryData;
@@ -21,7 +22,7 @@ public interface OrderFacade
 {
 	void createOrder(OrderData orderData);
 
-	ListData getOrders(Date startDate, Date endDate, Integer startIndex, Integer pageSize, Map<String, String> sp);
+	DTResults getOrders(Date startDate, Date endDate, Integer startIndex, Integer pageSize, Map<String, String> sp);
 
 	@Deprecated
 	OrderData getOrder(final String orderCode);

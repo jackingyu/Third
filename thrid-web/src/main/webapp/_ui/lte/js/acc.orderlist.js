@@ -44,18 +44,40 @@ ACC.orderList = {
           d.orderCode = formData.orderCode;
           d.customerName = formData.customerName;
           d.cellphone = formData.cellphone;
-          var orderDate = getDate4Range($("#orderDate").val());
-          d.startDate = orderDate[0];
-          d.endDate = orderDate[1];
+         
+          var orderDate = $('#orderDate').datepicker('getDate');
+          if(!isNaN(orderDate))
+          d.orderDate = new Date(orderDate).Format('yyyy-MM-dd');
+          var deliveryDate = getDate4Range($("#deliveryDate").val());
+          d.startDate = deliveryDate[0];
+          d.endDate = deliveryDate[1];
+         
+        /*  var storeCodes = $('#storeCodes').val(),;
+           d.storeCodes = new Array(storeCodes.length);
+          for(var i = 0;i < storeCodes.length;i++)
+          {
+          	d.storeCodes[i] = storeCodes[i];
+          }
+          */
+          d.storeCodes = $('#storeCodes').val().toString();
+          d.orderStatus = formData.orderStatus;
+           
         }
       },
       'fnDrawCallback': function () {
       }
     });
-    $('#orderDate').daterangepicker({
+    $('#deliveryDate').daterangepicker({
+      locale:datepicker_locale_zh
+    }
+    );
+    
+    $('#orderDate').datepicker({
+      autoclose:true,
       locale: {
         format: 'YYYY/MM/DD'
-      }
+      },
+      language: 'zh-CN'
     }
     );
   }

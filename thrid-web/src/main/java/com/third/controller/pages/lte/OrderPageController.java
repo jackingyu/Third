@@ -12,6 +12,7 @@ import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.time.DateFormatUtils;
 import org.apache.log4j.Logger;
@@ -27,7 +28,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.third.controller.pages.AbstractPageController;
 import com.third.controller.pages.ControllerConstants;
 import com.third.core.util.DataTableCriterias;
-import com.third.facade.data.ListData;
+import com.third.facade.data.DTResults;
 import com.third.facade.data.OrderData;
 import com.third.facade.data.PaymentData;
 import com.third.facade.data.StoreData;
@@ -45,13 +46,12 @@ public class OrderPageController extends AbstractPageController
 	@Resource(name = "orderFacade")
 	private OrderFacade orderFacade;
 
-	@Resource(name = "textMapperUtils")
-	private TextMapperUtils textMapperUtils;
 
 	@RequestMapping(value = "/order/orderlistpage", method = RequestMethod.GET)
 	public String orderListPage(Model model)
 	{
 		fillAllStore2View(model);
+		fillOrderStatus2View(model);
 		return ControllerConstants.LTE.ORDERLISTPAGE;
 	}
 
@@ -59,8 +59,10 @@ public class OrderPageController extends AbstractPageController
 	@ResponseBody
 	public Object getOrderList(@RequestParam(value = "orderCode", required = false) final String orderCode,
 			@RequestParam(value = "cellphone", required = false) final String cellphone,
+			@RequestParam(value = "customerName", required = false) final String name,
 			@RequestParam(value = "orderDate", required = false) final String orderDate,
-			@RequestParam(value = "storeCodes",required = false) final String storeCodes,
+			@RequestParam(value = "storeCodes", required = false) final String storeCodes,
+			@RequestParam(value = "orderStatus", required = false) final String orderStatus,
 			@RequestParam(value = "startDate", required = false) @DateTimeFormat(pattern = "yyyy-MM-dd") Date startDate,
 			@RequestParam(value = "endDate", required = false) @DateTimeFormat(pattern = "yyyy-MM-dd") Date endDate,
 			final DataTableCriterias criterias)
@@ -68,31 +70,15 @@ public class OrderPageController extends AbstractPageController
 		Map<String, String> sp = new HashMap<String, String>();
 		sp.put("cellphone", cellphone);
 		sp.put("orderCode", orderCode);
-		endDate.setHours(23);
-		endDate.setMinutes(59);
-		endDate.setSeconds(59);
+		sp.put("name", name);
+		sp.put("orderDate", orderDate);
+		sp.put("orderStatus", orderStatus);
 
-		ListData results = orderFacade.getOrders(startDate, endDate, criterias.getStart(), criterias.getLength(), sp);
+		sp.put("storeCodes", storeCodes);
 
-		List<Object> orders = results.getRows();
-		DTResults data = new DTResults();
-		data.setRecordsFiltered(results.getTotal());
-		data.setRecordsTotal(results.getTotal());
+		DTResults r = orderFacade.getOrders(startDate, endDate, criterias.getStart(), criterias.getLength(), sp);
 
-		List<String[]> listDatas = new ArrayList<String[]>();
-		for (int i = 0; i < orders.size(); i++)
-		{
-			OrderData od = (OrderData) orders.get(i);
-			String[] row = new String[3];
-			row[0] = od.getOrderCode();
-			row[1] = od.getCustomerName();
-			row[2] = od.getCellphone();
-			listDatas.add(row);
-		}
-		;
-
-		data.setData(listDatas);
-		return data;
+		return r;
 	}
 
 	@RequestMapping(value = "/order/get/" + ORDER_CODE_PATH_VARIABLE_PATTERN, method = RequestMethod.GET)
@@ -101,9 +87,9 @@ public class OrderPageController extends AbstractPageController
 	{
 		LOG.info("orderCode:" + orderCode);
 		OrderData orderData = orderFacade.getOrderForOptions(orderCode, Arrays.asList(OrderOption.BASIC, OrderOption.PAYMENTS));
-		model.addAttribute("paymentTypes", textMapperUtils.getPaymentTypes());
+		model.addAttribute("paymentTypes", TextMapperUtils.getPaymentTypes());
 
-		model.addAttribute("paymentMethods", textMapperUtils.getPaymentMethods());
+		model.addAttribute("paymentMethods", TextMapperUtils.getPaymentMethods());
 		model.addAttribute("order", orderData);
 		return ControllerConstants.LTE.ORDERDETAILSPAGE;
 	}
@@ -122,10 +108,10 @@ public class OrderPageController extends AbstractPageController
 
 		OrderData orderData = orderFacade.getOrderForOptions(orderCode,
 				Arrays.asList(OrderOption.BASIC, OrderOption.PAYMENTS, OrderOption.ENTRIES));
-		model.addAttribute("paymentTypes", textMapperUtils.getPaymentTypes());
+		model.addAttribute("paymentTypes", TextMapperUtils.getPaymentTypes());
 
-		model.addAttribute("paymentMethods", textMapperUtils.getPaymentMethods());
-		model.addAttribute("itemCategorys", textMapperUtils.getItemCategories());
+		model.addAttribute("paymentMethods", TextMapperUtils.getPaymentMethods());
+		model.addAttribute("itemCategorys", TextMapperUtils.getItemCategories());
 		model.addAttribute("orderData", orderData);
 		fillStore2View(model, orderData.getStore().getCode());
 		return ControllerConstants.LTE.MODIFYORDERPAGE;
@@ -162,7 +148,7 @@ public class OrderPageController extends AbstractPageController
 	{
 		OrderData orderData = orderFacade.getOrderForOptions(orderCode, Arrays.asList(OrderOption.PAYMENTS));
 		List<PaymentData> paymentDatas = orderData.getPayments();
-		DTResults data = new DTResults();
+		DTResultsV data = new DTResultsV();
 		data.setRecordsFiltered(paymentDatas.size());
 		data.setRecordsTotal(paymentDatas.size());
 		List<String[]> listDatas = new ArrayList<String[]>();

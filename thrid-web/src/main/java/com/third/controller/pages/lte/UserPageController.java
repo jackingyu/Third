@@ -75,7 +75,7 @@ public class UserPageController extends AbstractPageController
 		List<Object> users = results.getRows();
 		List<String[]> arrayDatas = new ArrayList<String[]>();
 
-		DTResults dtResult = initDTResults(results);
+		DTResultsV dtResult = initDTResults(results);
 
 		for (int i = 0; i < users.size(); i++)
 		{

@@ -39,7 +39,7 @@ public class OrderBasicPopulator implements Populator<OrderModel, OrderData>
 		target.setCustomer(customer);
 		target.setCustomerName(StringUtils.isNotBlank(source.getCustomerName()) ? source.getCustomerName() : customer.getName());
 
-		target.setCellphone(source.getCellphone());
+		target.setCellphone(source.getCustomer().getCellphone());
 
 
 		target.setTryDate(source.getTryDate());

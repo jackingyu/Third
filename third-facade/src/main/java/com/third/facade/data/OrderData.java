@@ -17,6 +17,7 @@ public class OrderData extends AbstractData
 
 	private String receiveable;
 	private String openamount;
+	private String paidamount;
 	private List<PaymentData> payments;
 
 	private String coSalesperson;

@@ -26,27 +26,37 @@
     <section class="content-header">
      <form id="orderListForm">
        <div class="row">
-       <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12">
+       <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
          <label><spring:message code="lte.orderlist.ordercode"></spring:message></label>
          <input class="form-control" placeholder="" name="orderCode" type="text">
          </div>
-        <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12">
+        <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
          <label><spring:message code="lte.orderlist.customername"></spring:message></label>
          <input class="form-control" placeholder="" name="customerName" type="text">
         </div>
-        <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12">
+        <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
          <label><spring:message code="lte.orderlist.cellphone"></spring:message></label>
-         <input class="form-control" placeholder="" type="text">
-         </div>
-         <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12">
-         <label><spring:message code="lte.orderlist.store"></spring:message></label>
-         <common:selection data="${stores}" name="store"></common:selection>
+         <input class="form-control" placeholder="" name="cellphone" type="text">
          </div>
        </div>
        <div class="row">
-         <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12">
+         <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
            <label><spring:message code="lte.orderlist.orderdate"></spring:message></label>
           <common:datepicker id="orderDate" name="orderDate"></common:datepicker>
+         </div>
+         <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
+           <label><spring:message code="lte.orderlist.deliverydate"></spring:message></label>
+          <common:datepicker id="deliveryDate" name="deliveryDate"></common:datepicker>
+         </div>
+             <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
+         <label><spring:message code="lte.orderlist.store"></spring:message></label>
+         	<common:selection2 data="${stores}"  multiple="true" id="storeCodes" name="storeCodes"></common:selection2>
+         </div>
+       </div>
+       <div class="row">
+        <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
+         <label><spring:message code="lte.orderlist.orderstatus"></spring:message></label>
+         <common:selection data="${orderStatus}" name="orderStatus"></common:selection>
          </div>
        </div>
        </form>
@@ -67,6 +77,7 @@
                   <th><spring:message code="lte.orderlist.ordercode"></spring:message></th>
                   <th><spring:message code="lte.orderlist.customername"></spring:message></th>
                   <th><spring:message code="lte.orderlist.cellphone"></spring:message></th>
+                  <th><spring:message code="lte.orderlist.store"></spring:message></th>
                 </tr>
                 </thead>
               </table>

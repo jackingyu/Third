@@ -12,6 +12,10 @@
 	<div class="input-group-addon">
 		<i class="fa fa-calendar"></i>
 	</div>
-	<input id="${id}" name="${name}" value="<fmt:formatDate value="${value}" pattern="yyyy-MM-dd" /> " class="form-control" data-date-format="yyyy-mm-dd" data-inputmask="'alias': 'yyyy-mm-dd'" data-mask=""
+	<input id="${id}" name="${name}" 
+	    <c:if test="${not empty value}">
+	     value="<fmt:formatDate value="${value}" pattern="yyyy-MM-dd" /> " 
+	    </c:if>
+	    class="form-control" data-date-format="yyyy-mm-dd" data-inputmask="'alias': 'yyyy-mm-dd'" data-mask=""
 		type="text">
 </div>

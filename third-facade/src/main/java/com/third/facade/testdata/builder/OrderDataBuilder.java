@@ -10,6 +10,7 @@ import javax.annotation.Resource;
 
 import com.third.model.CoreConstants.PaymentMethod;
 import com.third.model.CoreConstants.PaymentType;
+import com.third.model.AddressModel;
 import com.third.model.CustomerModel;
 import com.third.model.OrderEntryModel;
 import com.third.model.OrderModel;
@@ -66,7 +67,6 @@ public class OrderDataBuilder implements DataBuilder
 		OrderModel orderModel = new OrderModel();
 
 		orderModel.setCode(orderCode);
-		orderModel.setCellphone("13800138000");
 
 		Calendar calendar = Calendar.getInstance();
 		Date today = new Date();
@@ -78,7 +78,7 @@ public class OrderDataBuilder implements DataBuilder
 		orderModel.setReceiveable(BigDecimal.valueOf(1000.00));
 		orderModel.setOpenamount(BigDecimal.valueOf(500.00));
       orderModel.setStatus(0);
-		CustomerModel customer = customerService.getCustomerByCellphone("13800138000");
+		CustomerModel customer = buildCustomer("13800138000"+orderCode, "name"+orderCode);
 		orderModel.setCustomer(customer);
 
 		StoreModel store = storeService.getStoreForCode("s-1");
@@ -141,4 +141,19 @@ public class OrderDataBuilder implements DataBuilder
 		date = calendar.getTime();
 		return date;
 	}
+	
+	public CustomerModel buildCustomer(final String cellphone, final String name)
+	{
+		CustomerModel customer = new CustomerModel();
+		customer.setCellphone(cellphone);
+		customer.setName(name);
+		customer.setBirthday(new Date());
+		customer.setWeddingDate(new Date());
+		customer.setEmail("dd@tt.com");
+		customer.setComment("yekongzhongzuiliangdexing");
+		customer.setQQ("33445566");
+		customerService.createCustomer(customer);
+		return customer;
+	}
+
 }

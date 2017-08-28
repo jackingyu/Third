@@ -9,7 +9,7 @@ import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.ui.Model;
 
-import com.third.controller.pages.lte.DTResults;
+import com.third.controller.pages.lte.DTResultsV;
 import com.third.core.util.DataTableCriterias;
 import com.third.facade.data.CityData;
 import com.third.facade.data.ComboboxData;
@@ -19,6 +19,7 @@ import com.third.facade.data.StoreData;
 import com.third.facade.local.I18NFacade;
 import com.third.facade.store.StoreFacade;
 import com.third.facade.user.UserFacade;
+import com.third.facade.utils.TextMapperUtils;
 
 
 public abstract class AbstractPageController
@@ -49,9 +50,9 @@ public abstract class AbstractPageController
 		return criterias.getLength();
 	}
 
-	protected DTResults initDTResults(ListData results)
+	protected DTResultsV initDTResults(ListData results)
 	{
-		DTResults data = new DTResults();
+		DTResultsV data = new DTResultsV();
 		data.setRecordsFiltered(results.getTotal());
 		data.setRecordsTotal(results.getTotal());
 		return data;
@@ -70,6 +71,10 @@ public abstract class AbstractPageController
          	ComboboxData store = new ComboboxData();
          	store.setCode(s.getCode());
          	store.setText(s.getName());
+         	
+         	if(i==0)
+         		store.setSelected(true);
+         	
             stores.add(store);
 		}
 		
@@ -102,6 +107,10 @@ public abstract class AbstractPageController
 		model.addAttribute("stores",stores);
 	}
 	
+	/**fill authorized store in view,set selected according the parameter storeCode
+	 * @param model
+	 * @param storeCode
+	 */
 	protected void fillStore2View(final Model model,final String storeCode){
 		List<ComboboxData> stores = new ArrayList<ComboboxData>();
 		List<StoreData> storeDatas=userFacade.getCurrentUser().getStores();
@@ -115,6 +124,26 @@ public abstract class AbstractPageController
 				store.setSelected(true);
          stores.add(store);
 	   }
+		
+		model.addAttribute("stores",stores);
+	}
+	
+	/**fill all the authorized store in the view
+	 * @param model
+	 */
+	protected void fillStore2View(final Model model){
+		List<ComboboxData> stores = new ArrayList<ComboboxData>();
+		List<StoreData> storeDatas=userFacade.getCurrentUser().getStores();
+		
+		for(int i = 0 ;i < storeDatas.size();i++){
+			StoreData s = storeDatas.get(i);
+			ComboboxData store = new ComboboxData();
+			store.setCode(s.getCode());
+			store.setText(s.getName());
+			if(i==0)
+				store.setSelected(true);
+			stores.add(store);
+		}
 		
 		model.addAttribute("stores",stores);
 	}
@@ -157,4 +186,11 @@ public abstract class AbstractPageController
 		return citys;
 	}
 	
+	protected void fillOrderStatus2View(final Model model){
+		model.addAttribute("orderStatus",TextMapperUtils.getOrderStatus());
+	}
+	
+	protected void fillPaymentMethods2View(final Model model){
+		model.addAttribute("paymentMethods",TextMapperUtils.getPaymentMethods());
+	}
 }

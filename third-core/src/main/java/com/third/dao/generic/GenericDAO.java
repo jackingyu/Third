@@ -23,6 +23,7 @@ import com.third.dao.util.PaginationSupport;
 import java.io.Serializable;
 import java.lang.reflect.ParameterizedType;
 import java.sql.SQLException;
+import java.text.SimpleDateFormat;
 import java.util.Collection;
 import java.util.List;
 
@@ -33,6 +34,8 @@ public class GenericDAO<T, ID extends Serializable> extends HibernateDaoSupport 
 
 	private Log logger = LogFactory.getLog(getClass());
 
+	protected SimpleDateFormat fmt = new SimpleDateFormat("yyyy-MM-dd");
+	
 	protected Class<T> entityClass;
 
 	public GenericDAO()
@@ -190,12 +193,25 @@ public class GenericDAO<T, ID extends Serializable> extends HibernateDaoSupport 
 		{
 			public Object doInHibernate(Session session) throws HibernateException
 			{
+				//get total count
+				String countsql = null;
+				if(hsql.contains("select"))
+				{
+					String[] sql1 = hsql.split("from");
+					countsql = "select count(*) from "+sql1[1];
+				}else
+					countsql = "select count(*) from "+hsql;
+				
+				Query countquery = session.createQuery(countsql);
+				Long totalCount = (Long) countquery.list().get(0);
+				
+				//get result
 				Query query = session.createQuery(hsql);
-				int totalCount = query.list().size();
 				query.setFirstResult(startIndex);
 				query.setMaxResults(pageSize);
 				List items = query.list();
-				return new PaginationSupport(items, totalCount, pageSize, startIndex);
+			
+				return new PaginationSupport(items, totalCount.intValue(), pageSize, startIndex);
 
 			}
 		});

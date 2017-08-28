@@ -57,10 +57,12 @@
 				<common:datepicker name="weddingdate" value="${customer.weddingdate}" id="weddingdate" />
 			</div>
 
+			<!--  
 			<div class="form-group">
 				<label><spring:message code="lte.customer.address"></spring:message></label>
 				<common:address address="${customer.address}"/>
 			</div>
+			-->
 
 			<div class="form-group">
 				<label><spring:message code="lte.customer.comment"></spring:message></label>

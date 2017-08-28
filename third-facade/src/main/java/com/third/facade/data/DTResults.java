@@ -1,12 +1,13 @@
-package com.third.controller.pages.lte;
+package com.third.facade.data;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class DTResults
 {
 	private int recordsFiltered;
 	private int recordsTotal;
-	private List<String[]> data;
+	private List<Object[]> data;
 	public int getRecordsFiltered()
 	{
 		return recordsFiltered;
@@ -23,14 +24,13 @@ public class DTResults
 	{
 		this.recordsTotal = recordsTotal;
 	}
-	public List<String[]> getData()
+	public List<Object[]> getData()
 	{
 		return data;
 	}
-	public void setData(List<String[]> data)
+	public void setData(List<Object[]> data)
 	{
 		this.data = data;
 	}
-
    
 }

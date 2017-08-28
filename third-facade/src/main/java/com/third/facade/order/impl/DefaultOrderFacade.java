@@ -1,5 +1,6 @@
 package com.third.facade.order.impl;
 
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
@@ -19,6 +20,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.alibaba.fastjson.JSON;
 import com.third.dao.util.PaginationSupport;
+import com.third.facade.data.DTResults;
 import com.third.facade.data.ListData;
 import com.third.facade.data.OrderData;
 import com.third.facade.data.OrderEntryData;
@@ -82,7 +84,7 @@ public class DefaultOrderFacade implements OrderFacade
 		order.setCustomerName(orderData.getCustomerName());
 
 		order.setDeliveryDate(orderData.getDeliveryDate());
-		order.setOrderDate(orderData.getOrderDate());
+		order.setOrderDate(new Date());
 		order.setPhotoDate(orderData.getPhotoDate());
 		order.setSalesperson(userService.getCurrentUser());
 		order.setSource(customer.getSource());
@@ -117,27 +119,15 @@ public class DefaultOrderFacade implements OrderFacade
 	}
 
 	@Override
-	public ListData getOrders(Date startDate, Date endDate, Integer startIndex, Integer pageSize, Map<String, String> sp)
+	public DTResults getOrders(Date startDate, Date endDate, Integer startIndex, Integer pageSize, Map<String, String> sp)
 	{
 		PaginationSupport ps = orderService.getOrders(startDate, endDate, startIndex, pageSize, sp);
 
-		List<OrderModel> orders = ps.getItems();
-		ListData datas = new ListData();
-		List<Object> orderDatas = new ArrayList<Object>();
-
-		if (!CollectionUtils.isEmpty(orders))
-		{
-			orders.forEach(o -> {
-				OrderData orderData = new OrderData();
-				orderConfiguredPopulator.populate(o, orderData, Arrays.asList(OrderOption.BASIC));
-				orderDatas.add(orderData);
-			});
-
-			datas.setRows(orderDatas);
-			datas.setTotal(ps.getTotalCount());
-		}
-
-		return datas;
+		DTResults r = new DTResults();
+		r.setRecordsFiltered(ps.getTotalCount());
+		r.setRecordsTotal(ps.getTotalCount());
+		r.setData(ps.getItems());
+		return r;
 	}
 
 	@Override
