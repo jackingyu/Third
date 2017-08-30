@@ -85,13 +85,13 @@
 				<div class="row">
 					<div class="col-md-6 col-lg-6 col-xs-12 col-sm-12 ">
 						<label><spring:message code="lte.orderentry.product"></spring:message></label>
-						<input id="productInfo"  onclick="ACC.sizeorder.searchProduct()" readonly="readonly" value="${orderEntry.product}" name="style"
+						<input id="productInfo"  onclick="ACC.sizeorder.searchProduct()" readonly="readonly" value="${orderEntry.product.producttitle}" name="style"
 								class="form-control" placeholder="" type="text">
 						<input type="hidden" value="${orderEntry.product.code}" id="productCode" name="productCode">
 					</div>
 					<div class="col-md-6 col-lg-6 col-xs-12 col-sm-12">
 						<label><spring:message code="lte.orderentry.producttitle"></spring:message></label>
-						<input name="quantity" value="${orderEntry.productTitle}" class="form-control" placeholder=""
+						<input name="producttitle" value="${orderEntry.productTitle}" class="form-control" placeholder=""
 							type="text">
 					</div>
 				</div>

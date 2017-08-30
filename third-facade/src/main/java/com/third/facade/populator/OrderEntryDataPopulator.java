@@ -3,6 +3,7 @@ package com.third.facade.populator;
 import org.apache.commons.lang3.StringUtils;
 
 import com.third.facade.data.OrderEntryData;
+import com.third.facade.data.ProductData;
 import com.third.facade.data.StoreData;
 import com.third.facade.data.TextMapper;
 import com.third.facade.data.UserData;
@@ -14,6 +15,7 @@ public class OrderEntryDataPopulator implements Populator<OrderEntryModel, Order
 
 	private UserDataPopulator userDataPopulator;
 	private StoreDataPopulator storeDataPopulator;
+	private ProductDataPopulator productDataPopulator;
 
 	@Override
 	public void populate(OrderEntryModel source, OrderEntryData target)
@@ -52,6 +54,12 @@ public class OrderEntryDataPopulator implements Populator<OrderEntryModel, Order
 
 			target.setCreateBy(user);
 		}
+		
+		ProductData product = new ProductData();
+		
+		productDataPopulator.populate(source.getProduct(), product);
+		
+		target.setProduct(product);
 	}
 
 	public void setUserDataPopulator(UserDataPopulator userDataPopulator)
@@ -62,6 +70,11 @@ public class OrderEntryDataPopulator implements Populator<OrderEntryModel, Order
 	public void setStoreDataPopulator(StoreDataPopulator storeDataPopulator)
 	{
 		this.storeDataPopulator = storeDataPopulator;
+	}
+
+	public void setProductDataPopulator(ProductDataPopulator productDataPopulator)
+	{
+		this.productDataPopulator = productDataPopulator;
 	}
 
 }

@@ -205,6 +205,7 @@
     <bean id="defaultOrderEntryDataPopulator" class="com.third.facade.populator.OrderEntryDataPopulator">
           <property name="userDataPopulator" ref="userDataPopulator"></property>
           <property name="storeDataPopulator" ref="storeDataPopulator"></property>
+          <property name="productDataPopulator" ref="productDataPopulator"></property>
     </bean>
     
     <alias name="defaultPaymentDataPopulator" alias="paymentDataPopulator"></alias>
@@ -254,6 +255,10 @@
      
      <alias name="defaultOrderProcessRecordDataPopulator" alias="orderProcessRecordDataPopulator" />
      <bean id="defaultOrderProcessRecordDataPopulator" class="com.third.facade.populator.OrderProcessRecordDataPopulator">
+     </bean>
+     
+     <alias name="defaultProductDataPopulator" alias="productDataPopulator" />
+     <bean id="defaultProductDataPopulator" class="com.third.facade.populator.ProductDataPopulator">
      </bean>
 </beans>
  
