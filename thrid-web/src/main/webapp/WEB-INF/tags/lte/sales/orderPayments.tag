@@ -21,6 +21,20 @@
 		</div>
 		<br>
 		<div class="row">
+			<div class="col-lg-4 cl-md-4 cl-sm-12 cl-xs-12">
+				<label><spring:message code="lte.order.basic.receiveable"></spring:message></label>
+		         <input value="${orderData.receiveable}"  disabled="disabled" class="form-control" placeholder="" type="text">
+			</div>
+			<div class="col-lg-4 cl-md-4 cl-sm-12 cl-xs-12">
+				<label><spring:message code="lte.order.basic.openamount"></spring:message></label>
+		        <input  value="${orderData.openamount}" disabled="disabled" class="form-control openamount" placeholder="" type="text">
+			</div>
+			<div class="col-lg-4 cl-md-4 cl-sm-12 cl-xs-12">
+				<label><spring:message code="lte.order.basic.paidamount"></spring:message></label>
+		        <input  value="${orderData.paidamount}" class="form-control paidamount" disabled="disabled" placeholder="" type="text">
+			</div>
+		</div>
+		<div class="row">
 			<div class="col-xs-12">
 				<table id="paymentGrid" class="table table-bordered table-hover">
 					<thead>

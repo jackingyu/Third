@@ -17,6 +17,11 @@
 				<comment>行项目编号</comment>
 			</column>
 		</property>
+		<property name="externalId" type="java.lang.String">
+			<column name="externalid">
+				<comment>外部编号</comment>
+			</column>
+		</property>
 		<property name="style" type="java.lang.String">
 			<column name="style" />
 		</property>

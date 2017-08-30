@@ -11,6 +11,7 @@ public class OrderEntryData extends AbstractData
 {
 	private Integer entryNo;
 	private String code;
+	private String externalId;
 	private String itemCategory;
 	private String itemCategoryText;
 	private String style;
@@ -262,6 +263,16 @@ public class OrderEntryData extends AbstractData
 	public void setStore(StoreData store)
 	{
 		this.store = store;
+	}
+
+	public String getExternalId()
+	{
+		return externalId;
+	}
+
+	public void setExternalId(String externalId)
+	{
+		this.externalId = externalId;
 	}
 
 }

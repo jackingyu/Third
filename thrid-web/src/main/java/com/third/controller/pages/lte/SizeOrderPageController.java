@@ -28,6 +28,7 @@ import com.third.controller.pages.ControllerConstants;
 import com.third.facade.data.ComboboxData;
 import com.third.facade.data.OrderData;
 import com.third.facade.data.OrderEntryData;
+import com.third.facade.data.ProductData;
 import com.third.facade.data.SizeAttributeData;
 import com.third.facade.data.SizeAttributeGroupData;
 import com.third.facade.order.OrderFacade;
@@ -131,6 +132,7 @@ public class SizeOrderPageController extends AbstractPageController
 			@RequestParam(value = "entryPK", required = false) final String entryPK,
 			@RequestParam(value = "itemCategory", required = false) final String itemCategory,
 			@RequestParam(value = "style", required = false) final String style,
+			@RequestParam(value = "productCode", required = false) final String productCode,
 			@RequestParam(value = "productTitle", required = false) final String productTitle,
 			@RequestParam(value = "quantity", required = false) final Integer quantity,
 			@RequestParam(value = "designer", required = false) final String designer,
@@ -158,6 +160,10 @@ public class SizeOrderPageController extends AbstractPageController
 		orderEntryData.setCustomerName(customerName);
 		orderEntryData.setSizeDetails(sizeDetails);
 
+		ProductData product = new ProductData();
+		product.setCode(productCode);
+		orderEntryData.setProduct(product);
+		
 		if (StringUtils.isNotBlank(sizeDetails))
 		{
 			List<SizeAttributeData> sizeDatas = JSON.parseArray(sizeDetails, SizeAttributeData.class);

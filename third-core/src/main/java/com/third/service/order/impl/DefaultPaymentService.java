@@ -27,4 +27,10 @@ public class DefaultPaymentService implements PaymentService
 		paymentDao.delete(t);
 	}
 
+	@Override
+	public PaymentModel getPayment(String paymentPK)
+	{
+		return paymentDao.get(paymentPK);
+	}
+
 }

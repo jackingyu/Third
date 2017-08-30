@@ -9,5 +9,7 @@ public interface PaymentService
 	void createPayment(PaymentModel payment);
 	
 	void removePayment(final String paymentPK);
+	
+	PaymentModel getPayment(final String paymentPK);
 
 }

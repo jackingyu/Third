@@ -56,11 +56,11 @@
 			</div>
 			<div class="col-lg-3 cl-md-3 cl-sm-12 cl-xs-12">
 				<label><spring:message code="lte.order.basic.openamount"></spring:message></label>
-		        <input  value="${orderData.openamount}" disabled="disabled" class="form-control" placeholder="" type="text">
+		        <input  value="${orderData.openamount}" disabled="disabled" class="form-control openamount" placeholder="" type="text">
 			</div>
 			<div class="col-lg-3 cl-md-3 cl-sm-12 cl-xs-12">
 				<label><spring:message code="lte.order.basic.paidamount"></spring:message></label>
-		        <input  value="" class="form-control" disabled="disabled" placeholder="" type="text">
+		        <input  value="${orderData.paidamount}" class="form-control paidamount" disabled="disabled" placeholder="" type="text">
 			</div>
 		</div>
 	</div>

@@ -1,5 +1,5 @@
 package com.third.model;
-// Generated Aug 27, 2017 10:39:03 PM by Hibernate Tools 4.3.1
+// Generated Aug 29, 2017 9:21:27 PM by Hibernate Tools 4.3.1
 
 
 import java.math.BigDecimal;
@@ -17,6 +17,7 @@ public class OrderModel  implements java.io.Serializable {
      private String code;
      private String customerName;
      private String cellphone;
+     private String contactinfo;
      private Date weddingDate;
      private Date tryDate;
      private Date photoDate;
@@ -42,10 +43,11 @@ public class OrderModel  implements java.io.Serializable {
     public OrderModel() {
     }
 
-    public OrderModel(String code, String customerName, String cellphone, Date weddingDate, Date tryDate, Date photoDate, Date deliveryDate, Date orderDate, String coSalesperson, String comment, BigDecimal receiveable, BigDecimal openamount, BigDecimal paidamount, Integer status, Integer currentPaymentEntry, Integer currentOrderEntry, Date modificationTime, Date createTime, CustomerModel customer, UserModel salesperson, SourceModel source, StoreModel store, List payments, List orderEntries) {
+    public OrderModel(String code, String customerName, String cellphone, String contactinfo, Date weddingDate, Date tryDate, Date photoDate, Date deliveryDate, Date orderDate, String coSalesperson, String comment, BigDecimal receiveable, BigDecimal openamount, BigDecimal paidamount, Integer status, Integer currentPaymentEntry, Integer currentOrderEntry, Date modificationTime, Date createTime, CustomerModel customer, UserModel salesperson, SourceModel source, StoreModel store, List payments, List orderEntries) {
        this.code = code;
        this.customerName = customerName;
        this.cellphone = cellphone;
+       this.contactinfo = contactinfo;
        this.weddingDate = weddingDate;
        this.tryDate = tryDate;
        this.photoDate = photoDate;
@@ -96,6 +98,13 @@ public class OrderModel  implements java.io.Serializable {
     
     public void setCellphone(String cellphone) {
         this.cellphone = cellphone;
+    }
+    public String getContactinfo() {
+        return this.contactinfo;
+    }
+    
+    public void setContactinfo(String contactinfo) {
+        this.contactinfo = contactinfo;
     }
     public Date getWeddingDate() {
         return this.weddingDate;

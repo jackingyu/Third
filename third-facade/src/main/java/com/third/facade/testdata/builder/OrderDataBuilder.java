@@ -8,6 +8,9 @@ import java.util.List;
 
 import javax.annotation.Resource;
 
+import org.apache.commons.lang3.RandomStringUtils;
+import org.apache.commons.lang3.RandomUtils;
+
 import com.third.model.CoreConstants.PaymentMethod;
 import com.third.model.CoreConstants.PaymentType;
 import com.third.model.AddressModel;
@@ -75,9 +78,7 @@ public class OrderDataBuilder implements DataBuilder
 		orderModel.setStore(storeService.getStoreForCode("s-1"));
 		orderModel.setPhotoDate(getNextDay(today, 3));
 		orderModel.setWeddingDate(getNextDay(today, 20));
-		orderModel.setReceiveable(BigDecimal.valueOf(1000.00));
-		orderModel.setOpenamount(BigDecimal.valueOf(500.00));
-      orderModel.setStatus(0);
+		orderModel.setStatus(0);
 		CustomerModel customer = buildCustomer("13800138000"+orderCode, "name"+orderCode);
 		orderModel.setCustomer(customer);
 
@@ -95,17 +96,23 @@ public class OrderDataBuilder implements DataBuilder
 		List<PaymentModel> payments = new ArrayList<PaymentModel>();
 		payments.add(paymentModel);
 
+		BigDecimal paidamount = new BigDecimal(100);
+		
 		for (int i = 0; i < 5; i++)
 		{
 			PaymentModel paymentModel1 = new PaymentModel();
 			paymentModel1.setPaymentMethod(PaymentMethod.CreditCard);
 			paymentModel1.setPaymentType(PaymentType.NormalPayment);
 			paymentModel1.setPaymentEntryNo(10 + i);
-			paymentModel1.setAmount(BigDecimal.valueOf(100.00 + i));
+			paymentModel1.setAmount(BigDecimal.valueOf(RandomUtils.nextInt(1, 199)));
 			paymentModel1.setPaidTime(Calendar.getInstance().getTime());
 			payments.add(paymentModel1);
+			paidamount = paidamount.add(paymentModel1.getAmount());
 		}
 
+		orderModel.setReceiveable(BigDecimal.valueOf(RandomUtils.nextInt(1000,9999)));
+		orderModel.setPaidamount(paidamount);
+      orderModel.setOpenamount(orderModel.getReceiveable().subtract(orderModel.getPaidamount()));
 
 		OrderEntryModel entry = new OrderEntryModel();
 		entry.setQuantity(11);
@@ -117,7 +124,6 @@ public class OrderDataBuilder implements DataBuilder
 		entry.setStyle("测试规格");
 		entry.setProductTitle("成品西装");
 		entry.setSizeDate(new Date());
-		entry.setSizeDetails("aaa");
 		entry.setDesigner("设计师");
 		entry.setTryDate(new Date());
 		entry.setComment("我是一个备注备注备注");

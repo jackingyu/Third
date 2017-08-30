@@ -1,5 +1,5 @@
 package com.third.model;
-// Generated Aug 27, 2017 10:39:03 PM by Hibernate Tools 4.3.1
+// Generated Aug 29, 2017 9:21:27 PM by Hibernate Tools 4.3.1
 
 
 import java.util.Date;
@@ -13,6 +13,7 @@ public class OrderEntryModel  implements java.io.Serializable {
      private String pk;
      private String code;
      private Integer entryNo;
+     private String externalId;
      private String style;
      private String itemCategory;
      private Boolean isSizeItem;
@@ -36,9 +37,10 @@ public class OrderEntryModel  implements java.io.Serializable {
     public OrderEntryModel() {
     }
 
-    public OrderEntryModel(String code, Integer entryNo, String style, String itemCategory, Boolean isSizeItem, ProductModel product, String productTitle, Integer quantity, String designer, String customerName, StoreModel store, Date deliveryDate, Date sizeDate, Date tryDate, String comment, String sizeDetails, String sizeImage, OrderModel order, Date modificationTime, Date createTime, UserModel createdBy) {
+    public OrderEntryModel(String code, Integer entryNo, String externalId, String style, String itemCategory, Boolean isSizeItem, ProductModel product, String productTitle, Integer quantity, String designer, String customerName, StoreModel store, Date deliveryDate, Date sizeDate, Date tryDate, String comment, String sizeDetails, String sizeImage, OrderModel order, Date modificationTime, Date createTime, UserModel createdBy) {
        this.code = code;
        this.entryNo = entryNo;
+       this.externalId = externalId;
        this.style = style;
        this.itemCategory = itemCategory;
        this.isSizeItem = isSizeItem;
@@ -80,6 +82,13 @@ public class OrderEntryModel  implements java.io.Serializable {
     
     public void setEntryNo(Integer entryNo) {
         this.entryNo = entryNo;
+    }
+    public String getExternalId() {
+        return this.externalId;
+    }
+    
+    public void setExternalId(String externalId) {
+        this.externalId = externalId;
     }
     public String getStyle() {
         return this.style;

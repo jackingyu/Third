@@ -20,17 +20,20 @@
                   <button type="button" class="btn btn-danger" data-toggle="modal"
 					data-target="#customerSearchPanel"><spring:message code="lte.order.customer.search"></spring:message></button>
                 </div>
-                <input id="customerName" value="${orderData.customerName}" name="customerName" class="form-control" placeholder=".col-lg-3 cl-md-3 cl-sm-12 cl-xs-12" type="text">
+                <input id="customerName"  disabled="disabled" value="${orderData.customerName}" name="customerName" class="form-control" type="text">
               </div>
 			</div>
 			<div class="col-lg-3 cl-md-3 cl-sm-12 cl-xs-12">
 				<label><spring:message code="lte.order.customer.weddingdate"></spring:message></label>
-				
-				 <common:datepicker value="${orderData.weddingDate}" name="weddingDate" id="weddingdate"/>
+				 <input value="${orderData.weddingDate}"  disabled="disabled" name="weddingDate" id="weddingdate" class="form-control" type="text">
 			</div>
 			<div class="col-lg-3 cl-md-3 cl-sm-12 cl-xs-12">
 				<label><spring:message code="lte.order.customer.cellphone"></spring:message></label>
-				<input id="cellphone" value="${orderData.cellphone }" name="cellphone" class="form-control" placeholder=".col-lg-3 cl-md-3 cl-sm-12 cl-xs-12" type="text">
+				<input id="cellphone" value="${orderData.cellphone }" readonly="readonly" name="cellphone" class="form-control"  type="text">
+			</div>
+			<div class="col-lg-3 cl-md-3 cl-sm-12 cl-xs-12">
+				<label><spring:message code="lte.order.customer.contactinfo"></spring:message></label>
+				<input  value="${orderData.contactinfo}"  name="contactinfo" class="form-control"  type="text">
 			</div>
 		</div>
 	</div>

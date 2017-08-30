@@ -4,10 +4,13 @@
 <%@ taglib prefix="template" tagdir="/WEB-INF/tags/lte/template"%>
 <%@ taglib prefix="common" tagdir="/WEB-INF/tags/lte/common"%>
 <%@ taglib prefix="order" tagdir="/WEB-INF/tags/lte/sales"%>
+<%@ taglib prefix="product" tagdir="/WEB-INF/tags/lte/product"%>
+
 <template:page>
 	<jsp:attribute name="pageScripts">
 		<script src="${lteResourcePath}/js/acc.sizeorder.js"></script>
 		<script src="${lteResourcePath}/js/acc.createsizeorder.js"></script>
+		<script src="${lteResourcePath}/js/acc.searchproduct.js"></script>
 		<script src="${lteResourcePath}/js/acc.message.js"></script>
 	</jsp:attribute>
 	<jsp:body>
@@ -54,5 +57,6 @@
     </form>
     <common:message></common:message>
     <common:image></common:image>
+    <product:searchProduct/>
   </jsp:body>
 </template:page>

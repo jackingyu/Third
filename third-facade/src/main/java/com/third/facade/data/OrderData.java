@@ -28,6 +28,7 @@ public class OrderData extends AbstractData
 	private StoreData store;
 	private List<OrderEntryData> entries;
 	private String customerName;
+	private String contactinfo;
    private Integer status;
    private String statusText;
    
@@ -230,6 +231,26 @@ public class OrderData extends AbstractData
 	public void setStatusText(String statusText)
 	{
 		this.statusText = statusText;
+	}
+
+	public String getPaidamount()
+	{
+		return paidamount;
+	}
+
+	public void setPaidamount(String paidamount)
+	{
+		this.paidamount = paidamount;
+	}
+
+	public String getContactinfo()
+	{
+		return contactinfo;
+	}
+
+	public void setContactinfo(String contactinfo)
+	{
+		this.contactinfo = contactinfo;
 	}
 
 }

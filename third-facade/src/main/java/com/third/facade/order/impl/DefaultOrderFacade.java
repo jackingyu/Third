@@ -1,5 +1,6 @@
 package com.third.facade.order.impl;
 
+import java.math.BigDecimal;
 import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -34,11 +35,13 @@ import com.third.facade.populator.OrderDataPopulator;
 import com.third.facade.populator.OrderEntryDataPopulator;
 import com.third.facade.populator.SizeAttributeDataPopulator;
 import com.third.facade.populator.option.OrderOption;
+import com.third.facade.utils.DTResultConvertor;
 import com.third.model.CoreConstants;
 import com.third.model.CustomerModel;
 import com.third.model.OrderEntryModel;
 import com.third.model.OrderModel;
 import com.third.model.PaymentModel;
+import com.third.model.ProductModel;
 import com.third.model.SizeAttributeModel;
 import com.third.model.StoreModel;
 import com.third.service.customer.CustomerService;
@@ -46,6 +49,7 @@ import com.third.service.customer.SourceService;
 import com.third.service.media.MediaService;
 import com.third.service.order.OrderService;
 import com.third.service.order.PaymentService;
+import com.third.service.product.ProductService;
 import com.third.service.product.SizeAttributeService;
 import com.third.service.store.StoreService;
 import com.third.service.user.UserService;
@@ -63,6 +67,7 @@ public class DefaultOrderFacade implements OrderFacade
 	private UserService userService;
 	private StoreService storeService;
 	private SourceService sourceService;
+	private ProductService productService;
 	private SizeAttributeService sizeAttributeService;
 	private MediaService mediaService;
 	private static final Logger LOG = Logger.getLogger(DefaultOrderFacade.class);
@@ -73,8 +78,8 @@ public class DefaultOrderFacade implements OrderFacade
 		OrderModel order = new OrderModel();
 
 		//TODO: 需要考虑订单上店铺的拉取策略,可以考虑改完前台手工设置
-      StoreModel store = storeService.getStoreForCode(orderData.getStore().getCode());
-     
+		StoreModel store = storeService.getStoreForCode(orderData.getStore().getCode());
+
 		order.setCode(orderData.getOrderCode());
 		order.setCellphone(orderData.getCellphone());
 		order.setComment(orderData.getComment());
@@ -90,9 +95,11 @@ public class DefaultOrderFacade implements OrderFacade
 		order.setSource(customer.getSource());
 		order.setTryDate(orderData.getTryDate());
 		order.setWeddingDate(orderData.getWeddingDate());
+		order.setReceiveable(BigDecimal.valueOf(Double.valueOf(orderData.getReceiveable())));
+		order.setOpenamount(order.getReceiveable());
 		//init order status
 		order.setStatus(0);
-		
+
 		//TODO:need to update
 		//order.setStore(store.get());
 		order.setStore(store);
@@ -108,9 +115,9 @@ public class DefaultOrderFacade implements OrderFacade
 				payment.setPaymentMethod(p.getPaymentMethod());
 				payment.setPaymentType(p.getPaymentType());
 				//TODO:
-				payment.setStore(store);
-				paymentModels.add(payment);
-			});
+					payment.setStore(store);
+					paymentModels.add(payment);
+				});
 			order.setPayments(paymentModels);
 		}
 		orderService.createOrder(order);
@@ -123,11 +130,7 @@ public class DefaultOrderFacade implements OrderFacade
 	{
 		PaginationSupport ps = orderService.getOrders(startDate, endDate, startIndex, pageSize, sp);
 
-		DTResults r = new DTResults();
-		r.setRecordsFiltered(ps.getTotalCount());
-		r.setRecordsTotal(ps.getTotalCount());
-		r.setData(ps.getItems());
-		return r;
+		return DTResultConvertor.convertPS2DT(ps);
 	}
 
 	@Override
@@ -138,9 +141,9 @@ public class DefaultOrderFacade implements OrderFacade
 		orderDataPopulator.populate(order, orderData);
 		return orderData;
 	}
-	
+
 	@Override
-	public OrderData getOrderForOptions(String orderCode,Collection<OrderOption> orderOptions)
+	public OrderData getOrderForOptions(String orderCode, Collection<OrderOption> orderOptions)
 	{
 		OrderModel order = orderService.getOrderForCode(orderCode);
 		OrderData orderData = new OrderData();
@@ -162,6 +165,7 @@ public class DefaultOrderFacade implements OrderFacade
 		CustomerModel customer = customerService.getCustomerByCellphone(orderData.getCellphone());
 		order.setCustomer(customer);
 		order.setCustomerName(orderData.getCustomerName());
+		order.setContactinfo(orderData.getContactinfo());
 
 		order.setDeliveryDate(orderData.getDeliveryDate());
 		order.setOrderDate(orderData.getOrderDate());
@@ -172,6 +176,7 @@ public class DefaultOrderFacade implements OrderFacade
 
 		order.setTryDate(orderData.getTryDate());
 		order.setWeddingDate(orderData.getWeddingDate());
+
 
 		if (!CollectionUtils.isEmpty(orderData.getPayments()))
 		{
@@ -199,6 +204,15 @@ public class DefaultOrderFacade implements OrderFacade
 				}
 			});
 			order.setPayments(paymentModels);
+
+			BigDecimal paidamount = new BigDecimal(0);
+			for (int i = 0; i < paymentModels.size(); i++)
+			{
+				paidamount = paidamount.add(paymentModels.get(i).getAmount());
+			}
+
+			order.setPaidamount(paidamount);
+			order.setOpenamount(order.getReceiveable().subtract(paidamount));
 		}
 
 		orderService.upateOrder(order);
@@ -219,18 +233,24 @@ public class DefaultOrderFacade implements OrderFacade
 		orderEntry.setTryDate(orderEntryData.getTryDate());
 		orderEntry.setStyle(orderEntryData.getStyle());
 		orderEntry.setCustomerName(orderEntryData.getCustomerName());
-      
+
 		OrderModel order = orderService.getOrderForCode(orderEntryData.getOrderCode());
 		orderEntry.setOrder(order);
 		orderEntry.setCreatedBy(userService.getCurrentUser());
-	   
+
 		StoreModel store = null;
-      if(orderEntryData.getStore()!=null)
-      	store =  storeService.getStoreForCode(orderEntryData.getStore().getCode());
-      else
-      	store = order.getStore();
-      orderEntry.setStore(store);
-      
+		if (orderEntryData.getStore() != null)
+			store = storeService.getStoreForCode(orderEntryData.getStore().getCode());
+		else
+			store = order.getStore();
+		orderEntry.setStore(store);
+
+		if (StringUtils.isNotEmpty(orderEntryData.getProduct().getCode()))
+		{
+			ProductModel product = productService.getProductForCode(orderEntryData.getProduct().getCode());
+			orderEntry.setProduct(product);
+		}
+
 		orderService.createOrderEntry(orderEntry);
 		orderEntryData.setPk(orderEntry.getPk());
 	}
@@ -250,7 +270,13 @@ public class DefaultOrderFacade implements OrderFacade
 		orderEntry.setTryDate(orderEntryData.getTryDate());
 		orderEntry.setStyle(orderEntryData.getStyle());
 		orderEntry.setCustomerName(orderEntryData.getCustomerName());
-
+		
+		if (StringUtils.isNotEmpty(orderEntryData.getProduct().getCode()))
+		{
+			ProductModel product = productService.getProductForCode(orderEntryData.getProduct().getCode());
+			orderEntry.setProduct(product);
+		}
+		
 		orderService.updateOrderEntry(orderEntry);
 	}
 
@@ -291,47 +317,49 @@ public class DefaultOrderFacade implements OrderFacade
 
 		return groups;
 	}
-	
+
 	@Override
 	public OrderEntryData getSizeDatas(String orderEntryPK)
 	{
 		OrderEntryModel entryModel = orderService.getOrderEntry(orderEntryPK);
 		OrderEntryData entry = new OrderEntryData();
 		entry.setItemCategory(entryModel.getItemCategory());
-		
+
 		String sizeDetails = entryModel.getSizeDetails();
-		List<SizeAttributeData> sizeDatas =JSON.parseArray(sizeDetails, SizeAttributeData.class);
+		List<SizeAttributeData> sizeDatas = JSON.parseArray(sizeDetails, SizeAttributeData.class);
 
 		Map<String, SizeAttributeGroupData> sizeDataGroups = new HashMap<String, SizeAttributeGroupData>();
 
-		Map<String, List<SizeAttributeData>> sizeDataMap = sizeDatas.stream().collect(
-				Collectors.groupingBy(SizeAttributeData::getGroup));
+		if (!CollectionUtils.isEmpty(sizeDatas))
+		{
+			Map<String, List<SizeAttributeData>> sizeDataMap = sizeDatas.stream().collect(
+					Collectors.groupingBy(SizeAttributeData::getGroup));
 
-		sizeDataMap.forEach((k, v) -> {
-			SizeAttributeGroupData groupData = new SizeAttributeGroupData();
-			groupData.setGroupId(k.toString());
-			groupData.setGroupText(TextMapper.SizeAttributeGroup.get(groupData.getGroupId()));
-			groupData.setAttributes(v);
-			
-			sizeDataGroups.put(groupData.getGroupId(), groupData);
-		});
-		
-      entry.setSizeDatas(sizeDataGroups);
-      
+			sizeDataMap.forEach((k, v) -> {
+				SizeAttributeGroupData groupData = new SizeAttributeGroupData();
+				groupData.setGroupId(k.toString());
+				groupData.setGroupText(TextMapper.SizeAttributeGroup.get(groupData.getGroupId()));
+				groupData.setAttributes(v);
+
+				sizeDataGroups.put(groupData.getGroupId(), groupData);
+			});
+		}
+		entry.setSizeDatas(sizeDataGroups);
+
 		return entry;
 	}
-	
-	public String uploadMediaForOrderEntry(final String entryPK,final MultipartFile media)
+
+	public String uploadMediaForOrderEntry(final String entryPK, final MultipartFile media)
 	{
 		final String mediaId = UUID.randomUUID().toString();
 		final String mediaUrl = mediaService.createMedia(mediaId, CoreConstants.MediaFolder.SizeOrderFolder, media);
 		OrderEntryModel orderEntry = orderService.getOrderEntry(entryPK);
 		orderEntry.setSizeImage(mediaUrl);
 		orderService.updateOrderEntry(orderEntry);
-		
+
 		return mediaUrl;
 	}
-	
+
 	public String getMediaForOrderEntry(final String entryPK)
 	{
 		OrderEntryModel entry = orderService.getOrderEntry(entryPK);
@@ -343,26 +371,26 @@ public class DefaultOrderFacade implements OrderFacade
 	{
 		CustomerModel customer = customerService.getCustomerByCellphone(cellphone);
 		List<OrderModel> orders = orderService.getOrdersForCustomer(customer.getPk());
-		if(CollectionUtils.isEmpty(orders))
+		if (CollectionUtils.isEmpty(orders))
 			return Collections.EMPTY_LIST;
-		
+
 		List<OrderData> orderDatas = new ArrayList<OrderData>();
 		List<OrderOption> orderOptions = Arrays.asList(OrderOption.BASIC);
-		orders.forEach( o-> {
+		orders.forEach(o -> {
 			OrderData od = new OrderData();
 			orderConfiguredPopulator.populate(o, od, orderOptions);
 			orderDatas.add(od);
 		});
-		
+
 		return orderDatas;
 	}
 
 	@Override
-	public void createPayment(PaymentData payment)
+	public String[] createPayment(PaymentData payment)
 	{
 		OrderModel orderModel = orderService.getOrderForCode(payment.getOrderCode());
 		Integer paymentEntryNo = orderModel.getPayments().size();
-		
+
 		PaymentModel paymentModel = new PaymentModel();
 		paymentModel.setAmount(payment.getAmount());
 		paymentModel.setPaidTime(payment.getPaidTime());
@@ -371,17 +399,36 @@ public class DefaultOrderFacade implements OrderFacade
 		paymentModel.setPaymentMethod(payment.getPaymentMethod());
 		paymentModel.setPaymentType(payment.getPaymentType());
 		paymentModel.setOrder(orderModel);
-		
+
 		paymentService.createPayment(paymentModel);
-		
+
+		orderModel.setPaidamount(orderModel.getPaidamount().add(payment.getAmount()));
+		orderModel.setOpenamount(orderModel.getReceiveable().subtract(orderModel.getPaidamount()));
+		orderService.upateOrder(orderModel);
+
+		String[] orderamount =
+		{ orderModel.getPaidamount().toString(), orderModel.getOpenamount().toString() };
+
+		return orderamount;
 	}
-	
+
 	@Override
-	public void removePayment(final String paymentPK)
+	public String[] removePayment(final String paymentPK)
 	{
-		paymentService.removePayment(paymentPK);		
+		PaymentModel paymentModel = paymentService.getPayment(paymentPK);
+		OrderModel orderModel = paymentModel.getOrder();
+		paymentService.removePayment(paymentPK);
+
+		orderModel.setPaidamount(orderModel.getPaidamount().subtract(paymentModel.getAmount()));
+		orderModel.setOpenamount(orderModel.getReceiveable().subtract(orderModel.getPaidamount()));
+		orderService.upateOrder(orderModel);
+
+		String[] orderamount =
+		{ orderModel.getPaidamount().toString(), orderModel.getOpenamount().toString() };
+
+		return orderamount;
 	}
-	
+
 	public void setOrderService(OrderService orderService)
 	{
 		this.orderService = orderService;
@@ -451,5 +498,9 @@ public class DefaultOrderFacade implements OrderFacade
 		return orderEntry;
 	}
 
-	
+	public void setProductService(ProductService productService)
+	{
+		this.productService = productService;
+	}
+
 }

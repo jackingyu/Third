@@ -45,14 +45,13 @@ public class OrderDataPopulator implements Populator<OrderModel, OrderData>
 		}
 		target.setCustomer(customer);
 		target.setCustomerName(StringUtils.isNotBlank(source.getCustomerName()) ? source.getCustomerName() : customer.getName());
-
+      target.setWeddingDate(customer.getWeddingdate());
 		target.setCellphone(source.getCellphone());
 
 
 		target.setTryDate(source.getTryDate());
 		target.setPhotoDate(source.getPhotoDate());
 		target.setDeliveryDate(source.getDeliveryDate());
-		target.setWeddingDate(source.getWeddingDate());
 
 		StoreData store = new StoreData();
 		storeDataPopulator.populate(source.getStore(), store);

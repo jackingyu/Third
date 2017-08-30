@@ -1,11 +1,12 @@
 package com.third.dao.product.impl;
 
+import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.commons.collections4.CollectionUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.hibernate.criterion.DetachedCriteria;
 import org.hibernate.criterion.Restrictions;
-import org.springframework.util.CollectionUtils;
-import org.springframework.util.StringUtils;
 
 import com.third.dao.generic.GenericDAO;
 import com.third.dao.product.ProductDao;
@@ -25,6 +26,39 @@ public class DefaultProductDao extends GenericDAO<ProductModel, String> implemen
 	}
 
 
+	@Override
+	public PaginationSupport getProductList(String productCode, String productTitle, final Integer startIndex,
+			final Integer pageSize)
+	{
+		final StringBuilder sb = new StringBuilder("select p.code,p.producttitle from ProductModel  p ");
+		final StringBuilder w = new StringBuilder(" where ");
+
+		List<String> condition = new ArrayList<String>();
+
+		if (StringUtils.isNotBlank(productCode))
+		{
+			StringBuilder c = new StringBuilder().append("p.code = '").append(productCode).append("'");
+			condition.add(c.toString());
+		}
+
+		if (StringUtils.isNotBlank(productTitle))
+		{
+			StringBuilder c = new StringBuilder().append("p.producttitle like '%").append(productTitle).append("%'");
+			condition.add(c.toString());
+		}
+
+		if (CollectionUtils.isNotEmpty(condition))
+		{
+			w.append(condition.get(0));
+			for (int i = 1; i < condition.size(); i++)
+			{
+				w.append(" and ").append(condition.get(i));
+			}
+			sb.append(w);
+		}
+
+		return findPageByQuery(sb.toString(), pageSize, startIndex);
+	}
 
 
 

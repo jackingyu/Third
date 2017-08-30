@@ -39,7 +39,13 @@ ACC.sizeorder = {
 				});
 
 	},
-
+    searchProduct: function(){
+    	$("#productSearchPanel").modal();
+    },
+    setProduct: function(d){
+    	$("#productInfo").val(d[0]+"-"+d[1]);
+    	$("#productCode").val(d[0]);
+    },
 	init : function() {
 		$('#tryDate').datepicker({
 					autoclose : true
@@ -58,9 +64,11 @@ ACC.sizeorder = {
 		$("#imagePanel").on("show.bs.modal",function(){
 		    $("#imagePanel .image").attr("src",$("#sizeImageUrl").val());
 		});
+		
+		ACC.searchproduct.callback = ACC.sizeorder.setProduct;
 	}
 }
 
 $(document).ready(function() {
-			ACC.sizeorder.init();
-		});
+	ACC.sizeorder.init();
+});

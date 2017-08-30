@@ -1,25 +1,25 @@
-ACC.searchcustomer = {
+ACC.searchproduct = {
 	callback : null,
 	select : function() {
-		var selectedRow = $('#customerSearchGrid').DataTable().rows('.selected');
+		var selectedRow = $('#productSearchGrid').DataTable().rows('.selected');
 
 		if(selectedRow.length > 0)
 		{
 		    var dd = selectedRow.data();
-		    ACC.searchcustomer.callback(dd[0]);
+		    ACC.searchproduct.callback(dd[0]);
 		}
 		
-	    $('#customerSearchPanel').modal('hide');
+	    $('#SearchPanel').modal('hide');
 	},
 	init : function() {
-		$('#searchCustomer-select').unbind();
-		$('#searchCustomer-select').on('click', ACC.searchcustomer.select);
-		$('#searchCustomerBtn').unbind();
-		$('#searchCustomerBtn').on('click', function() {
-					$('#customerSearchGrid').dataTable().fnDraw();
+		$('#searchProduct-select').unbind();
+		$('#searchProduct-select').on('click', ACC.searchproduct.select);
+		$('#searchProductBtn').unbind();
+		$('#searchProductBtn').on('click', function() {
+					$('#productSearchGrid').dataTable().fnDraw();
 				});
 				
-		$('#customerSearchGrid').DataTable({
+		$('#productSearchGrid').DataTable({
 					'oLanguage' : {
 						// "sSearch": "搜索条件",
 						'sZeroRecords' : '抱歉， 没有找到',
@@ -49,17 +49,17 @@ ACC.searchcustomer = {
 					// 'sDom' : 'frtipl',
 					"bStateSave" : true,
 					"ajax" : {
-						"url" : ACC.config.contextPath + "/customer/customerlist",
+						"url" : ACC.config.contextPath + "/product/productlist",
 						"data" : function(d) {
-							d.cellphone = $("#searchCustomer-cellphone").val();						
-							d.customerName = $("#searchCustomer-name").val();	
+							 d.productCode = $("#searchProduct-productCode").val();
+							 d.productTitle = $("#searchProduct-productTitle").val();
 						}
 					},
 					"fnDrawCallback" : function() {
 					}
 				});
-		var table = $('#customerSearchGrid').DataTable();
-		$('#customerSearchGrid tbody').on('click', 'tr', function() {
+		var table = $('#productSearchGrid').DataTable();
+		$('#productSearchGrid tbody').on('click', 'tr', function() {
 					if ($(this).hasClass('selected')) {
 						$(this).removeClass('selected');
 					} else {
@@ -71,5 +71,5 @@ ACC.searchcustomer = {
 };
 
 $(document).ready(function() {
-			ACC.searchcustomer.init();
+			ACC.searchproduct.init();
 		});

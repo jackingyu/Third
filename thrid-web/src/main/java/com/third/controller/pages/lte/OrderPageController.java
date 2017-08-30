@@ -118,7 +118,8 @@ public class OrderPageController extends AbstractPageController
 	}
 
 	@RequestMapping(value = "/order/addpayment", method = RequestMethod.POST)
-	public void addPayment(@RequestParam(value = "orderCode", required = true) final String orderCode,
+	@ResponseBody
+	public Object addPayment(@RequestParam(value = "orderCode", required = true) final String orderCode,
 			@RequestParam(value = "paymentMethod", required = true) final String paymentMethod,
 			@RequestParam(value = "paymentType", required = true) final String paymentType,
 			@RequestParam(value = "amount", required = true) final BigDecimal amount, final Model model,
@@ -130,15 +131,15 @@ public class OrderPageController extends AbstractPageController
 		payment.setPaidTime(new Date());
 		payment.setPaymentMethod(paymentMethod);
 		payment.setPaymentType(paymentType);
-		orderFacade.createPayment(payment);
-
+		return orderFacade.createPayment(payment);
 	}
 
 	@RequestMapping(value = "/order/removepayment", method = RequestMethod.POST)
-	public void removePayment(@RequestParam(value = "paymentPK", required = true) final String paymentPK, final Model model,
+	@ResponseBody
+	public Object removePayment(@RequestParam(value = "paymentPK", required = true) final String paymentPK, final Model model,
 			final HttpServletRequest request, final HttpServletResponse response)
 	{
-		orderFacade.removePayment(paymentPK);
+		return orderFacade.removePayment(paymentPK);
 	}
 
 	@RequestMapping(value = "/order/payments/" + ORDER_CODE_PATH_VARIABLE_PATTERN, method = RequestMethod.GET)
@@ -174,12 +175,14 @@ public class OrderPageController extends AbstractPageController
 	@RequestMapping(value = "/order/save")
 	public String createOrder(@RequestParam(value = "orderCode", required = false) final String orderCode,
 			@RequestParam(value = "orderPK", required = true) final String orderPK,
-			@RequestParam(value = "cellphone", required = true) final String cellphone,
+			@RequestParam(value = "contactinfo", required = false) final String contactinfo,
+			@RequestParam(value = "cellphone") final String cellphone,
 			@RequestParam(value = "storeCode", required = true) final String storeCode,
+			@RequestParam(value = "receiveable", required = true) final String receiveable,
 			@RequestParam(value = "tryDate") @DateTimeFormat(pattern = "yyyy-MM-dd") final Date tryDate,
 			@RequestParam(value = "photoDate") @DateTimeFormat(pattern = "yyyy-MM-dd") final Date photoDate,
 			@RequestParam(value = "deliveryDate") @DateTimeFormat(pattern = "yyyy-MM-dd") final Date deliveryDate,
-			@RequestParam(value = "weddingDate") @DateTimeFormat(pattern = "yyyy-MM-dd") final Date weddingDate,
+			@RequestParam(value = "weddingDate",required = false) @DateTimeFormat(pattern = "yyyy-MM-dd") final Date weddingDate,
 			@RequestParam(value = "customerName", required = false) final String customerName,
 			@RequestParam(value = "comment", required = false) final String comment,
 			@RequestParam(value = "coSalesperson", required = false) final String coSalesperson, final Model model)
@@ -187,6 +190,8 @@ public class OrderPageController extends AbstractPageController
 		OrderData order = new OrderData();
 		order.setPk(orderPK);
 		order.setOrderCode(orderCode);
+		order.setContactinfo(contactinfo);
+		//find customer by cellphone
 		order.setCellphone(cellphone);
 		order.setComment(comment);
 		order.setPhotoDate(photoDate);
@@ -196,7 +201,8 @@ public class OrderPageController extends AbstractPageController
 		order.setOrderDate(new Date());
 		order.setWeddingDate(weddingDate);
 		order.setCustomerName(customerName);
-
+      order.setReceiveable(receiveable);
+      
 		StoreData store = new StoreData();
 		store.setCode(storeCode);
 		order.setStore(store);

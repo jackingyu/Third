@@ -14,6 +14,8 @@
 			type="java.lang.String" />
 		<property column="cellphone" lazy="false" name="cellphone"
 			type="java.lang.String" />
+		<property column="contactinfo" lazy="false" name="contactinfo"
+			type="java.lang.String" />
 		<property column="weddingdate" lazy="false" name="weddingDate"
 			type="java.util.Date" />
 		<property column="trydate" lazy="false" name="tryDate" type="java.util.Date" />

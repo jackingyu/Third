@@ -38,8 +38,9 @@ public class OrderBasicPopulator implements Populator<OrderModel, OrderData>
 	
 		target.setCustomer(customer);
 		target.setCustomerName(StringUtils.isNotBlank(source.getCustomerName()) ? source.getCustomerName() : customer.getName());
-
-		target.setCellphone(source.getCustomer().getCellphone());
+      target.setContactinfo(source.getContactinfo());
+      target.setWeddingDate(customer.getWeddingdate());
+		target.setCellphone(customer.getCellphone());
 
 
 		target.setTryDate(source.getTryDate());
@@ -53,10 +54,10 @@ public class OrderBasicPopulator implements Populator<OrderModel, OrderData>
 		storeDataPopulator.populate(source.getStore(), store);
 		target.setStore(store);
 
-		//支付相关信息
+		//支付相关信息 paid + open = receiveable
 		target.setOpenamount(source.getOpenamount() != null ? source.getOpenamount().toString() : "0");
 		target.setReceiveable(source.getReceiveable() != null ? source.getReceiveable().toString() : "0");
-
+      target.setPaidamount(source.getPaidamount() != null ? source.getPaidamount().toString() : "0");
 		//订单相关信息
 		target.setOrderDate(source.getOrderDate());
 		target.setCoSalesperson(source.getCoSalesperson());

@@ -19,6 +19,7 @@ public class OrderEntryDataPopulator implements Populator<OrderEntryModel, Order
 	public void populate(OrderEntryModel source, OrderEntryData target)
 	{
 		target.setCode(source.getCode());
+		target.setExternalId(source.getExternalId());
 		target.setDeliveryDate(source.getDeliveryDate());
 		target.setDesigner(source.getDesigner());
 		target.setEntryNo(source.getEntryNo());

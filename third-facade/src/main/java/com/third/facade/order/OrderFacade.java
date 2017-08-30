@@ -39,9 +39,9 @@ public interface OrderFacade
 	
 	OrderEntryData getOrderEntry(final String orderEntryPK);
 	
-	void createPayment(final PaymentData payment);
+	String[] createPayment(final PaymentData payment);
 	
-	void removePayment(final String paymentPK);
+	String[] removePayment(final String paymentPK);
 
 	/**
 	 * @param itemCategory

@@ -16,6 +16,8 @@ ACC.modifyorder = {
       success: function (data) {
         ACC.modifyorder.refreshPayments();
         $('#orderPaymentPanel').modal('hide');
+        $('.openamount').val(data[1]);
+        $('.paidamount').val(data[0]);
       }
     });
   },
@@ -38,6 +40,8 @@ ACC.modifyorder = {
         success: function (data) {
           $('#confirmDialog').modal('hide');
           ACC.modifyorder.refreshPayments();
+          $('.openamount').val(data[1]);
+          $('.paidamount').val(data[0]);
         }
       });
     });

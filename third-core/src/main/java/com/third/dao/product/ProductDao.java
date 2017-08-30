@@ -9,4 +9,6 @@ public interface ProductDao extends IGenericDAO<ProductModel, String>
 {
 	ProductModel getProductForCode(final String code);
 
+	PaginationSupport getProductList(String productCode, String productTitle, Integer startIndex, Integer pageSize);
+
 }
