@@ -14,9 +14,9 @@ public class DefaultProductFacade implements ProductFacade
 	private ProductService productService;
 	
 	@Override
-	public DTResults getProductList(final String productCode, final String productTitle,final Integer startIndex, final Integer pageSize)
+	public DTResults getProductList(final String productCode, final String productTitle,final String category,final Integer startIndex, final Integer pageSize)
 	{
-		PaginationSupport ps = productService.getProductList(productCode, productTitle,startIndex, pageSize);
+		PaginationSupport ps = productService.getProductList(productCode, productTitle,category,startIndex, pageSize);
 	   
 		return DTResultConvertor.convertPS2DT(ps);
 	}

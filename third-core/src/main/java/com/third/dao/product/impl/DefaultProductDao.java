@@ -27,11 +27,11 @@ public class DefaultProductDao extends GenericDAO<ProductModel, String> implemen
 
 
 	@Override
-	public PaginationSupport getProductList(String productCode, String productTitle, final Integer startIndex,
+	public PaginationSupport getProductList(String productCode, String productTitle, String category,final Integer startIndex,
 			final Integer pageSize)
 	{
-		final StringBuilder sb = new StringBuilder("select p.code,p.producttitle from ProductModel  p ");
-		final StringBuilder w = new StringBuilder(" where ");
+		final StringBuilder sb = new StringBuilder("select p.code,p.producttitle,p.category.name from ProductModel  p ");
+		final StringBuilder w = new StringBuilder(" where p.category.code = '"+category+"'");
 
 		List<String> condition = new ArrayList<String>();
 
@@ -49,13 +49,14 @@ public class DefaultProductDao extends GenericDAO<ProductModel, String> implemen
 
 		if (CollectionUtils.isNotEmpty(condition))
 		{
-			w.append(condition.get(0));
-			for (int i = 1; i < condition.size(); i++)
+			w.append(" and ").append(condition.get(0));
+			for (int i = 0; i < condition.size(); i++)
 			{
 				w.append(" and ").append(condition.get(i));
 			}
-			sb.append(w);
 		}
+		
+		sb.append(w);
 
 		return findPageByQuery(sb.toString(), pageSize, startIndex);
 	}

@@ -25,9 +25,10 @@ public class ProductPageController
 	@ResponseBody
 	public Object getProductList(@RequestParam(value = "productCode", required = false) final String productCode,
 			@RequestParam(value = "productTitle", required = false) final String productTitle,
+			@RequestParam(value = "category", required = false) final String category,
 			final DataTableCriterias criterias)
 	{
-		return productFacade.getProductList(productCode, productTitle,criterias.getStart(),criterias.getLength());
+		return productFacade.getProductList(productCode, productTitle,category,criterias.getStart(),criterias.getLength());
 	}
 
 	

@@ -12,5 +12,5 @@ public interface ProductService
 
 	void updateProduct(final ProductModel product);
 	
-	PaginationSupport getProductList(String productCode, String productTitle, Integer startIndex, Integer pageSize);
+	PaginationSupport getProductList(String productCode, String productTitle, String category,Integer startIndex, Integer pageSize);
 }

@@ -31,9 +31,11 @@ import com.third.facade.data.OrderEntryData;
 import com.third.facade.data.ProductData;
 import com.third.facade.data.SizeAttributeData;
 import com.third.facade.data.SizeAttributeGroupData;
+import com.third.facade.data.TextMapper;
 import com.third.facade.order.OrderFacade;
 import com.third.facade.populator.option.OrderOption;
 import com.third.facade.utils.TextMapperUtils;
+import com.third.model.CoreConstants;
 
 
 @Controller
@@ -86,6 +88,8 @@ public class SizeOrderPageController extends AbstractPageController
       
 		model.addAttribute("itemCategorys",itemCategorys);
 		model.addAttribute("orderEntry", orderEntry);
+		model.addAttribute("searchCategory",TextMapper.ItemCategory2Category.get(orderEntry.getItemCategory()));
+		
       fillStore2View(model, order.getStore().getCode());
       
 		return ControllerConstants.LTE.ORDERENTRYDETAILPAGE;
@@ -115,12 +119,13 @@ public class SizeOrderPageController extends AbstractPageController
 		OrderEntryData entry = orderFacade.getSizeDatas(orderEntry.getPk());
 		orderEntry.setSizeDatas(entry.getSizeDatas());
 		
-		
 		model.addAttribute("itemCategorys",itemCategorys);
 		model.addAttribute("orderEntry", orderEntry);
 		
 		if(StringUtils.isNotEmpty(message))
 			model.addAttribute("message", message);
+		
+		model.addAttribute("searchCategory",TextMapper.ItemCategory2Category.get(orderEntry.getItemCategory()));
 		
 		fillStore2View(model, orderEntry.getStoreName());
 		

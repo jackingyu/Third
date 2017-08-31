@@ -53,6 +53,7 @@ ACC.searchproduct = {
 						"data" : function(d) {
 							 d.productCode = $("#searchProduct-productCode").val();
 							 d.productTitle = $("#searchProduct-productTitle").val();
+							 d.category = $("#searchProduct-category").val();
 						}
 					},
 					"fnDrawCallback" : function() {

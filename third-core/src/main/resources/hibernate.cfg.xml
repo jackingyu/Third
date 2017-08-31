@@ -30,6 +30,9 @@
         <mapping resource="hbm/Source.hbm.xml"/>
         
         <mapping resource="hbm/Product.hbm.xml"/>
+        <mapping resource="hbm/ProductGroup.hbm.xml"/>
+        <mapping resource="hbm/Category.hbm.xml"/>
+        
         <mapping resource="hbm/Order.hbm.xml"/>
         <mapping resource="hbm/OrderEntry.hbm.xml"/>
         <mapping resource="hbm/Payment.hbm.xml"/>

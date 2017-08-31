@@ -60,6 +60,8 @@
 			   <value>/hbm/Store.hbm.xml</value>
 			   <value>/hbm/Source.hbm.xml</value>
 			   <value>/hbm/Product.hbm.xml</value>
+			   <value>/hbm/ProductGroup.hbm.xml</value>
+			   <value>/hbm/Category.hbm.xml</value>
 			   <value>/hbm/Order.hbm.xml</value>
 			   <value>/hbm/OrderEntry.hbm.xml</value>
 			   <value>/hbm/OrderProcessRecord.hbm.xml</value>

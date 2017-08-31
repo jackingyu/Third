@@ -11,11 +11,21 @@
 			type="java.lang.String" unique="true">
 		</property>
 		<property column="productTitle" lazy="false" name="producttitle"
-			type="java.lang.String" unique="true">
+			type="java.lang.String">
 		</property>
 		<property column="productType" lazy="false" name="producttype"
-			type="java.lang.String" unique="true"><!--用于区分是什么西服,裤子,马甲等等-->
+			type="java.lang.String"><!--用于区分是什么西服,裤子,马甲等等-->
 		</property>
+	    <many-to-one name="productGroup" lazy="false"
+			class="com.third.model.ProductGroupModel" cascade="refresh"
+			fetch="select">
+			<column name="productgroup" />
+		</many-to-one>
+	    <many-to-one name="category" lazy="false"
+			class="com.third.model.CategoryModel" cascade="refresh"
+			fetch="select">
+			<column name="category" />
+		</many-to-one>
 		<property name="modificationTime" update="true" insert="true"
 			type="java.util.Date">
 			<column name="modification_time" sql-type="timestamp"/>

@@ -260,11 +260,11 @@ public class DefaultOrderFacade implements OrderFacade
 	{
 		OrderEntryModel orderEntry = orderService.getOrderEntry(orderEntryData.getPk());
 		orderEntry.setComment(orderEntryData.getComment());
-		orderEntry.setDeliveryDate(orderEntryData.getDeliveryDate());
-		orderEntry.setDesigner(orderEntryData.getDesigner());
+		//orderEntry.setDeliveryDate(orderEntryData.getDeliveryDate());
+		//orderEntry.setDesigner(orderEntryData.getDesigner());
 		//orderEntry.setItemCategory(orderEntryData.getItemCategory());
 		orderEntry.setProductTitle(orderEntryData.getProductTitle());
-		orderEntry.setQuantity(orderEntryData.getQuantity());
+	//	orderEntry.setQuantity(orderEntryData.getQuantity());
 		orderEntry.setSizeDate(orderEntryData.getSizeDate());
 		orderEntry.setSizeDetails(orderEntryData.getSizeDetails());
 		orderEntry.setTryDate(orderEntryData.getTryDate());

@@ -58,4 +58,13 @@ public interface CoreConstants
 		static final String MENU = "menu";
 		static final String STORE = "avaliableStore";
 	}
+
+	interface Category
+	{
+		final String Suit = "A";
+		final String Trousers = "B";
+		final String Shirt = "C";
+		final String Vest = "D";
+		final String Norm = "N";
+	}
 }

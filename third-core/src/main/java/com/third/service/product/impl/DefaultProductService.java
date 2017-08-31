@@ -41,9 +41,9 @@ public class DefaultProductService implements ProductService
 	}
 
 	@Override
-	public PaginationSupport getProductList(String productCode, String productTitle,final Integer startIndex, final Integer pageSize)
+	public PaginationSupport getProductList(String productCode, String productTitle,String category,final Integer startIndex, final Integer pageSize)
 	{
-		return productDao.getProductList(productCode, productTitle, startIndex, pageSize);
+		return productDao.getProductList(productCode, productTitle, category,startIndex, pageSize);
 	}
 
 }

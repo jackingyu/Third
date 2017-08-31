@@ -13,6 +13,7 @@ public class TextMapper
 	public static HashMap<String, String> SizeAttributeGroup = new HashMap<String, String>();
 	public static HashMap<String, String> ReservationChannel= new HashMap<String, String>();
 	public static HashMap<String, String> OrderStatus = new HashMap<String, String>();
+	public static HashMap<String, String> ItemCategory2Category = new HashMap<String, String>();
 
 
 	static
@@ -34,6 +35,15 @@ public class TextMapper
 		ItemCategory.put(CoreConstants.ItemCategory.Shirt, "衬衫量身单");
 		ItemCategory.put(CoreConstants.ItemCategory.Vest, "背心量身单");
 		ItemCategory.put(CoreConstants.ItemCategory.Norm, "普通销售项");
+	}
+	
+	static
+	{
+		ItemCategory2Category.put(CoreConstants.ItemCategory.Suit, CoreConstants.Category.Suit);
+		ItemCategory2Category.put(CoreConstants.ItemCategory.Trousers, CoreConstants.Category.Trousers);
+		ItemCategory2Category.put(CoreConstants.ItemCategory.Shirt, CoreConstants.Category.Shirt);
+		ItemCategory2Category.put(CoreConstants.ItemCategory.Vest, CoreConstants.Category.Vest);
+		ItemCategory2Category.put(CoreConstants.ItemCategory.Norm, CoreConstants.Category.Norm);
 	}
 
 	static

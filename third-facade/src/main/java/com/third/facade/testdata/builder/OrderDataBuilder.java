@@ -128,7 +128,7 @@ public class OrderDataBuilder implements DataBuilder
 		entry.setTryDate(new Date());
 		entry.setComment("我是一个备注备注备注");
 		entry.setStore(store);
-		//entry.setProduct(productService.getProductForCode("p-1"));
+		entry.setProduct(productService.getProductForCode("p-"+RandomUtils.nextInt(0, 50)));
 		List<OrderEntryModel> entries = new ArrayList<OrderEntryModel>();
 		entries.add(entry);
 

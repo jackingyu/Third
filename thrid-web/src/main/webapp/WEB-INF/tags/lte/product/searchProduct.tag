@@ -15,15 +15,20 @@
 				</h4>
 			</div>
 			<div class="modal-body">
-			   <div class="row">
-                <div class="col-xs-3">
-				<label><spring:message code="lte.product.name"></spring:message></label>
-				<input id="searchProduct-productTitle" class="form-control" type="text">
-				</div>
-				<div class="col-xs-3">
-				<label><spring:message code="lte.product.code"></spring:message></label>
-				<input id="searchProduct-productCode" class="form-control"  type="text">
-				</div>
+				<div class="row">
+					<div class="col-xs-3">
+						<label><spring:message code="lte.product.name"></spring:message></label>
+						<input id="searchProduct-productTitle" class="form-control" type="text">
+					</div>
+					<div class="col-xs-3">
+						<label><spring:message code="lte.product.code"></spring:message></label>
+						<input id="searchProduct-productCode" class="form-control" type="text">
+					</div>
+					<div class="col-xs-3">
+						<label><spring:message code="lte.product.productgroup"></spring:message></label>
+						<input id="searchProduct-productGroup" class="form-control" type="text">
+					</div>
+					<input id="searchProduct-category" type="hidden" value="${searchCategory}">
 				</div>
 				<button id="searchProductBtn" type="button" class="btn btn-block btn-default">
 					<spring:message code="lte.search"></spring:message>
@@ -38,7 +43,7 @@
 								<spring:message code="lte.product.name"></spring:message>
 							</th>
 							<th>
-								<spring:message code="lte.product.productgroup"></spring:message>
+								<spring:message code="lte.product.category"></spring:message>
 							</th>
 						</tr>
 					</thead>
@@ -46,15 +51,15 @@
 					</tbody>
 				</table>
 			</div>
-			
+
 			<div class="modal-footer">
-			<button type="button" class="btn btn-default pull-left" data-dismiss="modal">
-				<spring:message code="lte.close"></spring:message>
-			</button>
-			<button id="searchProduct-select" type="button" class="btn btn-primary" data-dismiss="modal">
-				<spring:message code="lte.save"></spring:message>
-			</button>
-		</div>
+				<button type="button" class="btn btn-default pull-left" data-dismiss="modal">
+					<spring:message code="lte.close"></spring:message>
+				</button>
+				<button id="searchProduct-select" type="button" class="btn btn-primary" data-dismiss="modal">
+					<spring:message code="lte.save"></spring:message>
+				</button>
+			</div>
 		</div>
 	</div>
 </div>

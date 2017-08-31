@@ -62,6 +62,12 @@
     <alias name="defaultProductDao" alias="productDao"></alias>
     <bean id="defaultProductDao" class="com.third.dao.product.impl.DefaultProductDao" parent="genericDAO"></bean>
 	
+    <alias name="defaultProductGroupDao" alias="productGroupDao"></alias>
+    <bean id="defaultProductGroupDao" class="com.third.dao.product.impl.DefaultProductGroupDao" parent="genericDAO"></bean>
+	
+    <alias name="defaultCategoryDao" alias="categoryDao"></alias>
+    <bean id="defaultCategoryDao" class="com.third.dao.product.impl.DefaultCategoryDao" parent="genericDAO"></bean>
+	
     <alias name="defaultPaymentDao" alias="paymentDao"></alias>
     <bean id="defaultPaymentDao" class="com.third.dao.order.impl.DefaultPaymentDao" parent="genericDAO"></bean>
 	
@@ -135,6 +141,16 @@
    <alias name="defaultProductService" alias="productService"></alias>
 	<bean id="defaultProductService" class="com.third.service.product.impl.DefaultProductService">
 	     <property name="productDao" ref="productDao" />
+	</bean>
+	
+   <alias name="defaultProductGroupService" alias="productGroupService"></alias>
+	<bean id="defaultProductGroupService" class="com.third.service.product.impl.DefaultProductGroupService">
+	     <property name="productGroupDao" ref="productGroupDao" />
+	</bean>
+	
+   <alias name="defaultCategoryService" alias="categoryService"></alias>
+	<bean id="defaultCategoryService" class="com.third.service.product.impl.DefaultCategoryService">
+	     <property name="categoryDao" ref="categoryDao" />
 	</bean>
 	
    <alias name="defaultSizeAttributeService" alias="sizeAttributeService"></alias>
