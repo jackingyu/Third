@@ -1,7 +1,10 @@
 <%@ page contentType="text/html;charset=utf-8"%>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags"%> 
 <%@ taglib prefix="template" tagdir="/WEB-INF/tags/lte/template"%>
 <%@ taglib prefix="order" tagdir="/WEB-INF/tags/lte/sales"%>
+
+
 <template:page>
 	<jsp:attribute name="pageScripts">
 	  <script src="${lteResourcePath}/js/acc.orderdetails.js"></script>
@@ -12,16 +15,34 @@
     <!-- Content Header (Page header) -->
     <section class="content-header">
       <div class="row">
-       <div class="col-lg-8 col-md-8 col-sm-6 col-xs-6">
+       <div class="col-lg-4 col-md-4 col-sm-6 col-xs-6">
       <h1>
         <spring:message code="lte.order.title"></spring:message>
       </h1>
       </div>
-      <div class="col-lg-4 col-md-4">
+      <div class="col-lg-1  col-md-1 pull-right">
+      </div>
+      <sec:authorize access="hasAnyRole('ROLE_SALES','ROLE_ADMIN')">
+      <div class="col-lg-1  col-md-1 pull-right">
          <a onclick="ACC.modifyorder.save()" class="btn btn-app">
-          <i class="fa fa-save"></i>  <spring:message code="lte.save"></spring:message>
+         <i class="fa fa-save"></i>  <spring:message code="lte.save"></spring:message>
        </a>
       </div>
+      </sec:authorize>
+      <sec:authorize access="hasAnyRole('ROLE_SALES','ROLE_ADMIN')">
+      <div class="col-lg-1  col-md-1 pull-right">
+         <a onclick="ACC.modifyorder.storeapprove()" class="btn btn-app">
+         <i class="fa fa-thumbs-o-up"></i>  <spring:message code="lte.storeapprove"></spring:message>
+       </a>
+      </div>
+      </sec:authorize>
+      <sec:authorize access="hasAnyRole('ROLE_FINICIAL','ROLE_ADMIN')">
+      <div class="col-lg-1  col-md-1 pull-right">
+         <a onclick="ACC.modifyorder.fiapprove()" class="btn btn-app">
+         <i class="fa fa-thumbs-o-up"></i>  <spring:message code="lte.fiapprove"></spring:message>
+       </a>
+      </div>
+      </sec:authorize>
       </div>
     </section>
     

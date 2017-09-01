@@ -2,7 +2,7 @@
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 <%@ taglib prefix="template" tagdir="/WEB-INF/tags/lte/template"%>
 <%@ taglib prefix="order" tagdir="/WEB-INF/tags/lte/sales"%>
-
+<%@ taglib prefix=”sec” uri=”http://www.springframework.org/security/tags” %>
 
 <template:page>
 	<jsp:attribute name="pageScripts">

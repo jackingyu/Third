@@ -35,7 +35,6 @@ public class DefaultOrderProcessService implements OrderProcessService
 		{
 			if(OrderStatus.ALL.get(i).equals(currenctStatus))
 				return OrderStatus.ALL.get(i+1);
-			
 		}
 		
 		return targetStatus;

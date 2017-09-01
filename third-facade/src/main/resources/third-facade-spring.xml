@@ -260,5 +260,7 @@
      <alias name="defaultProductDataPopulator" alias="productDataPopulator" />
      <bean id="defaultProductDataPopulator" class="com.third.facade.populator.ProductDataPopulator">
      </bean>
+     
+      <!--  <import resource="third-cron-spring.xml" />-->
 </beans>
  

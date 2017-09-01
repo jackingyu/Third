@@ -30,6 +30,8 @@ public interface OrderFacade
 	OrderData getOrderForOptions(final String orderCode,final Collection<OrderOption> orderOption);
 
 	void updateOrder(final OrderData order);
+	
+	void updateOrderStatus(final OrderData order);
 
 	void createOrderEntry(final OrderEntryData orderEntryData);
 

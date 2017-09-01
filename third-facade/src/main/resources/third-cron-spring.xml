@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- All rights reserved. -->
+
+<!--suppress ALL -->
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:util="http://www.springframework.org/schema/util"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans 
+           http://www.springframework.org/schema/beans/spring-beans.xsd
+           http://www.springframework.org/schema/context
+           http://www.springframework.org/schema/context/spring-context.xsd
+		   http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-3.0.xsd
+           ">
+
+<!-- 要执行任务的任务类。 -->
+    <bean id="testQuartz" class="com.third.facade.cronjob.SMSSender">
+    </bean>
+
+    <!-- 将需要执行的定时任务注入JOB中。 -->
+    <bean id="testJob" class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+        <property name="targetObject" ref="testQuartz"></property>
+        <!-- 任务类中需要执行的方法 -->
+        <property name="targetMethod" value="send"></property>
+        <!-- 上一次未执行完成的，要等待有再执行。 -->
+        <property name="concurrent" value="false"></property>
+    </bean>
+
+    <!-- 基本的定时器，会绑定具体的任务。 -->
+    <bean id="testTrigger" class="org.springframework.scheduling.quartz.SimpleTriggerFactoryBean">
+        <property name="jobDetail" ref="testJob"></property>
+        <property name="startDelay" value="3000"></property>
+        <property name="repeatInterval" value="2000"></property>
+    </bean>
+
+    <bean id="schedulerFactoryBean" class="org.springframework.scheduling.quartz.SchedulerFactoryBean">
+        <property name="triggers">
+            <list>
+                <ref bean="testTrigger"></ref>
+            </list>
+        </property>
+    </bean>
+</beans>
+ 

@@ -1,6 +1,9 @@
 package com.third.facade.testdata.builder;
 
 import java.util.Arrays;
+import java.util.List;
+
+import org.apache.commons.lang3.RandomUtils;
 
 import com.third.model.MenuModel;
 import com.third.model.RoleModel;
@@ -22,35 +25,7 @@ public class UserDataBuilder implements DataBuilder
 
 	public void buildData()
 	{
-		UserModel admin = new UserModel();
-		admin.setUserId("test");
-		admin.setName("test user");
-		admin.setPassword("test");
-		UserGroupModel userGroup = new UserGroupModel();
-		userGroup.setGroupId("admin");
-		userGroup.setName("管理员");
-		userService.createUserGroup(userGroup);
 
-		for (int i = 0; i < 100; i++)
-		{
-			UserGroupModel userGroup1 = new UserGroupModel();
-			userGroup1.setGroupId("admin" + i);
-			userGroup1.setName("管理员" + i);
-			userService.createUserGroup(userGroup1);
-		}
-
-		admin.setUserGroup(userGroup);
-		userService.createUser(admin);
-
-		for (int i = 0; i < 100; i++)
-		{
-			UserModel user = new UserModel();
-			user.setUserId("测试用户" + i);
-			user.setName("测试用户" + i);
-			user.setPassword("密码");
-			user.setUserGroup(userGroup);
-			userService.createUser(user);
-		}
       /*
        * 创建符合easy-ui的菜单,如果需要启用easyui需要将这段注释掉
 		MenuModel lv2_user = this.buildMenu("1", 2, "系统管理", "#", "menu-icon-sys");
@@ -124,28 +99,41 @@ public class UserDataBuilder implements DataBuilder
 		lv3_reservationlist.setParentMenu(lv2_sales);
 		menuService.createMenu(lv3_reservationlist);
 		
+		List<MenuModel> menus = Arrays.asList(lv3_usergroup, lv3_userlist, lv3_customer, lv3_orders, lv3_reservation, lv3_orderprocess,
+				lv3_orderprocesslist,lv3_reservationlist);
 		//create role
-		RoleModel role = new RoleModel();
-		role.setRoleId("adminRole");
-		role.setRoleName("管理员角色");
-		role.setDescription("测试管理员的角色的描述文本的橘色");
-		role.setMenus(Arrays.asList(lv3_usergroup, lv3_userlist, lv3_customer, lv3_orders, lv3_reservation, lv3_orderprocess,
-				lv3_orderprocesslist,lv3_reservationlist));
 
-		roleService.createRole(role);
+      RoleModel role_admin = buildRole("admin", "管理员", "管理员", menus);
+      RoleModel role_sales = buildRole("sales", "销售员", "销售员", menus);
+      RoleModel role_factory = buildRole("factory", "工厂", "工厂", menus);
+      RoleModel role_finicial = buildRole("finicial", "财务", "财务", menus);
+      
+		UserModel admin = new UserModel();
+		admin.setUserId("test");
+		admin.setName("test user");
+		admin.setPassword("test");
+		UserGroupModel userGroup = this.buildUserGroupModel("admin", "管理员",role_admin);
+		List<UserGroupModel> userGroups =
+				Arrays.asList(
+						this.buildUserGroupModel("sales", "销售员",role_sales),
+						this.buildUserGroupModel("factory", "工厂",role_factory),
+						this.buildUserGroupModel("finicial", "财务",role_finicial)
+						);
 
-
-		for (int i = 0; i < 20; i++)
-		{
-			RoleModel role1 = new RoleModel();
-			role1.setRoleId("role" + i);
-			role1.setRoleName("角色" + i);
-			role1.setDescription("描述描述描述描述" + i);
-			roleService.createRole(role1);
-		}
-
-		userGroup.setRoles(Arrays.asList(role));
+		admin.setUserGroup(userGroup);
 		userService.createUserGroup(userGroup);
+		userService.createUser(admin);
+		
+		for(int i = 0;i < 50;i++)
+		{
+			UserModel u = new UserModel();
+			u.setUserId("test"+i);
+			final int j = RandomUtils.nextInt(0,3);
+			u.setName("test user"+i+"-"+j);
+			u.setPassword("test");
+			u.setUserGroup(userGroups.get(j));
+			userService.createUser(u);
+		}
 	}
 
 	protected MenuModel buildMenu(final String menuId, final Integer level, final String menuName, final String url,
@@ -159,6 +147,27 @@ public class UserDataBuilder implements DataBuilder
 		menu.setIcon(icon);
 		menuService.createMenu(menu);
 		return menu;
+	}
+	
+	public UserGroupModel buildUserGroupModel(final String id,final String name,final RoleModel role)
+	{
+		UserGroupModel userGroup = new UserGroupModel();
+		userGroup.setGroupId(id);
+		userGroup.setName(name);
+		userGroup.setRoles(Arrays.asList(role));
+		userService.createUserGroup(userGroup);
+		return userGroup;
+	}
+	
+	public RoleModel buildRole(final String id,final String name,final String desc,final List<MenuModel> menus)
+	{
+		RoleModel role = new RoleModel();
+		role.setRoleId(id);
+		role.setRoleName(name);
+		role.setDescription(desc);
+		role.setMenus(menus);
+		
+		return role;
 	}
 
 	public void setUserService(UserService userService)

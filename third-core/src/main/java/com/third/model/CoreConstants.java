@@ -40,13 +40,14 @@ public interface CoreConstants
 	
 	interface OrderStatus
 	{
-		final Integer CREATE = 0;
-		final Integer FACTORY_CONFIRM_PRODUCTION = 10;
-		final Integer FACTORY_RECEIPT = 11;
-		final Integer FACTORY_DELIVERY = 12;
-		final Integer STORE_RECEIPT = 30;
-		final Integer CUSTOMER_FETCH = 50;
-		final List<Integer> ALL = Arrays.asList(CREATE,FACTORY_CONFIRM_PRODUCTION,FACTORY_DELIVERY,FACTORY_RECEIPT,STORE_RECEIPT,CUSTOMER_FETCH);
+		final Integer NEW = 0;
+		final Integer STORE_APPROVE = 10;
+		final Integer FINICIAL_APPROVE = 20;
+		final Integer FACTORY_APPROVE = 30;
+		final Integer FACTORY_DELIVERED = 40;
+		final Integer STORE_RECEIPT = 50;
+		final Integer STORE_DELIVERED = 60;
+		final List<Integer> ALL = Arrays.asList(NEW,STORE_APPROVE,FINICIAL_APPROVE,FACTORY_APPROVE,FACTORY_DELIVERED,STORE_RECEIPT,STORE_DELIVERED);
 	
 	}
 

@@ -181,6 +181,28 @@
 	     <property name="paymentDao" ref="paymentDao" />
 	</bean>
 	
+	<bean id="storeApproveAction" class="com.third.service.order.impl.StoreApproveAction"></bean>
+	<bean id="finicialApproveAction" class="com.third.service.order.impl.FinicialApproveAction"></bean>
+	<bean id="factoryApproveAction" class="com.third.service.order.impl.FactoryApproveAction"></bean>
+	<bean id="factoryDeliveredAction" class="com.third.service.order.impl.FactoryDeliveredAction"></bean>
+	<bean id="storeReceiptAction" class="com.third.service.order.impl.StoreReceiptAction"></bean>
+	<bean id="storeDeliveredAction" class="com.third.service.order.impl.StoreDeliveredAction"></bean>
+	
+	<alias name="defaultOrderStatusService" alias="orderStatusService"></alias>
+	<bean id="defaultOrderStatusService" class="com.third.service.order.impl.DefaultOrderStatusAction">
+	     <property name="orderDao" ref="orderDao" />
+	     <property name="actions">
+			<map key-type="java.lang.Integer">
+				<entry key="10" value-ref="storeApproveAction" />
+				<entry key="20" value-ref="finicialApproveAction" />
+				<entry key="30" value-ref="factoryApproveAction" />
+				<entry key="40" value-ref="factoryDeliveredAction" />
+				<entry key="50" value-ref="storeReceiptAction" />
+				<entry key="60" value-ref="storeDeliveredAction" />
+			</map>
+		</property>
+	</bean>
+	
 	<bean id="config"
 		class="com.third.core.util.Config">
 		<property name="location">

@@ -4,7 +4,9 @@ import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.annotation.Resource;
 
@@ -47,11 +49,34 @@ public class OrderDataBuilder implements DataBuilder
 	@Override
 	public void buildData()
 	{
-		for (int i = 0; i < 20; i++)
+		Map<Integer,Runnable> hs = new HashMap<Integer,Runnable>();
+		
+		for(int i = 0;i < 10;i++)
 		{
-			OrderModel order = buildOrder("o-" + i);
-			buildOrderProcess(order);
+			hs.put(i, new Runnable(){
+				int m;
+				public Runnable setM(int m)
+				{
+					this.m = m;
+					return this;
+				}
+				public void run()
+				{
+					for (int j = 0; j < 10; j++)
+					{
+						int n = 10*m+j;
+						OrderModel order = buildOrder("o-" + n);
+						buildOrderProcess(order);
+					}
+				}}.setM(i)
+				);
 		}
+		
+		for(int i = 0;i < 10;i++)
+		{
+			hs.get(i).run();
+		}
+		
 	}
 
 	public void buildOrderProcess(final OrderModel orderModel)
@@ -73,7 +98,7 @@ public class OrderDataBuilder implements DataBuilder
 
 		Calendar calendar = Calendar.getInstance();
 		Date today = new Date();
-		orderModel.setDeliveryDate(getNextDay(today, 5));
+		orderModel.setDeliveryDate(getNextDay(today, RandomUtils.nextInt(0,365)));
 		orderModel.setOrderDate(today);
 		orderModel.setStore(storeService.getStoreForCode("s-1"));
 		orderModel.setPhotoDate(getNextDay(today, 3));
