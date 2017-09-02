@@ -46,6 +46,19 @@ ACC.sizeorder = {
     	$("#productInfo").val(d[0]+"-"+d[1]);
     	$("#productCode").val(d[0]);
     },
+    factoryApprove:function(){
+	    $.ajax({
+	      type: 'POST',
+	      url: ACC.config.contextPath + '/orderentry/updatestatus',
+	      data: {'entryPK':$("#orderEntryPK").val(),'toStatus':'30'}, // 你的formid
+	      error: function (request) {
+	         ACC.message.alert("目标状态不正确,无法让量身单进入下一个环节!");
+	      },
+	      success: function (data) {
+	      	ACC.message.alert("确认成功!");
+	      }
+	    });
+    },
 	init : function() {
 		$('#tryDate').datepicker({
 					autoclose : true

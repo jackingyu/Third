@@ -4,6 +4,7 @@
 <%@ taglib prefix="template" tagdir="/WEB-INF/tags/lte/template"%>
 <%@ taglib prefix="common" tagdir="/WEB-INF/tags/lte/common"%>
 <%@ taglib prefix="order" tagdir="/WEB-INF/tags/lte/sales"%>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags"%> 
 <%@ taglib prefix="product" tagdir="/WEB-INF/tags/lte/product"%>
 
 <template:page>
@@ -20,14 +21,27 @@
        <div class="col-lg-8 col-md-8 col-sm-6 col-xs-6">
       <h2>
         <spring:message code="lte.orderentry.title"></spring:message>
+        <small>${statusText}</small>
       </h2>
       <small class="help-block" style="color: #00a65a">${message}</small>
       </div>
-      <div class="col-lg-1 col-md-1">
+      <div class="col-lg-1 col-md-1 pull-right">
+      </div>
+      <sec:authorize access="hasAnyRole('ROLE_SALES','ROLE_ADMIN','ROLE_FACTORY')">
+      <div class="col-lg-1 col-md-1 pull-right">
          <a onclick="ACC.sizeorder.saveSizeOrder()" class="btn btn-app">
           <i class="fa fa-save"></i>  <spring:message code="lte.save"></spring:message>
        </a>
       </div>
+      </sec:authorize>
+      <sec:authorize access="hasAnyRole('ROLE_ADMIN','ROLE_FACTORY')">
+      <div class="col-lg-1 col-md-1 pull-right">
+         <a onclick="ACC.sizeorder.factoryApprove()" class="btn btn-app">
+          <i class="fa fa-save"></i>  <spring:message code="lte.factoryapprove"></spring:message>
+       </a>
+      </div>
+      </sec:authorize>
+   <!-- size order image function do not delete this!!!!     
       <c:if test="${not empty orderEntry.pk}">
       <div class="col-lg-1 col-md-1">
          <a data-toggle="modal" data-target="#fileuploadPanel" class="btn btn-app">
@@ -43,6 +57,7 @@
          <input type="hidden" id="sizeImageUrl" value="${contextPath}${orderEntry.sizeImageUrl}">
         </div>
 	  </c:if>
+	  -->
    </div>
     </section>
     

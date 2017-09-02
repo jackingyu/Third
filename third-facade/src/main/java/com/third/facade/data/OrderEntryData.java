@@ -33,6 +33,8 @@ public class OrderEntryData extends AbstractData
 	private Map<String, SizeAttributeGroupData> sizeDatas;
 	private String sizeImageUrl;
 	private StoreData store;
+	private String status;
+	private String statusText;
 
 	public Integer getEntryNo()
 	{
@@ -273,6 +275,26 @@ public class OrderEntryData extends AbstractData
 	public void setExternalId(String externalId)
 	{
 		this.externalId = externalId;
+	}
+
+	public String getStatusText()
+	{
+		return statusText;
+	}
+
+	public void setStatusText(String statusText)
+	{
+		this.statusText = statusText;
+	}
+
+	public String getStatus()
+	{
+		return status;
+	}
+
+	public void setStatus(String status)
+	{
+		this.status = status;
 	}
 
 }

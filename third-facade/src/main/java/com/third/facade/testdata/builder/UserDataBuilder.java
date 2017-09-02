@@ -65,11 +65,11 @@ public class UserDataBuilder implements DataBuilder
 		MenuModel lv2_user = this.buildMenu("1", 2, "系统管理", "#", "fa-opera");
 		menuService.createMenu(lv2_user);
 
-		MenuModel lv3_usergroup = this.buildMenu("11", 3, "用户组列表", "/user/usergrouplistpage", "fa-users");
-		MenuModel lv3_userlist = this.buildMenu("12", 3, "用户列表", "/user/userlistpage", "fa-user");
-		lv3_usergroup.setParentMenu(lv2_user);
+	//	MenuModel lv3_usergroup = this.buildMenu("11", 3, "用户组列表", "/user/usergrouplistpage", "fa-users");
+		MenuModel lv3_userlist = this.buildMenu("11", 3, "用户列表", "/user/userlistpage", "fa-user");
+	//	lv3_usergroup.setParentMenu(lv2_user);
 		lv3_userlist.setParentMenu(lv2_user);
-		menuService.createMenu(lv3_usergroup);
+	//	menuService.createMenu(lv3_usergroup);
 		menuService.createMenu(lv3_userlist);
 
 		MenuModel lv2_sales = this.buildMenu("2", 2, "销售管理", "#", "fa-book");
@@ -99,8 +99,25 @@ public class UserDataBuilder implements DataBuilder
 		lv3_reservationlist.setParentMenu(lv2_sales);
 		menuService.createMenu(lv3_reservationlist);
 		
-		List<MenuModel> menus = Arrays.asList(lv3_usergroup, lv3_userlist, lv3_customer, lv3_orders, lv3_reservation, lv3_orderprocess,
-				lv3_orderprocesslist,lv3_reservationlist);
+		MenuModel lv3_storereceipt = this.buildMenu("27", 3, "门店收货", "/store/orderreceipt", "fa-barcode");
+		lv3_storereceipt.setParentMenu(lv2_sales);
+		menuService.createMenu(lv3_storereceipt);
+		MenuModel lv3_storedeliver= this.buildMenu("28", 3, "顾客取件", "/store/orderdeliver", "fa-barcode");
+		lv3_storedeliver.setParentMenu(lv2_sales);
+		menuService.createMenu(lv3_storedeliver);
+		
+		MenuModel lv2_factory = this.buildMenu("3", 2, "工厂管理", "#", "fa-building");
+		menuService.createMenu(lv2_sales);
+
+		
+		MenuModel lv3_factorydeliver = this.buildMenu("32", 3, "扫码发货", "/factory/orderdeliver", "fa-truck");
+		lv3_customer.setParentMenu(lv2_sales);
+		lv3_factorydeliver.setParentMenu(lv2_factory);
+
+		menuService.createMenu(lv3_userlist);
+		
+		List<MenuModel> menus = Arrays.asList(lv3_userlist, lv3_customer, lv3_orders, lv3_reservation, lv3_orderprocess,
+				lv3_orderprocesslist,lv3_reservationlist,lv3_factorydeliver,lv3_storedeliver,lv3_storereceipt);
 		//create role
 
       RoleModel role_admin = buildRole("admin", "管理员", "管理员", menus);

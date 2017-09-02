@@ -1,5 +1,9 @@
 @CHARSET "UTF-8";
 
+table.dataTable tbody tr.picked {
+  background-color: #BCEE68;
+}
+
 .error{
 	color:#ff0000 
 }

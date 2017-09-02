@@ -29,7 +29,7 @@ import com.third.service.product.ProductService;
 import com.third.service.store.StoreService;
 
 
-public class OrderDataBuilder implements DataBuilder
+public class LotsOrderDataBuilder 
 {
 	@Resource(name = "orderService")
 	private OrderService orderService;
@@ -46,35 +46,12 @@ public class OrderDataBuilder implements DataBuilder
 	@Resource(name="orderProcessService")
 	private OrderProcessService orderProcessService;
 
-	@Override
-	public void buildData()
+	public void buildData(final Integer start,final Integer length)
 	{
-		Map<Integer,Runnable> hs = new HashMap<Integer,Runnable>();
-		
-		for(int i = 0;i < 10;i++)
+		for(int i = 0; i <length;i++)
 		{
-			hs.put(i, new Runnable(){
-				int m;
-				public Runnable setM(int m)
-				{
-					this.m = m;
-					return this;
-				}
-				public void run()
-				{
-					for (int j = 0; j < 10; j++)
-					{
-						int n = 10*m+j;
-						OrderModel order = buildOrder("o-" + n);
-						buildOrderProcess(order);
-					}
-				}}.setM(i)
-				);
-		}
-		
-		for(int i = 0;i < 10;i++)
-		{
-			hs.get(i).run();
+			Integer orderCode = start + i;
+			buildOrder("m"+orderCode.toString());
 		}
 		
 	}
@@ -87,7 +64,6 @@ public class OrderDataBuilder implements DataBuilder
 		op.setFromStatus("0");
 		op.setToStatus("1");
 		orderProcessService.createOrderProcess(op);
-		
 	}
 	
 	public OrderModel buildOrder(final String orderCode)
@@ -104,7 +80,7 @@ public class OrderDataBuilder implements DataBuilder
 		orderModel.setPhotoDate(getNextDay(today, 3));
 		orderModel.setWeddingDate(getNextDay(today, 20));
 		orderModel.setStatus(0);
-		CustomerModel customer = buildCustomer("13800138000"+orderCode, "name"+orderCode);
+		CustomerModel customer = buildCustomer("13800138001"+orderCode, "name"+orderCode);
 		orderModel.setCustomer(customer);
 
 		StoreModel store = storeService.getStoreForCode("s-1");
@@ -139,30 +115,23 @@ public class OrderDataBuilder implements DataBuilder
 		orderModel.setPaidamount(paidamount);
       orderModel.setOpenamount(orderModel.getReceiveable().subtract(orderModel.getPaidamount()));
 
-      List<OrderEntryModel> entries = new ArrayList<OrderEntryModel>();
-	
-      for(int j = 0;j < 5;j++)
-      {
-      	OrderEntryModel entry = new OrderEntryModel();
-   		entry.setQuantity(1);
-   		entry.setEntryNo(j+1);
-   		entry.setComment("test order entry"+j);
-   		entry.setDeliveryDate(new Date());
-   		entry.setSizeDate(new Date());
-   		Integer itemCategory = RandomUtils.nextInt(1, 4)*10;
-   		entry.setItemCategory(itemCategory.toString());
-   		entry.setStyle("测试规格");
-   		entry.setProductTitle("成品西装");
-   		entry.setSizeDate(new Date());
-   		entry.setDesigner("设计师");
-   		entry.setTryDate(new Date());
-   		entry.setComment("我是一个备注备注备注");
-   		entry.setStore(store);
-   		entry.setStatus(0);
-   		entry.setProduct(productService.getProductForCode("p-"+RandomUtils.nextInt(0, 50)));
-   		
-   		entries.add(entry);
-      }
+		OrderEntryModel entry = new OrderEntryModel();
+		entry.setQuantity(11);
+		entry.setEntryNo(1);
+		entry.setComment("test order entry");
+		entry.setDeliveryDate(new Date());
+		entry.setSizeDate(new Date());
+		entry.setItemCategory("10");
+		entry.setStyle("测试规格");
+		entry.setProductTitle("成品西装");
+		entry.setSizeDate(new Date());
+		entry.setDesigner("设计师");
+		entry.setTryDate(new Date());
+		entry.setComment("我是一个备注备注备注");
+		entry.setStore(store);
+		entry.setProduct(productService.getProductForCode("p-"+RandomUtils.nextInt(0, 50)));
+		List<OrderEntryModel> entries = new ArrayList<OrderEntryModel>();
+		entries.add(entry);
 
 		orderModel.setOrderEntries(entries);
 		orderModel.setPayments(payments);

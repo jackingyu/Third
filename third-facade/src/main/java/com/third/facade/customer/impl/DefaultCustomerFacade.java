@@ -69,10 +69,8 @@ public class DefaultCustomerFacade implements CustomerFacade
 		addressModel.setTel1(address.getTel1());
 		addressModel.setTel2(address.getTel2());
 
-		//TODO:need to check if necessay
 		//i18NService.createAddress(addressModel);
-
-		customerModel.setAddress(addressModel);
+		//customerModel.setAddress(addressModel);
 
 		customerService.createCustomer(customerModel);
 	}
@@ -213,16 +211,6 @@ public class DefaultCustomerFacade implements CustomerFacade
 	@Override
 	public CustomerData getCurrentCustomer()
 	{
-		//TODO: need to get the user from session
-		//	   CustomerModel customer = customerService.getCustomerByCellphone("13800138000");
-		//	   CustomerData customerData = null;
-		//	   
-		//	   if(customer!=null)
-		//	   {
-		//	   	customerData = new CustomerData();
-		//	   	customerDataPopulator.populate(customer, customerData);
-		//	   }
-
 		CustomerData customer = (CustomerData) sessionService.get(CoreConstants.Session.CURRENT_CUSTOMER);
 		return customer;
 	}

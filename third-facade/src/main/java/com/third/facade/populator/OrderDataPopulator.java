@@ -12,6 +12,7 @@ import com.third.facade.data.OrderData;
 import com.third.facade.data.OrderEntryData;
 import com.third.facade.data.PaymentData;
 import com.third.facade.data.StoreData;
+import com.third.facade.utils.TextMapperUtils;
 import com.third.model.OrderEntryModel;
 import com.third.model.OrderModel;
 import com.third.model.PaymentModel;
@@ -35,7 +36,8 @@ public class OrderDataPopulator implements Populator<OrderModel, OrderData>
 
 		target.setPk(source.getPk());
 		target.setOrderCode(source.getCode());
-
+      target.setStatus(source.getStatus());
+      target.setStatusText(TextMapperUtils.getOrderStatusText(source.getStatus()));
 		//顾客相关信息
 		CustomerData customer = new CustomerData();
 		if (source.getCustomer() != null)

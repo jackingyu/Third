@@ -8,6 +8,11 @@ public class DTResults
 	private int recordsFiltered;
 	private int recordsTotal;
 	private List<Object[]> data;
+	
+	public DTResults(){
+		data = new ArrayList<Object[]>();
+	}
+	
 	public int getRecordsFiltered()
 	{
 		return recordsFiltered;

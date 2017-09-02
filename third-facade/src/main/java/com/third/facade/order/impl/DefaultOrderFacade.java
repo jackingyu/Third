@@ -36,6 +36,7 @@ import com.third.facade.populator.OrderEntryDataPopulator;
 import com.third.facade.populator.SizeAttributeDataPopulator;
 import com.third.facade.populator.option.OrderOption;
 import com.third.facade.utils.DTResultConvertor;
+import com.third.facade.utils.TextMapperUtils;
 import com.third.model.CoreConstants;
 import com.third.model.CustomerModel;
 import com.third.model.OrderEntryModel;
@@ -77,7 +78,7 @@ public class DefaultOrderFacade implements OrderFacade
 	{
 		OrderModel order = new OrderModel();
 
-		//TODO: 需要考虑订单上店铺的拉取策略,可以考虑改完前台手工设置
+		//TODO 需要考虑订单上店铺的拉取策略,可以考虑改完前台手工设置
 		StoreModel store = storeService.getStoreForCode(orderData.getStore().getCode());
 
 		order.setCode(orderData.getOrderCode());
@@ -233,7 +234,8 @@ public class DefaultOrderFacade implements OrderFacade
 		orderEntry.setTryDate(orderEntryData.getTryDate());
 		orderEntry.setStyle(orderEntryData.getStyle());
 		orderEntry.setCustomerName(orderEntryData.getCustomerName());
-
+      orderEntry.setStatus(0);
+      
 		OrderModel order = orderService.getOrderForCode(orderEntryData.getOrderCode());
 		orderEntry.setOrder(order);
 		orderEntry.setCreatedBy(userService.getCurrentUser());
@@ -503,11 +505,94 @@ public class DefaultOrderFacade implements OrderFacade
 		this.productService = productService;
 	}
 
+	
+	/* 
+	 * 严格校验每一行的状态,如果量身单和订单有一行不为目标状态,则不返回任何结果
+	 * @see com.third.facade.order.OrderFacade#getOrderEntriesByPKorId(java.lang.String, java.lang.String, java.lang.Integer)
+	 */
 	@Override
-	public void updateOrderStatus(OrderData order)
+	public DTResults getOrderEntriesByPKorId(String entryPK, String externalId,Integer status)
 	{
+		OrderEntryModel entryModel ;
+		//pk has first priority
+		if(StringUtils.isNotEmpty(entryPK))
+	   	entryModel = orderService.getOrderEntry(entryPK);
+		else
+			if(StringUtils.isNotEmpty(externalId))
+				entryModel = orderService.getOrderEntryForExternalId(externalId);
+			else
+				return new DTResults();
+		
+		if(entryModel == null||!entryModel.getStatus().equals(status))
+			return new DTResults();
 		
 		
+		OrderModel orderModel = entryModel.getOrder();
+		
+		if(orderModel.getStatus()!=status)
+			return new DTResults();
+		
+		List<OrderEntryModel> entries = orderModel.getOrderEntries();
+		
+		DTResults result = new DTResults();
+		List<Object[]> rows = new ArrayList<Object[]>();
+		result.setRecordsFiltered(entries.size());
+		result.setRecordsTotal(entries.size());
+		
+		for(int i = 0; i < entries.size();i++)
+		{
+			OrderEntryModel entry = entries.get(i);
+			
+			if(entryModel.getStatus()!=status)
+				return new DTResults();
+			
+			String[] row = {entry.getExternalId(),
+					        TextMapperUtils.getItemCategoryText(entry.getItemCategory()),
+					          entry.getProductTitle(),orderModel.getCustomerName(),entry.getPk(),orderModel.getCode()};
+			rows.add(row);
+		}
+		
+		result.setData(rows);
+		
+		return result;
+	}
+
+	@Override
+	public DTResults getOrderEntriesByPKorId(String entryPK, String externalId)
+	{
+		OrderEntryModel entryModel ;
+		//pk has first priority
+		if(StringUtils.isNotEmpty(entryPK))
+	   	entryModel = orderService.getOrderEntry(entryPK);
+		else
+			if(StringUtils.isNotEmpty(externalId))
+				entryModel = orderService.getOrderEntryForExternalId(externalId);
+			else
+				return new DTResults();
+		
+		if(entryModel == null)
+			return new DTResults();
+		
+		OrderModel orderModel = entryModel.getOrder();
+		List<OrderEntryModel> entries = orderModel.getOrderEntries();
+		
+		DTResults result = new DTResults();
+		List<Object[]> rows = new ArrayList<Object[]>();
+		result.setRecordsFiltered(entries.size());
+		result.setRecordsTotal(entries.size());
+		
+		for(int i = 0; i < entries.size();i++)
+		{
+			OrderEntryModel entry = entries.get(i);
+			String[] row = {entry.getExternalId(),
+					        TextMapperUtils.getItemCategoryText(entry.getItemCategory()),
+					          entry.getProductTitle(),orderModel.getCustomerName(),entry.getPk(),orderModel.getCode()};
+			rows.add(row);
+		}
+		
+		result.setData(rows);
+		
+		return result;
 	}
 
 }

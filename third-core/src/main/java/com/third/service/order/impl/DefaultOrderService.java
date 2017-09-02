@@ -91,4 +91,11 @@ public class DefaultOrderService implements OrderService
 	{
 		return orderDao.findOrdersForCustomer(customerPK);
 	}
+
+
+	@Override
+	public OrderEntryModel getOrderEntryForExternalId(String externalId)
+	{
+		return orderEntryDao.findOrderEntryByExternalId(externalId);
+	}
 }

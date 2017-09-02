@@ -6,6 +6,7 @@ import java.util.Map;
 
 import com.third.dao.generic.IGenericDAO;
 import com.third.dao.util.PaginationSupport;
+import com.third.model.OrderEntryModel;
 import com.third.model.OrderModel;
 
 
@@ -19,4 +20,5 @@ public interface OrderDao extends IGenericDAO<OrderModel, String>
 	List<OrderModel> findOrdersForCustomer(final String customerPK);
 	
 	Integer countOrderForCustomer(final String cellphone);
+	
 }

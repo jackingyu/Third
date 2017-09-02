@@ -35,7 +35,7 @@
        <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12">
          <label><spring:message code="lte.customerlist.cellphone"></spring:message></label>
          <input class="form-control" placeholder="" name="cellphone" type="text">
-         </div>a
+         </div>
         <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12">
          <label><spring:message code="lte.customerlist.customername"></spring:message></label>
          <input class="form-control" placeholder="" name="customerName" type="text">

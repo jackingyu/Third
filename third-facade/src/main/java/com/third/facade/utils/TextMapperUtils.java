@@ -60,5 +60,15 @@ public class TextMapperUtils
 		
 		return results;
 	}
+	
+	public static String getOrderStatusText(final Integer status)
+	{
+		return TextMapper.OrderStatus.get(status.toString());
+	}
+	
+	public static String getItemCategoryText(final String itemCategory)
+	{
+		return TextMapper.ItemCategory.get(itemCategory);
+	}
 
 }

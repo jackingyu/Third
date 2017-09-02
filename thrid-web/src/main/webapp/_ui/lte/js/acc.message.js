@@ -5,7 +5,7 @@ ACC.message = {
   },
   init:function(){
     $("#messagePanel").on("shown.bs.modal",function(){
-      setTimeout(function(){$("#messagePanel").modal("hide")},200);
+      setTimeout(function(){$("#messagePanel").modal("hide")},2000);
     });
   }
 }

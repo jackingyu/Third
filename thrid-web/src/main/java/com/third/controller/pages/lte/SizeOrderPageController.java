@@ -121,6 +121,8 @@ public class SizeOrderPageController extends AbstractPageController
 		
 		model.addAttribute("itemCategorys",itemCategorys);
 		model.addAttribute("orderEntry", orderEntry);
+		model.addAttribute("statusText",orderEntry.getStatusText());
+		model.addAttribute("editable",orderEntry.getStatus().equals(CoreConstants.OrderStatus.NEW));
 		
 		if(StringUtils.isNotEmpty(message))
 			model.addAttribute("message", message);
@@ -149,6 +151,8 @@ public class SizeOrderPageController extends AbstractPageController
 			@RequestParam(value = "comment", required = false) final String comment,
 			RedirectAttributes attr)
 	{
+		//TODO:校验量身单状态,判断是否允许修改,如果是新建的,则只允许销售员修改
+		//如果是财务审核通过,只允许裁床修改,需要考虑是否允许admin修改
 		OrderEntryData orderEntryData = new OrderEntryData();
 		orderEntryData.setOrderCode(orderCode);
 		orderEntryData.setPk(entryPK);

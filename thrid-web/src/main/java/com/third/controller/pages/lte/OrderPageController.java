@@ -32,9 +32,11 @@ import com.third.facade.data.DTResults;
 import com.third.facade.data.OrderData;
 import com.third.facade.data.PaymentData;
 import com.third.facade.data.StoreData;
+import com.third.facade.data.TextMapper;
 import com.third.facade.order.OrderFacade;
 import com.third.facade.populator.option.OrderOption;
 import com.third.facade.utils.TextMapperUtils;
+import com.third.model.CoreConstants;
 
 
 @Controller
@@ -105,7 +107,7 @@ public class OrderPageController extends AbstractPageController
 	public String getModifyOrderPage(@PathVariable("orderCode") String orderCode, final Model model,
 			final HttpServletRequest request, final HttpServletResponse response)
 	{
-
+      //TODO:如果角色只有销售员,则只允许看到自己的订单
 		OrderData orderData = orderFacade.getOrderForOptions(orderCode,
 				Arrays.asList(OrderOption.BASIC, OrderOption.PAYMENTS, OrderOption.ENTRIES));
 		model.addAttribute("paymentTypes", TextMapperUtils.getPaymentTypes());
@@ -113,6 +115,10 @@ public class OrderPageController extends AbstractPageController
 		model.addAttribute("paymentMethods", TextMapperUtils.getPaymentMethods());
 		model.addAttribute("itemCategorys", TextMapperUtils.getItemCategories());
 		model.addAttribute("orderData", orderData);
+		model.addAttribute("statusText", orderData.getStatusText());
+		
+		model.addAttribute("editable",orderData.getStatus().equals(CoreConstants.OrderStatus.NEW));
+		
 		fillStore2View(model, orderData.getStore().getCode());
 		return ControllerConstants.LTE.MODIFYORDERPAGE;
 	}
@@ -210,6 +216,7 @@ public class OrderPageController extends AbstractPageController
 		if (StringUtils.isBlank(orderPK))
 			orderFacade.createOrder(order);
 		else
+			//TODO:需要判断订单状态为新建(需要考虑是否允许admin修改)
 			orderFacade.updateOrder(order);
 
 		return REDIRECT_PREFIX + "/order/modifyorderpage/" + orderCode;

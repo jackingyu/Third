@@ -62,11 +62,12 @@ public class TextMapper
 	static
 	{
 		OrderStatus.put(CoreConstants.OrderStatus.NEW.toString(), "新建");
-		OrderStatus.put(CoreConstants.OrderStatus.FACTORY_APPROVE.toString(), "工厂排产");
-		OrderStatus.put(CoreConstants.OrderStatus.FACTORY_DELIVERED.toString(), "工厂发货");
-		OrderStatus.put(CoreConstants.OrderStatus.STORE_RECEIPT.toString(), "门店收货");
-		OrderStatus.put(CoreConstants.OrderStatus.STORE_DELIVERED.toString(), "顾客取件");
-
+		OrderStatus.put(CoreConstants.OrderStatus.FACTORY_APPROVE.toString(), "工厂已排产");
+		OrderStatus.put(CoreConstants.OrderStatus.FINICIAL_APPROVE.toString(), "财务已确认");
+		OrderStatus.put(CoreConstants.OrderStatus.STORE_APPROVE.toString(), "门店已确认");
+		OrderStatus.put(CoreConstants.OrderStatus.FACTORY_DELIVERED.toString(), "工厂已发货");
+		OrderStatus.put(CoreConstants.OrderStatus.STORE_RECEIPT.toString(), "门店已收货");
+		OrderStatus.put(CoreConstants.OrderStatus.STORE_DELIVERED.toString(), "顾客已取件");
 	}
 
 }

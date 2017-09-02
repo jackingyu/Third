@@ -7,6 +7,7 @@ import com.third.facade.data.ProductData;
 import com.third.facade.data.StoreData;
 import com.third.facade.data.TextMapper;
 import com.third.facade.data.UserData;
+import com.third.facade.utils.TextMapperUtils;
 import com.third.model.OrderEntryModel;
 
 
@@ -42,7 +43,11 @@ public class OrderEntryDataPopulator implements Populator<OrderEntryModel, Order
 				.getCustomerName());
       target.setSizeDetails(source.getSizeDetails());
       target.setSizeImageUrl(source.getSizeImage());
-       
+      target.setStatus(source.getStatus().toString());
+      
+      if(target.getStatus()!=null)
+      	target.setStatusText(TextMapperUtils.getOrderStatusText(source.getStatus()));
+      
       StoreData store = new StoreData();
       storeDataPopulator.populate(source.getStore(), store);
       target.setStore(store);

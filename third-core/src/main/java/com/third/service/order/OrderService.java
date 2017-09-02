@@ -28,5 +28,7 @@ public interface OrderService
 
 	OrderEntryModel getOrderEntry(final String entryPK);
 	
+	OrderEntryModel getOrderEntryForExternalId(final String externalId);
+	
 	List<OrderModel> getOrdersForCustomer(final String customerPK);
 }

@@ -60,6 +60,7 @@ public interface ControllerConstants
 		final static String MODIFYORDERPAGE = PAGE+"/sales/modifyOrder";
 		static final String CREATESIZEORDERPAGE = PAGE +"/sales/createSizeOrder";
 		static final String ORDERENTRYDETAILPAGE = PAGE +"/sales/orderEntryDetails";
+		static final String SCANORDERPAGE = PAGE +"/factory/scanOrder";
 		
 		final static String LOGINPAGE = PAGE+"/security/login";
 		

@@ -68,6 +68,8 @@ public interface UserFacade
 	
 	UserData getCurrentUser();
 	
+	boolean isAdmin();
+	
 	void loginSuccess(final String userId);
 	
 	void logout();

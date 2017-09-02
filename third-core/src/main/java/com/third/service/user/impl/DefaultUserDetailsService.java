@@ -58,6 +58,7 @@ public class DefaultUserDetailsService implements UserDetailsService
 			final RoleModel role = itr.next();
 			authorities.add(new SimpleGrantedAuthority(rolePrefix + role.getRoleId().toUpperCase()));
 		}
+
 		return authorities;
 	}
 

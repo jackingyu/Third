@@ -348,4 +348,11 @@ public class DefaultUserFacade implements UserFacade
 		this.storeService = storeService;
 	}
 
+	@Override
+	public boolean isAdmin()
+	{
+		userService.getCurrentUser();
+		return false;
+	}
+
 }

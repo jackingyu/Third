@@ -9,5 +9,7 @@ public interface OrderProcessFacade
 {
    void processOrder(String orderCode,Integer toStatus) throws NoQualifiedTargetStatusException, NotFoundException;
    
+   void processOrderEntry(String entryPK,Integer toStatus) throws NoQualifiedTargetStatusException, NotFoundException;
+   
 	ListData getProcessRecordForOrder(String orderCode);
 }

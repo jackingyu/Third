@@ -7,6 +7,7 @@ import com.third.facade.data.CustomerData;
 import com.third.facade.data.OrderData;
 import com.third.facade.data.StoreData;
 import com.third.facade.data.TextMapper;
+import com.third.facade.utils.TextMapperUtils;
 import com.third.model.OrderModel;
 
 
@@ -25,7 +26,7 @@ public class OrderBasicPopulator implements Populator<OrderModel, OrderData>
 
 		target.setPk(source.getPk());
 		target.setOrderCode(source.getCode());
-
+	  
 		//顾客相关信息
 		CustomerData customer = new CustomerData();
 		if (source.getCustomer() != null)
@@ -48,7 +49,7 @@ public class OrderBasicPopulator implements Populator<OrderModel, OrderData>
 		target.setDeliveryDate(source.getDeliveryDate());
 		target.setWeddingDate(source.getWeddingDate());
       target.setStatus(Integer.valueOf(source.getStatus()));
-      target.setStatusText(TextMapper.OrderStatus.get(source.getStatus()));
+      target.setStatusText(TextMapperUtils.getOrderStatusText(source.getStatus()));
       
 		StoreData store = new StoreData();
 		storeDataPopulator.populate(source.getStore(), store);

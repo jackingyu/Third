@@ -135,6 +135,7 @@
    <alias name="defaultOrderProcessService" alias="orderProcessService"></alias>
 	<bean id="defaultOrderProcessService" class="com.third.service.order.impl.DefaultOrderProcessService">
 	     <property name="orderDao" ref="orderDao" />
+	     <property name="orderEntryDao" ref="orderEntryDao" />
 	     <property name="orderProcessRecordDao" ref="orderProcessRecordDao" />
 	</bean>
 	

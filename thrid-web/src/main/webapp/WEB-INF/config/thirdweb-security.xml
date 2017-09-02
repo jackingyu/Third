@@ -33,6 +33,7 @@
     <security:http  pattern="/master" security="none"></security:http>
     <!-- test data initial controller -->
     <security:http  pattern="/data" security="none"></security:http>
+    <security:http  pattern="/lotsdata" security="none"></security:http>
     <security:http  pattern="/login" security="none"></security:http>
     <security:http  pattern="/wx/getStoreList" security="none"></security:http>
     <security:http  pattern="/wx/callback" security="none"></security:http>

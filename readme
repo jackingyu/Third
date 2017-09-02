@@ -10,3 +10,7 @@ http://localhost:8080/thrid-web/test 初始化数据
 根据hbm生成数据库 ant databasegen 
 根据hbm生成dao等java类 ant codegen 
 开发过程中调试ui ant deployui
+
+
+#orderstatus
+orderstatus没有存表,核心数据维护在CoreConstants中,文本部分使用了模式进行匹配,存在于统一的文本文件中,后期考虑修改这一部分的处理

@@ -23,7 +23,7 @@ public interface OrderFacade
 	void createOrder(OrderData orderData);
 
 	DTResults getOrders(Date startDate, Date endDate, Integer startIndex, Integer pageSize, Map<String, String> sp);
-
+	
 	@Deprecated
 	OrderData getOrder(final String orderCode);
 	
@@ -31,8 +31,6 @@ public interface OrderFacade
 
 	void updateOrder(final OrderData order);
 	
-	void updateOrderStatus(final OrderData order);
-
 	void createOrderEntry(final OrderEntryData orderEntryData);
 
 	void updateOrderEntry(final OrderEntryData orderEntryData);
@@ -58,4 +56,8 @@ public interface OrderFacade
 	String getMediaForOrderEntry(final String entryPK);
 
 	List<OrderData> getOrdersForCustomer(final String customerPK);
+
+	DTResults getOrderEntriesByPKorId(String entryPK, String externalId);
+
+	DTResults getOrderEntriesByPKorId(String entryPK, String externalId, Integer status);
 }

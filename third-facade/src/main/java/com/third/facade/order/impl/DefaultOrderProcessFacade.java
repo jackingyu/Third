@@ -11,6 +11,7 @@ import com.third.facade.data.OrderProcessRecordData;
 import com.third.facade.data.TextMapper;
 import com.third.facade.order.OrderProcessFacade;
 import com.third.facade.populator.OrderProcessRecordDataPopulator;
+import com.third.model.OrderEntryModel;
 import com.third.model.OrderModel;
 import com.third.model.OrderProcessRecordModel;
 import com.third.model.UserModel;
@@ -97,4 +98,11 @@ public class DefaultOrderProcessFacade implements OrderProcessFacade
 		this.orderProcessRecordDataPopulator = orderProcessRecordDataPopulator;
 	}
 
+	@Override
+	public void processOrderEntry(String entryPK, Integer toStatus) throws NoQualifiedTargetStatusException, NotFoundException
+	{
+		OrderEntryModel orderEntry = orderService.getOrderEntry(entryPK);
+		orderProcessService.processOrderEntry(orderEntry, userService.getCurrentUser(), toStatus);
+	}
+	
 }

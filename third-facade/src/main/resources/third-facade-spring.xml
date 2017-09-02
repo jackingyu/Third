@@ -261,6 +261,7 @@
      <bean id="defaultProductDataPopulator" class="com.third.facade.populator.ProductDataPopulator">
      </bean>
      
+     <bean id="lotsOrderDataBuilder" class="com.third.facade.testdata.builder.LotsOrderDataBuilder"></bean>
       <!--  <import resource="third-cron-spring.xml" />-->
 </beans>
  
