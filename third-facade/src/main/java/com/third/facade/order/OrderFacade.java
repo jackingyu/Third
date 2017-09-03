@@ -37,6 +37,8 @@ public interface OrderFacade
 
 	void removeOrderEntry(final String orderEntryPK);
 	
+	DTResults getOrderEntries(Date startDate, Date endDate, Integer startIndex, Integer pageSize, Map<String, String> sp);
+	
 	OrderEntryData getOrderEntry(final String orderEntryPK);
 	
 	String[] createPayment(final PaymentData payment);

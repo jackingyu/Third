@@ -34,4 +34,6 @@ public interface CustomerFacade
 
 	Integer countOrder(String cellphone);
 	
+	void createSource(SourceData source);
+	
 }

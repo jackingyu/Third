@@ -17,4 +17,5 @@ public interface StoreFacade
 	List<StoreData> getAllStores();
 	
 	StoreData getStoreForCode(final String storeCode);
+	
 }

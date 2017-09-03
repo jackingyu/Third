@@ -1,5 +1,6 @@
 package com.third.dao.generic;
 
+import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.hibernate.Criteria;
@@ -26,6 +27,7 @@ import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.util.Collection;
 import java.util.List;
+import java.util.Map;
 
 
 @SuppressWarnings("unchecked")
@@ -269,6 +271,14 @@ public class GenericDAO<T, ID extends Serializable> extends HibernateDaoSupport 
 	protected String generateLikeParameter(final String parameter)
 	{
 		return "%" + parameter + "%";
+	}
+	
+	protected String getParameterValue(Map<String, String> sp, final String paramName)
+	{
+		if (sp != null && sp.containsKey(paramName))
+			return sp.get(paramName);
+
+		return StringUtils.EMPTY;
 	}
 
 }

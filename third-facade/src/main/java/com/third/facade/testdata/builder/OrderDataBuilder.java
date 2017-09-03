@@ -147,7 +147,7 @@ public class OrderDataBuilder implements DataBuilder
    		entry.setQuantity(1);
    		entry.setEntryNo(j+1);
    		entry.setComment("test order entry"+j);
-   		entry.setDeliveryDate(new Date());
+   		entry.setDeliveryDate(orderModel.getDeliveryDate());
    		entry.setSizeDate(new Date());
    		Integer itemCategory = RandomUtils.nextInt(1, 4)*10;
    		entry.setItemCategory(itemCategory.toString());
@@ -157,6 +157,7 @@ public class OrderDataBuilder implements DataBuilder
    		entry.setDesigner("设计师");
    		entry.setTryDate(new Date());
    		entry.setComment("我是一个备注备注备注");
+   		entry.setExternalId(Integer.toString(RandomUtils.nextInt()));
    		entry.setStore(store);
    		entry.setStatus(0);
    		entry.setProduct(productService.getProductForCode("p-"+RandomUtils.nextInt(0, 50)));

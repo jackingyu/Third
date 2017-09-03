@@ -10,7 +10,11 @@ public interface SourceService
 	public List<SourceModel> getSources();
 
 	public void createSource(SourceModel source);
-
+	
 	public SourceModel getSource(String pk);
+
+	List<SourceModel> getSources(String name);
+
+	void saveSource(SourceModel source);
 
 }

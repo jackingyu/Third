@@ -7,17 +7,12 @@ import java.util.Map;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.hibernate.Query;
-import org.hibernate.criterion.DetachedCriteria;
-import org.hibernate.criterion.Restrictions;
 import org.springframework.util.CollectionUtils;
 
 import com.third.dao.generic.GenericDAO;
 import com.third.dao.order.OrderDao;
 import com.third.dao.util.PaginationSupport;
-import com.third.model.OrderEntryModel;
 import com.third.model.OrderModel;
-import com.third.model.StoreModel;
 
 
 public class DefaultOrderDao extends GenericDAO<OrderModel, String> implements OrderDao
@@ -39,9 +34,8 @@ public class DefaultOrderDao extends GenericDAO<OrderModel, String> implements O
 	public PaginationSupport findOrders(Date startDate, Date endDate, final Integer startIndex, final Integer pageSize,
 			Map<String, String> sp)
 	{
-		DetachedCriteria dcOrder = DetachedCriteria.forClass(OrderModel.class);
 
-		final StringBuilder sb = new StringBuilder("select s.code,s.customer.name,s.customer.cellphone,s.store.name from OrderModel  s "
+		final StringBuilder sb = new StringBuilder("select s.code,s.customer.name,s.customer.cellphone,s.store.name,s.deliveryDate from OrderModel  s "
 				+ " where ");
 
 		if (StringUtils.isNotBlank(getParameterValue(sp, "orderCode")))
@@ -84,6 +78,7 @@ public class DefaultOrderDao extends GenericDAO<OrderModel, String> implements O
 		sb.append("s.deliveryDate between '").append(fmt.format(startDate)).append("' and '").append(fmt.format(endDate))
 				.append("'");
 
+		sb.append(" order by s.deliveryDate asc");
 		final String hsql = sb.toString();
 		logger.info(hsql);
 
@@ -131,14 +126,6 @@ public class DefaultOrderDao extends GenericDAO<OrderModel, String> implements O
 		Long numberOfOrder = (Long) this.currentSession().createQuery(COUNT_ORDER_BY_CUSTOMER).setParameter("cellphone", cellphone)
 				.uniqueResult();
 		return numberOfOrder.intValue();
-	}
-
-	public String getParameterValue(Map<String, String> sp, final String paramName)
-	{
-		if (sp != null && sp.containsKey(paramName))
-			return sp.get(paramName);
-
-		return StringUtils.EMPTY;
 	}
 
 }

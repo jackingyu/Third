@@ -14,7 +14,7 @@
 			type="java.lang.String" />
 		<property name="modificationTime" update="true" insert="true"
 			type="java.util.Date">
-			<column name="modification_time" sql-type="timestamp"/>
+			<column name="modification_time" default="CURRENT_TIMESTAMP" sql-type="timestamp"/>
 		</property>
 		<property name="createTime" update="false" insert="true"
 			type="java.util.Date">

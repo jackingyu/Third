@@ -23,5 +23,12 @@
 		<many-to-one name="address" lazy="proxy" class="com.third.model.AddressModel"  cascade="refresh" fetch="select">
 			<column name="address" />
 		</many-to-one>
+		<bag name="sources" table="store2source" inverse="false"
+			cascade="save-update" lazy="true">
+			<key column="storePK"></key>
+			<many-to-many class="com.third.model.SourceModel"
+				column="sourcePK">
+			</many-to-many>
+		</bag>
 	</class>
 </hibernate-mapping>

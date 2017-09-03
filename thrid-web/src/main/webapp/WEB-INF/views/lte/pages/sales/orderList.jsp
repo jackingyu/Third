@@ -78,6 +78,7 @@
                   <th><spring:message code="lte.orderlist.customername"></spring:message></th>
                   <th><spring:message code="lte.orderlist.cellphone"></spring:message></th>
                   <th><spring:message code="lte.orderlist.store"></spring:message></th>
+                  <th><spring:message code="lte.orderlist.deliverydate"></spring:message></th>
                 </tr>
                 </thead>
               </table>

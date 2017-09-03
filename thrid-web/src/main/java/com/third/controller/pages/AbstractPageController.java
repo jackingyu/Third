@@ -14,9 +14,11 @@ import com.third.core.util.DataTableCriterias;
 import com.third.facade.data.CityData;
 import com.third.facade.data.ComboboxData;
 import com.third.facade.data.ListData;
+import com.third.facade.data.ProductGroupData;
 import com.third.facade.data.RegionData;
 import com.third.facade.data.StoreData;
 import com.third.facade.local.I18NFacade;
+import com.third.facade.product.ProductFacade;
 import com.third.facade.store.StoreFacade;
 import com.third.facade.user.UserFacade;
 import com.third.facade.utils.TextMapperUtils;
@@ -34,6 +36,9 @@ public abstract class AbstractPageController
 	
 	@Resource(name="storeFacade")
 	private StoreFacade storeFacade;
+	
+	@Resource(name="productFacade")
+	private ProductFacade productFacade;
 	
 	protected Integer getStartIndex(Integer page, Integer rows)
 	{
@@ -192,5 +197,33 @@ public abstract class AbstractPageController
 	
 	protected void fillPaymentMethods2View(final Model model){
 		model.addAttribute("paymentMethods",TextMapperUtils.getPaymentMethods());
+	}
+	
+	protected void fillProductGroupsInModel(Model model)
+	{
+		List<ComboboxData> productGroups = convertProductGrouptoCombobox(productFacade.getProductGroups());
+		model.addAttribute("productGroups",productGroups);
+	}
+	
+	protected List<ComboboxData> convertProductGrouptoCombobox(List<ProductGroupData> productGroups)
+	{
+      List<ComboboxData> comboboxs = new ArrayList<ComboboxData>();
+      
+		for(int i = 0; i < productGroups.size();i++)
+		{
+			ProductGroupData productGroup = productGroups.get(i);
+			ComboboxData combobox = new ComboboxData();
+			
+			if(i == 0)
+				combobox.setSelected(true);
+			
+			combobox.setCode(productGroup.getPk());
+			combobox.setText(productGroup.getName());
+			
+			comboboxs.add(combobox);
+		}
+		
+		return comboboxs;
+		
 	}
 }

@@ -25,9 +25,9 @@ public class DefaultProductGroupService implements ProductGroupService
 	}
 
 	@Override
-	public PaginationSupport getProductGroupList(Integer startIndex, Integer pageSize)
+	public List<ProductGroupModel> getProductGroupList()
 	{
-		return getProductGroupList(startIndex, pageSize);
+		return productGroupDao.getProductGroupList();
 	}
 
 	public void setProductGroupDao(ProductGroupDao productGroupDao)

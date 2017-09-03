@@ -290,4 +290,12 @@ public class DefaultCustomerFacade implements CustomerFacade
 		return customerService.getNumberOfSalesOrder(cellphone);
 	}
 
+	@Override
+	public void createSource(SourceData source)
+	{
+		SourceModel sourceModel = new SourceModel();
+		sourceModel.setName(source.getName());
+		sourceService.createSource(sourceModel);
+	}
+
 }

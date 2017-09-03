@@ -21,6 +21,12 @@ public class DefaultSourceService implements SourceService
 	{
 		return sourceDao.list();
 	}
+	
+	@Override
+	public List<SourceModel> getSources(final String name)
+	{
+		return sourceDao.findSourceByName(name);
+	}
 
 	public void setSourceDao(SourceDao sourceDao)
 	{
@@ -29,6 +35,12 @@ public class DefaultSourceService implements SourceService
 
 	@Override
 	public void createSource(SourceModel source)
+	{
+		sourceDao.save(source);
+	}
+	
+	@Override
+	public void saveSource(SourceModel source)
 	{
 		sourceDao.save(source);
 	}

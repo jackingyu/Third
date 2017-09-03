@@ -15,21 +15,23 @@
 				</h4>
 			</div>
 			<div class="modal-body">
+			    <form id="searchProductForm">
 				<div class="row">
 					<div class="col-xs-3">
 						<label><spring:message code="lte.product.name"></spring:message></label>
-						<input id="searchProduct-productTitle" class="form-control" type="text">
+						<input name="productTitle" placeholder="<spring:message code="lte.search.like"/>" class="form-control" type="text">
 					</div>
 					<div class="col-xs-3">
 						<label><spring:message code="lte.product.code"></spring:message></label>
-						<input id="searchProduct-productCode" class="form-control" type="text">
+						<input name="productCode"  placeholder="<spring:message code="lte.search.exact"/>"  class="form-control" type="text">
 					</div>
 					<div class="col-xs-3">
 						<label><spring:message code="lte.product.productgroup"></spring:message></label>
-						<input id="searchProduct-productGroup" class="form-control" type="text">
+						<common:selection data="${productGroups}" name="productGroup"></common:selection>
 					</div>
-					<input id="searchProduct-category" type="hidden" value="${searchCategory}">
+					<input name="category" type="hidden" value="${searchCategory}">
 				</div>
+				</form>
 				<button id="searchProductBtn" type="button" class="btn btn-block btn-default">
 					<spring:message code="lte.search"></spring:message>
 				</button>
@@ -44,6 +46,9 @@
 							</th>
 							<th>
 								<spring:message code="lte.product.category"></spring:message>
+							</th>
+							<th>
+								<spring:message code="lte.product.productgroup"></spring:message>
 							</th>
 						</tr>
 					</thead>

@@ -98,4 +98,12 @@ public class DefaultOrderService implements OrderService
 	{
 		return orderEntryDao.findOrderEntryByExternalId(externalId);
 	}
+
+
+	@Override
+	public PaginationSupport getOrderEntries(Date startDate, Date endDate, Integer startIndex, Integer pageSize,
+			Map<String, String> sp)
+	{
+		return orderEntryDao.findOrderEntries(startDate, endDate, startIndex, pageSize, sp);
+	}
 }

@@ -23,9 +23,11 @@ ACC.searchproduct = {
 					"ajax" : {
 						"url" : ACC.config.contextPath + "/product/productlist",
 						"data" : function(d) {
-							 d.productCode = $("#searchProduct-productCode").val();
-							 d.productTitle = $("#searchProduct-productTitle").val();
-							 d.category = $("#searchProduct-category").val();
+							 formData = getQuery('searchProductForm');
+							 d.productCode = formData.productCode;
+							 d.productTitle = formData.productTitle;
+							 d.productGroup = formData.productGroup;
+							 d.category = formData.category;
 						}
 					},
 					"fnDrawCallback" : function() {

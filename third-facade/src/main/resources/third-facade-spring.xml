@@ -109,6 +109,8 @@
 	<alias name="defaultProductFacade" alias="productFacade"></alias>
 	<bean id="defaultProductFacade" class="com.third.facade.product.impl.DefaultProductFacade">
 	    <property name="productService" ref="productService"></property>
+	    <property name="productGroupService" ref="productGroupService"></property>
+	    <property name="productGroupDataPopulator" ref="productGroupDataPopulator"></property>
 	</bean>
 	
 	<alias name="defaultOrderFacade" alias="orderFacade"></alias>
@@ -141,6 +143,12 @@
 	    <property name="storeService" ref="storeService"></property>
 	    <property name="customerService" ref="customerService"></property>
 	    <property name="reservationDataPopulator" ref="reservationDataPopulator"></property>
+	</bean>
+	
+	<alias name="defaultSourceFacade" alias="sourceFacade"></alias>
+	<bean id="defaultSourceFacade" class="com.third.facade.customer.impl.DefaultSourceFacade">
+	    <property name="sourceService" ref="sourceService"></property>
+	    <property name="sourceDataPopulator" ref="sourceDataPopulator"></property>
 	</bean>
     
     <!-- start of populator  -->
@@ -259,6 +267,10 @@
      
      <alias name="defaultProductDataPopulator" alias="productDataPopulator" />
      <bean id="defaultProductDataPopulator" class="com.third.facade.populator.ProductDataPopulator">
+     </bean>
+     
+     <alias name="defaultProductGroupDataPopulator" alias="productGroupDataPopulator" />
+     <bean id="defaultProductGroupDataPopulator" class="com.third.facade.populator.ProductGroupDataPopulator">
      </bean>
      
      <bean id="lotsOrderDataBuilder" class="com.third.facade.testdata.builder.LotsOrderDataBuilder"></bean>

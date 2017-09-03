@@ -107,7 +107,7 @@ public class OrderPageController extends AbstractPageController
 	public String getModifyOrderPage(@PathVariable("orderCode") String orderCode, final Model model,
 			final HttpServletRequest request, final HttpServletResponse response)
 	{
-      //TODO:如果角色只有销售员,则只允许看到自己的订单
+      // TODO:如果角色只有销售员,则只允许看到自己的订单
 		OrderData orderData = orderFacade.getOrderForOptions(orderCode,
 				Arrays.asList(OrderOption.BASIC, OrderOption.PAYMENTS, OrderOption.ENTRIES));
 		model.addAttribute("paymentTypes", TextMapperUtils.getPaymentTypes());
@@ -116,9 +116,9 @@ public class OrderPageController extends AbstractPageController
 		model.addAttribute("itemCategorys", TextMapperUtils.getItemCategories());
 		model.addAttribute("orderData", orderData);
 		model.addAttribute("statusText", orderData.getStatusText());
-		
+		// TODO:订单的允许更新策略
 		model.addAttribute("editable",orderData.getStatus().equals(CoreConstants.OrderStatus.NEW));
-		
+
 		fillStore2View(model, orderData.getStore().getCode());
 		return ControllerConstants.LTE.MODIFYORDERPAGE;
 	}

@@ -2,9 +2,12 @@ package com.third.dao.product.impl;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.hibernate.criterion.DetachedCriteria;
 import org.hibernate.criterion.Restrictions;
 
@@ -16,6 +19,7 @@ import com.third.model.ProductModel;
 
 public class DefaultProductDao extends GenericDAO<ProductModel, String> implements ProductDao
 {
+	private Log logger = LogFactory.getLog(getClass());
 	private final static String FIND_BY_CODE_SQL = "from com.third.model.ProductModel p where p.code=?";
 
 	@Override
@@ -27,29 +31,34 @@ public class DefaultProductDao extends GenericDAO<ProductModel, String> implemen
 
 
 	@Override
-	public PaginationSupport getProductList(String productCode, String productTitle, String category,final Integer startIndex,
-			final Integer pageSize)
+	public PaginationSupport getProductList(Map<String, String> sp, final Integer startIndex, final Integer pageSize)
 	{
-		final StringBuilder sb = new StringBuilder("select p.code,p.producttitle,p.category.name from ProductModel  p ");
-		final StringBuilder w = new StringBuilder(" where p.category.code = '"+category+"'");
+		final StringBuilder sb = new StringBuilder("select p.code,p.producttitle,p.category.name,p.productGroup.name from ProductModel  p ");
+		final StringBuilder w = new StringBuilder(" where p.category.code = '"+getParameterValue(sp, "category")+"'");
 
 		List<String> condition = new ArrayList<String>();
 
-		if (StringUtils.isNotBlank(productCode))
+		if (StringUtils.isNotBlank(getParameterValue(sp, "productGroup")))
 		{
-			StringBuilder c = new StringBuilder().append("p.code = '").append(productCode).append("'");
+			StringBuilder c = new StringBuilder().append("p.productGroup = '").append(getParameterValue(sp, "productGroup")).append("'");
+			condition.add(c.toString());
+		}
+		
+		if (StringUtils.isNotBlank(getParameterValue(sp, "productCode")))
+		{
+			StringBuilder c = new StringBuilder().append("p.code = '").append(getParameterValue(sp, "productCode")).append("'");
 			condition.add(c.toString());
 		}
 
-		if (StringUtils.isNotBlank(productTitle))
+		if (StringUtils.isNotBlank(getParameterValue(sp, "productTitle")))
 		{
-			StringBuilder c = new StringBuilder().append("p.producttitle like '%").append(productTitle).append("%'");
+			StringBuilder c = new StringBuilder().append("p.producttitle like '%").append(getParameterValue(sp, "productTitle")).append("%'");
 			condition.add(c.toString());
 		}
 
 		if (CollectionUtils.isNotEmpty(condition))
 		{
-			w.append(" and ").append(condition.get(0));
+			//w.append(" and ").append(condition.get(0));
 			for (int i = 0; i < condition.size(); i++)
 			{
 				w.append(" and ").append(condition.get(i));
@@ -58,6 +67,7 @@ public class DefaultProductDao extends GenericDAO<ProductModel, String> implemen
 		
 		sb.append(w);
 
+		logger.info(sb.toString());
 		return findPageByQuery(sb.toString(), pageSize, startIndex);
 	}
 

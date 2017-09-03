@@ -115,6 +115,8 @@ public class SizeOrderPageController extends AbstractPageController
 			}
 		}
 		
+		
+		
 		//set size details data
 		OrderEntryData entry = orderFacade.getSizeDatas(orderEntry.getPk());
 		orderEntry.setSizeDatas(entry.getSizeDatas());
@@ -129,6 +131,8 @@ public class SizeOrderPageController extends AbstractPageController
 		
 		model.addAttribute("searchCategory",TextMapper.ItemCategory2Category.get(orderEntry.getItemCategory()));
 		
+
+		fillProductGroupsInModel(model);
 		fillStore2View(model, orderEntry.getStoreName());
 		
 		return ControllerConstants.LTE.ORDERENTRYDETAILPAGE;
