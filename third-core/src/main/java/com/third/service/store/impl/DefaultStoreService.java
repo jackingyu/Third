@@ -17,6 +17,12 @@ public class DefaultStoreService implements StoreService
 	{
 		storeDao.save(store);
 	}
+	
+	@Override
+	public void saveStore(StoreModel store)
+	{
+		storeDao.save(store);
+	}
 
 	public void setStoreDao(StoreDao storeDao)
 	{

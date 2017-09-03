@@ -148,6 +148,7 @@
 	<alias name="defaultSourceFacade" alias="sourceFacade"></alias>
 	<bean id="defaultSourceFacade" class="com.third.facade.customer.impl.DefaultSourceFacade">
 	    <property name="sourceService" ref="sourceService"></property>
+	    <property name="storeService" ref="storeService"></property>
 	    <property name="sourceDataPopulator" ref="sourceDataPopulator"></property>
 	</bean>
     

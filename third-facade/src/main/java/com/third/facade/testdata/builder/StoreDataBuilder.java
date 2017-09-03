@@ -1,10 +1,13 @@
 package com.third.facade.testdata.builder;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 
 import javax.annotation.Resource;
+
+import org.apache.commons.lang3.RandomUtils;
 
 import com.third.dao.user.UserDao;
 import com.third.model.AddressModel;
@@ -31,9 +34,19 @@ public class StoreDataBuilder implements DataBuilder
 	@Resource(name = "userDao")
 	private UserDao userDao;
 
+	private  List<SourceModel> sourceModels = new ArrayList<SourceModel>();;
+	
 	@Override
 	public void buildData()
 	{
+		for(int i = 0; i <30 ; i++)
+		{
+			SourceModel source = new SourceModel();
+			source.setName("合作伙伴"+RandomUtils.nextInt());
+			sourceService.createSource(source);
+			sourceModels.add(source);
+		}
+		
 		RegionModel region = buildRegion("cn11", "上海市");
 		CityModel city = buildCity("cn12", "上海市", region);
 		RegionModel region1 = buildRegion("CN13", "江苏省");
@@ -43,6 +56,8 @@ public class StoreDataBuilder implements DataBuilder
 		StoreModel store = buildStore("s-1", "南方一店", address);
 		StoreModel store1 = buildStore("a-1", "王者荣耀店", address);
 
+		
+		
 		for (int i = 2; i < 30; i++)
 		{
 			String storeName = "默认店名";
@@ -115,6 +130,16 @@ public class StoreDataBuilder implements DataBuilder
 		store.setId(id);
 		store.setAddress(address);
 		store.setName(name);
+		List<SourceModel> sources = new ArrayList<SourceModel>();
+		
+		int j = RandomUtils.nextInt(10,15);
+		
+		for(int i = 0; i < j;i++)
+		{
+			sources.add(sourceModels.get(i));
+		}
+		
+		store.setSources(sources);
 		storeService.createStore(store);
 
 		return store;

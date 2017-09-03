@@ -69,6 +69,7 @@ public interface ControllerConstants
 		final static String CREATECUSTOMERPAGE = PAGE+"/customer/customerDetails";
 		final static String MODIFYCUSTOMERPAGE = PAGE+"/customer/customerDetails";
 		final static String SOURCELISTPAGE = PAGE+"/customer/sourceList";
+		final static String SOURCELISTFORSTOREPAGE = PAGE+"/sales/sourceList";
 
 		final static String USERLISTPAGE = PAGE+"/user/userList";
 		final static String USERDETAILSPAGE = PAGE+"/user/userDetails";

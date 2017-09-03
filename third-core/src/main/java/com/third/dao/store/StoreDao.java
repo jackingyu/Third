@@ -14,5 +14,5 @@ public interface StoreDao extends IGenericDAO<StoreModel, String>
 	List<StoreModel> findStoreByName(final String name);
 
 	StoreModel getStoreForCode(final String code);
-
+	
 }

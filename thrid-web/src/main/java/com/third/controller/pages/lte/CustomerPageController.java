@@ -172,46 +172,4 @@ public class CustomerPageController extends AbstractPageController
 		return REDIRECT_PREFIX+"/customer/modifycustomerpage/"+cellphone;
 	}
 
-	private void fillSourceInModel(final Model model)
-	{
-		List<SourceData> sourceDatas = customerFacade.getSources();
-		List<ComboboxData> results = new ArrayList<ComboboxData>();
-		for (int i = 0; i < sourceDatas.size(); i++)
-		{
-			SourceData sourceData = sourceDatas.get(i);
-			ComboboxData e = new ComboboxData();
-			e.setCode(sourceData.getPk());
-			e.setText(sourceData.getName());
-
-			if (i == 0)
-				e.setSelected(true);
-
-			results.add(e);
-		}
-
-		model.addAttribute("sources", results);
-	}
-
-	private void fillSourceInModel(final Model model, final SourceData selectedSource)
-	{
-		List<SourceData> sourceDatas = customerFacade.getSources();
-		List<ComboboxData> results = new ArrayList<ComboboxData>();
-		for (int i = 0; i < sourceDatas.size(); i++)
-		{
-			SourceData sourceData = sourceDatas.get(i);
-			ComboboxData e = new ComboboxData();
-			e.setCode(sourceData.getPk());
-			e.setText(sourceData.getName());
-
-			if (i == 0)
-				e.setSelected(true);
-
-			results.add(e);
-		}
-
-		model.addAttribute("sources", results);
-	}
-
-
-
 }

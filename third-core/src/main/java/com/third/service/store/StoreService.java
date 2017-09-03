@@ -8,6 +8,8 @@ import com.third.model.StoreModel;
 public interface StoreService
 {
 	void createStore(StoreModel store);
+	
+	void saveStore(StoreModel store);
 
 	List<StoreModel> getStores(final String storeName);
 

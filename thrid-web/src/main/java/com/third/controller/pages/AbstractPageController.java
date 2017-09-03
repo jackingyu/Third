@@ -11,12 +11,15 @@ import org.springframework.ui.Model;
 
 import com.third.controller.pages.lte.DTResultsV;
 import com.third.core.util.DataTableCriterias;
+import com.third.facade.customer.SourceFacade;
 import com.third.facade.data.CityData;
 import com.third.facade.data.ComboboxData;
 import com.third.facade.data.ListData;
 import com.third.facade.data.ProductGroupData;
 import com.third.facade.data.RegionData;
+import com.third.facade.data.SourceData;
 import com.third.facade.data.StoreData;
+import com.third.facade.data.UserData;
 import com.third.facade.local.I18NFacade;
 import com.third.facade.product.ProductFacade;
 import com.third.facade.store.StoreFacade;
@@ -39,6 +42,9 @@ public abstract class AbstractPageController
 	
 	@Resource(name="productFacade")
 	private ProductFacade productFacade;
+	
+	@Resource(name="sourceFacade")
+	private SourceFacade sourceFacade;
 	
 	protected Integer getStartIndex(Integer page, Integer rows)
 	{
@@ -204,6 +210,44 @@ public abstract class AbstractPageController
 		List<ComboboxData> productGroups = convertProductGrouptoCombobox(productFacade.getProductGroups());
 		model.addAttribute("productGroups",productGroups);
 	}
+	
+	
+	protected void fillAllSourceInView(final Model model){
+		List<ComboboxData>  sources = new ArrayList<ComboboxData>();
+		List<SourceData> sourceDatas= sourceFacade.getAllSources();
+		
+		for(int i = 0 ;i < sourceDatas.size();i++){
+			   SourceData s = sourceDatas.get(i);
+         	ComboboxData source = new ComboboxData();
+         	source.setCode(s.getPk());
+         	source.setText(s.getName());
+            sources.add(source);
+		}
+		
+		model.addAttribute("sources",sources);
+	}
+	
+	protected void fillSourceInModel(final Model model)
+	{
+		UserData user = userFacade.getCurrentUser();
+		List<SourceData> sourceDatas = sourceFacade.getSourceForStoreCode(user.getStores().get(0).getCode());
+		List<ComboboxData> results = new ArrayList<ComboboxData>();
+		for (int i = 0; i < sourceDatas.size(); i++)
+		{
+			SourceData sourceData = sourceDatas.get(i);
+			ComboboxData e = new ComboboxData();
+			e.setCode(sourceData.getPk());
+			e.setText(sourceData.getName());
+
+			if (i == 0)
+				e.setSelected(true);
+
+			results.add(e);
+		}
+
+		model.addAttribute("sources", results);
+	}
+
 	
 	protected List<ComboboxData> convertProductGrouptoCombobox(List<ProductGroupData> productGroups)
 	{
