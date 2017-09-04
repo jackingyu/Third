@@ -26,13 +26,13 @@
 			fetch="select">
 			<column name="category" />
 		</many-to-one>
-		<property name="modificationTime" update="true" insert="true"
-			type="java.util.Date">
-			<column name="modification_time" sql-type="timestamp"/>
+		<property name="modificationTime" update="false" insert="false" 
+			type="java.util.Date" generated="always">
+			<column name="modification_time" />
 		</property>
-		<property name="createTime" update="false" insert="true"
-			type="java.util.Date">
-			<column name="create_time" sql-type="timestamp"/>
+		<property name="createTime" update="false" insert="false"
+			type="java.util.Date" generated="insert">
+			<column name="create_time"/>
 		</property>
 		<many-to-one name="createdBy" lazy="proxy"
 			class="com.third.model.UserModel" cascade="refresh"

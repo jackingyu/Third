@@ -28,9 +28,13 @@
 		<property column="tel2" lazy="false" name="tel2"
 			type="java.lang.String">
 		</property>
-		<property name="createTime" update="false" insert="true"
-			type="java.util.Date">
-			<column name="create_time" sql-type="timestamp"/>
+		<property name="modificationTime" update="false" insert="false" 
+			type="java.util.Date" generated="always">
+			<column name="modification_time" />
+		</property>
+		<property name="createTime" update="false" insert="false"
+			type="java.util.Date" generated="insert">
+			<column name="create_time"/>
 		</property>
 	</class>
 </hibernate-mapping>

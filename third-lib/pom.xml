@@ -270,7 +270,6 @@
 					<wtpContextName>third</wtpContextName>
 				</configuration>
 			</plugin>
-
 		</plugins>
 		<finalName>third</finalName>
 	</build>

@@ -12,13 +12,13 @@
 		</property>
 		<property column="name" lazy="false" name="name" type="java.lang.String" />
 		<property column="phone" lazy="false" name="phone" type="java.lang.String" />
-	    <property name="modificationTime" update="true" insert="true"
-			type="java.util.Date">
-			<column name="modification_time" sql-type="timestamp"/>
+	    <property name="modificationTime" update="false" insert="false" 
+			type="java.util.Date" generated="always">
+			<column name="modification_time" />
 		</property>
-		<property name="createTime" update="false" insert="true"
-			type="java.util.Date">
-			<column name="create_time" sql-type="timestamp"/>
+		<property name="createTime" update="false" insert="false"
+			type="java.util.Date" generated="insert">
+			<column name="create_time"/>
 		</property>
 		<many-to-one name="address" lazy="proxy" class="com.third.model.AddressModel"  cascade="refresh" fetch="select">
 			<column name="address" />
