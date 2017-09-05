@@ -13,4 +13,6 @@ public interface ProductDao extends IGenericDAO<ProductModel, String>
 
 	PaginationSupport getProductList(Map<String, String> sp, Integer startIndex, Integer pageSize);
 
+	PaginationSupport getProductList1(Map<String, String[]> sp, Integer startIndex, Integer pageSize);
+
 }

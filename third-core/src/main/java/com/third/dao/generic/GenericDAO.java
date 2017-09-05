@@ -281,4 +281,28 @@ public class GenericDAO<T, ID extends Serializable> extends HibernateDaoSupport 
 		return StringUtils.EMPTY;
 	}
 
+	protected String convertArray(String[] arrays,String fieldname)
+	{
+		final StringBuilder sb = new StringBuilder(fieldname).append( " in ('");
+	   String condition = StringUtils.join(arrays, "','");
+	   sb.append(condition).append("')");
+	   
+	   return sb.toString();
+	}
+	
+	protected String getArrayCondtion(Map<String, String[]> sp,final String key, final String param)
+	{
+		if(sp.containsKey(key)&&sp.get(key)!=null)
+			if(sp.get(key).length==1&&StringUtils.isNotEmpty(sp.get(key)[0]))
+			{
+				return param+" = '"+sp.get(key)[0]+"'";
+			}
+			else
+				if(sp.get(key).length > 1)
+			  {
+				return convertArray(sp.get(key),param);
+			  }
+		
+		return StringUtils.EMPTY;
+	}
 }

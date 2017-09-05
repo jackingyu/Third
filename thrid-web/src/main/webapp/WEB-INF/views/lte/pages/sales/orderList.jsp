@@ -22,6 +22,7 @@
           <i class="fa fa-search"></i>  <spring:message code="lte.search"></spring:message>
        </a>
       </div>
+      </div>
     </section>
     <section class="content-header">
      <form id="orderListForm">

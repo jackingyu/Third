@@ -15,4 +15,8 @@ public interface ProductService
 	void updateProduct(final ProductModel product);
 	
 	PaginationSupport getProductList(Map<String, String> sp, Integer startIndex, Integer pageSize);
+
+	PaginationSupport getProductList1(Map<String, String[]> sp, Integer startIndex, Integer pageSize);
+
+	void saveProduct(ProductModel product);
 }

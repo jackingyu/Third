@@ -5,6 +5,8 @@ public class ProductData extends AbstractData
 	private String code;
    private String producttitle;
    private String producttype;
+   private CategoryData category;
+   private ProductGroupData productGroup;
 
 	public String getCode()
 	{
@@ -35,6 +37,25 @@ public class ProductData extends AbstractData
 	{
 		this.producttype = producttype;
 	}
-	
 
+	public CategoryData getCategory()
+	{
+		return category;
+	}
+
+	public void setCategory(CategoryData category)
+	{
+		this.category = category;
+	}
+
+	public ProductGroupData getProductGroup()
+	{
+		return productGroup;
+	}
+
+	public void setProductGroup(ProductGroupData productGroup)
+	{
+		this.productGroup = productGroup;
+	}
+	
 }

@@ -11,4 +11,6 @@ public interface ProductGroupService
 	void createProductGroup(final ProductGroupModel productGroup);
 
 	List<ProductGroupModel> getProductGroupList();
+
+	ProductGroupModel getProductGroupByPK(String pk);
 }

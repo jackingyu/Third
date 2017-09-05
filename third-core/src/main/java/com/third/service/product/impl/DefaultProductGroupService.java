@@ -34,5 +34,11 @@ public class DefaultProductGroupService implements ProductGroupService
 	{
 		this.productGroupDao = productGroupDao;
 	}
+
+	@Override
+	public ProductGroupModel getProductGroupByPK(String pk)
+	{
+		return productGroupDao.get(pk);
+	}
 	
 }

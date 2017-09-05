@@ -8,4 +8,6 @@ import com.third.model.CategoryModel;
 public interface CategoryDao extends IGenericDAO<CategoryModel, String>
 {
 
+	CategoryModel getCategoryForCode(String code);
+
 }

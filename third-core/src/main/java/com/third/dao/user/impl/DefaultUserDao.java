@@ -2,10 +2,10 @@ package com.third.dao.user.impl;
 
 import java.util.List;
 
+import org.apache.commons.lang3.StringUtils;
 import org.hibernate.criterion.DetachedCriteria;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.util.CollectionUtils;
-import org.springframework.util.StringUtils;
 
 import com.third.dao.generic.GenericDAO;
 import com.third.dao.user.UserDao;
@@ -39,6 +39,16 @@ public class DefaultUserDao extends GenericDAO<UserModel, String> implements Use
 		PaginationSupport ps = findPageByCriteria(dcUser, pageSize, startIndex);
 
 		return ps;
+	}
+
+	public List<UserModel> findSalesPerson(final String storeCode)
+	{
+		final StringBuilder sb = new StringBuilder("from UserModel u where u.userGroup.groupId ='sales' ");
+		
+		if(StringUtils.isNotEmpty(storeCode))
+			sb.append("and u.store.id='").append(storeCode).append("'");
+
+		return find(sb.toString());
 	}
 
 }

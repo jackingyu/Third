@@ -12,6 +12,7 @@ import org.springframework.ui.Model;
 import com.third.controller.pages.lte.DTResultsV;
 import com.third.core.util.DataTableCriterias;
 import com.third.facade.customer.SourceFacade;
+import com.third.facade.data.CategoryData;
 import com.third.facade.data.CityData;
 import com.third.facade.data.ComboboxData;
 import com.third.facade.data.ListData;
@@ -67,6 +68,23 @@ public abstract class AbstractPageController
 		data.setRecordsFiltered(results.getTotal());
 		data.setRecordsTotal(results.getTotal());
 		return data;
+	}
+	
+	
+	protected List<ComboboxData> getSalesPerson()
+	{
+		List<UserData> userDatas = userFacade.getSalesPerson(StringUtils.EMPTY);
+		List<ComboboxData> users = new ArrayList<ComboboxData>();
+
+		for(int i = 0 ;i < userDatas.size();i++){
+		   UserData u = userDatas.get(i);
+      	ComboboxData user = new ComboboxData();
+      	user.setCode(u.getUserId());
+      	user.setText(u.getName());
+         users.add(user);
+	   }
+		
+		return users;
 	}
 	
 	/**
@@ -181,6 +199,39 @@ public abstract class AbstractPageController
 		model.addAttribute("citys",getCityForRegion(regionISOCode));
 	}
 	
+	protected void fillAllCategoryView(final Model model){
+		List<ComboboxData> categories = new ArrayList<ComboboxData>();
+		List<CategoryData> categoryDatas = productFacade.getCategories();
+		
+		for(int i = 0 ;i < categoryDatas.size();i++){
+			   CategoryData c = categoryDatas.get(i);
+         	ComboboxData category = new ComboboxData();
+         	category.setCode(c.getCode());
+         	category.setText(c.getName());
+            categories.add(category);
+		}
+		
+		model.addAttribute("categories",categories);
+	}
+	protected List<ComboboxData> getAllCategory(final String selected){
+		List<ComboboxData> categories = new ArrayList<ComboboxData>();
+		List<CategoryData> categoryDatas = productFacade.getCategories();
+		
+		for(int i = 0 ;i < categoryDatas.size();i++){
+			CategoryData c = categoryDatas.get(i);
+			ComboboxData category = new ComboboxData();
+			category.setCode(c.getCode());
+			category.setText(c.getName());
+			
+			if(StringUtils.isNotEmpty(selected)&&selected.equals(c.getCode()))
+				category.setSelected(true);
+			
+			categories.add(category);
+		}
+		
+		return categories;
+	}
+	
 	protected List<ComboboxData> getCityForRegion(final String regionISOCode)
 	{
 		List<ComboboxData> citys = new ArrayList<ComboboxData>();
@@ -206,6 +257,28 @@ public abstract class AbstractPageController
 	}
 	
 	protected void fillProductGroupsInModel(Model model)
+	{
+		List<ComboboxData> productGroups = convertProductGrouptoCombobox(productFacade.getProductGroups());
+		model.addAttribute("productGroups",productGroups);
+	}
+	
+	protected List<ComboboxData> getProductGroups(final String selected)
+	{
+		List<ComboboxData> productGroups =  convertProductGrouptoCombobox(productFacade.getProductGroups());
+		if(StringUtils.isNotEmpty(selected))
+			for(int i = 0; i < productGroups.size();i++)
+			{
+				if(selected.equals(productGroups.get(i).getCode()))
+				{
+					productGroups.get(i).setSelected(true);
+				   break;
+				}
+			}
+		
+		return productGroups;
+	}
+	
+	protected void fillCategorysInModel(Model model)
 	{
 		List<ComboboxData> productGroups = convertProductGrouptoCombobox(productFacade.getProductGroups());
 		model.addAttribute("productGroups",productGroups);

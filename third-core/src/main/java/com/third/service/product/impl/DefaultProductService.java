@@ -29,6 +29,13 @@ public class DefaultProductService implements ProductService
 		productDao.save(product);
 
 	}
+	
+	@Override
+	public void saveProduct(ProductModel product)
+	{
+		productDao.save(product);
+		
+	}
 
 	@Override
 	public void updateProduct(ProductModel product)
@@ -45,6 +52,12 @@ public class DefaultProductService implements ProductService
 	public PaginationSupport getProductList(Map<String, String> sp, final Integer startIndex, final Integer pageSize)
 	{
 		return productDao.getProductList(sp, startIndex, pageSize);
+	}
+	
+	@Override
+	public PaginationSupport getProductList1(Map<String, String[]> sp, final Integer startIndex, final Integer pageSize)
+	{
+		return productDao.getProductList1(sp, startIndex, pageSize);
 	}
 
 }

@@ -12,10 +12,23 @@ import com.third.dao.generic.GenericDAO;
 import com.third.dao.product.CategoryDao;
 import com.third.dao.util.PaginationSupport;
 import com.third.model.CategoryModel;
+import com.third.model.UserModel;
 
 
 public class DefaultCategoryDao extends GenericDAO<CategoryModel, String> implements CategoryDao
 {
+
+	@Override
+	public CategoryModel getCategoryForCode(String code)
+	{
+		DetachedCriteria criteria = DetachedCriteria.forClass(CategoryModel.class);
+
+		criteria.add(Restrictions.eq("code", code));
+
+		List<CategoryModel> categories = findByCriteria(criteria);
+		
+		return CollectionUtils.isNotEmpty(categories)?categories.get(0):null;
+	}
 	
 
 }

@@ -24,15 +24,20 @@ public class DefaultCategoryService implements CategoryService
 	}
 
 	@Override
-	public void getCategoryForCode(String code)
+	public CategoryModel getCategoryForCode(String code)
 	{
-		// TODO Auto-generated method stub
-		
+		return categoryDao.getCategoryForCode(code);
 	}
 
 	public void setCategoryDao(CategoryDao categoryDao)
 	{
 		this.categoryDao = categoryDao;
+	}
+
+	@Override
+	public List<CategoryModel> getCategories()
+	{
+		return categoryDao.list();
 	}
 	
 }

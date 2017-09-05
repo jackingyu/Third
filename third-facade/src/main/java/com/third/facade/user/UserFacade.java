@@ -68,6 +68,8 @@ public interface UserFacade
 	
 	UserData getCurrentUser();
 	
+	List<UserData> getSalesPerson(final String storeCode);
+	
 	boolean isAdmin();
 	
 	void loginSuccess(final String userId);

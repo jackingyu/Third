@@ -56,6 +56,7 @@
     function getQuery(formId){  
         var fid = "#" + formId;  
         var str = $(fid).serialize();  
+        str = decodeURIComponent(str,true);
         //str= cardSelectDate=3&startdate=2012-02-01&enddate=2012-02-04  
         var ob= strToObj(str); 
         return ob;

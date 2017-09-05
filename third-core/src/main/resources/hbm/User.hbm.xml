@@ -28,6 +28,11 @@
 			fetch="join">
 			<column name="usergroup" ></column>
 		</many-to-one>
+		<many-to-one name="store" lazy="false"
+			class="com.third.model.StoreModel" cascade="refresh"
+			fetch="join">
+			<column name="store" ></column>
+		</many-to-one>
 		<bag name="stores" table="user2store" inverse="false"
 			cascade="save-update" lazy="true">
 			<key column="userPK"></key>

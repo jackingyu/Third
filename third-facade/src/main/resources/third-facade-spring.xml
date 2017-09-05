@@ -37,6 +37,7 @@
 	     <property name="userService" ref="userService"/>
 	     <property name="menuService" ref="menuService"/>
 	     <property name="roleService" ref="roleService"/>
+	     <property name="storeService" ref="storeService"/>
 	</bean>
 	
 	<alias name="defaultAddressDataBuilder" alias="addressDataBuilder"></alias>
@@ -106,11 +107,19 @@
 	    <property name="storeDataPopulator" ref="storeDataPopulator"></property>
 	</bean>
 	
+	<alias name="defaultFIReportFacade" alias="FIReportFacade"></alias>
+	<bean id="defaultFIReportFacade" class="com.third.facade.store.impl.DefaultFIReportFacade">
+	    <property name="paymentService" ref="paymentService"></property>
+	</bean>
+	
 	<alias name="defaultProductFacade" alias="productFacade"></alias>
 	<bean id="defaultProductFacade" class="com.third.facade.product.impl.DefaultProductFacade">
 	    <property name="productService" ref="productService"></property>
 	    <property name="productGroupService" ref="productGroupService"></property>
 	    <property name="productGroupDataPopulator" ref="productGroupDataPopulator"></property>
+	    <property name="categoryDataPopulator" ref="categoryDataPopulator"></property>
+	    <property name="productDataPopulator" ref="productDataPopulator"></property>
+	    <property name="categoryService" ref="categoryService"></property>
 	</bean>
 	
 	<alias name="defaultOrderFacade" alias="orderFacade"></alias>
@@ -272,6 +281,10 @@
      
      <alias name="defaultProductGroupDataPopulator" alias="productGroupDataPopulator" />
      <bean id="defaultProductGroupDataPopulator" class="com.third.facade.populator.ProductGroupDataPopulator">
+     </bean>
+     
+     <alias name="defaultCategoryDataPopulator" alias="categoryDataPopulator" />
+     <bean id="defaultCategoryDataPopulator" class="com.third.facade.populator.CategoryDataPopulator">
      </bean>
      
      <bean id="lotsOrderDataBuilder" class="com.third.facade.testdata.builder.LotsOrderDataBuilder"></bean>

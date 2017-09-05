@@ -70,6 +70,39 @@ public class DefaultProductDao extends GenericDAO<ProductModel, String> implemen
 		logger.info(sb.toString());
 		return findPageByQuery(sb.toString(), pageSize, startIndex);
 	}
+	
+	@Override
+	public PaginationSupport getProductList1(Map<String, String[]> sp, final Integer startIndex, final Integer pageSize)
+	{
+		final StringBuilder sb = new StringBuilder("select p.code,p.producttitle,p.category.name,p.productGroup.name from ProductModel  p ");
+		String c1 = getArrayCondtion(sp, "productGroups", "p.productGroup");
+		String c2 = getArrayCondtion(sp, "categories", "p.category.code");
+		String c3 = getArrayCondtion(sp, "productCode", "p.code");
+		String c4 = StringUtils.EMPTY;
+		if(sp.containsKey("productTitle")&&sp.get("productTitle")!=null)
+			if(sp.get("productTitle").length >= 1&&StringUtils.isNotEmpty(sp.get("productTitle")[0]))
+			{
+				c4 = new StringBuilder("producttitle like '").append(generateLikeParameter(sp.get("productTitle")[0])).append("'").toString();
+			}
+		
+		List<String> condition = new ArrayList<String>();
+		
+		if(StringUtils.isNotEmpty(c3))
+			condition.add(c3);
+		if(StringUtils.isNotEmpty(c1))
+			condition.add(c1);
+		if(StringUtils.isNotEmpty(c2))
+			condition.add(c2);
+		if(StringUtils.isNotEmpty(c4))
+			condition.add(c4);
+		
+	   if(CollectionUtils.isNotEmpty(condition))
+	   {
+	   	sb.append("where ").append(StringUtils.join(condition.toArray(), " and "));
+	   }
+	   
+		return findPageByQuery(sb.toString(), pageSize, startIndex);
+	}
 
 
 

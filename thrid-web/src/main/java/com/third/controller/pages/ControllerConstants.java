@@ -70,6 +70,7 @@ public interface ControllerConstants
 		final static String MODIFYCUSTOMERPAGE = PAGE+"/customer/customerDetails";
 		final static String SOURCELISTPAGE = PAGE+"/customer/sourceList";
 		final static String SOURCELISTFORSTOREPAGE = PAGE+"/sales/sourceList";
+		final static String PAYMENTLISTPAGE = PAGE+"/fi/paymentList";
 
 		final static String USERLISTPAGE = PAGE+"/user/userList";
 		final static String USERDETAILSPAGE = PAGE+"/user/userDetails";
@@ -77,6 +78,9 @@ public interface ControllerConstants
 		static final String RESERVATIONLISTPAGE = PAGE+"/customer/reservationList";
 
 		static final String RESERVATIONDETAILSPAGE = FRAGEMENTS + "/customer/reservationDetails";
+
+		static final String PRODUCTLISTPAGE = PAGE+"/product/productList";
+		static final String MODIFYPRODUCTPAGE = PAGE+"/product/modifyProduct";
 
 	}
 	

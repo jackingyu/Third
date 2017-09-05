@@ -355,4 +355,20 @@ public class DefaultUserFacade implements UserFacade
 		return false;
 	}
 
+	@Override
+	public List<UserData> getSalesPerson(String storeCode)
+	{
+		String code = storeCode;
+		List<UserModel> userModels = userService.getSalesPerson(code);
+		List<UserData> userDatas = new ArrayList<UserData>();
+		
+		userModels.forEach( u ->{
+			UserData ud = new UserData();
+			userDataPopulator.populate(u, ud);
+			userDatas.add(ud);
+		});
+		
+		return userDatas;
+	}
+
 }

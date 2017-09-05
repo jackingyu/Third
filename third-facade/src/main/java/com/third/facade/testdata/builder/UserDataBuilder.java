@@ -9,6 +9,7 @@ import com.third.model.MenuModel;
 import com.third.model.RoleModel;
 import com.third.model.UserGroupModel;
 import com.third.model.UserModel;
+import com.third.service.store.StoreService;
 import com.third.service.user.MenuService;
 import com.third.service.user.RoleService;
 import com.third.service.user.UserService;
@@ -22,6 +23,7 @@ public class UserDataBuilder implements DataBuilder
 	private UserService userService;
 	private MenuService menuService;
 	private RoleService roleService;
+	private StoreService storeService;
 
 	public void buildData()
 	{
@@ -93,7 +95,7 @@ public class UserDataBuilder implements DataBuilder
 		lv3_reservation.setParentMenu(lv2_sales);
 		menuService.createMenu(lv3_reservation);
 
-		MenuModel lv3_orderprocess = this.buildMenu("24", 3, "条码管理", "/orderprocess/orderprocesspage", "fa-barcode");
+		MenuModel lv3_orderprocess = this.buildMenu("24", 3, "订单处理记录查询", "/orderprocess/orderprocesspage", "fa-barcode");
 		lv3_orderprocess.setParentMenu(lv2_sales);
 		menuService.createMenu(lv3_orderprocess);
 
@@ -133,12 +135,23 @@ public class UserDataBuilder implements DataBuilder
 		lv3_orderentrylist1.setParentMenu(lv2_factory);
 		menuService.createMenu(lv3_orderentrylist1);
 		
-		menuService.createMenu(lv3_userlist);
+		MenuModel lv3_product = this.buildMenu("34", 3, "布料列表", "/product/productlistpage", "fa-database");
+		lv3_product.setParentMenu(lv2_factory);
+		menuService.createMenu(lv3_product);
+		
+		
+		MenuModel lv2_report = this.buildMenu("4", 2, "财务报表", "#", "fa-money");
+		menuService.createMenu(lv2_report);
+		
+		MenuModel lv3_report1 = this.buildMenu("41", 3, "付款明细", "/payment/listpage", "fa-money");
+		lv3_report1.setParentMenu(lv2_report);
+		menuService.createMenu(lv3_report1);
 		
 		List<MenuModel> menus = Arrays.asList(lv3_userlist,lv3_source,
 				lv3_customer, lv3_orders, lv3_reservation, lv3_orderprocess,lv3_source1,
 				lv3_orderprocesslist,lv3_reservationlist,lv3_storereceipt,lv3_storedeliver,lv3_orderentrylist,
-				lv3_factorydeliver,lv3_orderentrylist1);
+				lv3_factorydeliver,lv3_orderentrylist1,lv3_product,
+				lv3_report1);
 		//create role
 
       RoleModel role_admin = buildRole("admin", "管理员", "管理员", menus);
@@ -170,6 +183,8 @@ public class UserDataBuilder implements DataBuilder
 			u.setName("test user"+i+"-"+j);
 			u.setPassword("test");
 			u.setUserGroup(userGroups.get(j));
+			u.setStore(storeService.getStoreForCode("s-1"));
+			u.setStores(storeService.getAllStores());
 			userService.createUser(u);
 		}
 	}
@@ -223,5 +238,9 @@ public class UserDataBuilder implements DataBuilder
 		this.roleService = roleService;
 	}
 
+	public void setStoreService(StoreService storeService)
+	{
+		this.storeService = storeService;
+	}
 
 }

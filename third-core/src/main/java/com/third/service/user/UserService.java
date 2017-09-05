@@ -87,4 +87,6 @@ public interface UserService
 	 */
 	PaginationSupport getUserList(String userId, String userName, Integer startIndex, Integer pageSize);
 	
+	List<UserModel> getSalesPerson(final String storeCode);
+	
 }

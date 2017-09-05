@@ -21,12 +21,15 @@ import com.third.model.OrderEntryModel;
 import com.third.model.OrderModel;
 import com.third.model.OrderProcessRecordModel;
 import com.third.model.PaymentModel;
+import com.third.model.SourceModel;
 import com.third.model.StoreModel;
 import com.third.service.customer.CustomerService;
+import com.third.service.customer.SourceService;
 import com.third.service.order.OrderProcessService;
 import com.third.service.order.OrderService;
 import com.third.service.product.ProductService;
 import com.third.service.store.StoreService;
+import com.third.service.user.UserService;
 
 
 public class LotsOrderDataBuilder 
@@ -39,15 +42,25 @@ public class LotsOrderDataBuilder
 
 	@Resource(name = "customerService")
 	private CustomerService customerService;
+	
+	@Resource(name = "userService")
+	private UserService userService;
 
 	@Resource(name = "productService")
 	private ProductService productService;
 	
 	@Resource(name="orderProcessService")
 	private OrderProcessService orderProcessService;
+	
+	@Resource(name = "sourceService")
+	private SourceService sourceService;
 
+	private List<SourceModel> sources;
+	
 	public void buildData(final Integer start,final Integer length)
 	{
+		sources = sourceService.getSources();
+		
 		for(int i = 0; i <length;i++)
 		{
 			Integer orderCode = start + i;
@@ -75,14 +88,14 @@ public class LotsOrderDataBuilder
 		Calendar calendar = Calendar.getInstance();
 		Date today = new Date();
 		orderModel.setDeliveryDate(getNextDay(today, RandomUtils.nextInt(0,365)));
-		orderModel.setOrderDate(today);
+		orderModel.setOrderDate(getNextDay(today, 365));
 		orderModel.setStore(storeService.getStoreForCode("s-1"));
 		orderModel.setPhotoDate(getNextDay(today, 3));
 		orderModel.setWeddingDate(getNextDay(today, 20));
 		orderModel.setStatus(0);
 		CustomerModel customer = buildCustomer("13800138001"+orderCode, "name"+orderCode);
 		orderModel.setCustomer(customer);
-
+      orderModel.setSalesperson(userService.getUserById("test"+RandomUtils.nextInt(0,20)));
 		StoreModel store = storeService.getStoreForCode("s-1");
 		orderModel.setStore(store);
 
@@ -92,8 +105,8 @@ public class LotsOrderDataBuilder
 		paymentModel.setPaymentEntryNo(10);
 		paymentModel.setAmount(BigDecimal.valueOf(100.00));
 		paymentModel.setPaidTime(Calendar.getInstance().getTime());
-
-
+      paymentModel.setStore(store);
+ 
 		List<PaymentModel> payments = new ArrayList<PaymentModel>();
 		payments.add(paymentModel);
 
@@ -105,6 +118,7 @@ public class LotsOrderDataBuilder
 			paymentModel1.setPaymentMethod(PaymentMethod.CreditCard);
 			paymentModel1.setPaymentType(PaymentType.NormalPayment);
 			paymentModel1.setPaymentEntryNo(10 + i);
+			paymentModel.setStore(store);
 			paymentModel1.setAmount(BigDecimal.valueOf(RandomUtils.nextInt(1, 199)));
 			paymentModel1.setPaidTime(Calendar.getInstance().getTime());
 			payments.add(paymentModel1);
@@ -159,6 +173,8 @@ public class LotsOrderDataBuilder
 		customer.setEmail("dd@tt.com");
 		customer.setComment("yekongzhongzuiliangdexing");
 		customer.setQQ("33445566");
+		customer.setSource(sources.get(RandomUtils.nextInt(0,5)));
+		
 		customerService.createCustomer(customer);
 		return customer;
 	}

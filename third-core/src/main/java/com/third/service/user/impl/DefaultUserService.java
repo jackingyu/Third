@@ -101,4 +101,10 @@ public class DefaultUserService implements UserService
 		this.userGroupDao = userGroupDao;
 	}
 
+	@Override
+	public List<UserModel> getSalesPerson(String storeCode)
+	{
+		return userDao.findSalesPerson(storeCode);
+	}
+
 }

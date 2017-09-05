@@ -74,7 +74,7 @@ public class ProductDataBuilder implements DataBuilder
 	public ProductGroupModel buildProductGroup(final String name)
 	{
 		ProductGroupModel productGroup = new ProductGroupModel();
-		productGroup.setName("5000-6000");
+		productGroup.setName(name);
 		productGroupService.createProductGroup(productGroup);
 		return productGroup;
 	}
