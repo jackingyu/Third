@@ -11,13 +11,14 @@ import org.springframework.security.web.authentication.logout.SimpleUrlLogoutSuc
 
 import com.third.facade.user.UserFacade;
 
-public class LogoutSuccessHandler extends SimpleUrlLogoutSuccessHandler
-{
+public class LogoutSuccessHandler extends SimpleUrlLogoutSuccessHandler {
 	private UserFacade userFacade;
-	
+
 	@Override
-	public void onLogoutSuccess(HttpServletRequest request, HttpServletResponse response,
-			Authentication authentication) throws IOException, ServletException {
+	public void onLogoutSuccess(HttpServletRequest request,
+			HttpServletResponse response, Authentication authentication)
+			throws IOException, ServletException
+	{
 		userFacade.logout();
 		super.handle(request, response, authentication);
 	}

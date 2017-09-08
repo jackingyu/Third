@@ -11,10 +11,9 @@ import com.third.facade.data.PaymentData;
 import com.third.model.OrderModel;
 import com.third.model.PaymentModel;
 
-
-public class OrderPaymentPopulator implements Populator<OrderModel, OrderData>
-{
-	private static final Logger LOG = Logger.getLogger(OrderPaymentPopulator.class);
+public class OrderPaymentPopulator implements Populator<OrderModel, OrderData> {
+	private static final Logger LOG = Logger
+			.getLogger(OrderPaymentPopulator.class);
 
 	private PaymentDataPopulator paymentDataPopulator;
 
@@ -22,10 +21,11 @@ public class OrderPaymentPopulator implements Populator<OrderModel, OrderData>
 	public void populate(OrderModel source, OrderData target)
 	{
 		List<PaymentData> payments = new ArrayList<PaymentData>();
-		List<PaymentModel> paymentModels = (List<PaymentModel>) source.getPayments();
+		List<PaymentModel> paymentModels = (List<PaymentModel>) source
+				.getPayments();
 
 		if (!CollectionUtils.isEmpty(paymentModels))
-			paymentModels.stream().filter( p -> p!=null ).forEach(p -> {
+			paymentModels.stream().filter(p -> p != null).forEach(p -> {
 				PaymentData paymentData = new PaymentData();
 				paymentDataPopulator.populate(p, paymentData);
 				payments.add(paymentData);
@@ -34,9 +34,8 @@ public class OrderPaymentPopulator implements Populator<OrderModel, OrderData>
 		target.setPayments(payments);
 	}
 
-	
-
-	public void setPaymentDataPopulator(PaymentDataPopulator paymentDataPopulator)
+	public void setPaymentDataPopulator(
+			PaymentDataPopulator paymentDataPopulator)
 	{
 		this.paymentDataPopulator = paymentDataPopulator;
 	}

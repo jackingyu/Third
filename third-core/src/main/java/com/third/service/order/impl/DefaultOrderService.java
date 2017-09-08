@@ -11,9 +11,7 @@ import com.third.model.OrderEntryModel;
 import com.third.model.OrderModel;
 import com.third.service.order.OrderService;
 
-
-public class DefaultOrderService implements OrderService
-{
+public class DefaultOrderService implements OrderService {
 	private OrderDao orderDao;
 	private OrderEntryDao orderEntryDao;
 
@@ -22,7 +20,6 @@ public class DefaultOrderService implements OrderService
 	{
 		return orderDao.findOrder(orderCode);
 	}
-
 
 	@Override
 	public void createOrder(OrderModel orderModel)
@@ -37,9 +34,11 @@ public class DefaultOrderService implements OrderService
 	}
 
 	@Override
-	public PaginationSupport getOrders(Date startDate, Date endDate, Integer startIndex, Integer pageSize, Map<String, String> sp)
+	public PaginationSupport getOrders(Date startDate, Date endDate,
+			Integer startIndex, Integer pageSize, Map<String, String> sp)
 	{
-		return orderDao.findOrders(startDate, endDate, startIndex, pageSize, sp);
+		return orderDao.findOrders(startDate, endDate, startIndex, pageSize,
+				sp);
 	}
 
 	@Override
@@ -57,18 +56,15 @@ public class DefaultOrderService implements OrderService
 		orderEntryDao.update(orderEntry);
 	}
 
-
 	public void setOrderDao(OrderDao orderDao)
 	{
 		this.orderDao = orderDao;
 	}
 
-
 	public void setOrderEntryDao(OrderEntryDao orderEntryDao)
 	{
 		this.orderEntryDao = orderEntryDao;
 	}
-
 
 	@Override
 	public void removeOrderEntry(String orderEntryPK)
@@ -78,13 +74,11 @@ public class DefaultOrderService implements OrderService
 		orderEntryDao.delete(orderEntry);
 	}
 
-
 	@Override
 	public OrderEntryModel getOrderEntry(String entryPK)
 	{
 		return orderEntryDao.get(entryPK);
 	}
-
 
 	@Override
 	public List<OrderModel> getOrdersForCustomer(String customerPK)
@@ -92,18 +86,17 @@ public class DefaultOrderService implements OrderService
 		return orderDao.findOrdersForCustomer(customerPK);
 	}
 
-
 	@Override
 	public OrderEntryModel getOrderEntryForExternalId(String externalId)
 	{
 		return orderEntryDao.findOrderEntryByExternalId(externalId);
 	}
 
-
 	@Override
-	public PaginationSupport getOrderEntries(Date startDate, Date endDate, Integer startIndex, Integer pageSize,
-			Map<String, String> sp)
+	public PaginationSupport getOrderEntries(Date startDate, Date endDate,
+			Integer startIndex, Integer pageSize, Map<String, String> sp)
 	{
-		return orderEntryDao.findOrderEntries(startDate, endDate, startIndex, pageSize, sp);
+		return orderEntryDao.findOrderEntries(startDate, endDate, startIndex,
+				pageSize, sp);
 	}
 }

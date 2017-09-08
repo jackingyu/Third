@@ -3,12 +3,10 @@ package com.third.facade.data;
 import java.util.ArrayList;
 import java.util.List;
 
-
 /**
  * for list style data,current is suitable for easyui grid
  */
-public class ListData
-{
+public class ListData {
 	private Integer total = 0;
 
 	private List<Object> rows = new ArrayList<Object>();

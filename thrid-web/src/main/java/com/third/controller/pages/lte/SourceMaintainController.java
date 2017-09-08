@@ -21,11 +21,10 @@ import com.third.facade.customer.SourceFacade;
 import com.third.facade.data.DTResults;
 import com.third.facade.data.SourceData;
 
-
 @Controller
-public class SourceMaintainController extends AbstractPageController
-{
-	private static final Logger LOG = Logger.getLogger(com.third.controller.pages.lte.SourceMaintainController.class);
+public class SourceMaintainController extends AbstractPageController {
+	private static final Logger LOG = Logger.getLogger(
+			com.third.controller.pages.lte.SourceMaintainController.class);
 
 	@Resource(name = "sourceFacade")
 	private SourceFacade sourceFacade;
@@ -35,32 +34,34 @@ public class SourceMaintainController extends AbstractPageController
 	{
 		return ControllerConstants.LTE.SOURCELISTPAGE;
 	}
-	
+
 	@RequestMapping(value = "/source/listforstorepage", method = RequestMethod.GET)
 	public String sourceListForStorePage(Model model)
 	{
 		fillAllSourceInView(model);
-	   fillStore2View(model);
+		fillStore2View(model);
 		return ControllerConstants.LTE.SOURCELISTFORSTOREPAGE;
 	}
 
 	@RequestMapping(value = "/source/save", method = RequestMethod.POST)
 	@ResponseBody
-	public void saveSource(@RequestParam(value = "name", required = true) final String name,
+	public void saveSource(
+			@RequestParam(value = "name", required = true) final String name,
 			@RequestParam(value = "pk", required = false) final String pk)
 	{
 		SourceData source = new SourceData();
 		source.setName(name);
-		
-		if(StringUtils.isNotEmpty(pk))
+
+		if (StringUtils.isNotEmpty(pk))
 			source.setPk(pk);
-		
+
 		sourceFacade.saveSource(source);
 	}
 
 	@RequestMapping(value = "/source/list")
 	@ResponseBody
-	public Object getSourceList(@RequestParam(value = "name", required = false) final String name,
+	public Object getSourceList(
+			@RequestParam(value = "name", required = false) final String name,
 			final DataTableCriterias criterias)
 	{
 
@@ -73,49 +74,51 @@ public class SourceMaintainController extends AbstractPageController
 
 		for (int i = 0; i < sources.size(); i++)
 		{
-			Object[] row =
-			{ sources.get(i).getName(), sources.get(i).getPk() };
+			Object[] row = { sources.get(i).getName(), sources.get(i).getPk() };
 			results.add(row);
 		}
 		r.setData(results);
 
 		return r;
 	}
-	
+
 	@RequestMapping(value = "/source/listforstore")
 	@ResponseBody
-	public Object getSourceListForStore(@RequestParam(value = "storeCode", required = false) final String storeCode,
+	public Object getSourceListForStore(
+			@RequestParam(value = "storeCode", required = false) final String storeCode,
 			final DataTableCriterias criterias)
 	{
 		DTResults r = new DTResults();
-		List<SourceData> sources = sourceFacade.getSourceForStoreCode(storeCode);
-		
+		List<SourceData> sources = sourceFacade
+				.getSourceForStoreCode(storeCode);
+
 		r.setRecordsFiltered(sources.size());
 		r.setRecordsTotal(sources.size());
 		List<Object[]> results = new ArrayList<Object[]>();
-		
+
 		for (int i = 0; i < sources.size(); i++)
 		{
-			Object[] row =
-				{ sources.get(i).getName(), sources.get(i).getPk() };
+			Object[] row = { sources.get(i).getName(), sources.get(i).getPk() };
 			results.add(row);
 		}
 		r.setData(results);
-		
+
 		return r;
 	}
-	
+
 	@RequestMapping(value = "/source/source2store")
 	@ResponseBody
-	public void assignSource2Store(@RequestParam(value = "storeCode", required = true) final String storeCode,
+	public void assignSource2Store(
+			@RequestParam(value = "storeCode", required = true) final String storeCode,
 			@RequestParam(value = "sourcePKs", required = false) final List<String> sourcePKs)
 	{
 		sourceFacade.assignSource2Store(sourcePKs, storeCode);
 	}
-	
+
 	@RequestMapping(value = "/source/removesourcefromstore")
 	@ResponseBody
-	public void removeSourceFromStore(@RequestParam(value = "storeCode", required = true) final String storeCode,
+	public void removeSourceFromStore(
+			@RequestParam(value = "storeCode", required = true) final String storeCode,
 			@RequestParam(value = "sourcePK", required = true) final String sourcePK)
 	{
 		sourceFacade.removeSourceFromStore(sourcePK, storeCode);

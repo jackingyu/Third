@@ -1,12 +1,11 @@
 package com.third.facade.data;
 
-public class ProductData extends AbstractData
-{
+public class ProductData extends AbstractData {
 	private String code;
-   private String producttitle;
-   private String producttype;
-   private CategoryData category;
-   private ProductGroupData productGroup;
+	private String producttitle;
+	private String producttype;
+	private CategoryData category;
+	private ProductGroupData productGroup;
 
 	public String getCode()
 	{
@@ -57,5 +56,5 @@ public class ProductData extends AbstractData
 	{
 		this.productGroup = productGroup;
 	}
-	
+
 }

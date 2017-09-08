@@ -25,17 +25,14 @@ import com.third.facade.data.UserData;
 import com.third.facade.data.UserGroupData;
 import com.third.facade.user.UserFacade;
 
-
 @Controller
-public class UserPageController extends AbstractPageController
-{
-	private static final Logger LOG = Logger.getLogger(UserPageController.class);
+public class UserPageController extends AbstractPageController {
+	private static final Logger LOG = Logger
+			.getLogger(UserPageController.class);
 	private static final String USERID_PATH_VARIABLE_PATTERN = "/{userId:.*}";
 
 	@Autowired
 	private UserFacade userFacade;
-
-
 
 	@RequestMapping(value = "/user/userlistpage", method = RequestMethod.GET)
 	public String getUserListPage()
@@ -51,8 +48,11 @@ public class UserPageController extends AbstractPageController
 		return ControllerConstants.LTE.USERDETAILSPAGE;
 	}
 
-	@RequestMapping(value = "/user/modifyuserpage" + USERID_PATH_VARIABLE_PATTERN, method = RequestMethod.GET)
-	public String getModifyUserPage(@PathVariable(value = "userId") final String userId, final Model model)
+	@RequestMapping(value = "/user/modifyuserpage"
+			+ USERID_PATH_VARIABLE_PATTERN, method = RequestMethod.GET)
+	public String getModifyUserPage(
+			@PathVariable(value = "userId") final String userId,
+			final Model model)
 	{
 		UserData user = userFacade.getUserById(userId);
 
@@ -63,14 +63,15 @@ public class UserPageController extends AbstractPageController
 		return ControllerConstants.LTE.USERDETAILSPAGE;
 	}
 
-
-
 	@RequestMapping(value = "/user/userlist")
 	@ResponseBody
-	public Object getUserList(@RequestParam(value = "userName", required = false) final String userName,
-			@RequestParam(value = "userId", required = false) final String userId, final DataTableCriterias criterias)
+	public Object getUserList(
+			@RequestParam(value = "userName", required = false) final String userName,
+			@RequestParam(value = "userId", required = false) final String userId,
+			final DataTableCriterias criterias)
 	{
-		ListData results = userFacade.getUsers(userId, userName, getStartIndexForDT(criterias), getPagesizeForDT(criterias));
+		ListData results = userFacade.getUsers(userId, userName,
+				getStartIndexForDT(criterias), getPagesizeForDT(criterias));
 
 		List<Object> users = results.getRows();
 		List<String[]> arrayDatas = new ArrayList<String[]>();
@@ -83,14 +84,18 @@ public class UserPageController extends AbstractPageController
 			String[] row = new String[5];
 			row[0] = userData.getUserId();
 			row[1] = userData.getName();
-			row[2] = userData.getUserGroup() != null ? userData.getUserGroup().getName() : "";
+			row[2] = userData.getUserGroup() != null
+					? userData.getUserGroup().getName()
+					: "";
 
 			StringBuilder stores = new StringBuilder();
 
 			if (CollectionUtils.isNotEmpty(userData.getStores()))
 				for (int j = 0; j < userData.getStores().size(); j++)
 				{
-					stores = stores.append(userData.getStores().get(j).getName()).append(" ");
+					stores = stores
+							.append(userData.getStores().get(j).getName())
+							.append(" ");
 				}
 
 			row[3] = stores.toString();
@@ -105,11 +110,13 @@ public class UserPageController extends AbstractPageController
 
 	@RequestMapping(value = "/user/save", method = RequestMethod.POST)
 	public String saveUser(@RequestParam(value = "userId") final String userId,
-			@RequestParam(value = "userPK") final String userPK, @RequestParam(value = "name") final String name,
+			@RequestParam(value = "userPK") final String userPK,
+			@RequestParam(value = "name") final String name,
 			@RequestParam(value = "blocked", required = false) final boolean blocked,
 			@RequestParam(value = "password", required = false) final String password,
 			@RequestParam(value = "stores", required = false) final List<String> storeCodes,
-			@RequestParam(value = "usergroupPK") final String userGroupPk, final Model model)
+			@RequestParam(value = "usergroupPK") final String userGroupPk,
+			final Model model)
 	{
 		UserData user = new UserData();
 		user.setName(name);
@@ -132,23 +139,21 @@ public class UserPageController extends AbstractPageController
 			user.setStores(stores);
 		}
 
-
 		if (StringUtils.isEmpty(userPK))
 			userFacade.createUser(user);
 		else
 			userFacade.updateUser(user);
-
 
 		model.addAttribute("message", "保存成功!");
 
 		return REDIRECT_PREFIX + "/user/modifyuserpage/" + userId;
 	}
 
-
-
-	private void fillUserGroupInView(final Model model, final String selectedGroup)
+	private void fillUserGroupInView(final Model model,
+			final String selectedGroup)
 	{
-		List<Object> groups = userFacade.getUserGroups("", "", 0, 9999).getRows();
+		List<Object> groups = userFacade.getUserGroups("", "", 0, 9999)
+				.getRows();
 
 		List<ComboboxData> results = new ArrayList<ComboboxData>();
 		for (int i = 0; i < groups.size(); i++)
@@ -159,7 +164,8 @@ public class UserPageController extends AbstractPageController
 			c.setCode(u.getPk());
 			c.setText(u.getName());
 
-			if (StringUtils.isNotEmpty(selectedGroup) && c.getCode().equals(selectedGroup))
+			if (StringUtils.isNotEmpty(selectedGroup)
+					&& c.getCode().equals(selectedGroup))
 				c.setSelected(true);
 
 			results.add(c);

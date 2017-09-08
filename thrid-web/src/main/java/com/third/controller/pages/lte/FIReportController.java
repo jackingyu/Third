@@ -25,33 +25,30 @@ import com.third.facade.data.DTResults;
 import com.third.facade.data.SourceData;
 import com.third.facade.store.FIReportFacade;
 
-
 @Controller
-public class FIReportController extends AbstractPageController
-{
-	private static final Logger LOG = Logger.getLogger(com.third.controller.pages.lte.FIReportController.class);
+public class FIReportController extends AbstractPageController {
+	private static final Logger LOG = Logger
+			.getLogger(com.third.controller.pages.lte.FIReportController.class);
 
-	@Resource(name="FIReportFacade")
-   private FIReportFacade fiReportFacade;
-	
+	@Resource(name = "FIReportFacade")
+	private FIReportFacade fiReportFacade;
+
 	@RequestMapping(value = "/payment/listpage", method = RequestMethod.GET)
 	public String paymentListPage(Model model)
 	{
-	
+
 		fillAllStore2View(model);
 		fillSourceInModel(model);
 		fillPaymentMethods2View(model);
 		fillOrderStatus2View(model);
-		model.addAttribute("salesPersons",getSalesPerson());
+		model.addAttribute("salesPersons", getSalesPerson());
 		return ControllerConstants.LTE.PAYMENTLISTPAGE;
 	}
 
-
-
-
 	@RequestMapping(value = "/payment/getlist")
 	@ResponseBody
-	public Object getPaymentList(@RequestParam(value = "storeCodes", required = false) final String[] storeCodes,
+	public Object getPaymentList(
+			@RequestParam(value = "storeCodes", required = false) final String[] storeCodes,
 			@RequestParam(value = "sourcePKs", required = false) final String[] sourcePKs,
 			@RequestParam(value = "paymentMethods", required = false) final String[] paymentMethods,
 			@RequestParam(value = "orderStatus", required = false) final String[] orderStatus,
@@ -67,10 +64,10 @@ public class FIReportController extends AbstractPageController
 		sp.put("paymentMethods", paymentMethods);
 		sp.put("orderStatus", orderStatus);
 		sp.put("salesPersons", salesPersons);
-		DTResults r = fiReportFacade.getPaymentList(startDate, endDate,criterias.getStart(), criterias.getLength(), sp);
-		
+		DTResults r = fiReportFacade.getPaymentList(startDate, endDate,
+				criterias.getStart(), criterias.getLength(), sp);
+
 		return r;
 	}
-	
 
 }

@@ -12,9 +12,7 @@ import com.third.dao.util.PaginationSupport;
 import com.third.model.ProductModel;
 import com.third.service.product.ProductService;
 
-
-public class DefaultProductService implements ProductService
-{
+public class DefaultProductService implements ProductService {
 	private ProductDao productDao;
 
 	@Override
@@ -29,12 +27,12 @@ public class DefaultProductService implements ProductService
 		productDao.save(product);
 
 	}
-	
+
 	@Override
 	public void saveProduct(ProductModel product)
 	{
 		productDao.save(product);
-		
+
 	}
 
 	@Override
@@ -49,13 +47,15 @@ public class DefaultProductService implements ProductService
 	}
 
 	@Override
-	public PaginationSupport getProductList(Map<String, String> sp, final Integer startIndex, final Integer pageSize)
+	public PaginationSupport getProductList(Map<String, String> sp,
+			final Integer startIndex, final Integer pageSize)
 	{
 		return productDao.getProductList(sp, startIndex, pageSize);
 	}
-	
+
 	@Override
-	public PaginationSupport getProductList1(Map<String, String[]> sp, final Integer startIndex, final Integer pageSize)
+	public PaginationSupport getProductList1(Map<String, String[]> sp,
+			final Integer startIndex, final Integer pageSize)
 	{
 		return productDao.getProductList1(sp, startIndex, pageSize);
 	}

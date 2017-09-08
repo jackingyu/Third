@@ -2,12 +2,10 @@ package com.third.facade.data;
 
 import java.util.List;
 
-
 /**
  * user data
  */
-public class UserData extends AbstractData
-{
+public class UserData extends AbstractData {
 
 	public String userId;
 	public String name;

@@ -19,18 +19,17 @@ import com.third.facade.order.OrderFacade;
 import com.third.facade.order.OrderProcessFacade;
 import com.third.facade.utils.TextMapperUtils;
 
-
 @Controller
-public class OrderProcess1Controller extends AbstractPageController
-{
-	private static final Logger LOG = Logger.getLogger(OrderProcess1Controller.class);
+public class OrderProcess1Controller extends AbstractPageController {
+	private static final Logger LOG = Logger
+			.getLogger(OrderProcess1Controller.class);
 
 	@Resource(name = "orderFacade")
 	private OrderFacade orderFacade;
 
 	@Resource(name = "textMapperUtils")
 	private TextMapperUtils textMapperUtils;
-	
+
 	@Resource(name = "orderProcessFacade")
 	private OrderProcessFacade orderProcessFacade;
 
@@ -39,29 +38,29 @@ public class OrderProcess1Controller extends AbstractPageController
 	{
 		return ControllerConstants.Fragements.ORDERPROCESS;
 	}
-	
+
 	@RequestMapping(value = "/processOrder", method = RequestMethod.POST)
 	@ResponseBody
-	public Object processOrder(@RequestParam(value = "orderCode") final String orderCode,
+	public Object processOrder(
+			@RequestParam(value = "orderCode") final String orderCode,
 			@RequestParam(value = "status") final Integer status,
 			final HttpServletRequest request,
-			final HttpServletResponse response) 
+			final HttpServletResponse response)
 	{
 		try
 		{
 			orderProcessFacade.processOrder(orderCode, status);
-		}
-		catch (NoQualifiedTargetStatusException e)
+		} catch (NoQualifiedTargetStatusException e)
 		{
 			response.setStatus(500);
-			return new ResponseMessage("目标状态不合法,当前订单状态为"+e.getCurrentStatus());
-		}
-		catch (NotFoundException e)
+			return new ResponseMessage(
+					"目标状态不合法,当前订单状态为" + e.getCurrentStatus());
+		} catch (NotFoundException e)
 		{
 			response.setStatus(500);
 			return new ResponseMessage("订单不存在");
 		}
-		
+
 		return orderProcessFacade.getProcessRecordForOrder(orderCode);
 	}
 

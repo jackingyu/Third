@@ -141,7 +141,7 @@
 	     <property name="orderEntryDao" ref="orderEntryDao" />
 	     <property name="orderProcessRecordDao" ref="orderProcessRecordDao" />
 	</bean>
-   <alias name="defaultSalesQuatioinService" alias="salesQuationService"></alias>
+   <alias name="defaultSalesQuationService" alias="salesQuationService"></alias>
 	<bean id="defaultSalesQuationService" class="com.third.service.order.impl.DefaultSalesQuationService">
 	     <property name="salesQuationDao" ref="salesQuationDao" />
 	</bean>

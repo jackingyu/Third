@@ -16,11 +16,10 @@ import com.third.facade.data.RoleData;
 import com.third.facade.data.UserGroupData;
 import com.third.facade.user.UserFacade;
 
-
 @Controller
-public class UserGroupPage1Controller extends AbstractPageController
-{
-	private static final Logger LOG = Logger.getLogger(UserGroupPage1Controller.class);
+public class UserGroupPage1Controller extends AbstractPageController {
+	private static final Logger LOG = Logger
+			.getLogger(UserGroupPage1Controller.class);
 	@Autowired
 	private UserFacade userFacade;
 
@@ -32,19 +31,22 @@ public class UserGroupPage1Controller extends AbstractPageController
 
 	@RequestMapping(value = "/getUserGroupList")
 	@ResponseBody
-	public Object getUserGroupList(@RequestParam(value = "userGroupName", required = false) final String userGroupName,
+	public Object getUserGroupList(
+			@RequestParam(value = "userGroupName", required = false) final String userGroupName,
 			@RequestParam(value = "userGroupId", required = false) final String userGroupId,
 			@RequestParam(value = "page", required = false) final Integer page,
 			@RequestParam(value = "rows", required = false) final Integer rows)
 	{
-		ListData userGroups = userFacade.getUserGroups(userGroupId, userGroupName, (page - 1) * rows, rows);
+		ListData userGroups = userFacade.getUserGroups(userGroupId,
+				userGroupName, (page - 1) * rows, rows);
 
 		return userGroups;
 	}
 
 	@RequestMapping(value = "/createUserGroup", method = RequestMethod.POST)
 	@ResponseBody
-	public void createUserGroup(@RequestParam(value = "groupId") final String userGroupId,
+	public void createUserGroup(
+			@RequestParam(value = "groupId") final String userGroupId,
 			@RequestParam(value = "name") final String userGroupName,
 			@RequestParam(value = "roleList", required = false) final String roleList)
 	{
@@ -71,8 +73,10 @@ public class UserGroupPage1Controller extends AbstractPageController
 
 	@RequestMapping(value = "/modifyUserGroup", method = RequestMethod.POST)
 	@ResponseBody
-	public void modifyUserGroup(@RequestParam(value = "groupId") final String userGroupId,
-			@RequestParam(value = "name") final String userGroupName, @RequestParam(value = "pk") final String pk,
+	public void modifyUserGroup(
+			@RequestParam(value = "groupId") final String userGroupId,
+			@RequestParam(value = "name") final String userGroupName,
+			@RequestParam(value = "pk") final String pk,
 			@RequestParam(value = "roleList", required = false) final String roleList)
 	{
 		UserGroupData userGroup = new UserGroupData();
@@ -106,7 +110,8 @@ public class UserGroupPage1Controller extends AbstractPageController
 
 	@RequestMapping(value = "/getRolesForUserGroup")
 	@ResponseBody
-	public Object getRoles(@RequestParam(value = "userGroupPK") final String userGroupPK)
+	public Object getRoles(
+			@RequestParam(value = "userGroupPK") final String userGroupPK)
 	{
 		return userFacade.getRolesForUserGroup(userGroupPK);
 	}

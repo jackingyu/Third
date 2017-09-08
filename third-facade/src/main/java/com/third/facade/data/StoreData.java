@@ -1,7 +1,6 @@
 package com.third.facade.data;
 
-public class StoreData extends AbstractData
-{
+public class StoreData extends AbstractData {
 	private String name;
 	private String code;
 	private AddressData address;
@@ -35,5 +34,5 @@ public class StoreData extends AbstractData
 	{
 		this.address = address;
 	}
-	
+
 }

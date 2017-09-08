@@ -17,11 +17,10 @@ import com.third.facade.data.UserData;
 import com.third.facade.user.UserFacade;
 import com.third.service.user.UserService;
 
-
 @Controller
-public class LoginPage1Controller
-{
-	private static final Logger LOG = Logger.getLogger(LoginPage1Controller.class);
+public class LoginPage1Controller {
+	private static final Logger LOG = Logger
+			.getLogger(LoginPage1Controller.class);
 
 	@Autowired
 	private UserService userService;

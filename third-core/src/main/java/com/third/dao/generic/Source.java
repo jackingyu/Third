@@ -1,7 +1,6 @@
 package com.third.dao.generic;
 
-public enum Source
-{
+public enum Source {
 	Exhibition("展会", 1), CoCompany("合作伙伴", 2);
 
 	private String name;

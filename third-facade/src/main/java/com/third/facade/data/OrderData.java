@@ -3,9 +3,7 @@ package com.third.facade.data;
 import java.util.Date;
 import java.util.List;
 
-
-public class OrderData extends AbstractData
-{
+public class OrderData extends AbstractData {
 	private String orderCode;
 
 	private CustomerData customer;
@@ -29,9 +27,9 @@ public class OrderData extends AbstractData
 	private List<OrderEntryData> entries;
 	private String customerName;
 	private String contactinfo;
-   private Integer status;
-   private String statusText;
-   
+	private Integer status;
+	private String statusText;
+
 	public String getOrderCode()
 	{
 		return orderCode;
@@ -51,7 +49,6 @@ public class OrderData extends AbstractData
 	{
 		this.coSalesperson = coSalesperson;
 	}
-
 
 	public String getCellphone()
 	{

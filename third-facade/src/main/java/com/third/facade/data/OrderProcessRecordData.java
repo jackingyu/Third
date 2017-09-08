@@ -2,8 +2,7 @@ package com.third.facade.data;
 
 import java.util.Date;
 
-public class OrderProcessRecordData extends AbstractData
-{
+public class OrderProcessRecordData extends AbstractData {
 	private String orderCode;
 	private String fromStatusText;
 	private String toStatusText;
@@ -52,7 +51,6 @@ public class OrderProcessRecordData extends AbstractData
 		this.message = message;
 	}
 
-	
 	public String getUserId()
 	{
 		return userId;

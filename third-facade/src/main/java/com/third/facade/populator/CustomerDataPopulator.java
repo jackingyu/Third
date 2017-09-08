@@ -5,9 +5,8 @@ import com.third.facade.data.CustomerData;
 import com.third.facade.data.SourceData;
 import com.third.model.CustomerModel;
 
-
-public class CustomerDataPopulator implements Populator<CustomerModel, CustomerData>
-{
+public class CustomerDataPopulator
+		implements Populator<CustomerModel, CustomerData> {
 	private AddressDataPopulator addressDataPopulator;
 	private SourceDataPopulator sourceDataPopulator;
 
@@ -30,7 +29,7 @@ public class CustomerDataPopulator implements Populator<CustomerModel, CustomerD
 
 			target.setAddress(address);
 		}
-		
+
 		SourceData sourceData = new SourceData();
 		if (source.getSource() != null)
 			sourceDataPopulator.populate(source.getSource(), sourceData);
@@ -38,7 +37,8 @@ public class CustomerDataPopulator implements Populator<CustomerModel, CustomerD
 		target.setSource(sourceData);
 	}
 
-	public void setAddressDataPopulator(AddressDataPopulator addressDataPopulator)
+	public void setAddressDataPopulator(
+			AddressDataPopulator addressDataPopulator)
 	{
 		this.addressDataPopulator = addressDataPopulator;
 	}

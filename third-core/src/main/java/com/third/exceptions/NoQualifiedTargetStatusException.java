@@ -1,7 +1,6 @@
 package com.third.exceptions;
 
-public class NoQualifiedTargetStatusException extends SystemException
-{
+public class NoQualifiedTargetStatusException extends SystemException {
 	private String currentStatus;
 
 	public String getCurrentStatus()
@@ -13,5 +12,5 @@ public class NoQualifiedTargetStatusException extends SystemException
 	{
 		this.currentStatus = currentStatus;
 	}
-	
+
 }

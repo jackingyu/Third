@@ -16,15 +16,14 @@ import com.third.facade.data.UserData;
 import com.third.facade.user.UserFacade;
 import com.third.facade.utils.TextMapperUtils;
 
-
 @Controller
-public class ComboboxData1Controller extends AbstractPageController
-{
-	private static final Logger LOG = Logger.getLogger(ComboboxData1Controller.class);
+public class ComboboxData1Controller extends AbstractPageController {
+	private static final Logger LOG = Logger
+			.getLogger(ComboboxData1Controller.class);
 
 	@Resource(name = "textMapperUtils")
 	private TextMapperUtils textMapperUtils;
-	
+
 	@Resource(name = "userFacade")
 	private UserFacade userFacade;
 
@@ -48,26 +47,26 @@ public class ComboboxData1Controller extends AbstractPageController
 	{
 		return textMapperUtils.getItemCategories();
 	}
-	
+
 	@RequestMapping(value = "/getStoresForUser")
 	@ResponseBody
 	public Object getStores()
 	{
 		UserData user = userFacade.getCurrentUser();
 		List<ComboboxData> results = new ArrayList<ComboboxData>();
-		for(int i = 0;i < user.getStores().size();i++)
+		for (int i = 0; i < user.getStores().size(); i++)
 		{
 			StoreData storeData = user.getStores().get(i);
 			ComboboxData e = new ComboboxData();
 			e.setCode(storeData.getCode());
 			e.setText(storeData.getName());
-			
-			if(i == 0)
+
+			if (i == 0)
 				e.setSelected(true);
-			
+
 			results.add(e);
 		}
-		
+
 		return results;
 	}
 

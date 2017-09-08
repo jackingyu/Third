@@ -6,9 +6,7 @@ import java.util.List;
 import com.third.facade.data.ComboboxData;
 import com.third.facade.data.TextMapper;
 
-
-public class TextMapperUtils
-{
+public class TextMapperUtils {
 	public static List<ComboboxData> getPaymentTypes()
 	{
 		List<ComboboxData> results = new ArrayList<ComboboxData>();
@@ -47,7 +45,7 @@ public class TextMapperUtils
 
 		return results;
 	}
-	
+
 	public static List<ComboboxData> getOrderStatus()
 	{
 		List<ComboboxData> results = new ArrayList<ComboboxData>();
@@ -57,15 +55,15 @@ public class TextMapperUtils
 			combobox.setText(s.getValue());
 			results.add(combobox);
 		});
-		
+
 		return results;
 	}
-	
+
 	public static String getOrderStatusText(final Integer status)
 	{
 		return TextMapper.OrderStatus.get(status.toString());
 	}
-	
+
 	public static String getItemCategoryText(final String itemCategory)
 	{
 		return TextMapper.ItemCategory.get(itemCategory);

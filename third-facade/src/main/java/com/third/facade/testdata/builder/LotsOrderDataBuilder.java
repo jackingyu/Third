@@ -31,9 +31,7 @@ import com.third.service.product.ProductService;
 import com.third.service.store.StoreService;
 import com.third.service.user.UserService;
 
-
-public class LotsOrderDataBuilder 
-{
+public class LotsOrderDataBuilder {
 	@Resource(name = "orderService")
 	private OrderService orderService;
 
@@ -42,31 +40,31 @@ public class LotsOrderDataBuilder
 
 	@Resource(name = "customerService")
 	private CustomerService customerService;
-	
+
 	@Resource(name = "userService")
 	private UserService userService;
 
 	@Resource(name = "productService")
 	private ProductService productService;
-	
-	@Resource(name="orderProcessService")
+
+	@Resource(name = "orderProcessService")
 	private OrderProcessService orderProcessService;
-	
+
 	@Resource(name = "sourceService")
 	private SourceService sourceService;
 
 	private List<SourceModel> sources;
-	
-	public void buildData(final Integer start,final Integer length)
+
+	public void buildData(final Integer start, final Integer length)
 	{
 		sources = sourceService.getSources();
-		
-		for(int i = 0; i <length;i++)
+
+		for (int i = 0; i < length; i++)
 		{
 			Integer orderCode = start + i;
-			buildOrder("m"+orderCode.toString());
+			buildOrder("m" + orderCode.toString());
 		}
-		
+
 	}
 
 	public void buildOrderProcess(final OrderModel orderModel)
@@ -78,7 +76,7 @@ public class LotsOrderDataBuilder
 		op.setToStatus("1");
 		orderProcessService.createOrderProcess(op);
 	}
-	
+
 	public OrderModel buildOrder(final String orderCode)
 	{
 		OrderModel orderModel = new OrderModel();
@@ -87,15 +85,18 @@ public class LotsOrderDataBuilder
 
 		Calendar calendar = Calendar.getInstance();
 		Date today = new Date();
-		orderModel.setDeliveryDate(getNextDay(today, RandomUtils.nextInt(0,365)));
+		orderModel.setDeliveryDate(
+				getNextDay(today, RandomUtils.nextInt(0, 365)));
 		orderModel.setOrderDate(getNextDay(today, 365));
 		orderModel.setStore(storeService.getStoreForCode("s-1"));
 		orderModel.setPhotoDate(getNextDay(today, 3));
 		orderModel.setWeddingDate(getNextDay(today, 20));
 		orderModel.setStatus(0);
-		CustomerModel customer = buildCustomer("13800138001"+orderCode, "name"+orderCode);
+		CustomerModel customer = buildCustomer("13800138001" + orderCode,
+				"name" + orderCode);
 		orderModel.setCustomer(customer);
-      orderModel.setSalesperson(userService.getUserById("test"+RandomUtils.nextInt(0,20)));
+		orderModel.setSalesperson(
+				userService.getUserById("test" + RandomUtils.nextInt(0, 20)));
 		StoreModel store = storeService.getStoreForCode("s-1");
 		orderModel.setStore(store);
 
@@ -105,13 +106,13 @@ public class LotsOrderDataBuilder
 		paymentModel.setPaymentEntryNo(10);
 		paymentModel.setAmount(BigDecimal.valueOf(100.00));
 		paymentModel.setPaidTime(Calendar.getInstance().getTime());
-      paymentModel.setStore(store);
- 
+		paymentModel.setStore(store);
+
 		List<PaymentModel> payments = new ArrayList<PaymentModel>();
 		payments.add(paymentModel);
 
 		BigDecimal paidamount = new BigDecimal(100);
-		
+
 		for (int i = 0; i < 5; i++)
 		{
 			PaymentModel paymentModel1 = new PaymentModel();
@@ -119,15 +120,18 @@ public class LotsOrderDataBuilder
 			paymentModel1.setPaymentType(PaymentType.NormalPayment);
 			paymentModel1.setPaymentEntryNo(10 + i);
 			paymentModel.setStore(store);
-			paymentModel1.setAmount(BigDecimal.valueOf(RandomUtils.nextInt(1, 199)));
+			paymentModel1
+					.setAmount(BigDecimal.valueOf(RandomUtils.nextInt(1, 199)));
 			paymentModel1.setPaidTime(Calendar.getInstance().getTime());
 			payments.add(paymentModel1);
 			paidamount = paidamount.add(paymentModel1.getAmount());
 		}
 
-		orderModel.setReceiveable(BigDecimal.valueOf(RandomUtils.nextInt(1000,9999)));
+		orderModel.setReceiveable(
+				BigDecimal.valueOf(RandomUtils.nextInt(1000, 9999)));
 		orderModel.setPaidamount(paidamount);
-      orderModel.setOpenamount(orderModel.getReceiveable().subtract(orderModel.getPaidamount()));
+		orderModel.setOpenamount(orderModel.getReceiveable()
+				.subtract(orderModel.getPaidamount()));
 
 		OrderEntryModel entry = new OrderEntryModel();
 		entry.setQuantity(11);
@@ -143,7 +147,8 @@ public class LotsOrderDataBuilder
 		entry.setTryDate(new Date());
 		entry.setComment("我是一个备注备注备注");
 		entry.setStore(store);
-		entry.setProduct(productService.getProductForCode("p-"+RandomUtils.nextInt(0, 50)));
+		entry.setProduct(productService
+				.getProductForCode("p-" + RandomUtils.nextInt(0, 50)));
 		List<OrderEntryModel> entries = new ArrayList<OrderEntryModel>();
 		entries.add(entry);
 
@@ -158,12 +163,13 @@ public class LotsOrderDataBuilder
 	{
 		Calendar calendar = Calendar.getInstance();
 		calendar.setTime(date);
-		calendar.add(Calendar.DAY_OF_MONTH, +after);//+1今天的时间加一天
+		calendar.add(Calendar.DAY_OF_MONTH, +after);// +1今天的时间加一天
 		date = calendar.getTime();
 		return date;
 	}
-	
-	public CustomerModel buildCustomer(final String cellphone, final String name)
+
+	public CustomerModel buildCustomer(final String cellphone,
+			final String name)
 	{
 		CustomerModel customer = new CustomerModel();
 		customer.setCellphone(cellphone);
@@ -173,8 +179,8 @@ public class LotsOrderDataBuilder
 		customer.setEmail("dd@tt.com");
 		customer.setComment("yekongzhongzuiliangdexing");
 		customer.setQQ("33445566");
-		customer.setSource(sources.get(RandomUtils.nextInt(0,5)));
-		
+		customer.setSource(sources.get(RandomUtils.nextInt(0, 5)));
+
 		customerService.createCustomer(customer);
 		return customer;
 	}

@@ -1,6 +1,5 @@
 package com.third.exceptions;
 
-public class BasicExcpetion extends Exception
-{
+public class BasicExcpetion extends Exception {
 
 }

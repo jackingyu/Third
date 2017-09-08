@@ -18,10 +18,9 @@ import com.third.model.OrderModel;
 import com.third.model.PaymentModel;
 import com.third.model.StoreModel;
 
-
-public class OrderDataPopulator implements Populator<OrderModel, OrderData>
-{
-	private static final Logger LOG = Logger.getLogger(OrderDataPopulator.class);
+public class OrderDataPopulator implements Populator<OrderModel, OrderData> {
+	private static final Logger LOG = Logger
+			.getLogger(OrderDataPopulator.class);
 
 	private OrderEntryDataPopulator orderEntryDataPopulator;
 	private PaymentDataPopulator paymentDataPopulator;
@@ -36,9 +35,10 @@ public class OrderDataPopulator implements Populator<OrderModel, OrderData>
 
 		target.setPk(source.getPk());
 		target.setOrderCode(source.getCode());
-      target.setStatus(source.getStatus());
-      target.setStatusText(TextMapperUtils.getOrderStatusText(source.getStatus()));
-		//顾客相关信息
+		target.setStatus(source.getStatus());
+		target.setStatusText(
+				TextMapperUtils.getOrderStatusText(source.getStatus()));
+		// 顾客相关信息
 		CustomerData customer = new CustomerData();
 		if (source.getCustomer() != null)
 		{
@@ -46,10 +46,11 @@ public class OrderDataPopulator implements Populator<OrderModel, OrderData>
 			LOG.error("order without customer,order no:" + source.getCode());
 		}
 		target.setCustomer(customer);
-		target.setCustomerName(StringUtils.isNotBlank(source.getCustomerName()) ? source.getCustomerName() : customer.getName());
-      target.setWeddingDate(customer.getWeddingdate());
+		target.setCustomerName(StringUtils.isNotBlank(source.getCustomerName())
+				? source.getCustomerName()
+				: customer.getName());
+		target.setWeddingDate(customer.getWeddingdate());
 		target.setCellphone(source.getCellphone());
-
 
 		target.setTryDate(source.getTryDate());
 		target.setPhotoDate(source.getPhotoDate());
@@ -59,14 +60,19 @@ public class OrderDataPopulator implements Populator<OrderModel, OrderData>
 		storeDataPopulator.populate(source.getStore(), store);
 		target.setStore(store);
 
-		//支付相关信息
-		target.setOpenamount(source.getOpenamount() != null ? source.getOpenamount().toString() : "0");
-		target.setReceiveable(source.getReceiveable() != null ? source.getReceiveable().toString() : "0");
+		// 支付相关信息
+		target.setOpenamount(source.getOpenamount() != null
+				? source.getOpenamount().toString()
+				: "0");
+		target.setReceiveable(source.getReceiveable() != null
+				? source.getReceiveable().toString()
+				: "0");
 		List<PaymentData> payments = new ArrayList<PaymentData>();
-		List<PaymentModel> paymentModels = (List<PaymentModel>) source.getPayments();
+		List<PaymentModel> paymentModels = (List<PaymentModel>) source
+				.getPayments();
 
 		if (!CollectionUtils.isEmpty(paymentModels))
-			paymentModels.stream().filter((p)-> p!=null ).forEach(p -> {
+			paymentModels.stream().filter((p) -> p != null).forEach(p -> {
 				PaymentData paymentData = new PaymentData();
 				paymentDataPopulator.populate(p, paymentData);
 				payments.add(paymentData);
@@ -74,18 +80,18 @@ public class OrderDataPopulator implements Populator<OrderModel, OrderData>
 
 		target.setPayments(payments);
 
-		//订单相关信息
+		// 订单相关信息
 		target.setOrderDate(source.getOrderDate());
 		target.setCoSalesperson(source.getCoSalesperson());
 		target.setComment(source.getComment());
 
-
-		//订单行项目
+		// 订单行项目
 		List<OrderEntryData> orderEntryDatas = new ArrayList<OrderEntryData>();
-		List<OrderEntryModel> orderEntryModels = (List<OrderEntryModel>) source.getOrderEntries();
+		List<OrderEntryModel> orderEntryModels = (List<OrderEntryModel>) source
+				.getOrderEntries();
 
 		if (!CollectionUtils.isEmpty(orderEntryModels))
-			orderEntryModels.stream().filter( (o) -> o!=null ).forEach(o -> {
+			orderEntryModels.stream().filter((o) -> o != null).forEach(o -> {
 				if (o == null)
 					return;
 				OrderEntryData orderEntryData = new OrderEntryData();
@@ -97,12 +103,14 @@ public class OrderDataPopulator implements Populator<OrderModel, OrderData>
 
 	}
 
-	public void setOrderEntryDataPopulator(OrderEntryDataPopulator orderEntryDataPopulator)
+	public void setOrderEntryDataPopulator(
+			OrderEntryDataPopulator orderEntryDataPopulator)
 	{
 		this.orderEntryDataPopulator = orderEntryDataPopulator;
 	}
 
-	public void setPaymentDataPopulator(PaymentDataPopulator paymentDataPopulator)
+	public void setPaymentDataPopulator(
+			PaymentDataPopulator paymentDataPopulator)
 	{
 		this.paymentDataPopulator = paymentDataPopulator;
 	}
@@ -122,7 +130,8 @@ public class OrderDataPopulator implements Populator<OrderModel, OrderData>
 		this.userDataPopulator = userDataPopulator;
 	}
 
-	public void setCustomerDataPopulator(CustomerDataPopulator customerDataPopulator)
+	public void setCustomerDataPopulator(
+			CustomerDataPopulator customerDataPopulator)
 	{
 		this.customerDataPopulator = customerDataPopulator;
 	}

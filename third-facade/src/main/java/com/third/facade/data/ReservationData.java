@@ -2,9 +2,7 @@ package com.third.facade.data;
 
 import java.util.Date;
 
-
-public class ReservationData extends AbstractData
-{
+public class ReservationData extends AbstractData {
 	private String name;
 	private String cellphone;
 	private Date reservationDate;
@@ -23,7 +21,6 @@ public class ReservationData extends AbstractData
 	{
 		this.name = name;
 	}
-
 
 	public Date getReservationDate()
 	{

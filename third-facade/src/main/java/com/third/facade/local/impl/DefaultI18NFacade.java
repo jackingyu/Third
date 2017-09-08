@@ -12,9 +12,7 @@ import com.third.model.CityModel;
 import com.third.model.RegionModel;
 import com.third.service.location.I18NService;
 
-
-public class DefaultI18NFacade implements I18NFacade
-{
+public class DefaultI18NFacade implements I18NFacade {
 	private I18NService i18NService;
 	private RegionDataPopulator regionDataPopulator;
 	private CityDataPopulator cityDataPopulator;

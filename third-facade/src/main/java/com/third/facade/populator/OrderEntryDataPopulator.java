@@ -10,9 +10,8 @@ import com.third.facade.data.UserData;
 import com.third.facade.utils.TextMapperUtils;
 import com.third.model.OrderEntryModel;
 
-
-public class OrderEntryDataPopulator implements Populator<OrderEntryModel, OrderEntryData>
-{
+public class OrderEntryDataPopulator
+		implements Populator<OrderEntryModel, OrderEntryData> {
 
 	private UserDataPopulator userDataPopulator;
 	private StoreDataPopulator storeDataPopulator;
@@ -27,7 +26,8 @@ public class OrderEntryDataPopulator implements Populator<OrderEntryModel, Order
 		target.setDesigner(source.getDesigner());
 		target.setEntryNo(source.getEntryNo());
 		target.setItemCategory(source.getItemCategory());
-		target.setItemCategoryText(TextMapper.ItemCategory.get(source.getItemCategory()));
+		target.setItemCategoryText(
+				TextMapper.ItemCategory.get(source.getItemCategory()));
 		target.setModificationTime(source.getModificationTime());
 		target.setCreateTime(source.getCreateTime());
 		target.setPk(source.getPk());
@@ -39,19 +39,21 @@ public class OrderEntryDataPopulator implements Populator<OrderEntryModel, Order
 		target.setComment(source.getComment());
 		target.setOrderCode(source.getOrder().getCode());
 		target.setStoreName(source.getStore().getName());
-		target.setCustomerName(StringUtils.isBlank(source.getCustomerName()) ? source.getOrder().getCustomerName() : source
-				.getCustomerName());
-      target.setSizeDetails(source.getSizeDetails());
-      target.setSizeImageUrl(source.getSizeImage());
-      target.setStatus(source.getStatus().toString());
-      
-      if(target.getStatus()!=null)
-      	target.setStatusText(TextMapperUtils.getOrderStatusText(source.getStatus()));
-      
-      StoreData store = new StoreData();
-      storeDataPopulator.populate(source.getStore(), store);
-      target.setStore(store);
-      
+		target.setCustomerName(StringUtils.isBlank(source.getCustomerName())
+				? source.getOrder().getCustomerName()
+				: source.getCustomerName());
+		target.setSizeDetails(source.getSizeDetails());
+		target.setSizeImageUrl(source.getSizeImage());
+		target.setStatus(source.getStatus().toString());
+
+		if (target.getStatus() != null)
+			target.setStatusText(
+					TextMapperUtils.getOrderStatusText(source.getStatus()));
+
+		StoreData store = new StoreData();
+		storeDataPopulator.populate(source.getStore(), store);
+		target.setStore(store);
+
 		if (source.getCreatedBy() != null)
 		{
 			UserData user = new UserData();
@@ -59,11 +61,11 @@ public class OrderEntryDataPopulator implements Populator<OrderEntryModel, Order
 
 			target.setCreateBy(user);
 		}
-		
+
 		ProductData product = new ProductData();
-		
+
 		productDataPopulator.populate(source.getProduct(), product);
-		
+
 		target.setProduct(product);
 	}
 
@@ -77,7 +79,8 @@ public class OrderEntryDataPopulator implements Populator<OrderEntryModel, Order
 		this.storeDataPopulator = storeDataPopulator;
 	}
 
-	public void setProductDataPopulator(ProductDataPopulator productDataPopulator)
+	public void setProductDataPopulator(
+			ProductDataPopulator productDataPopulator)
 	{
 		this.productDataPopulator = productDataPopulator;
 	}

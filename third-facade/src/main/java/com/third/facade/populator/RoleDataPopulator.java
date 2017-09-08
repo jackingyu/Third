@@ -5,9 +5,7 @@ import com.third.facade.data.RoleData;
 import com.third.model.MenuModel;
 import com.third.model.RoleModel;
 
-
-public class RoleDataPopulator implements Populator<RoleModel, RoleData>
-{
+public class RoleDataPopulator implements Populator<RoleModel, RoleData> {
 
 	@Override
 	public void populate(RoleModel source, RoleData target)
@@ -18,6 +16,5 @@ public class RoleDataPopulator implements Populator<RoleModel, RoleData>
 		target.setDescription(source.getDescription());
 
 	}
-
 
 }

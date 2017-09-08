@@ -14,9 +14,7 @@ import com.third.model.RoleModel;
 import com.third.model.UserModel;
 import com.third.service.user.UserService;
 
-
-public class DefaultUserDetailsService implements UserDetailsService
-{
+public class DefaultUserDetailsService implements UserDetailsService {
 
 	private UserService userService;
 	private final String rolePrefix = "ROLE_";
@@ -51,12 +49,14 @@ public class DefaultUserDetailsService implements UserDetailsService
 	private Collection<GrantedAuthority> getAuthorities(final UserModel user)
 	{
 		Collection<RoleModel> roleList = user.getUserGroup().getRoles();
-		Collection<GrantedAuthority> authorities = new ArrayList<GrantedAuthority>(roleList.size());
+		Collection<GrantedAuthority> authorities = new ArrayList<GrantedAuthority>(
+				roleList.size());
 		final Iterator<RoleModel> itr = roleList.iterator();
 		while (itr.hasNext())
 		{
 			final RoleModel role = itr.next();
-			authorities.add(new SimpleGrantedAuthority(rolePrefix + role.getRoleId().toUpperCase()));
+			authorities.add(new SimpleGrantedAuthority(
+					rolePrefix + role.getRoleId().toUpperCase()));
 		}
 
 		return authorities;

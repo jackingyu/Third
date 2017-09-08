@@ -1,6 +1,5 @@
 package com.third.controller.pages.lte;
 
-
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -40,11 +39,10 @@ import com.third.facade.data.StoreData;
 import com.third.facade.local.I18NFacade;
 import com.third.model.CoreConstants;
 
-
 @Controller
-public class ReservationPageController extends AbstractPageController
-{
-	private static final Logger LOG = Logger.getLogger(ReservationPageController.class);
+public class ReservationPageController extends AbstractPageController {
+	private static final Logger LOG = Logger
+			.getLogger(ReservationPageController.class);
 	private static final String RESERVATIONPK_PATH_VARIABLE_PATTERN = "/{reservationPK:.*}";
 
 	@Resource(name = "customerFacade")
@@ -57,31 +55,37 @@ public class ReservationPageController extends AbstractPageController
 	private I18NFacade i18NFacade;
 
 	@RequestMapping(value = "/reservation/reservationlistpage", method = RequestMethod.GET)
-	public String getReservationListPage(final Model model, final HttpServletRequest request, final HttpServletResponse response)
+	public String getReservationListPage(final Model model,
+			final HttpServletRequest request,
+			final HttpServletResponse response)
 	{
 		fillAllStore2View(model);
 		return ControllerConstants.LTE.RESERVATIONLISTPAGE;
 	}
 
-
 	@RequestMapping(value = "/reservation/createreservationpage", method = RequestMethod.GET)
-	public String getCreateReservationPage(final Model model, final HttpServletRequest request, final HttpServletResponse response)
+	public String getCreateReservationPage(final Model model,
+			final HttpServletRequest request,
+			final HttpServletResponse response)
 	{
 		fillAllStore2View(model);
 		return ControllerConstants.LTE.RESERVATIONDETAILSPAGE;
 	}
 
-	@RequestMapping(value = "/reservation/modifyreservationpage/" + RESERVATIONPK_PATH_VARIABLE_PATTERN, method = RequestMethod.GET)
-	public String getModifyReservationPage(@PathVariable("reservationPK") final String reservationPK, final Model model,
-			final HttpServletRequest request, final HttpServletResponse response)
+	@RequestMapping(value = "/reservation/modifyreservationpage/"
+			+ RESERVATIONPK_PATH_VARIABLE_PATTERN, method = RequestMethod.GET)
+	public String getModifyReservationPage(
+			@PathVariable("reservationPK") final String reservationPK,
+			final Model model, final HttpServletRequest request,
+			final HttpServletResponse response)
 	{
 
-		ReservationData reservation = reservationFacade.getReservation(reservationPK);
+		ReservationData reservation = reservationFacade
+				.getReservation(reservationPK);
 		model.addAttribute("reservation", reservation);
 		fillStore2View(model, reservation.getStore().getCode());
 		return ControllerConstants.LTE.RESERVATIONDETAILSPAGE;
 	}
-
 
 	@RequestMapping(value = "/reservation/reservationlist", method = RequestMethod.GET)
 	@ResponseBody
@@ -90,9 +94,11 @@ public class ReservationPageController extends AbstractPageController
 			@RequestParam(value = "storeCode", required = true) final String storeCode,
 			@RequestParam(value = "startDate", required = true) @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss") final Date startDate,
 			@RequestParam(value = "endDate", required = true) @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss") final Date endDate,
-			@RequestParam(value = "name", required = false) final String name, final DataTableCriterias criterias)
+			@RequestParam(value = "name", required = false) final String name,
+			final DataTableCriterias criterias)
 	{
-		ListData results = reservationFacade.getReservations(storeCode, cellphone, name, startDate, endDate,
+		ListData results = reservationFacade.getReservations(storeCode,
+				cellphone, name, startDate, endDate,
 				getStartIndexForDT(criterias), getPagesizeForDT(criterias));
 
 		List<Object> reservations = results.getRows();
@@ -121,8 +127,10 @@ public class ReservationPageController extends AbstractPageController
 
 	@RequestMapping(value = "/reservation/save", method = RequestMethod.POST)
 	@ResponseBody
-	public void saveReservation(@RequestParam(value = "cellphone") final String cellphone,
-			@RequestParam(value = "name") final String name, @RequestParam(value = "storeCode") final String storeCode,
+	public void saveReservation(
+			@RequestParam(value = "cellphone") final String cellphone,
+			@RequestParam(value = "name") final String name,
+			@RequestParam(value = "storeCode") final String storeCode,
 			@RequestParam(value = "reservationPK", required = false) final String pk,
 			@RequestParam(value = "reservationDate") @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss") final Date reservationDate,
 			@RequestParam(value = "comment", required = false) final String comment)
@@ -136,8 +144,8 @@ public class ReservationPageController extends AbstractPageController
 		store.setCode(storeCode);
 		reservation.setPk(pk);
 		reservation.setStore(store);
-		//TODO:系统暂时根据填写的手机号选择用户,需要考虑如果一个现有用户要留一个不同的手机号做预约如何处理呢
-		//后台部分因为界面上是根据手机号检索用户,所以做一个强制关联
+		// TODO:系统暂时根据填写的手机号选择用户,需要考虑如果一个现有用户要留一个不同的手机号做预约如何处理呢
+		// 后台部分因为界面上是根据手机号检索用户,所以做一个强制关联
 		CustomerData customer = new CustomerData();
 		customer.setCellphone(cellphone);
 

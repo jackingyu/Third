@@ -2,9 +2,7 @@ package com.third.facade.data;
 
 import java.util.List;
 
-
-public class SizeAttributeGroupData
-{
+public class SizeAttributeGroupData {
 	private String groupId;
 	private String groupText;
 	private List<SizeAttributeData> attributes;

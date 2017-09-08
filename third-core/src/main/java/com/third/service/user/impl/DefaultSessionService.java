@@ -6,9 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import com.third.service.user.SessionService;
 
-
-public class DefaultSessionService implements SessionService
-{
+public class DefaultSessionService implements SessionService {
 	@Autowired
 	private HttpSession httpSession;
 

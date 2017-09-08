@@ -23,32 +23,34 @@ import com.third.model.SubscribeData;
 import com.third.model.WeixinInfoModel;
 import com.third.service.customer.WeixinService;
 
-
-
-public class DefaultWeixinService implements WeixinService
-{
-	private static final Logger LOG = Logger.getLogger(DefaultWeixinService.class);
+public class DefaultWeixinService implements WeixinService {
+	private static final Logger LOG = Logger
+			.getLogger(DefaultWeixinService.class);
 	private WeixinInfoDao weixinInfoDao;
 	private WeixinInfoModel weixinInfo;
 	private AccessToken accessToken;
-	
-	//private String templateID = WXConfig.getInstance().getProperty("wx_tempid");
+
+	// private String templateID =
+	// WXConfig.getInstance().getProperty("wx_tempid");
 
 	public AccessToken getWXAccessToken() throws IOException
 	{
 
-		CloseableHttpClient httpClient = HttpClientUtil.createSSLClientDefault();
+		CloseableHttpClient httpClient = HttpClientUtil
+				.createSSLClientDefault();
 		HttpGet get = new HttpGet();
 		AccessToken accessToken = new AccessToken();
 		try
 		{
 			WeixinInfoModel wxInfo = getWeixinInfo(1);
-			
-			if(wxInfo==null)
+
+			if (wxInfo == null)
 				LOG.fatal("请补充weixininfo appID appsecret!");
-			
-			String uri = new StringBuffer().append(WXConstant.getAccessTokenURL).append("&appid=").append(wxInfo.getAppId())
-					.append("&secret=").append(wxInfo.getAppSecret()).toString();
+
+			String uri = new StringBuffer().append(WXConstant.getAccessTokenURL)
+					.append("&appid=").append(wxInfo.getAppId())
+					.append("&secret=").append(wxInfo.getAppSecret())
+					.toString();
 			LOG.debug("请求新的Access Token");
 			LOG.debug(uri);
 			get.setURI(new URI(uri));
@@ -58,11 +60,11 @@ public class DefaultWeixinService implements WeixinService
 			LOG.debug(content);
 			if (null != content)
 			{
-				//解析Json格式
+				// 解析Json格式
 				ObjectMapper mapper = new ObjectMapper();
 				JsonNode rootNode = mapper.readTree(content);
 
-				//异常处理
+				// 异常处理
 				JsonNode node = rootNode.get("errcode");
 				if (node != null && "40001".equals(node.textValue()))
 				{
@@ -85,16 +87,13 @@ public class DefaultWeixinService implements WeixinService
 				accessToken.setRequestTime(currentTime);
 				accessToken.setRequestDate(new Date(currentTime));
 			}
-		}
-		catch (URISyntaxException e)
+		} catch (URISyntaxException e)
 		{
 			LOG.error(e);
-		}
-		catch (ClientProtocolException e)
+		} catch (ClientProtocolException e)
 		{
 			LOG.error(e);
-		}
-		finally
+		} finally
 		{
 			httpClient.close();
 		}
@@ -104,14 +103,17 @@ public class DefaultWeixinService implements WeixinService
 	public String getOpenID(String code) throws IOException
 	{
 
-		CloseableHttpClient httpClient = HttpClientUtil.createSSLClientDefault();
+		CloseableHttpClient httpClient = HttpClientUtil
+				.createSSLClientDefault();
 		HttpGet get = new HttpGet();
 
 		String openID = null;
 
 		WeixinInfoModel wxInfo = getWeixinInfo(1);
-		String uri = new StringBuffer().append(WXConstant.getOAuthTokenURL).append("&appid=").append(wxInfo.getAppId())
-				.append("&secret=").append(wxInfo.getAppSecret()).append("&code=").append(code).toString();
+		String uri = new StringBuffer().append(WXConstant.getOAuthTokenURL)
+				.append("&appid=").append(wxInfo.getAppId()).append("&secret=")
+				.append(wxInfo.getAppSecret()).append("&code=").append(code)
+				.toString();
 		LOG.debug("请求用户Access Token");
 		LOG.debug(uri);
 
@@ -123,7 +125,7 @@ public class DefaultWeixinService implements WeixinService
 			String content = EntityUtils.toString(entity);
 			if (null != content)
 			{
-				//解析Json格式
+				// 解析Json格式
 				ObjectMapper mapper = new ObjectMapper();
 				JsonNode rootNode = mapper.readTree(content);
 				JsonNode node = rootNode.get("openid");
@@ -132,22 +134,18 @@ public class DefaultWeixinService implements WeixinService
 				{
 					openID = node.textValue();
 					LOG.debug("Open ID = " + openID);
-				}
-				else
+				} else
 				{
 					LOG.debug("不能获取用户openID");
 				}
 			}
-		}
-		catch (URISyntaxException e)
+		} catch (URISyntaxException e)
 		{
 			LOG.error(e);
-		}
-		catch (ClientProtocolException e)
+		} catch (ClientProtocolException e)
 		{
 			LOG.error(e);
-		}
-		finally
+		} finally
 		{
 			httpClient.close();
 		}
@@ -161,11 +159,15 @@ public class DefaultWeixinService implements WeixinService
 
 		SubscribeData subscribe = new SubscribeData();
 
-		CloseableHttpClient httpClient = HttpClientUtil.createSSLClientDefault();
+		CloseableHttpClient httpClient = HttpClientUtil
+				.createSSLClientDefault();
 		HttpGet get = new HttpGet();
-		String uri = new StringBuffer().append(WXConstant.getUserInfoURL).append("access_token=")
-				.append(this.getAccessToken().getAccessToken()).append("&openid=").append(openid).append("&lang=zh_CN").toString();
-		
+		String uri = new StringBuffer().append(WXConstant.getUserInfoURL)
+				.append("access_token=")
+				.append(this.getAccessToken().getAccessToken())
+				.append("&openid=").append(openid).append("&lang=zh_CN")
+				.toString();
+
 		LOG.debug("获取用户基本信息");
 		LOG.debug(uri);
 
@@ -178,7 +180,7 @@ public class DefaultWeixinService implements WeixinService
 			LOG.debug("内容为：" + content);
 			if (null != content)
 			{
-				//解析Json格式
+				// 解析Json格式
 				ObjectMapper mapper = new ObjectMapper();
 				JsonNode rootNode = mapper.readTree(content);
 
@@ -231,16 +233,13 @@ public class DefaultWeixinService implements WeixinService
 					subscribe.setTime(new Date(node.longValue() * 1000L));
 				}
 			}
-		}
-		catch (URISyntaxException e)
+		} catch (URISyntaxException e)
 		{
 			LOG.error(e);
-		}
-		catch (ClientProtocolException e)
+		} catch (ClientProtocolException e)
 		{
 			LOG.error(e);
-		}
-		finally
+		} finally
 		{
 			httpClient.close();
 		}
@@ -260,24 +259,31 @@ public class DefaultWeixinService implements WeixinService
 		weixinInfoDao.save(wxInfo);
 	}
 
-	public synchronized AccessToken getAccessToken()  {
-		if( null == accessToken || accessToken.isValid() == false ){
-			//Read from WX service
-			try {
+	public synchronized AccessToken getAccessToken()
+	{
+		if (null == accessToken || accessToken.isValid() == false)
+		{
+			// Read from WX service
+			try
+			{
 				this.accessToken = this.getWXAccessToken();
-				
-			} catch (IOException e) {
+
+			} catch (IOException e)
+			{
 				LOG.error(e);
 			}
 		}
 		return this.accessToken;
 	}
-	
-	public synchronized AccessToken refreshAccessToken() {
-		try {
+
+	public synchronized AccessToken refreshAccessToken()
+	{
+		try
+		{
 			this.accessToken = this.getWXAccessToken();
-			
-		} catch (IOException e) {
+
+		} catch (IOException e)
+		{
 			LOG.error(e);
 		}
 		return this.accessToken;

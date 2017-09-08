@@ -1,7 +1,6 @@
 package com.third.exceptions;
 
-public class OrderStatusException extends BussinessException
-{
+public class OrderStatusException extends BussinessException {
 
 	public OrderStatusException(String message)
 	{

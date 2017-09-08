@@ -19,16 +19,15 @@ import com.third.service.order.OrderProcessService;
 import com.third.service.order.OrderService;
 import com.third.service.user.UserService;
 
-
-public class DefaultOrderProcessFacade implements OrderProcessFacade
-{
+public class DefaultOrderProcessFacade implements OrderProcessFacade {
 	private OrderService orderService;
 	private OrderProcessService orderProcessService;
 	private UserService userService;
 	private OrderProcessRecordDataPopulator orderProcessRecordDataPopulator;
 
 	@Override
-	public void processOrder(String orderCode, Integer toStatus) throws NoQualifiedTargetStatusException, NotFoundException
+	public void processOrder(String orderCode, Integer toStatus)
+			throws NoQualifiedTargetStatusException, NotFoundException
 	{
 		OrderModel order = orderService.getOrderForCode(orderCode);
 
@@ -39,18 +38,20 @@ public class DefaultOrderProcessFacade implements OrderProcessFacade
 		try
 		{
 			Integer currentStatus = order.getStatus();
-			OrderProcessRecordModel processRecord = orderProcessService.processOrder(order, currentUser, toStatus);
+			OrderProcessRecordModel processRecord = orderProcessService
+					.processOrder(order, currentUser, toStatus);
 			StringBuilder sb = new StringBuilder("订单:");
 			sb.append(processRecord.getOrderCode()).append("从状态")
-					.append(TextMapper.OrderStatus.get(currentStatus.toString())).
-					 append(" 至状态")
+					.append(TextMapper.OrderStatus
+							.get(currentStatus.toString()))
+					.append(" 至状态")
 					.append(TextMapper.OrderStatus.get(toStatus.toString()));
 			processRecord.setMessage(sb.toString());
 			orderProcessService.updateOrderProcess(processRecord);
-		}
-		catch (NoQualifiedTargetStatusException ex)
+		} catch (NoQualifiedTargetStatusException ex)
 		{
-			String currentStatus = TextMapper.OrderStatus.get(ex.getCurrentStatus());
+			String currentStatus = TextMapper.OrderStatus
+					.get(ex.getCurrentStatus());
 			ex.setCurrentStatus(currentStatus);
 			throw ex;
 		}
@@ -59,7 +60,8 @@ public class DefaultOrderProcessFacade implements OrderProcessFacade
 	@Override
 	public ListData getProcessRecordForOrder(String orderCode)
 	{
-		List<OrderProcessRecordModel> records = orderProcessService.getOrderProcessRecordForOrder(orderCode);
+		List<OrderProcessRecordModel> records = orderProcessService
+				.getOrderProcessRecordForOrder(orderCode);
 
 		List<Object> recordDatas = new ArrayList<Object>();
 
@@ -81,28 +83,29 @@ public class DefaultOrderProcessFacade implements OrderProcessFacade
 		this.orderService = orderService;
 	}
 
-
 	public void setOrderProcessService(OrderProcessService orderProcessService)
 	{
 		this.orderProcessService = orderProcessService;
 	}
-
 
 	public void setUserService(UserService userService)
 	{
 		this.userService = userService;
 	}
 
-	public void setOrderProcessRecordDataPopulator(OrderProcessRecordDataPopulator orderProcessRecordDataPopulator)
+	public void setOrderProcessRecordDataPopulator(
+			OrderProcessRecordDataPopulator orderProcessRecordDataPopulator)
 	{
 		this.orderProcessRecordDataPopulator = orderProcessRecordDataPopulator;
 	}
 
 	@Override
-	public void processOrderEntry(String entryPK, Integer toStatus) throws NoQualifiedTargetStatusException, NotFoundException
+	public void processOrderEntry(String entryPK, Integer toStatus)
+			throws NoQualifiedTargetStatusException, NotFoundException
 	{
 		OrderEntryModel orderEntry = orderService.getOrderEntry(entryPK);
-		orderProcessService.processOrderEntry(orderEntry, userService.getCurrentUser(), toStatus);
+		orderProcessService.processOrderEntry(orderEntry,
+				userService.getCurrentUser(), toStatus);
 	}
-	
+
 }

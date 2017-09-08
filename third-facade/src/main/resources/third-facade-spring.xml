@@ -148,7 +148,7 @@
 	
 	<alias name="defaultSalesQuationFacade" alias="salesQuationFacade"></alias>
 	<bean id="defaultSalesQuationFacade" class="com.third.facade.order.impl.DefaultSalesQuationFacade">
-		<property name="salesQuationService" ref="salesQuationervice"></property>
+		<property name="salesQuationService" ref="salesQuationService"></property>
 	</bean>
 	
 	<alias name="defaultReservationFacade" alias="reservationFacade"></alias>

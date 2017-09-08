@@ -55,9 +55,7 @@ import com.third.service.product.SizeAttributeService;
 import com.third.service.store.StoreService;
 import com.third.service.user.UserService;
 
-
-public class DefaultOrderFacade implements OrderFacade
-{
+public class DefaultOrderFacade implements OrderFacade {
 	private OrderService orderService;
 	private CustomerService customerService;
 	private PaymentService paymentService;
@@ -71,7 +69,8 @@ public class DefaultOrderFacade implements OrderFacade
 	private ProductService productService;
 	private SizeAttributeService sizeAttributeService;
 	private MediaService mediaService;
-	private static final Logger LOG = Logger.getLogger(DefaultOrderFacade.class);
+	private static final Logger LOG = Logger
+			.getLogger(DefaultOrderFacade.class);
 
 	@Override
 	public void createOrder(OrderData orderData)
@@ -79,13 +78,15 @@ public class DefaultOrderFacade implements OrderFacade
 		OrderModel order = new OrderModel();
 
 		// TODO 需要考虑订单上店铺的拉取策略,可以考虑改完前台手工设置
-		StoreModel store = storeService.getStoreForCode(orderData.getStore().getCode());
+		StoreModel store = storeService
+				.getStoreForCode(orderData.getStore().getCode());
 
 		order.setCode(orderData.getOrderCode());
 		order.setCellphone(orderData.getCellphone());
 		order.setComment(orderData.getComment());
 		order.setCoSalesperson(orderData.getCoSalesperson());
-		CustomerModel customer = customerService.getCustomerByCellphone(orderData.getCellphone());
+		CustomerModel customer = customerService
+				.getCustomerByCellphone(orderData.getCellphone());
 		order.setCustomer(customer);
 		order.setCustomerName(orderData.getCustomerName());
 
@@ -96,13 +97,14 @@ public class DefaultOrderFacade implements OrderFacade
 		order.setSource(customer.getSource());
 		order.setTryDate(orderData.getTryDate());
 		order.setWeddingDate(orderData.getWeddingDate());
-		order.setReceiveable(BigDecimal.valueOf(Double.valueOf(orderData.getReceiveable())));
+		order.setReceiveable(
+				BigDecimal.valueOf(Double.valueOf(orderData.getReceiveable())));
 		order.setOpenamount(order.getReceiveable());
-		//init order status
+		// init order status
 		order.setStatus(0);
 
-		//TODO:need to update
-		//order.setStore(store.get());
+		// TODO:need to update
+		// order.setStore(store.get());
 		order.setStore(store);
 
 		if (!CollectionUtils.isEmpty(orderData.getPayments()))
@@ -115,10 +117,10 @@ public class DefaultOrderFacade implements OrderFacade
 				payment.setPaidTime(new Date());
 				payment.setPaymentMethod(p.getPaymentMethod());
 				payment.setPaymentType(p.getPaymentType());
-				//TODO:
-					payment.setStore(store);
-					paymentModels.add(payment);
-				});
+				// TODO:
+				payment.setStore(store);
+				paymentModels.add(payment);
+			});
 			order.setPayments(paymentModels);
 		}
 		orderService.createOrder(order);
@@ -127,9 +129,11 @@ public class DefaultOrderFacade implements OrderFacade
 	}
 
 	@Override
-	public DTResults getOrders(Date startDate, Date endDate, Integer startIndex, Integer pageSize, Map<String, String> sp)
+	public DTResults getOrders(Date startDate, Date endDate, Integer startIndex,
+			Integer pageSize, Map<String, String> sp)
 	{
-		PaginationSupport ps = orderService.getOrders(startDate, endDate, startIndex, pageSize, sp);
+		PaginationSupport ps = orderService.getOrders(startDate, endDate,
+				startIndex, pageSize, sp);
 
 		return DTResultConvertor.convertPS2DT(ps);
 	}
@@ -144,7 +148,8 @@ public class DefaultOrderFacade implements OrderFacade
 	}
 
 	@Override
-	public OrderData getOrderForOptions(String orderCode, Collection<OrderOption> orderOptions)
+	public OrderData getOrderForOptions(String orderCode,
+			Collection<OrderOption> orderOptions)
 	{
 		OrderModel order = orderService.getOrderForCode(orderCode);
 		OrderData orderData = new OrderData();
@@ -158,12 +163,14 @@ public class DefaultOrderFacade implements OrderFacade
 		if (StringUtils.isBlank(orderData.getPk()))
 			return;
 
-		OrderModel order = orderService.getOrderForCode(orderData.getOrderCode());
+		OrderModel order = orderService
+				.getOrderForCode(orderData.getOrderCode());
 
 		order.setCellphone(orderData.getCellphone());
 		order.setComment(orderData.getComment());
 		order.setCoSalesperson(orderData.getCoSalesperson());
-		CustomerModel customer = customerService.getCustomerByCellphone(orderData.getCellphone());
+		CustomerModel customer = customerService
+				.getCustomerByCellphone(orderData.getCellphone());
 		order.setCustomer(customer);
 		order.setCustomerName(orderData.getCustomerName());
 		order.setContactinfo(orderData.getContactinfo());
@@ -173,11 +180,11 @@ public class DefaultOrderFacade implements OrderFacade
 		order.setPhotoDate(orderData.getPhotoDate());
 
 		if (orderData.getSource() != null)
-			order.setSource(sourceService.getSource(orderData.getSource().getPk()));
+			order.setSource(
+					sourceService.getSource(orderData.getSource().getPk()));
 
 		order.setTryDate(orderData.getTryDate());
 		order.setWeddingDate(orderData.getWeddingDate());
-
 
 		if (!CollectionUtils.isEmpty(orderData.getPayments()))
 		{
@@ -194,10 +201,11 @@ public class DefaultOrderFacade implements OrderFacade
 					payment.setStore(order.getStore());
 					payment.setPaidTime(new Date());
 					paymentModels.add(payment);
-				}
-				else
+				} else
 				{
-					Optional<PaymentModel> payment = oldPaymentModels.stream().filter(p1 -> p1.getPk().equals(p.getPk())).findFirst();
+					Optional<PaymentModel> payment = oldPaymentModels.stream()
+							.filter(p1 -> p1.getPk().equals(p.getPk()))
+							.findFirst();
 					payment.get().setAmount(p.getAmount());
 					payment.get().setPaymentType(p.getPaymentType());
 					payment.get().setPaymentMethod(p.getPaymentMethod());
@@ -224,7 +232,7 @@ public class DefaultOrderFacade implements OrderFacade
 	{
 		OrderEntryModel orderEntry = new OrderEntryModel();
 		orderEntry.setComment(orderEntryData.getComment());
-		//orderEntry.setDeliveryDate(orderEntryData.getDeliveryDate());
+		// orderEntry.setDeliveryDate(orderEntryData.getDeliveryDate());
 		orderEntry.setDesigner(orderEntryData.getDesigner());
 		orderEntry.setItemCategory(orderEntryData.getItemCategory());
 		orderEntry.setProductTitle(orderEntryData.getProductTitle());
@@ -236,21 +244,24 @@ public class DefaultOrderFacade implements OrderFacade
 		orderEntry.setCustomerName(orderEntryData.getCustomerName());
 		orderEntry.setStatus(0);
 
-		OrderModel order = orderService.getOrderForCode(orderEntryData.getOrderCode());
+		OrderModel order = orderService
+				.getOrderForCode(orderEntryData.getOrderCode());
 		orderEntry.setOrder(order);
 		orderEntry.setCreatedBy(userService.getCurrentUser());
-      orderEntry.setDeliveryDate(order.getDeliveryDate());
-      
+		orderEntry.setDeliveryDate(order.getDeliveryDate());
+
 		StoreModel store = null;
 		if (orderEntryData.getStore() != null)
-			store = storeService.getStoreForCode(orderEntryData.getStore().getCode());
+			store = storeService
+					.getStoreForCode(orderEntryData.getStore().getCode());
 		else
 			store = order.getStore();
 		orderEntry.setStore(store);
 
 		if (StringUtils.isNotEmpty(orderEntryData.getProduct().getCode()))
 		{
-			ProductModel product = productService.getProductForCode(orderEntryData.getProduct().getCode());
+			ProductModel product = productService
+					.getProductForCode(orderEntryData.getProduct().getCode());
 			orderEntry.setProduct(product);
 		}
 
@@ -261,13 +272,14 @@ public class DefaultOrderFacade implements OrderFacade
 	@Override
 	public void updateOrderEntry(final OrderEntryData orderEntryData)
 	{
-		OrderEntryModel orderEntry = orderService.getOrderEntry(orderEntryData.getPk());
+		OrderEntryModel orderEntry = orderService
+				.getOrderEntry(orderEntryData.getPk());
 		orderEntry.setComment(orderEntryData.getComment());
-		//orderEntry.setDeliveryDate(orderEntryData.getDeliveryDate());
-		//orderEntry.setDesigner(orderEntryData.getDesigner());
-		//orderEntry.setItemCategory(orderEntryData.getItemCategory());
+		// orderEntry.setDeliveryDate(orderEntryData.getDeliveryDate());
+		// orderEntry.setDesigner(orderEntryData.getDesigner());
+		// orderEntry.setItemCategory(orderEntryData.getItemCategory());
 		orderEntry.setProductTitle(orderEntryData.getProductTitle());
-		//	orderEntry.setQuantity(orderEntryData.getQuantity());
+		// orderEntry.setQuantity(orderEntryData.getQuantity());
 		orderEntry.setSizeDate(orderEntryData.getSizeDate());
 		orderEntry.setSizeDetails(orderEntryData.getSizeDetails());
 		orderEntry.setTryDate(orderEntryData.getTryDate());
@@ -276,13 +288,13 @@ public class DefaultOrderFacade implements OrderFacade
 
 		if (StringUtils.isNotEmpty(orderEntryData.getProduct().getCode()))
 		{
-			ProductModel product = productService.getProductForCode(orderEntryData.getProduct().getCode());
+			ProductModel product = productService
+					.getProductForCode(orderEntryData.getProduct().getCode());
 			orderEntry.setProduct(product);
 		}
 
 		orderService.updateOrderEntry(orderEntry);
 	}
-
 
 	@Override
 	public void removeOrderEntry(String orderEntryPK)
@@ -291,19 +303,23 @@ public class DefaultOrderFacade implements OrderFacade
 	}
 
 	@Override
-	public Map<String, SizeAttributeGroupData> getSizeAttributes(final Integer itemCategory)
+	public Map<String, SizeAttributeGroupData> getSizeAttributes(
+			final Integer itemCategory)
 	{
-		List<SizeAttributeModel> sizeAttributes = sizeAttributeService.getSizeAttributeForItemCategory(itemCategory);
+		List<SizeAttributeModel> sizeAttributes = sizeAttributeService
+				.getSizeAttributeForItemCategory(itemCategory);
 
 		Map<String, SizeAttributeGroupData> groups = new HashMap<String, SizeAttributeGroupData>();
 
-		Map<Integer, List<SizeAttributeModel>> sizeAttributeModels = sizeAttributes.stream().collect(
-				Collectors.groupingBy(SizeAttributeModel::getGroup));
+		Map<Integer, List<SizeAttributeModel>> sizeAttributeModels = sizeAttributes
+				.stream()
+				.collect(Collectors.groupingBy(SizeAttributeModel::getGroup));
 
 		sizeAttributeModels.forEach((k, v) -> {
 			SizeAttributeGroupData groupData = new SizeAttributeGroupData();
 			groupData.setGroupId(k.toString());
-			groupData.setGroupText(TextMapper.SizeAttributeGroup.get(groupData.getGroupId()));
+			groupData.setGroupText(
+					TextMapper.SizeAttributeGroup.get(groupData.getGroupId()));
 
 			List<SizeAttributeModel> sizeAttributes1 = v;
 			List<SizeAttributeData> sizeAttributeDatas = new ArrayList<SizeAttributeData>();
@@ -329,19 +345,22 @@ public class DefaultOrderFacade implements OrderFacade
 		entry.setItemCategory(entryModel.getItemCategory());
 
 		String sizeDetails = entryModel.getSizeDetails();
-		List<SizeAttributeData> sizeDatas = JSON.parseArray(sizeDetails, SizeAttributeData.class);
+		List<SizeAttributeData> sizeDatas = JSON.parseArray(sizeDetails,
+				SizeAttributeData.class);
 
 		Map<String, SizeAttributeGroupData> sizeDataGroups = new HashMap<String, SizeAttributeGroupData>();
 
 		if (!CollectionUtils.isEmpty(sizeDatas))
 		{
-			Map<String, List<SizeAttributeData>> sizeDataMap = sizeDatas.stream().collect(
-					Collectors.groupingBy(SizeAttributeData::getGroup));
+			Map<String, List<SizeAttributeData>> sizeDataMap = sizeDatas
+					.stream().collect(
+							Collectors.groupingBy(SizeAttributeData::getGroup));
 
 			sizeDataMap.forEach((k, v) -> {
 				SizeAttributeGroupData groupData = new SizeAttributeGroupData();
 				groupData.setGroupId(k.toString());
-				groupData.setGroupText(TextMapper.SizeAttributeGroup.get(groupData.getGroupId()));
+				groupData.setGroupText(TextMapper.SizeAttributeGroup
+						.get(groupData.getGroupId()));
 				groupData.setAttributes(v);
 
 				sizeDataGroups.put(groupData.getGroupId(), groupData);
@@ -352,10 +371,12 @@ public class DefaultOrderFacade implements OrderFacade
 		return entry;
 	}
 
-	public String uploadMediaForOrderEntry(final String entryPK, final MultipartFile media)
+	public String uploadMediaForOrderEntry(final String entryPK,
+			final MultipartFile media)
 	{
 		final String mediaId = UUID.randomUUID().toString();
-		final String mediaUrl = mediaService.createMedia(mediaId, CoreConstants.MediaFolder.SizeOrderFolder, media);
+		final String mediaUrl = mediaService.createMedia(mediaId,
+				CoreConstants.MediaFolder.SizeOrderFolder, media);
 		OrderEntryModel orderEntry = orderService.getOrderEntry(entryPK);
 		orderEntry.setSizeImage(mediaUrl);
 		orderService.updateOrderEntry(orderEntry);
@@ -372,8 +393,10 @@ public class DefaultOrderFacade implements OrderFacade
 	@Override
 	public List<OrderData> getOrdersForCustomer(String cellphone)
 	{
-		CustomerModel customer = customerService.getCustomerByCellphone(cellphone);
-		List<OrderModel> orders = orderService.getOrdersForCustomer(customer.getPk());
+		CustomerModel customer = customerService
+				.getCustomerByCellphone(cellphone);
+		List<OrderModel> orders = orderService
+				.getOrdersForCustomer(customer.getPk());
 		if (CollectionUtils.isEmpty(orders))
 			return Collections.EMPTY_LIST;
 
@@ -391,7 +414,8 @@ public class DefaultOrderFacade implements OrderFacade
 	@Override
 	public String[] createPayment(PaymentData payment)
 	{
-		OrderModel orderModel = orderService.getOrderForCode(payment.getOrderCode());
+		OrderModel orderModel = orderService
+				.getOrderForCode(payment.getOrderCode());
 		Integer paymentEntryNo = orderModel.getPayments().size();
 
 		PaymentModel paymentModel = new PaymentModel();
@@ -405,12 +429,14 @@ public class DefaultOrderFacade implements OrderFacade
 
 		paymentService.createPayment(paymentModel);
 
-		orderModel.setPaidamount(orderModel.getPaidamount().add(payment.getAmount()));
-		orderModel.setOpenamount(orderModel.getReceiveable().subtract(orderModel.getPaidamount()));
+		orderModel.setPaidamount(
+				orderModel.getPaidamount().add(payment.getAmount()));
+		orderModel.setOpenamount(orderModel.getReceiveable()
+				.subtract(orderModel.getPaidamount()));
 		orderService.upateOrder(orderModel);
 
-		String[] orderamount =
-		{ orderModel.getPaidamount().toString(), orderModel.getOpenamount().toString() };
+		String[] orderamount = { orderModel.getPaidamount().toString(),
+				orderModel.getOpenamount().toString() };
 
 		return orderamount;
 	}
@@ -422,12 +448,14 @@ public class DefaultOrderFacade implements OrderFacade
 		OrderModel orderModel = paymentModel.getOrder();
 		paymentService.removePayment(paymentPK);
 
-		orderModel.setPaidamount(orderModel.getPaidamount().subtract(paymentModel.getAmount()));
-		orderModel.setOpenamount(orderModel.getReceiveable().subtract(orderModel.getPaidamount()));
+		orderModel.setPaidamount(
+				orderModel.getPaidamount().subtract(paymentModel.getAmount()));
+		orderModel.setOpenamount(orderModel.getReceiveable()
+				.subtract(orderModel.getPaidamount()));
 		orderService.upateOrder(orderModel);
 
-		String[] orderamount =
-		{ orderModel.getPaidamount().toString(), orderModel.getOpenamount().toString() };
+		String[] orderamount = { orderModel.getPaidamount().toString(),
+				orderModel.getOpenamount().toString() };
 
 		return orderamount;
 	}
@@ -447,7 +475,8 @@ public class DefaultOrderFacade implements OrderFacade
 		this.orderDataPopulator = orderDataPopulator;
 	}
 
-	public void setSizeAttributeDataPopulator(SizeAttributeDataPopulator sizeAttributeDataPopulator)
+	public void setSizeAttributeDataPopulator(
+			SizeAttributeDataPopulator sizeAttributeDataPopulator)
 	{
 		this.sizeAttributeDataPopulator = sizeAttributeDataPopulator;
 	}
@@ -467,12 +496,14 @@ public class DefaultOrderFacade implements OrderFacade
 		this.sourceService = sourceService;
 	}
 
-	public void setSizeAttributeService(SizeAttributeService sizeAttributeService)
+	public void setSizeAttributeService(
+			SizeAttributeService sizeAttributeService)
 	{
 		this.sizeAttributeService = sizeAttributeService;
 	}
 
-	public void setOrderEntryDataPopulator(OrderEntryDataPopulator orderEntryDataPopulator)
+	public void setOrderEntryDataPopulator(
+			OrderEntryDataPopulator orderEntryDataPopulator)
 	{
 		this.orderEntryDataPopulator = orderEntryDataPopulator;
 	}
@@ -482,7 +513,8 @@ public class DefaultOrderFacade implements OrderFacade
 		this.mediaService = mediaService;
 	}
 
-	public void setOrderConfiguredPopulator(ConfigurablePopulator<OrderModel, OrderData, OrderOption> orderConfiguredPopulator)
+	public void setOrderConfiguredPopulator(
+			ConfigurablePopulator<OrderModel, OrderData, OrderOption> orderConfiguredPopulator)
 	{
 		this.orderConfiguredPopulator = orderConfiguredPopulator;
 	}
@@ -495,7 +527,8 @@ public class DefaultOrderFacade implements OrderFacade
 	@Override
 	public OrderEntryData getOrderEntry(String orderEntryPK)
 	{
-		OrderEntryModel orderEntryModel = orderService.getOrderEntry(orderEntryPK);
+		OrderEntryModel orderEntryModel = orderService
+				.getOrderEntry(orderEntryPK);
 		OrderEntryData orderEntry = new OrderEntryData();
 		orderEntryDataPopulator.populate(orderEntryModel, orderEntry);
 		return orderEntry;
@@ -506,18 +539,19 @@ public class DefaultOrderFacade implements OrderFacade
 		this.productService = productService;
 	}
 
-
 	/*
 	 * 严格校验每一行的状态,如果量身单和订单有一行不为目标状态,则不返回任何结果
 	 * 
-	 * @see com.third.facade.order.OrderFacade#getOrderEntriesByPKorId(java.lang.String, java.lang.String,
-	 * java.lang.Integer)
+	 * @see
+	 * com.third.facade.order.OrderFacade#getOrderEntriesByPKorId(java.lang.
+	 * String, java.lang.String, java.lang.Integer)
 	 */
 	@Override
-	public DTResults getOrderEntriesByPKorId(String entryPK, String externalId, Integer status)
+	public DTResults getOrderEntriesByPKorId(String entryPK, String externalId,
+			Integer status)
 	{
 		OrderEntryModel entryModel;
-		//pk has first priority
+		// pk has first priority
 		if (StringUtils.isNotEmpty(entryPK))
 			entryModel = orderService.getOrderEntry(entryPK);
 		else if (StringUtils.isNotEmpty(externalId))
@@ -527,7 +561,6 @@ public class DefaultOrderFacade implements OrderFacade
 
 		if (entryModel == null || !entryModel.getStatus().equals(status))
 			return new DTResults();
-
 
 		OrderModel orderModel = entryModel.getOrder();
 
@@ -548,9 +581,11 @@ public class DefaultOrderFacade implements OrderFacade
 			if (entryModel.getStatus() != status)
 				return new DTResults();
 
-			String[] row =
-			{ entry.getExternalId(), TextMapperUtils.getItemCategoryText(entry.getItemCategory()), entry.getProductTitle(),
-					orderModel.getCustomerName(), entry.getPk(), orderModel.getCode() };
+			String[] row = { entry.getExternalId(),
+					TextMapperUtils
+							.getItemCategoryText(entry.getItemCategory()),
+					entry.getProductTitle(), orderModel.getCustomerName(),
+					entry.getPk(), orderModel.getCode() };
 			rows.add(row);
 		}
 
@@ -563,7 +598,7 @@ public class DefaultOrderFacade implements OrderFacade
 	public DTResults getOrderEntriesByPKorId(String entryPK, String externalId)
 	{
 		OrderEntryModel entryModel;
-		//pk has first priority
+		// pk has first priority
 		if (StringUtils.isNotEmpty(entryPK))
 			entryModel = orderService.getOrderEntry(entryPK);
 		else if (StringUtils.isNotEmpty(externalId))
@@ -585,9 +620,11 @@ public class DefaultOrderFacade implements OrderFacade
 		for (int i = 0; i < entries.size(); i++)
 		{
 			OrderEntryModel entry = entries.get(i);
-			String[] row =
-			{ entry.getExternalId(), TextMapperUtils.getItemCategoryText(entry.getItemCategory()), entry.getProductTitle(),
-					orderModel.getCustomerName(), entry.getPk(), orderModel.getCode() };
+			String[] row = { entry.getExternalId(),
+					TextMapperUtils
+							.getItemCategoryText(entry.getItemCategory()),
+					entry.getProductTitle(), orderModel.getCustomerName(),
+					entry.getPk(), orderModel.getCode() };
 			rows.add(row);
 		}
 
@@ -597,20 +634,22 @@ public class DefaultOrderFacade implements OrderFacade
 	}
 
 	@Override
-	public DTResults getOrderEntries(Date startDate, Date endDate, Integer startIndex, Integer pageSize, Map<String, String> sp)
+	public DTResults getOrderEntries(Date startDate, Date endDate,
+			Integer startIndex, Integer pageSize, Map<String, String> sp)
 	{
 
 		DTResults result = DTResultConvertor.convertPS2DT(orderService
 				.getOrderEntries(startDate, endDate, startIndex, pageSize, sp));
-      List<Object[]> datas = result.getData();
-      
-      datas.forEach( d ->{
-      	// 量身单类型
-      	d[0] = TextMapperUtils.getItemCategoryText(d[0].toString());
-      	//订单状态
-      	d[5] = TextMapperUtils.getOrderStatusText(Integer.valueOf(d[5].toString()));
-      });
-      
+		List<Object[]> datas = result.getData();
+
+		datas.forEach(d -> {
+			// 量身单类型
+			d[0] = TextMapperUtils.getItemCategoryText(d[0].toString());
+			// 订单状态
+			d[5] = TextMapperUtils
+					.getOrderStatusText(Integer.valueOf(d[5].toString()));
+		});
+
 		return result;
 	}
 

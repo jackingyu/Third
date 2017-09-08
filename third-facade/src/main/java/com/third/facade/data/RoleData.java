@@ -1,7 +1,6 @@
 package com.third.facade.data;
 
-public class RoleData extends AbstractData
-{
+public class RoleData extends AbstractData {
 	private String roleId;
 	private String roleName;
 	private String description;
@@ -35,6 +34,5 @@ public class RoleData extends AbstractData
 	{
 		this.description = description;
 	}
-
 
 }

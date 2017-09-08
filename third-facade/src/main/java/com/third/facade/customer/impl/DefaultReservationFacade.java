@@ -15,9 +15,7 @@ import com.third.service.customer.CustomerService;
 import com.third.service.customer.ReservationService;
 import com.third.service.store.StoreService;
 
-
-public class DefaultReservationFacade implements ReservationFacade
-{
+public class DefaultReservationFacade implements ReservationFacade {
 	private ReservationService reservationService;
 	private StoreService storeService;
 	private CustomerService customerService;
@@ -32,10 +30,14 @@ public class DefaultReservationFacade implements ReservationFacade
 		reservation.setName(reservationData.getName());
 		reservation.setReservationDate(reservationData.getReservationDate());
 
-		reservation.setStore(storeService.getStoreForCode(reservationData.getStore().getCode()));
-		reservation.setComment(reservationData.getComment() != null ? reservationData.getComment() : "");
+		reservation.setStore(storeService
+				.getStoreForCode(reservationData.getStore().getCode()));
+		reservation.setComment(reservationData.getComment() != null
+				? reservationData.getComment()
+				: "");
 
-		CustomerModel customer = customerService.getCustomerByCellphone(reservationData.getCustomer().getCellphone());
+		CustomerModel customer = customerService.getCustomerByCellphone(
+				reservationData.getCustomer().getCellphone());
 		if (customer != null)
 		{
 			reservation.setCustomer(customer);
@@ -49,15 +51,18 @@ public class DefaultReservationFacade implements ReservationFacade
 	@Override
 	public void updateReservation(ReservationData reservationData)
 	{
-		ReservationModel reservation = reservationService.getReservation(reservationData.getPk());
+		ReservationModel reservation = reservationService
+				.getReservation(reservationData.getPk());
 		reservation.setCellphone(reservationData.getCellphone());
 		reservation.setChannel(reservationData.getChannel());
 		reservation.setName(reservationData.getName());
 		reservation.setReservationDate(reservationData.getReservationDate());
 
-		reservation.setStore(storeService.getStoreForCode(reservationData.getStore().getCode()));
+		reservation.setStore(storeService
+				.getStoreForCode(reservationData.getStore().getCode()));
 		reservation.setComment(reservationData.getComment());
-		CustomerModel customer = customerService.getCustomerByCellphone(reservationData.getCustomer().getCellphone());
+		CustomerModel customer = customerService.getCustomerByCellphone(
+				reservationData.getCustomer().getCellphone());
 		if (customer != null)
 		{
 			reservation.setCustomer(customer);
@@ -69,7 +74,8 @@ public class DefaultReservationFacade implements ReservationFacade
 	@Override
 	public ReservationData getReservation(final String reservationPK)
 	{
-		ReservationModel reservation = reservationService.getReservation(reservationPK);
+		ReservationModel reservation = reservationService
+				.getReservation(reservationPK);
 		ReservationData reservationData = new ReservationData();
 		reservationDataPopulator.populate(reservation, reservationData);
 
@@ -77,11 +83,12 @@ public class DefaultReservationFacade implements ReservationFacade
 	}
 
 	@Override
-	public ListData getReservations(String storeCode, String cellphone, String name, Date fromDate, Date toDate,
-			Integer startIndex, Integer pageSize)
+	public ListData getReservations(String storeCode, String cellphone,
+			String name, Date fromDate, Date toDate, Integer startIndex,
+			Integer pageSize)
 	{
-		PaginationSupport ps = reservationService.getReservationList(storeCode, cellphone, name, fromDate, toDate, startIndex,
-				pageSize);
+		PaginationSupport ps = reservationService.getReservationList(storeCode,
+				cellphone, name, fromDate, toDate, startIndex, pageSize);
 		List<ReservationModel> reservations = ps.getItems();
 		List<Object> reservationDatas = new ArrayList<Object>();
 		reservations.forEach(r -> {
@@ -103,7 +110,8 @@ public class DefaultReservationFacade implements ReservationFacade
 		this.reservationService = reservationService;
 	}
 
-	public void setReservationDataPopulator(ReservationDataPopulator reservationDataPopulator)
+	public void setReservationDataPopulator(
+			ReservationDataPopulator reservationDataPopulator)
 	{
 		this.reservationDataPopulator = reservationDataPopulator;
 	}
@@ -121,8 +129,10 @@ public class DefaultReservationFacade implements ReservationFacade
 	@Override
 	public List<ReservationData> getReservationsForCustomer(String cellphone)
 	{
-		final CustomerModel customer = customerService.getCustomerByCellphone(cellphone);
-		List<ReservationModel> reservationModels = this.reservationService.getReservationsForCustomer(customer.getPk());
+		final CustomerModel customer = customerService
+				.getCustomerByCellphone(cellphone);
+		List<ReservationModel> reservationModels = this.reservationService
+				.getReservationsForCustomer(customer.getPk());
 		List<ReservationData> reservations = new ArrayList<ReservationData>();
 
 		reservationModels.forEach(r -> {

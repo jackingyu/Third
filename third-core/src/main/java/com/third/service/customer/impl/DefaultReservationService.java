@@ -8,9 +8,7 @@ import com.third.dao.util.PaginationSupport;
 import com.third.model.ReservationModel;
 import com.third.service.customer.ReservationService;
 
-
-public class DefaultReservationService implements ReservationService
-{
+public class DefaultReservationService implements ReservationService {
 	private ReservationDao reservationDao;
 
 	@Override
@@ -20,10 +18,12 @@ public class DefaultReservationService implements ReservationService
 	}
 
 	@Override
-	public PaginationSupport getReservationList(final String storeCode,final String cellphone, final String name, final Date from, final Date to,
-	Integer startIndex, Integer pageSize)
-	{ 
-		return reservationDao.findReservations(storeCode, cellphone, name, from, to, startIndex, pageSize);
+	public PaginationSupport getReservationList(final String storeCode,
+			final String cellphone, final String name, final Date from,
+			final Date to, Integer startIndex, Integer pageSize)
+	{
+		return reservationDao.findReservations(storeCode, cellphone, name, from,
+				to, startIndex, pageSize);
 	}
 
 	@Override
@@ -31,7 +31,7 @@ public class DefaultReservationService implements ReservationService
 	{
 		reservationDao.update(reservation);
 	}
-	
+
 	@Override
 	public ReservationModel getReservation(final String reservationPK)
 	{
@@ -47,7 +47,7 @@ public class DefaultReservationService implements ReservationService
 	public List<ReservationModel> getReservationsForCustomer(String customerPK)
 	{
 		return reservationDao.findReservationsForCustomer(customerPK);
-				
+
 	}
 
 }

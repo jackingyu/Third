@@ -6,9 +6,7 @@ import java.util.Map;
 import com.third.model.OrderModel;
 import com.third.model.UserModel;
 
-
-public class OrderEntryData extends AbstractData
-{
+public class OrderEntryData extends AbstractData {
 	private Integer entryNo;
 	private String code;
 	private String externalId;
@@ -155,7 +153,6 @@ public class OrderEntryData extends AbstractData
 	{
 		this.modificationTime = modificationTime;
 	}
-
 
 	public String getComment()
 	{

@@ -8,9 +8,7 @@ import com.third.model.CustomerModel;
 import com.third.model.UserModel;
 import com.third.service.customer.CustomerService;
 
-
-public class DefaultCustomerService implements CustomerService
-{
+public class DefaultCustomerService implements CustomerService {
 	private CustomerDao customerDao;
 	private ReservationDao reservationDao;
 	private OrderDao orderDao;
@@ -22,7 +20,8 @@ public class DefaultCustomerService implements CustomerService
 	}
 
 	@Override
-	public PaginationSupport getCustomerList(String cellphone, String name, Integer startIndex, Integer pageSize)
+	public PaginationSupport getCustomerList(String cellphone, String name,
+			Integer startIndex, Integer pageSize)
 	{
 		return customerDao.findCustomer(cellphone, name, startIndex, pageSize);
 	}
@@ -44,7 +43,7 @@ public class DefaultCustomerService implements CustomerService
 	{
 		return customerDao.findCustomerByOpenId(openId);
 	}
-	
+
 	public void setCustomerDao(CustomerDao customerDao)
 	{
 		this.customerDao = customerDao;
@@ -71,8 +70,5 @@ public class DefaultCustomerService implements CustomerService
 	{
 		return reservationDao.countReservationForCustomer(cellphone);
 	}
-	
-	
-
 
 }

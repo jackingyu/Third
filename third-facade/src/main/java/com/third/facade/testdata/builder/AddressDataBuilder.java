@@ -7,9 +7,7 @@ import com.third.model.CityModel;
 import com.third.model.RegionModel;
 import com.third.service.location.I18NService;
 
-
-public class AddressDataBuilder implements DataBuilder
-{
+public class AddressDataBuilder implements DataBuilder {
 	private I18NService i18NService;
 
 	@Override
@@ -21,7 +19,8 @@ public class AddressDataBuilder implements DataBuilder
 
 			for (int i = 0; i < 9; i++)
 			{
-				CityModel city = buildCity("CN-0" + j + i, "测试城市-" + j + "-" + i, region);
+				CityModel city = buildCity("CN-0" + j + i,
+						"测试城市-" + j + "-" + i, region);
 				AddressModel address = buildAddress(region, city);
 			}
 		}
@@ -37,7 +36,8 @@ public class AddressDataBuilder implements DataBuilder
 		return region;
 	}
 
-	public CityModel buildCity(final String code, final String name, RegionModel region)
+	public CityModel buildCity(final String code, final String name,
+			RegionModel region)
 	{
 		CityModel city = new CityModel();
 		city.setIsoCode(code);
@@ -47,7 +47,8 @@ public class AddressDataBuilder implements DataBuilder
 		return city;
 	}
 
-	public AddressModel buildAddress(final RegionModel region, final CityModel city)
+	public AddressModel buildAddress(final RegionModel region,
+			final CityModel city)
 	{
 		AddressModel address = new AddressModel();
 		address.setCity(city);

@@ -6,9 +6,7 @@ import com.third.dao.user.RoleDao;
 import com.third.model.RoleModel;
 import com.third.service.user.RoleService;
 
-
-public class DefaultRoleService implements RoleService
-{
+public class DefaultRoleService implements RoleService {
 
 	private RoleDao roleDao;
 

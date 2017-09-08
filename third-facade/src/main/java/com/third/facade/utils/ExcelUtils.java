@@ -20,38 +20,37 @@ import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
 
-
-public class ExcelUtils
-{
+public class ExcelUtils {
 	/**
 	 * 导出到Excel方法。
 	 * 
 	 * @param workbookName
-	 *           工作簿名称
+	 *            工作簿名称
 	 * @param sheetName
-	 *           工作表名称
+	 *            工作表名称
 	 * @param headerNames
-	 *           列名数组
+	 *            列名数组
 	 * @param dataList
-	 *           数据列表，列表中每个元素为一行数据，数组中的每个元素为一列所对应的数据，均为String类型
+	 *            数据列表，列表中每个元素为一行数据，数组中的每个元素为一列所对应的数据，均为String类型
 	 * @param request
-	 *           HttpServletRequest
+	 *            HttpServletRequest
 	 * @param response
-	 *           HttpServletResponse
+	 *            HttpServletResponse
 	 */
-	public static void exportToExcel(String workbookName, String sheetName, String[] headerNames, List<String[]> dataList,
+	public static void exportToExcel(String workbookName, String sheetName,
+			String[] headerNames, List<String[]> dataList,
 			HttpServletRequest request, HttpServletResponse response)
 	{
 		Workbook wb = new HSSFWorkbook();
 		UUID uuid = UUID.randomUUID();
-		String fileName = System.getProperty("java.io.tmpdir") + "/" + uuid.toString() + ".xls";
+		String fileName = System.getProperty("java.io.tmpdir") + "/"
+				+ uuid.toString() + ".xls";
 		File file = new File(fileName);
 		FileOutputStream fileOut = null;
 		try
 		{
 			fileOut = new FileOutputStream(file);
-		}
-		catch (FileNotFoundException e1)
+		} catch (FileNotFoundException e1)
 		{
 			e1.printStackTrace();
 		}
@@ -81,20 +80,17 @@ public class ExcelUtils
 		try
 		{
 			wb.write(fileOut);
-		}
-		catch (IOException e)
+		} catch (IOException e)
 		{
 			e.printStackTrace();
-		}
-		finally
+		} finally
 		{
 			if (fileOut != null)
 			{
 				try
 				{
 					fileOut.close();
-				}
-				catch (IOException e)
+				} catch (IOException e)
 				{
 					e.printStackTrace();
 				}
@@ -106,8 +102,7 @@ public class ExcelUtils
 		try
 		{
 			request.setCharacterEncoding("UTF-8");
-		}
-		catch (UnsupportedEncodingException e)
+		} catch (UnsupportedEncodingException e)
 		{
 			e.printStackTrace();
 		}
@@ -118,7 +113,8 @@ public class ExcelUtils
 		long fileLength = file.length();
 
 		response.setContentType(contentType);
-		response.setHeader("Content-disposition", "attachment; filename=\"" + workbookName + "\"");
+		response.setHeader("Content-disposition",
+				"attachment; filename=\"" + workbookName + "\"");
 		response.setHeader("Content-Length", String.valueOf(fileLength));
 
 		try
@@ -131,24 +127,20 @@ public class ExcelUtils
 			{
 				bos.write(buff, 0, bytesRead);
 			}
-		}
-		catch (FileNotFoundException e)
+		} catch (FileNotFoundException e)
 		{
 			e.printStackTrace();
-		}
-		catch (IOException e)
+		} catch (IOException e)
 		{
 			e.printStackTrace();
-		}
-		finally
+		} finally
 		{
 			if (bis != null)
 			{
 				try
 				{
 					bis.close();
-				}
-				catch (IOException e)
+				} catch (IOException e)
 				{
 					e.printStackTrace();
 				}
@@ -158,8 +150,7 @@ public class ExcelUtils
 				try
 				{
 					bos.close();
-				}
-				catch (IOException e)
+				} catch (IOException e)
 				{
 					e.printStackTrace();
 				}
@@ -182,14 +173,16 @@ public class ExcelUtils
 	 * @param response
 	 * @return
 	 */
-	public static String makeExcel(String workbookName, String sheetName, String[] headerNames, List<String[]> dataList,
+	public static String makeExcel(String workbookName, String sheetName,
+			String[] headerNames, List<String[]> dataList,
 			HttpServletRequest request, HttpServletResponse response)
 	{
 		Workbook wb = new HSSFWorkbook();
 		UUID uuid = UUID.randomUUID();
 		String fileSitePath = "/exports";// Config.getParameter("excel.export.path");
 		String fileName = workbookName + "_" + uuid + ".xls";
-		String filePath = request.getSession().getServletContext().getRealPath(fileSitePath) + File.separator;
+		String filePath = request.getSession().getServletContext()
+				.getRealPath(fileSitePath) + File.separator;
 		File f = new File(filePath);
 		if (!f.exists())
 		{
@@ -200,8 +193,7 @@ public class ExcelUtils
 		try
 		{
 			fileOut = new FileOutputStream(file);
-		}
-		catch (FileNotFoundException e1)
+		} catch (FileNotFoundException e1)
 		{
 			e1.printStackTrace();
 		}
@@ -231,20 +223,17 @@ public class ExcelUtils
 		try
 		{
 			wb.write(fileOut);
-		}
-		catch (IOException e)
+		} catch (IOException e)
 		{
 			e.printStackTrace();
-		}
-		finally
+		} finally
 		{
 			if (fileOut != null)
 			{
 				try
 				{
 					fileOut.close();
-				}
-				catch (IOException e)
+				} catch (IOException e)
 				{
 					e.printStackTrace();
 				}

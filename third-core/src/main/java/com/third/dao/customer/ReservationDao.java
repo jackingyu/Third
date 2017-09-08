@@ -7,13 +7,12 @@ import com.third.dao.generic.IGenericDAO;
 import com.third.dao.util.PaginationSupport;
 import com.third.model.ReservationModel;
 
-
-public interface ReservationDao extends IGenericDAO<ReservationModel, String>
-{
-	PaginationSupport findReservations(String store, String cellphone, String name, Date from, Date to, Integer startIndex,
+public interface ReservationDao extends IGenericDAO<ReservationModel, String> {
+	PaginationSupport findReservations(String store, String cellphone,
+			String name, Date from, Date to, Integer startIndex,
 			Integer pageSize);
-	
+
 	List<ReservationModel> findReservationsForCustomer(final String customerPK);
-	
+
 	Integer countReservationForCustomer(final String cellphone);
 }

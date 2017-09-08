@@ -3,9 +3,7 @@ package com.third.facade.data;
 import java.math.BigDecimal;
 import java.util.Date;
 
-
-public class PaymentData extends AbstractData
-{
+public class PaymentData extends AbstractData {
 	private String paymentMethod;
 	private String paymentType;
 	private String paymentMethodText;

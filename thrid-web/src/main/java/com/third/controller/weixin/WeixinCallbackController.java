@@ -28,21 +28,21 @@ import com.third.facade.customer.WeixinFacade;
 import com.third.facade.data.WXMessage;
 import com.third.core.util.WXConstant;
 
-
 @Controller
-public class WeixinCallbackController
-{
+public class WeixinCallbackController {
 	private String TOKEN = "blaimar";
-	private static final Logger LOG = Logger.getLogger(WeixinCallbackController.class);
+	private static final Logger LOG = Logger
+			.getLogger(WeixinCallbackController.class);
 	@Resource(name = "weixinFacade")
 	private WeixinFacade weixinFacade;
 
 	@RequestMapping(value = "/wx/callback")
-	public @ResponseBody Object callback(@RequestParam(value = "signature", defaultValue = StringUtils.EMPTY) final String signature,
+	public @ResponseBody Object callback(
+			@RequestParam(value = "signature", defaultValue = StringUtils.EMPTY) final String signature,
 			@RequestParam(value = "timestamp", defaultValue = StringUtils.EMPTY) final String timestamp,
-			@RequestParam(value = "nonce", defaultValue = StringUtils.EMPTY) final String nonce, 
-			@RequestParam(value = "echostr", defaultValue = StringUtils.EMPTY,required=false) final String echostr,
-			@RequestParam(value = "openid",required=false) final String openid,
+			@RequestParam(value = "nonce", defaultValue = StringUtils.EMPTY) final String nonce,
+			@RequestParam(value = "echostr", defaultValue = StringUtils.EMPTY, required = false) final String echostr,
+			@RequestParam(value = "openid", required = false) final String openid,
 			final HttpServletRequest request,
 			final HttpServletResponse response) throws IOException
 	{
@@ -54,16 +54,15 @@ public class WeixinCallbackController
 		// 确认请求来至微信
 		if (checkSignature(signature, timestamp, nonce))
 		{
-			//首次接入模式
+			// 首次接入模式
 			if (StringUtils.isNotEmpty(echostr))
 			{
 				response.reset();
 				response.getWriter().write(echostr);
 				return null;
-			}
-			else
+			} else
 			{
-				//解析xml
+				// 解析xml
 				ServletInputStream in = request.getInputStream();
 				WXMessage wxMsg = new WXMessage();
 
@@ -80,17 +79,17 @@ public class WeixinCallbackController
 						LOG.debug(wxMsg.getEvent());
 						LOG.debug(wxMsg.getFromUserName());
 
-						//关注事件
-						if (wxMsg.getEvent() != null && wxMsg.getEvent().equals(WXConstant.event_subscribe))
+						// 关注事件
+						if (wxMsg.getEvent() != null && wxMsg.getEvent()
+								.equals(WXConstant.event_subscribe))
 						{
 							this.processSubscribe(wxMsg);
-							//回复图文消息
+							// 回复图文消息
 							String xml = weixinFacade.getSubscribeMsg(wxMsg);
 							LOG.debug("回复给用户的XML是：" + xml);
 							return xml;
 						}
-					}
-					else
+					} else
 					{
 						LOG.debug("将该消息转发至多客服系统");
 						String xml = weixinFacade.getTransferMsg(wxMsg);
@@ -100,15 +99,15 @@ public class WeixinCallbackController
 				}
 				return "";
 			}
-		}
-		else
+		} else
 		{
 			return "";
 		}
 
 	}
 
-	private boolean checkSignature(String signature, String timestamp, String nonce)
+	private boolean checkSignature(String signature, String timestamp,
+			String nonce)
 	{
 
 		ArrayList<String> stringList = new ArrayList<String>();
@@ -127,17 +126,17 @@ public class WeixinCallbackController
 		if (signature.equals(tmpStr))
 		{
 			return true;
-		}
-		else
+		} else
 		{
 			return false;
 		}
 	}
 
-	private void processSubscribe( WXMessage wxMsg ){
+	private void processSubscribe(WXMessage wxMsg)
+	{
 		weixinFacade.subscribe(wxMsg.getFromUserName());
 	}
-	
+
 	private Document readXML(ServletInputStream in, WXMessage wxMsg)
 	{
 
@@ -172,12 +171,10 @@ public class WeixinCallbackController
 					wxMsg.setEvent(text);
 			}
 
-		}
-		catch (UnsupportedEncodingException e)
+		} catch (UnsupportedEncodingException e)
 		{
 			LOG.error(e);
-		}
-		catch (DocumentException e)
+		} catch (DocumentException e)
 		{
 			LOG.error(e);
 		}

@@ -1,6 +1,5 @@
 package com.third.controller.pages.lte;
 
-
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -36,11 +35,10 @@ import com.third.facade.data.RegionData;
 import com.third.facade.data.SourceData;
 import com.third.facade.local.I18NFacade;
 
-
 @Controller
-public class CustomerPageController extends AbstractPageController
-{
-	private static final Logger LOG = Logger.getLogger(CustomerPageController.class);
+public class CustomerPageController extends AbstractPageController {
+	private static final Logger LOG = Logger
+			.getLogger(CustomerPageController.class);
 	private static final String CELLPHONE_PATH_VARIABLE_PATTERN = "/{cellphone:.*}";
 
 	@Resource(name = "customerFacade")
@@ -50,40 +48,54 @@ public class CustomerPageController extends AbstractPageController
 	private I18NFacade i18NFacade;
 
 	@RequestMapping(value = "/customer/customerlistpage", method = RequestMethod.GET)
-	public String getCustomerListPage(final Model model, final HttpServletRequest request, final HttpServletResponse response)
+	public String getCustomerListPage(final Model model,
+			final HttpServletRequest request,
+			final HttpServletResponse response)
 	{
 		fillAllStore2View(model);
 		return ControllerConstants.LTE.CUSTOMERLISTPAGE;
 	}
 
 	@RequestMapping(value = "/customer/createcustomerpage", method = RequestMethod.GET)
-	public String getCreateCustomerPage(final Model model, final HttpServletRequest request, final HttpServletResponse response)
+	public String getCreateCustomerPage(final Model model,
+			final HttpServletRequest request,
+			final HttpServletResponse response)
 	{
 		fillSourceInModel(model);
-		fillAddressInModel(model,null);
+		fillAddressInModel(model, null);
 
 		return ControllerConstants.LTE.CREATECUSTOMERPAGE;
 	}
 
-	@RequestMapping(value = "/customer/modifycustomerpage"+CELLPHONE_PATH_VARIABLE_PATTERN, method = RequestMethod.GET)
-	public String getModifyCustomerPage(@PathVariable("cellphone") final String cellphone, final Model model,
-			@ModelAttribute("message") final String message,final HttpServletRequest request, final HttpServletResponse response)
+	@RequestMapping(value = "/customer/modifycustomerpage"
+			+ CELLPHONE_PATH_VARIABLE_PATTERN, method = RequestMethod.GET)
+	public String getModifyCustomerPage(
+			@PathVariable("cellphone") final String cellphone,
+			final Model model, @ModelAttribute("message") final String message,
+			final HttpServletRequest request,
+			final HttpServletResponse response)
 	{
-		CustomerData customer = customerFacade.getCustomerByCellphone(cellphone);
+		CustomerData customer = customerFacade
+				.getCustomerByCellphone(cellphone);
 
 		fillSourceInModel(model);
-		fillAddressInModel(model,customer.getAddress()!=null?customer.getAddress().getRegion().getIsoCode():null);
+		fillAddressInModel(model,
+				customer.getAddress() != null
+						? customer.getAddress().getRegion().getIsoCode()
+						: null);
 		model.addAttribute("customer", customer);
 		return ControllerConstants.LTE.MODIFYCUSTOMERPAGE;
 	}
 
 	@RequestMapping(value = "/customer/customerlist", method = RequestMethod.GET)
 	@ResponseBody
-	public Object searchCustomers(@RequestParam(value = "cellphone", required = false) final String cellphone,
-			@RequestParam(value = "customerName", required = false) final String customerName, final DataTableCriterias criterias)
+	public Object searchCustomers(
+			@RequestParam(value = "cellphone", required = false) final String cellphone,
+			@RequestParam(value = "customerName", required = false) final String customerName,
+			final DataTableCriterias criterias)
 	{
-		ListData results = customerFacade.getCustomers(cellphone, customerName, getStartIndexForDT(criterias),
-				getPagesizeForDT(criterias));
+		ListData results = customerFacade.getCustomers(cellphone, customerName,
+				getStartIndexForDT(criterias), getPagesizeForDT(criterias));
 
 		List<Object> customers = results.getRows();
 
@@ -110,17 +122,21 @@ public class CustomerPageController extends AbstractPageController
 
 	@RequestMapping(value = "/customer/get", method = RequestMethod.GET)
 	@ResponseBody
-	public Object getCustomerDetail(@RequestParam(value = "cellphone", required = true) final String cellphone)
+	public Object getCustomerDetail(
+			@RequestParam(value = "cellphone", required = true) final String cellphone)
 	{
-		CustomerData customer = customerFacade.getCustomerByCellphone(cellphone);
+		CustomerData customer = customerFacade
+				.getCustomerByCellphone(cellphone);
 
 		return customer;
 	}
 
 	@RequestMapping(value = "/customer/save", method = RequestMethod.POST)
-	public String saveCustomer(@RequestParam(value = "cellphone", required = false) final String cellphone,
+	public String saveCustomer(
+			@RequestParam(value = "cellphone", required = false) final String cellphone,
 			@RequestParam(value = "customerPK", required = false) final String customerPK,
-			@RequestParam(value = "name") final String name, @RequestParam(value = "qq", required = false) final String QQ,
+			@RequestParam(value = "name") final String name,
+			@RequestParam(value = "qq", required = false) final String QQ,
 			@RequestParam(value = "email", required = false) final String email,
 			@RequestParam(value = "birthday", required = false) @DateTimeFormat(pattern = "yyyy-MM-dd") final Date birthday,
 			@RequestParam(value = "weddingdate", required = false) @DateTimeFormat(pattern = "yyyy-MM-dd") final Date weddingdate,
@@ -131,7 +147,8 @@ public class CustomerPageController extends AbstractPageController
 			@RequestParam(value = "adr2", required = false) final String adr2,
 			@RequestParam(value = "tel1", required = false) final String tel1,
 			@RequestParam(value = "tel2", required = false) final String tel2,
-			@RequestParam(value = "comment", required = false) final String comment,final Model model,final RedirectAttributes attr)
+			@RequestParam(value = "comment", required = false) final String comment,
+			final Model model, final RedirectAttributes attr)
 	{
 
 		CustomerData customer = new CustomerData();
@@ -167,9 +184,9 @@ public class CustomerPageController extends AbstractPageController
 			customerFacade.createCustomer(customer);
 		else
 			customerFacade.updateCustomer(customer);
-		
-	   attr.addFlashAttribute("message","保存成功!");
-		return REDIRECT_PREFIX+"/customer/modifycustomerpage/"+cellphone;
+
+		attr.addFlashAttribute("message", "保存成功!");
+		return REDIRECT_PREFIX + "/customer/modifycustomerpage/" + cellphone;
 	}
 
 }

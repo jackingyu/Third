@@ -9,9 +9,7 @@ import com.third.facade.data.RoleData;
 import com.third.facade.data.UserData;
 import com.third.facade.data.UserGroupData;
 
-
-public interface UserFacade
-{
+public interface UserFacade {
 
 	/**
 	 * @param user
@@ -30,7 +28,8 @@ public interface UserFacade
 	 * @param pageSize
 	 * @return
 	 */
-	ListData getUserGroups(String userGroupName, String userGroupId, Integer startIndex, Integer pageSize);
+	ListData getUserGroups(String userGroupName, String userGroupId,
+			Integer startIndex, Integer pageSize);
 
 	/**
 	 * @param userName
@@ -39,7 +38,8 @@ public interface UserFacade
 	 * @param pageSize
 	 * @return
 	 */
-	ListData getUsers(String userName, String userId, Integer startIndex, Integer pageSize);
+	ListData getUsers(String userName, String userId, Integer startIndex,
+			Integer pageSize);
 
 	/**
 	 * @param userGroup
@@ -65,14 +65,14 @@ public interface UserFacade
 	void updateUser(UserData user);
 
 	UserData getUserById(final String userId);
-	
+
 	UserData getCurrentUser();
-	
+
 	List<UserData> getSalesPerson(final String storeCode);
-	
+
 	boolean isAdmin();
-	
+
 	void loginSuccess(final String userId);
-	
+
 	void logout();
 }

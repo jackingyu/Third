@@ -37,109 +37,112 @@ import com.third.facade.populator.option.OrderOption;
 import com.third.facade.utils.TextMapperUtils;
 import com.third.model.CoreConstants;
 
-
 @Controller
-public class SizeOrderPageController extends AbstractPageController
-{
-	private static final Logger LOG = Logger.getLogger(com.third.controller.pages.lte.SizeOrderPageController.class);
+public class SizeOrderPageController extends AbstractPageController {
+	private static final Logger LOG = Logger.getLogger(
+			com.third.controller.pages.lte.SizeOrderPageController.class);
 	private static final String ORDER_CODE_PATH_VARIABLE_PATTERN = "/{orderCode:.*}";
 	private static final String ORDER_ENTRYPK_PATH_VARIABLE_PATTERN = "/{orderEntryPK:.*}";
-	
+
 	@Resource(name = "orderFacade")
 	private OrderFacade orderFacade;
 
 	@Resource(name = "textMapperUtils")
 	private TextMapperUtils textMapperUtils;
 
-	@RequestMapping(value = "/orderentry/createorderentrypage/"+ORDER_CODE_PATH_VARIABLE_PATTERN, method = RequestMethod.GET)
-	public String createSizeOrderPage(@PathVariable(value = "orderCode") final String orderCode,
+	@RequestMapping(value = "/orderentry/createorderentrypage/"
+			+ ORDER_CODE_PATH_VARIABLE_PATTERN, method = RequestMethod.GET)
+	public String createSizeOrderPage(
+			@PathVariable(value = "orderCode") final String orderCode,
 			@RequestParam(value = "itemCategory", required = false) final String itemCategory,
 			Model model)
 	{
 		Map<String, SizeAttributeGroupData> sizeDatas = null;
-		
-		
-		sizeDatas = orderFacade.getSizeAttributes(Integer.valueOf(itemCategory));
-		//			OrderEntryData entry = orderFacade.getSizeDatas(entryPK);
-		//			model.addAttribute("itemCategory", entry.getItemCategory());
-		//			sizeDatas = entry.getSizeDatas();
-		
-		
-		//set up item category
+
+		sizeDatas = orderFacade
+				.getSizeAttributes(Integer.valueOf(itemCategory));
+		// OrderEntryData entry = orderFacade.getSizeDatas(entryPK);
+		// model.addAttribute("itemCategory", entry.getItemCategory());
+		// sizeDatas = entry.getSizeDatas();
+
+		// set up item category
 		List<ComboboxData> itemCategorys = textMapperUtils.getItemCategories();
-		
-      for(int i = 0;i < itemCategorys.size();i++)
-      {
-         if(itemCategorys.get(i).getCode().equals(itemCategory))
-         {
-         	itemCategorys.get(i).setSelected(Boolean.TRUE);
-         }
-      }
-      
-      OrderData order = orderFacade.getOrderForOptions
-      		(orderCode, Arrays.asList(OrderOption.BASIC));
-      
-      OrderEntryData orderEntry = new OrderEntryData();
-      orderEntry.setTryDate(order.getTryDate());
-      orderEntry.setDeliveryDate(order.getDeliveryDate());
-      orderEntry.setCustomerName(order.getCustomerName());
-      orderEntry.setSizeDatas(sizeDatas);
-      orderEntry.setOrderCode(order.getOrderCode());
-      
-		model.addAttribute("itemCategorys",itemCategorys);
-		model.addAttribute("orderEntry", orderEntry);
-		model.addAttribute("searchCategory",TextMapper.ItemCategory2Category.get(orderEntry.getItemCategory()));
-		
-      fillStore2View(model, order.getStore().getCode());
-      
-		return ControllerConstants.LTE.ORDERENTRYDETAILPAGE;
-	}
-	
-	@RequestMapping(value = "/orderentry/modifyentrypage/"+ORDER_ENTRYPK_PATH_VARIABLE_PATTERN, method = RequestMethod.GET)
-	public String modifySizeOrderPage(@PathVariable(value = "orderEntryPK") final String orderEntryPK,
-			@ModelAttribute("message") final String message,
-			Model model)
-	{
-		Map<String, SizeAttributeGroupData> sizeDatas = null;
-		
-		//set up item category
-		OrderEntryData orderEntry = orderFacade.getOrderEntry(orderEntryPK);
-	  
-		List<ComboboxData> itemCategorys = textMapperUtils.getItemCategories();
-		
-		for(int i = 0;i < itemCategorys.size();i++)
+
+		for (int i = 0; i < itemCategorys.size(); i++)
 		{
-			if(itemCategorys.get(i).getCode().equals(orderEntry.getItemCategory()))
+			if (itemCategorys.get(i).getCode().equals(itemCategory))
 			{
 				itemCategorys.get(i).setSelected(Boolean.TRUE);
 			}
 		}
-		
-		
-		
-		//set size details data
+
+		OrderData order = orderFacade.getOrderForOptions(orderCode,
+				Arrays.asList(OrderOption.BASIC));
+
+		OrderEntryData orderEntry = new OrderEntryData();
+		orderEntry.setTryDate(order.getTryDate());
+		orderEntry.setDeliveryDate(order.getDeliveryDate());
+		orderEntry.setCustomerName(order.getCustomerName());
+		orderEntry.setSizeDatas(sizeDatas);
+		orderEntry.setOrderCode(order.getOrderCode());
+
+		model.addAttribute("itemCategorys", itemCategorys);
+		model.addAttribute("orderEntry", orderEntry);
+		model.addAttribute("searchCategory", TextMapper.ItemCategory2Category
+				.get(orderEntry.getItemCategory()));
+
+		fillStore2View(model, order.getStore().getCode());
+
+		return ControllerConstants.LTE.ORDERENTRYDETAILPAGE;
+	}
+
+	@RequestMapping(value = "/orderentry/modifyentrypage/"
+			+ ORDER_ENTRYPK_PATH_VARIABLE_PATTERN, method = RequestMethod.GET)
+	public String modifySizeOrderPage(
+			@PathVariable(value = "orderEntryPK") final String orderEntryPK,
+			@ModelAttribute("message") final String message, Model model)
+	{
+		Map<String, SizeAttributeGroupData> sizeDatas = null;
+
+		// set up item category
+		OrderEntryData orderEntry = orderFacade.getOrderEntry(orderEntryPK);
+
+		List<ComboboxData> itemCategorys = textMapperUtils.getItemCategories();
+
+		for (int i = 0; i < itemCategorys.size(); i++)
+		{
+			if (itemCategorys.get(i).getCode()
+					.equals(orderEntry.getItemCategory()))
+			{
+				itemCategorys.get(i).setSelected(Boolean.TRUE);
+			}
+		}
+
+		// set size details data
 		OrderEntryData entry = orderFacade.getSizeDatas(orderEntry.getPk());
 		orderEntry.setSizeDatas(entry.getSizeDatas());
-		
-		model.addAttribute("itemCategorys",itemCategorys);
+
+		model.addAttribute("itemCategorys", itemCategorys);
 		model.addAttribute("orderEntry", orderEntry);
-		model.addAttribute("statusText",orderEntry.getStatusText());
-		model.addAttribute("editable",orderEntry.getStatus().equals(CoreConstants.OrderStatus.NEW));
-		
-		if(StringUtils.isNotEmpty(message))
+		model.addAttribute("statusText", orderEntry.getStatusText());
+		model.addAttribute("editable",
+				orderEntry.getStatus().equals(CoreConstants.OrderStatus.NEW));
+
+		if (StringUtils.isNotEmpty(message))
 			model.addAttribute("message", message);
-		
-		model.addAttribute("searchCategory",TextMapper.ItemCategory2Category.get(orderEntry.getItemCategory()));
-		
+
+		model.addAttribute("searchCategory", TextMapper.ItemCategory2Category
+				.get(orderEntry.getItemCategory()));
 
 		fillProductGroupsInModel(model);
 		fillStore2View(model, orderEntry.getStoreName());
-		
+
 		return ControllerConstants.LTE.ORDERENTRYDETAILPAGE;
 	}
-	
+
 	@RequestMapping(value = "/orderentry/saveorderentry")
-	public String saveOrderEntry(@RequestParam(value = "orderCode", required = false) final String orderCode,
+	public String saveOrderEntry(
+			@RequestParam(value = "orderCode", required = false) final String orderCode,
 			@RequestParam(value = "entryPK", required = false) final String entryPK,
 			@RequestParam(value = "itemCategory", required = false) final String itemCategory,
 			@RequestParam(value = "style", required = false) final String style,
@@ -155,8 +158,8 @@ public class SizeOrderPageController extends AbstractPageController
 			@RequestParam(value = "comment", required = false) final String comment,
 			RedirectAttributes attr)
 	{
-		//TODO:校验量身单状态,判断是否允许修改,如果是新建的,则只允许销售员修改
-		//如果是财务审核通过,只允许裁床修改,需要考虑是否允许admin修改
+		// TODO:校验量身单状态,判断是否允许修改,如果是新建的,则只允许销售员修改
+		// 如果是财务审核通过,只允许裁床修改,需要考虑是否允许admin修改
 		OrderEntryData orderEntryData = new OrderEntryData();
 		orderEntryData.setOrderCode(orderCode);
 		orderEntryData.setPk(entryPK);
@@ -176,10 +179,11 @@ public class SizeOrderPageController extends AbstractPageController
 		ProductData product = new ProductData();
 		product.setCode(productCode);
 		orderEntryData.setProduct(product);
-		
+
 		if (StringUtils.isNotBlank(sizeDetails))
 		{
-			List<SizeAttributeData> sizeDatas = JSON.parseArray(sizeDetails, SizeAttributeData.class);
+			List<SizeAttributeData> sizeDatas = JSON.parseArray(sizeDetails,
+					SizeAttributeData.class);
 		}
 
 		if (StringUtils.isBlank(entryPK))
@@ -188,12 +192,15 @@ public class SizeOrderPageController extends AbstractPageController
 			orderFacade.updateOrderEntry(orderEntryData);
 
 		attr.addFlashAttribute("message", "保存成功!");
-		return REDIRECT_PREFIX+"/orderentry/modifyentrypage/"+orderEntryData.getPk();
+		return REDIRECT_PREFIX + "/orderentry/modifyentrypage/"
+				+ orderEntryData.getPk();
 	}
-	
+
 	@RequestMapping(value = "/sizeorder/uploadsizeimage", method = RequestMethod.POST)
-	public @ResponseBody Object uploadSizeImage(@RequestParam(value = "fileUpload") final MultipartFile file,
-			@RequestParam(value = "entryPK", required = false) final String entryPK, final HttpServletRequest request)
+	public @ResponseBody Object uploadSizeImage(
+			@RequestParam(value = "fileUpload") final MultipartFile file,
+			@RequestParam(value = "entryPK", required = false) final String entryPK,
+			final HttpServletRequest request)
 	{
 		return orderFacade.uploadMediaForOrderEntry(entryPK, file);
 	}

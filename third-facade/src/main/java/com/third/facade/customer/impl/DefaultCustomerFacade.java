@@ -28,10 +28,9 @@ import com.third.service.customer.SubscribeService;
 import com.third.service.location.I18NService;
 import com.third.service.user.SessionService;
 
-
-public class DefaultCustomerFacade implements CustomerFacade
-{
-	private final static Logger LOG = Logger.getLogger(DefaultCustomerFacade.class);
+public class DefaultCustomerFacade implements CustomerFacade {
+	private final static Logger LOG = Logger
+			.getLogger(DefaultCustomerFacade.class);
 	private CustomerDataPopulator customerDataPopulator;
 	private SourceDataPopulator sourceDataPopulator;
 	private I18NService i18NService;
@@ -55,7 +54,8 @@ public class DefaultCustomerFacade implements CustomerFacade
 
 		if (StringUtils.isNotEmpty(customer.getSource().getPk()))
 		{
-			SourceModel sourceModel = sourceService.getSource(customer.getSource().getPk());
+			SourceModel sourceModel = sourceService
+					.getSource(customer.getSource().getPk());
 			customerModel.setSource(sourceModel);
 		}
 
@@ -64,13 +64,15 @@ public class DefaultCustomerFacade implements CustomerFacade
 
 		addressModel.setAdr1(address.getAdr1());
 		addressModel.setAdr2(address.getAdr2());
-		addressModel.setCity(i18NService.getCity(address.getCity().getIsoCode()));
-		addressModel.setRegion(i18NService.getRegion(address.getRegion().getIsoCode()));
+		addressModel
+				.setCity(i18NService.getCity(address.getCity().getIsoCode()));
+		addressModel.setRegion(
+				i18NService.getRegion(address.getRegion().getIsoCode()));
 		addressModel.setTel1(address.getTel1());
 		addressModel.setTel2(address.getTel2());
 
-		//i18NService.createAddress(addressModel);
-		//customerModel.setAddress(addressModel);
+		// i18NService.createAddress(addressModel);
+		// customerModel.setAddress(addressModel);
 
 		customerService.createCustomer(customerModel);
 	}
@@ -78,7 +80,8 @@ public class DefaultCustomerFacade implements CustomerFacade
 	@Override
 	public CustomerData getCustomerByCellphone(final String cellphone)
 	{
-		CustomerModel customer = customerService.getCustomerByCellphone(cellphone);
+		CustomerModel customer = customerService
+				.getCustomerByCellphone(cellphone);
 		CustomerData customerData = new CustomerData();
 
 		if (customer != null)
@@ -88,9 +91,11 @@ public class DefaultCustomerFacade implements CustomerFacade
 	}
 
 	@Override
-	public ListData getCustomers(final String cellphone, final String name, final Integer startIndex, final Integer pageSize)
+	public ListData getCustomers(final String cellphone, final String name,
+			final Integer startIndex, final Integer pageSize)
 	{
-		PaginationSupport result = customerService.getCustomerList(cellphone, name, startIndex, pageSize);
+		PaginationSupport result = customerService.getCustomerList(cellphone,
+				name, startIndex, pageSize);
 		ListData grid = new ListData();
 		grid.setTotal(result.getTotalCount());
 		List<Object> customers = new ArrayList<Object>();
@@ -124,7 +129,8 @@ public class DefaultCustomerFacade implements CustomerFacade
 	@Override
 	public void updateCustomer(CustomerData customer)
 	{
-		CustomerModel customerModel = customerService.getCustomerByCellphone(customer.getCellphone());
+		CustomerModel customerModel = customerService
+				.getCustomerByCellphone(customer.getCellphone());
 
 		customerModel.setName(customer.getName());
 		customerModel.setBirthday(customer.getBirthday());
@@ -133,10 +139,11 @@ public class DefaultCustomerFacade implements CustomerFacade
 		customerModel.setEmail(customer.getEmail());
 		customerModel.setQQ(customer.getQQ());
 
-		SourceModel sourceModel = sourceService.getSource(customer.getSource().getPk());
+		SourceModel sourceModel = sourceService
+				.getSource(customer.getSource().getPk());
 		customerModel.setSource(sourceModel);
 
-		//修改地址信息
+		// 修改地址信息
 		AddressModel addressModel = customerModel.getAddress();
 		if (addressModel == null)
 		{
@@ -148,8 +155,10 @@ public class DefaultCustomerFacade implements CustomerFacade
 
 		addressModel.setAdr1(address.getAdr1());
 		addressModel.setAdr2(address.getAdr2());
-		addressModel.setCity(i18NService.getCity(address.getCity().getIsoCode()));
-		addressModel.setRegion(i18NService.getRegion(address.getRegion().getIsoCode()));
+		addressModel
+				.setCity(i18NService.getCity(address.getCity().getIsoCode()));
+		addressModel.setRegion(
+				i18NService.getRegion(address.getRegion().getIsoCode()));
 		addressModel.setTel1(address.getTel1());
 		addressModel.setTel2(address.getTel2());
 
@@ -158,20 +167,22 @@ public class DefaultCustomerFacade implements CustomerFacade
 	}
 
 	@Override
-	public CustomerData registerCustomer(final String openId, final String cellphone, final String name) throws SubscribeException
+	public CustomerData registerCustomer(final String openId,
+			final String cellphone, final String name) throws SubscribeException
 	{
 		LOG.debug("开始绑定顾客" + openId + "/" + cellphone);
-		SubscribeModel subscribeModel = subscribeService.getSubscribeModel(openId);
-
+		SubscribeModel subscribeModel = subscribeService
+				.getSubscribeModel(openId);
 
 		if (subscribeModel == null)
 		{
 			throw new SubscribeException("请先关注铂玛微信号");
 		}
 
-		CustomerModel customerModel = customerService.getCustomerByCellphone(cellphone);
+		CustomerModel customerModel = customerService
+				.getCustomerByCellphone(cellphone);
 
-		//如果该顾客数据不存在直接创建一个否则执行绑定功能
+		// 如果该顾客数据不存在直接创建一个否则执行绑定功能
 		if (customerModel == null)
 		{
 			customerModel = new CustomerModel();
@@ -180,23 +191,25 @@ public class DefaultCustomerFacade implements CustomerFacade
 			customerModel.setSubscribe(subscribeModel);
 			customerService.createCustomer(customerModel);
 			LOG.debug("创建顾客" + cellphone);
-		}
-		else
+		} else
 		{
 			customerModel.setSubscribe(subscribeModel);
-			//			
-			//			//如果该客户还没有分组或者分组为默认分组时，设置默认微信分组
-			//			if ( customer.getCustomerGroupModel() == null || customer.getCustomerGroupModel().getId() == 0 ) {
-			//				CustomerGroupModel custGroup = customerGroupService.getCustomerGroupModel(0);
-			//				customer.setCustomerGroupModel(custGroup);
-			//			} else {
-			//				try {
-			//					//同步微信分组
-			//					this.getWxService().updateCustomerGroup(openId, customer.getCustomerGroupModel().getId().toString());
-			//				} catch (IOException e) {
-			//					//Do nothing
-			//				}
-			//			}
+			//
+			// //如果该客户还没有分组或者分组为默认分组时，设置默认微信分组
+			// if ( customer.getCustomerGroupModel() == null ||
+			// customer.getCustomerGroupModel().getId() == 0 ) {
+			// CustomerGroupModel custGroup =
+			// customerGroupService.getCustomerGroupModel(0);
+			// customer.setCustomerGroupModel(custGroup);
+			// } else {
+			// try {
+			// //同步微信分组
+			// this.getWxService().updateCustomerGroup(openId,
+			// customer.getCustomerGroupModel().getId().toString());
+			// } catch (IOException e) {
+			// //Do nothing
+			// }
+			// }
 
 			LOG.debug("更新顾客" + cellphone);
 			customerService.updateCustomer(customerModel);
@@ -211,7 +224,8 @@ public class DefaultCustomerFacade implements CustomerFacade
 	@Override
 	public CustomerData getCurrentCustomer()
 	{
-		CustomerData customer = (CustomerData) sessionService.get(CoreConstants.Session.CURRENT_CUSTOMER);
+		CustomerData customer = (CustomerData) sessionService
+				.get(CoreConstants.Session.CURRENT_CUSTOMER);
 		return customer;
 	}
 
@@ -222,14 +236,15 @@ public class DefaultCustomerFacade implements CustomerFacade
 		sessionService.save(CoreConstants.Session.CURRENT_CUSTOMER, customer);
 	}
 
-	//	
-	//	@Override
-	//	public void logout()
-	//	{
-	//		sessionService.clear(CoreConstants.Session.CURRENT_CUSTOMER);
-	//	}
+	//
+	// @Override
+	// public void logout()
+	// {
+	// sessionService.clear(CoreConstants.Session.CURRENT_CUSTOMER);
+	// }
 
-	public void setCustomerDataPopulator(CustomerDataPopulator customerDataPopulator)
+	public void setCustomerDataPopulator(
+			CustomerDataPopulator customerDataPopulator)
 	{
 		this.customerDataPopulator = customerDataPopulator;
 	}
@@ -267,7 +282,8 @@ public class DefaultCustomerFacade implements CustomerFacade
 	@Override
 	public CustomerData loginCustomer(String openId)
 	{
-		CustomerModel customerModel = customerService.getCustomerByOpenId(openId);
+		CustomerModel customerModel = customerService
+				.getCustomerByOpenId(openId);
 		if (customerModel == null)
 			return null;
 

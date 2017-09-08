@@ -4,16 +4,18 @@ import com.third.facade.data.OrderProcessRecordData;
 import com.third.facade.data.TextMapper;
 import com.third.model.OrderProcessRecordModel;
 
-
-public class OrderProcessRecordDataPopulator implements Populator<OrderProcessRecordModel, OrderProcessRecordData>
-{
+public class OrderProcessRecordDataPopulator
+		implements Populator<OrderProcessRecordModel, OrderProcessRecordData> {
 
 	@Override
-	public void populate(OrderProcessRecordModel source, OrderProcessRecordData target)
+	public void populate(OrderProcessRecordModel source,
+			OrderProcessRecordData target)
 	{
 		target.setProcessTime(source.getProcessTime());
-		target.setFromStatusText(TextMapper.OrderStatus.get(source.getFromStatus()));
-		target.setToStatusText(TextMapper.OrderStatus.get(source.getToStatus()));
+		target.setFromStatusText(
+				TextMapper.OrderStatus.get(source.getFromStatus()));
+		target.setToStatusText(
+				TextMapper.OrderStatus.get(source.getToStatus()));
 		target.setMessage(source.getMessage());
 		target.setPk(source.getPk());
 		target.setOrderCode(source.getOrderCode());

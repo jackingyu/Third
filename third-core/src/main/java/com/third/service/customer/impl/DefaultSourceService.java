@@ -11,9 +11,7 @@ import com.third.model.UserModel;
 import com.third.service.customer.CustomerService;
 import com.third.service.customer.SourceService;
 
-
-public class DefaultSourceService implements SourceService
-{
+public class DefaultSourceService implements SourceService {
 	private SourceDao sourceDao;
 
 	@Override
@@ -21,7 +19,7 @@ public class DefaultSourceService implements SourceService
 	{
 		return sourceDao.list();
 	}
-	
+
 	@Override
 	public List<SourceModel> getSources(final String name)
 	{
@@ -38,7 +36,7 @@ public class DefaultSourceService implements SourceService
 	{
 		sourceDao.save(source);
 	}
-	
+
 	@Override
 	public void saveSource(SourceModel source)
 	{

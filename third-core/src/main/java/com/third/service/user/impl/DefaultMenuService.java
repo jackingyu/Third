@@ -4,9 +4,7 @@ import com.third.dao.user.MenuDao;
 import com.third.model.MenuModel;
 import com.third.service.user.MenuService;
 
-
-public class DefaultMenuService implements MenuService
-{
+public class DefaultMenuService implements MenuService {
 	private MenuDao menuDao;
 
 	@Override

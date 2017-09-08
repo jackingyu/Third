@@ -1,7 +1,6 @@
 package com.third.facade.data;
 
-public class SourceData extends AbstractData
-{
+public class SourceData extends AbstractData {
 	private String name;
 
 	public String getName()

@@ -10,12 +10,12 @@ import com.third.facade.utils.DTResultConvertor;
 import com.third.facade.utils.TextMapperUtils;
 import com.third.service.order.PaymentService;
 
-public class DefaultFIReportFacade implements FIReportFacade
-{
+public class DefaultFIReportFacade implements FIReportFacade {
 	private PaymentService paymentService;
 
 	@Override
-	public DTResults getPaymentList(Date startDate, Date endDate, Integer startIndex, Integer pageSize, Map<String, String[]> sp)
+	public DTResults getPaymentList(Date startDate, Date endDate,
+			Integer startIndex, Integer pageSize, Map<String, String[]> sp)
 	{
 		DTResults result = DTResultConvertor.convertPS2DT(paymentService
 				.getPayments(startDate, endDate, startIndex, pageSize, sp));
@@ -23,11 +23,9 @@ public class DefaultFIReportFacade implements FIReportFacade
 		return result;
 	}
 
-
 	public void setPaymentService(PaymentService paymentService)
 	{
 		this.paymentService = paymentService;
 	}
 
-	
 }

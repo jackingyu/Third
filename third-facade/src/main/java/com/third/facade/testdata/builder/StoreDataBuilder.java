@@ -23,9 +23,7 @@ import com.third.service.location.I18NService;
 import com.third.service.store.StoreService;
 import com.third.service.user.UserService;
 
-
-public class StoreDataBuilder implements DataBuilder
-{
+public class StoreDataBuilder implements DataBuilder {
 	private I18NService i18NService;
 	private CustomerService customerService;
 	private StoreService storeService;
@@ -34,19 +32,19 @@ public class StoreDataBuilder implements DataBuilder
 	@Resource(name = "userDao")
 	private UserDao userDao;
 
-	private  List<SourceModel> sourceModels = new ArrayList<SourceModel>();;
-	
+	private List<SourceModel> sourceModels = new ArrayList<SourceModel>();;
+
 	@Override
 	public void buildData()
 	{
-		for(int i = 0; i <30 ; i++)
+		for (int i = 0; i < 30; i++)
 		{
 			SourceModel source = new SourceModel();
-			source.setName("合作伙伴"+RandomUtils.nextInt());
+			source.setName("合作伙伴" + RandomUtils.nextInt());
 			sourceService.createSource(source);
 			sourceModels.add(source);
 		}
-		
+
 		RegionModel region = buildRegion("cn11", "上海市");
 		CityModel city = buildCity("cn12", "上海市", region);
 		RegionModel region1 = buildRegion("CN13", "江苏省");
@@ -56,12 +54,9 @@ public class StoreDataBuilder implements DataBuilder
 		StoreModel store = buildStore("s-1", "南方一店", address);
 		StoreModel store1 = buildStore("a-1", "王者荣耀店", address);
 
-		
-		
 		for (int i = 2; i < 30; i++)
 		{
 			String storeName = "默认店名";
-			
 
 			if (i <= 10)
 			{
@@ -72,7 +67,7 @@ public class StoreDataBuilder implements DataBuilder
 
 			if (i > 10 && i <= 20)
 			{
-				
+
 				storeName = "北方" + i + "店";
 				buildStore("s-" + i, storeName, address);
 				continue;
@@ -83,7 +78,7 @@ public class StoreDataBuilder implements DataBuilder
 				storeName = "森林" + i + "店";
 				buildStore("s-" + i, storeName, address1);
 				continue;
-				
+
 			}
 		}
 
@@ -93,18 +88,19 @@ public class StoreDataBuilder implements DataBuilder
 		{
 			UserModel user = userList.get(i);
 
-			user.setStores(Arrays.asList(store,store1));
+			user.setStores(Arrays.asList(store, store1));
 
 			userDao.update(user);
 		}
 
 		UserModel user1 = userDao.findUserById("test");
-		user1.setStores(Arrays.asList(store,store1));
+		user1.setStores(Arrays.asList(store, store1));
 		userDao.update(user1);
 
 		for (int i = 0; i < 100; i++)
 		{
-			AddressModel address5 = buildAddress(region, city, "shanghai street" + i);
+			AddressModel address5 = buildAddress(region, city,
+					"shanghai street" + i);
 			buildCustomer("1380013800" + i, "fly" + i, address5);
 		}
 
@@ -124,29 +120,30 @@ public class StoreDataBuilder implements DataBuilder
 		return source;
 	}
 
-	public StoreModel buildStore(final String id, final String name, final AddressModel address)
+	public StoreModel buildStore(final String id, final String name,
+			final AddressModel address)
 	{
 		StoreModel store = new StoreModel();
 		store.setId(id);
 		store.setAddress(address);
 		store.setName(name);
 		List<SourceModel> sources = new ArrayList<SourceModel>();
-		
-		int j = RandomUtils.nextInt(10,15);
-		
-		for(int i = 0; i < j;i++)
+
+		int j = RandomUtils.nextInt(10, 15);
+
+		for (int i = 0; i < j; i++)
 		{
 			sources.add(sourceModels.get(i));
 		}
-		
+
 		store.setSources(sources);
 		storeService.createStore(store);
 
 		return store;
 	}
 
-
-	public CustomerModel buildCustomer(final String cellphone, final String name, final AddressModel address)
+	public CustomerModel buildCustomer(final String cellphone,
+			final String name, final AddressModel address)
 	{
 		CustomerModel customer = new CustomerModel();
 		customer.setCellphone(cellphone);
@@ -170,7 +167,8 @@ public class StoreDataBuilder implements DataBuilder
 		return region;
 	}
 
-	public CityModel buildCity(final String code, final String name, RegionModel region)
+	public CityModel buildCity(final String code, final String name,
+			RegionModel region)
 	{
 		CityModel city = new CityModel();
 		city.setIsoCode(code);
@@ -180,7 +178,8 @@ public class StoreDataBuilder implements DataBuilder
 		return city;
 	}
 
-	public AddressModel buildAddress(final RegionModel region, final CityModel city, final String adr1)
+	public AddressModel buildAddress(final RegionModel region,
+			final CityModel city, final String adr1)
 	{
 		AddressModel address = new AddressModel();
 		address.setCity(city);

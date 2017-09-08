@@ -17,11 +17,9 @@ import com.third.dao.util.PaginationSupport;
 import com.third.model.StoreModel;
 import com.third.model.UserModel;
 
-
-public class DefaultStoreDao extends GenericDAO<StoreModel, String> implements StoreDao
-{
+public class DefaultStoreDao extends GenericDAO<StoreModel, String>
+		implements StoreDao {
 	private final static String FIND_BY_CODE_SQL = "from com.third.model.StoreModel s where s.id=?";
-
 
 	@Override
 	public List<StoreModel> findStoreByName(String name)

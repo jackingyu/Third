@@ -11,20 +11,23 @@ import com.third.model.OrderModel;
 import com.third.model.OrderProcessRecordModel;
 import com.third.model.UserModel;
 
-
-public interface OrderProcessService
-{
+public interface OrderProcessService {
 	void createOrderProcess(final OrderProcessRecordModel orderProcessRecord);
-	
-	void updateOrderProcess(final OrderProcessRecordModel orderProcessRecord);
-	
-	PaginationSupport getOrderProcessRecords(final Date startDate, final Date endDate, final Integer startIndex, final Integer pageSize,
-			final Map<String, String> sp);
-	
-	List<OrderProcessRecordModel> getOrderProcessRecordForOrder(final String orderCode);
 
-	OrderProcessRecordModel processOrder(OrderModel order, UserModel user,Integer targetStatus) throws NoQualifiedTargetStatusException;
-	
-	OrderProcessRecordModel processOrderEntry(OrderEntryModel orderEntry, UserModel user,Integer targetStatus) throws NoQualifiedTargetStatusException;
+	void updateOrderProcess(final OrderProcessRecordModel orderProcessRecord);
+
+	PaginationSupport getOrderProcessRecords(final Date startDate,
+			final Date endDate, final Integer startIndex,
+			final Integer pageSize, final Map<String, String> sp);
+
+	List<OrderProcessRecordModel> getOrderProcessRecordForOrder(
+			final String orderCode);
+
+	OrderProcessRecordModel processOrder(OrderModel order, UserModel user,
+			Integer targetStatus) throws NoQualifiedTargetStatusException;
+
+	OrderProcessRecordModel processOrderEntry(OrderEntryModel orderEntry,
+			UserModel user, Integer targetStatus)
+			throws NoQualifiedTargetStatusException;
 
 }

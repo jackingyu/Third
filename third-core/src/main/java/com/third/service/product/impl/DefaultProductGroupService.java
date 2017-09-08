@@ -1,7 +1,5 @@
 package com.third.service.product.impl;
 
-
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -13,9 +11,7 @@ import com.third.dao.util.PaginationSupport;
 import com.third.model.ProductGroupModel;
 import com.third.service.product.ProductGroupService;
 
-
-public class DefaultProductGroupService implements ProductGroupService
-{
+public class DefaultProductGroupService implements ProductGroupService {
 	private ProductGroupDao productGroupDao;
 
 	@Override
@@ -40,5 +36,5 @@ public class DefaultProductGroupService implements ProductGroupService
 	{
 		return productGroupDao.get(pk);
 	}
-	
+
 }

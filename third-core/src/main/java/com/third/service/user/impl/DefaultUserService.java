@@ -1,6 +1,5 @@
 package com.third.service.user.impl;
 
-
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,9 +14,7 @@ import com.third.model.UserModel;
 import com.third.service.user.SessionService;
 import com.third.service.user.UserService;
 
-
-public class DefaultUserService implements UserService
-{
+public class DefaultUserService implements UserService {
 
 	private UserDao userDao;
 	private UserGroupDao userGroupDao;
@@ -32,7 +29,8 @@ public class DefaultUserService implements UserService
 
 	public UserModel getCurrentUser()
 	{
-		String userId =  (String) sessionService.get(CoreConstants.Session.CURRENT_USER_ID);
+		String userId = (String) sessionService
+				.get(CoreConstants.Session.CURRENT_USER_ID);
 		return userDao.findUserById(userId);
 	}
 
@@ -46,12 +44,10 @@ public class DefaultUserService implements UserService
 		userGroupDao.save(userGroup);
 	}
 
-
 	public UserGroupModel getUserGroupById(String useGroupdId)
 	{
 		return null;
 	}
-
 
 	public boolean isExist(String userId)
 	{
@@ -66,7 +62,8 @@ public class DefaultUserService implements UserService
 	}
 
 	@Override
-	public PaginationSupport getUserList(final String userId, final String userName, final Integer startIndex,
+	public PaginationSupport getUserList(final String userId,
+			final String userName, final Integer startIndex,
 			final Integer pageSize)
 	{
 		return userDao.findUser(userId, userName, startIndex, pageSize);
@@ -79,10 +76,12 @@ public class DefaultUserService implements UserService
 	}
 
 	@Override
-	public PaginationSupport getUserGroupList(final String userGroupId, final String userGroupName, final Integer startIndex,
+	public PaginationSupport getUserGroupList(final String userGroupId,
+			final String userGroupName, final Integer startIndex,
 			final Integer pageSize)
 	{
-		return userGroupDao.findUserGroupByName(userGroupId, userGroupName, startIndex, pageSize);
+		return userGroupDao.findUserGroupByName(userGroupId, userGroupName,
+				startIndex, pageSize);
 	}
 
 	@Override

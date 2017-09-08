@@ -6,9 +6,7 @@ import java.util.Date;
 import com.third.model.OrderModel;
 import com.third.model.SourceModel;
 
-
-public class SalesQuationData
-{
+public class SalesQuationData {
 	private String pk;
 	private String customerName;
 	private String cellphone;

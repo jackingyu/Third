@@ -2,8 +2,7 @@ package com.third.security.exceptions;
 
 import org.springframework.security.core.AuthenticationException;
 
-public class WeixinAuthenticationException extends AuthenticationException
-{
+public class WeixinAuthenticationException extends AuthenticationException {
 
 	public WeixinAuthenticationException(String msg)
 	{

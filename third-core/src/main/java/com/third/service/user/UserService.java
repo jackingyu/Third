@@ -7,13 +7,11 @@ import com.third.exceptions.SystemException;
 import com.third.model.UserGroupModel;
 import com.third.model.UserModel;
 
-
 /**
  * @author jack
  *
  */
-public interface UserService
-{
+public interface UserService {
 	/**
 	 * @param userId
 	 * @return
@@ -62,7 +60,6 @@ public interface UserService
 	 */
 	public void updateUserGroup(final UserGroupModel userGroup);
 
-
 	/**
 	 * @param userGroupId
 	 * @param userGroupName
@@ -70,7 +67,8 @@ public interface UserService
 	 * @param pageSize
 	 * @return
 	 */
-	PaginationSupport getUserGroupList(final String userGroupId, final String userGroupName, final Integer startIndex,
+	PaginationSupport getUserGroupList(final String userGroupId,
+			final String userGroupName, final Integer startIndex,
 			final Integer pageSize);
 
 	/**
@@ -85,8 +83,9 @@ public interface UserService
 	 * @param pageSize
 	 * @return
 	 */
-	PaginationSupport getUserList(String userId, String userName, Integer startIndex, Integer pageSize);
-	
+	PaginationSupport getUserList(String userId, String userName,
+			Integer startIndex, Integer pageSize);
+
 	List<UserModel> getSalesPerson(final String storeCode);
-	
+
 }

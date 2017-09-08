@@ -1,13 +1,11 @@
 package com.third.facade.data;
 
-public class SizeAttributeData extends AbstractData
-{
+public class SizeAttributeData extends AbstractData {
 	private String name;
 	private String code;
 	private String value;
 	private String group;
 	private String itemCategory;
-	
 
 	public String getName()
 	{

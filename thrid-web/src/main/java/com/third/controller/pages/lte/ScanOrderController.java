@@ -24,59 +24,62 @@ import com.third.facade.order.OrderProcessFacade;
 import com.third.facade.utils.TextMapperUtils;
 import com.third.model.CoreConstants;
 
-
 @Controller
-public class ScanOrderController extends AbstractPageController
-{
-	private static final Logger LOG = Logger.getLogger(com.third.controller.pages.lte.ScanOrderController.class);
+public class ScanOrderController extends AbstractPageController {
+	private static final Logger LOG = Logger.getLogger(
+			com.third.controller.pages.lte.ScanOrderController.class);
 
 	@Resource(name = "orderFacade")
 	private OrderFacade orderFacade;
-	
+
 	@Resource(name = "textMapperUtils")
 	private TextMapperUtils textMapperUtils;
 
-	
 	@RequestMapping(value = "/factory/orderdeliver", method = RequestMethod.GET)
 	public String getFactoryDeliverOrderPage(Model model)
 	{
-		//TODO need to change to the right status
-		model.addAttribute("status",CoreConstants.OrderStatus.FACTORY_DELIVERED);
-		model.addAttribute("currentStatus",CoreConstants.OrderStatus.FACTORY_APPROVE);
-		model.addAttribute("successmessage","工厂发货成功");
-		model.addAttribute("title","工厂发货");
+		// TODO need to change to the right status
+		model.addAttribute("status",
+				CoreConstants.OrderStatus.FACTORY_DELIVERED);
+		model.addAttribute("currentStatus",
+				CoreConstants.OrderStatus.FACTORY_APPROVE);
+		model.addAttribute("successmessage", "工厂发货成功");
+		model.addAttribute("title", "工厂发货");
 		return ControllerConstants.LTE.SCANORDERPAGE;
 	}
-	
+
 	@RequestMapping(value = "/store/orderdeliver", method = RequestMethod.GET)
 	public String getStoreOrderDeliverPage(Model model)
 	{
-		//TODO need to change to the right status
-		model.addAttribute("status",CoreConstants.OrderStatus.STORE_DELIVERED);
-		model.addAttribute("currentStatus",CoreConstants.OrderStatus.STORE_RECEIPT);
-		model.addAttribute("successmessage","门店发货成功");
-		model.addAttribute("title","顾客取件");
+		// TODO need to change to the right status
+		model.addAttribute("status", CoreConstants.OrderStatus.STORE_DELIVERED);
+		model.addAttribute("currentStatus",
+				CoreConstants.OrderStatus.STORE_RECEIPT);
+		model.addAttribute("successmessage", "门店发货成功");
+		model.addAttribute("title", "顾客取件");
 		return ControllerConstants.LTE.SCANORDERPAGE;
 	}
-	
+
 	@RequestMapping(value = "/store/orderreceipt", method = RequestMethod.GET)
 	public String getStoreOrderReceiptPage(Model model)
 	{
-		//TODO need to change to the right status
-		model.addAttribute("status",CoreConstants.OrderStatus.STORE_RECEIPT);
-		model.addAttribute("successmessage","门店收货成功");
-		model.addAttribute("currentStatus",CoreConstants.OrderStatus.FACTORY_DELIVERED);
-		model.addAttribute("title","门店收货");
+		// TODO need to change to the right status
+		model.addAttribute("status", CoreConstants.OrderStatus.STORE_RECEIPT);
+		model.addAttribute("successmessage", "门店收货成功");
+		model.addAttribute("currentStatus",
+				CoreConstants.OrderStatus.FACTORY_DELIVERED);
+		model.addAttribute("title", "门店收货");
 		return ControllerConstants.LTE.SCANORDERPAGE;
 	}
-	
+
 	@RequestMapping(value = "/orderscan/getentrylist", method = RequestMethod.GET)
 	@ResponseBody
-	public Object getEntryList(@RequestParam(value = "entryPK", required = false) final String entryPK,
+	public Object getEntryList(
+			@RequestParam(value = "entryPK", required = false) final String entryPK,
 			@RequestParam(value = "externalId", required = false) final String externalId,
 			@RequestParam(value = "currentStatus", required = false) final Integer status,
 			Model model)
 	{
-		return orderFacade.getOrderEntriesByPKorId(entryPK, externalId,status);
+		return orderFacade.getOrderEntriesByPKorId(entryPK, externalId, status);
 	}
 }

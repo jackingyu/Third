@@ -10,9 +10,7 @@ import com.third.model.CityModel;
 import com.third.model.RegionModel;
 import com.third.service.location.I18NService;
 
-
-public class DefaultI18NService implements I18NService
-{
+public class DefaultI18NService implements I18NService {
 	private RegionDao regionDao;
 	private CityDao cityDao;
 	private AddressDao addressDao;

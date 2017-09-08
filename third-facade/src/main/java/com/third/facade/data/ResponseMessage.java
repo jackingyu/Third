@@ -1,9 +1,8 @@
 package com.third.facade.data;
 
-public class ResponseMessage
-{
+public class ResponseMessage {
 	private String message;
-	
+
 	public ResponseMessage(String message)
 	{
 		this.message = message;

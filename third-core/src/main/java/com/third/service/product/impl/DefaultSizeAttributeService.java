@@ -6,9 +6,7 @@ import com.third.dao.product.SizeAttributeDao;
 import com.third.model.SizeAttributeModel;
 import com.third.service.product.SizeAttributeService;
 
-
-public class DefaultSizeAttributeService implements SizeAttributeService
-{
+public class DefaultSizeAttributeService implements SizeAttributeService {
 	private SizeAttributeDao sizeAttributeDao;
 
 	@Override
@@ -18,7 +16,8 @@ public class DefaultSizeAttributeService implements SizeAttributeService
 	}
 
 	@Override
-	public List<SizeAttributeModel> getSizeAttributeForItemCategory(Integer itemCategory)
+	public List<SizeAttributeModel> getSizeAttributeForItemCategory(
+			Integer itemCategory)
 	{
 		return sizeAttributeDao.findSizeAttributeForItemCategory(itemCategory);
 	}

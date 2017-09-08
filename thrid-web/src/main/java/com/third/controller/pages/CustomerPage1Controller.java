@@ -1,6 +1,5 @@
 package com.third.controller.pages;
 
-
 import java.util.Date;
 import java.util.List;
 
@@ -24,11 +23,10 @@ import com.third.facade.data.RegionData;
 import com.third.facade.data.SourceData;
 import com.third.facade.local.I18NFacade;
 
-
 @Controller
-public class CustomerPage1Controller extends AbstractPageController
-{
-	private static final Logger LOG = Logger.getLogger(CustomerPage1Controller.class);
+public class CustomerPage1Controller extends AbstractPageController {
+	private static final Logger LOG = Logger
+			.getLogger(CustomerPage1Controller.class);
 	@Resource(name = "customerFacade")
 	private CustomerFacade customerFacade;
 
@@ -39,7 +37,8 @@ public class CustomerPage1Controller extends AbstractPageController
 	public String getCustomerListPage(Model model)
 	{
 		List<RegionData> regions = i18NFacade.getRegions();
-		List<CityData> citys = i18NFacade.getCityForRegion(regions.get(0).getIsoCode());
+		List<CityData> citys = i18NFacade
+				.getCityForRegion(regions.get(0).getIsoCode());
 		List<SourceData> sources = customerFacade.getSources();
 
 		model.addAttribute("regions", regions);
@@ -51,28 +50,34 @@ public class CustomerPage1Controller extends AbstractPageController
 
 	@RequestMapping(value = "/getCustomer", method = RequestMethod.GET)
 	@ResponseBody
-	public Object getCustomer(@RequestParam(value = "cellphone") final String cellphone)
+	public Object getCustomer(
+			@RequestParam(value = "cellphone") final String cellphone)
 	{
-		CustomerData customer = customerFacade.getCustomerByCellphone(cellphone);
+		CustomerData customer = customerFacade
+				.getCustomerByCellphone(cellphone);
 		return customer;
 	}
 
 	@RequestMapping(value = "/getCustomerList")
 	@ResponseBody
-	public Object getCustomerList(@RequestParam(value = "cellphone", required = false) final String cellphone,
+	public Object getCustomerList(
+			@RequestParam(value = "cellphone", required = false) final String cellphone,
 			@RequestParam(value = "name", required = false) final String name,
 			@RequestParam(value = "page", required = false) final Integer page,
 			@RequestParam(value = "rows", required = false) final Integer rows)
 	{
-		ListData customers = customerFacade.getCustomers(cellphone, name, getStartIndex(page, rows), rows);
+		ListData customers = customerFacade.getCustomers(cellphone, name,
+				getStartIndex(page, rows), rows);
 
 		return customers;
 	}
 
 	@RequestMapping(value = "/createCustomer", method = RequestMethod.POST)
 	@ResponseBody
-	public void createCustomer(@RequestParam(value = "cellphone") final String cellphone,
-			@RequestParam(value = "name") final String name, @RequestParam(value = "QQ", required = false) final String QQ,
+	public void createCustomer(
+			@RequestParam(value = "cellphone") final String cellphone,
+			@RequestParam(value = "name") final String name,
+			@RequestParam(value = "QQ", required = false) final String QQ,
 			@RequestParam(value = "email", required = false) final String email,
 			@RequestParam(value = "birthday", required = false) @DateTimeFormat(pattern = "yyyy-MM-dd") final Date birthday,
 			@RequestParam(value = "weddingdate", required = false) @DateTimeFormat(pattern = "yyyy-MM-dd") final Date weddingdate,
@@ -112,8 +117,10 @@ public class CustomerPage1Controller extends AbstractPageController
 
 	@RequestMapping(value = "/modifyCustomer", method = RequestMethod.POST)
 	@ResponseBody
-	public void modifyCustomer(@RequestParam(value = "cellphone") final String cellphone,
-			@RequestParam(value = "name") final String name, @RequestParam(value = "QQ", required = false) final String QQ,
+	public void modifyCustomer(
+			@RequestParam(value = "cellphone") final String cellphone,
+			@RequestParam(value = "name") final String name,
+			@RequestParam(value = "QQ", required = false) final String QQ,
 			@RequestParam(value = "email", required = false) final String email,
 			@RequestParam(value = "birthday", required = false) @DateTimeFormat(pattern = "yyyy-MM-dd") final Date birthday,
 			@RequestParam(value = "weddingdate", required = false) @DateTimeFormat(pattern = "yyyy-MM-dd") final Date weddingdate,

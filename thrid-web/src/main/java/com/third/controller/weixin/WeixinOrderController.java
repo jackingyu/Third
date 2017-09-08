@@ -1,6 +1,5 @@
 package com.third.controller.weixin;
 
-
 import java.util.Arrays;
 import java.util.List;
 
@@ -19,36 +18,38 @@ import com.third.facade.data.OrderData;
 import com.third.facade.order.OrderFacade;
 import com.third.facade.populator.option.OrderOption;
 
-
 @Controller
 @RequestMapping("/wx")
-public class WeixinOrderController extends AbstractWeixinController
-{
-	private static final Logger LOG = Logger.getLogger(WeixinOrderController.class);
-	
-	@Resource(name="orderFacade")
+public class WeixinOrderController extends AbstractWeixinController {
+	private static final Logger LOG = Logger
+			.getLogger(WeixinOrderController.class);
+
+	@Resource(name = "orderFacade")
 	private OrderFacade orderFacade;
-	
-	@Resource(name="customerFacade")
+
+	@Resource(name = "customerFacade")
 	private CustomerFacade customerFacade;
 
-	
 	@RequestMapping(value = "/getOrderList")
 	public String getOrderList(final Model model)
 	{
 		CustomerData customer = customerFacade.getCurrentCustomer();
-		List<OrderData> orders = orderFacade.getOrdersForCustomer(customer.getCellphone());
-		
-		model.addAttribute("orderList",orders);
+		List<OrderData> orders = orderFacade
+				.getOrdersForCustomer(customer.getCellphone());
+
+		model.addAttribute("orderList", orders);
 		return ControllerConstants.WeiXin.ORDERLISTPAGE;
 	}
-	
+
 	@RequestMapping(value = "/getOrderDetail")
-	public String getOrderDetail(@RequestParam(value ="orderCode",required=true)final String orderCode,final Model model)
+	public String getOrderDetail(
+			@RequestParam(value = "orderCode", required = true) final String orderCode,
+			final Model model)
 	{
-		OrderData order = orderFacade.getOrderForOptions(orderCode, Arrays.asList(OrderOption.BASIC));
-		
-		model.addAttribute("order",order);
+		OrderData order = orderFacade.getOrderForOptions(orderCode,
+				Arrays.asList(OrderOption.BASIC));
+
+		model.addAttribute("order", order);
 		return ControllerConstants.WeiXin.ORDERDETAILPAGE;
 	}
 

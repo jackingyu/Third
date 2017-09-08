@@ -1,7 +1,6 @@
 package com.third.facade.data;
 
-public class ProductGroupData extends AbstractData
-{
+public class ProductGroupData extends AbstractData {
 	private String name;
 	private String groupId;
 
@@ -24,5 +23,5 @@ public class ProductGroupData extends AbstractData
 	{
 		this.groupId = groupId;
 	}
-	
+
 }

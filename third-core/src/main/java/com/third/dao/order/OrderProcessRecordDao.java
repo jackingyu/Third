@@ -8,13 +8,14 @@ import com.third.dao.generic.IGenericDAO;
 import com.third.dao.util.PaginationSupport;
 import com.third.model.OrderProcessRecordModel;
 
+public interface OrderProcessRecordDao
+		extends IGenericDAO<OrderProcessRecordModel, String> {
 
-public interface OrderProcessRecordDao extends IGenericDAO<OrderProcessRecordModel, String>
-{
-
-	PaginationSupport findOrderProcessRecord(Date startDate, Date endDate, Integer startIndex, Integer pageSize,
+	PaginationSupport findOrderProcessRecord(Date startDate, Date endDate,
+			Integer startIndex, Integer pageSize,
 			Map<String, String> searchParameter);
-	
-	List<OrderProcessRecordModel> findOrderProcessForOrder(final String orderCode);
+
+	List<OrderProcessRecordModel> findOrderProcessForOrder(
+			final String orderCode);
 
 }

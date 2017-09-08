@@ -2,9 +2,7 @@ package com.third.service.user;
 
 import com.third.model.MenuModel;
 
-
-public interface MenuService
-{
+public interface MenuService {
 	/**
 	 * @param menu
 	 */

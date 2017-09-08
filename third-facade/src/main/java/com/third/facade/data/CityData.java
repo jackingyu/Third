@@ -1,7 +1,6 @@
 package com.third.facade.data;
 
-public class CityData
-{
+public class CityData {
 	private String isoCode;
 	private String name;
 

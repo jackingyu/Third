@@ -2,9 +2,7 @@ package com.third.facade.data;
 
 import java.util.List;
 
-
-public class UserGroupData extends AbstractData
-{
+public class UserGroupData extends AbstractData {
 
 	public String groupId;
 	public String name;

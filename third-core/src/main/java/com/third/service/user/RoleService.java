@@ -4,9 +4,7 @@ import java.util.List;
 
 import com.third.model.RoleModel;
 
-
-public interface RoleService
-{
+public interface RoleService {
 	/**
 	 * @param role
 	 */

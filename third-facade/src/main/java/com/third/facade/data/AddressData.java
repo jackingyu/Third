@@ -1,7 +1,6 @@
 package com.third.facade.data;
 
-public class AddressData extends AbstractData
-{
+public class AddressData extends AbstractData {
 	private CityData city;
 	private RegionData region;
 	private String adr1;

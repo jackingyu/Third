@@ -14,28 +14,28 @@ import com.third.service.customer.CustomerService;
 import com.third.service.customer.ReservationService;
 import com.third.service.store.StoreService;
 
-public  class ReservationDataBuilder implements DataBuilder
-{
-	@Resource(name="reservationService")
+public class ReservationDataBuilder implements DataBuilder {
+	@Resource(name = "reservationService")
 	private ReservationService reservationService;
-	
-	@Resource(name="cityDao")
-	private CityDao cityDao;
-	
-	@Resource(name="storeService")
-	private StoreService storeService; 
 
-	@Resource(name="customerService")
+	@Resource(name = "cityDao")
+	private CityDao cityDao;
+
+	@Resource(name = "storeService")
+	private StoreService storeService;
+
+	@Resource(name = "customerService")
 	private CustomerService customerService;
-	
+
 	@Override
 	public void buildData()
 	{
-		CustomerModel customer = customerService.getCustomerByCellphone("13800138000");
+		CustomerModel customer = customerService
+				.getCustomerByCellphone("13800138000");
 		StoreModel store = storeService.getStoreForCode("s-2");
 		CityModel city = cityDao.get("cn12");
-		
-		for(int i = 0;i < 20;i++)
+
+		for (int i = 0; i < 20; i++)
 		{
 			ReservationModel reservation = new ReservationModel();
 			reservation.setChannel(CoreConstants.ReservationChannel.Web);
@@ -48,9 +48,9 @@ public  class ReservationDataBuilder implements DataBuilder
 			reservation.setStore(store);
 			reservationService.createrReservation(reservation);
 		}
-		
-		 store = storeService.getStoreForCode("s-1");
-		for(int i = 0;i < 20;i++)
+
+		store = storeService.getStoreForCode("s-1");
+		for (int i = 0; i < 20; i++)
 		{
 			ReservationModel reservation = new ReservationModel();
 			reservation.setChannel(CoreConstants.ReservationChannel.Weixin);
@@ -63,7 +63,7 @@ public  class ReservationDataBuilder implements DataBuilder
 			reservation.setStore(store);
 			reservationService.createrReservation(reservation);
 		}
-		
+
 	}
 
 }

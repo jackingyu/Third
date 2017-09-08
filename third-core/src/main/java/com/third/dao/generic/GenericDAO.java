@@ -29,15 +29,14 @@ import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 
-
 @SuppressWarnings("unchecked")
-public class GenericDAO<T, ID extends Serializable> extends HibernateDaoSupport implements IGenericDAO<T, ID>
-{
+public class GenericDAO<T, ID extends Serializable> extends HibernateDaoSupport
+		implements IGenericDAO<T, ID> {
 
 	private Log logger = LogFactory.getLog(getClass());
 
 	protected SimpleDateFormat fmt = new SimpleDateFormat("yyyy-MM-dd");
-	
+
 	protected Class<T> entityClass;
 
 	public GenericDAO()
@@ -48,7 +47,8 @@ public class GenericDAO<T, ID extends Serializable> extends HibernateDaoSupport 
 	{
 		if (entityClass == null)
 		{
-			entityClass = (Class<T>) ((ParameterizedType) getClass().getGenericSuperclass()).getActualTypeArguments()[0];
+			entityClass = (Class<T>) ((ParameterizedType) getClass()
+					.getGenericSuperclass()).getActualTypeArguments()[0];
 			logger.debug("T class = " + entityClass.getName());
 		}
 		return entityClass;
@@ -90,17 +90,20 @@ public class GenericDAO<T, ID extends Serializable> extends HibernateDaoSupport 
 		getHibernateTemplate().deleteAll(entities);
 	}
 
-	public List<T> find(String queryString, Object value) throws DataAccessException
+	public List<T> find(String queryString, Object value)
+			throws DataAccessException
 	{
 		return (List<T>) getHibernateTemplate().find(queryString, value);
 	}
 
-	public List<T> find(String queryString, Object[] values) throws DataAccessException
+	public List<T> find(String queryString, Object[] values)
+			throws DataAccessException
 	{
 		return (List<T>) getHibernateTemplate().find(queryString, values);
 	}
 
-	public List<T> findByCriteria(DetachedCriteria criteria) throws DataAccessException
+	public List<T> findByCriteria(DetachedCriteria criteria)
+			throws DataAccessException
 	{
 		return (List<T>) getHibernateTemplate().findByCriteria(criteria);
 	}
@@ -110,9 +113,11 @@ public class GenericDAO<T, ID extends Serializable> extends HibernateDaoSupport 
 		return getHibernateTemplate().findByExample(exampleEntity);
 	}
 
-	public List<T> findByNamedParam(String queryString, String[] paramNames, Object[] values) throws DataAccessException
+	public List<T> findByNamedParam(String queryString, String[] paramNames,
+			Object[] values) throws DataAccessException
 	{
-		return (List<T>) getHibernateTemplate().findByNamedParam(queryString, paramNames, values);
+		return (List<T>) getHibernateTemplate().findByNamedParam(queryString,
+				paramNames, values);
 	}
 
 	public List<T> find(String queryString) throws DataAccessException
@@ -135,7 +140,8 @@ public class GenericDAO<T, ID extends Serializable> extends HibernateDaoSupport 
 		return getHibernateTemplate().save(t);
 	}
 
-	public void saveOrUpdateAll(Collection<T> entities) throws DataAccessException
+	public void saveOrUpdateAll(Collection<T> entities)
+			throws DataAccessException
 	{
 
 		getHibernateTemplate().saveOrUpdate(entities);
@@ -163,60 +169,75 @@ public class GenericDAO<T, ID extends Serializable> extends HibernateDaoSupport 
 		return (List<T>) getHibernateTemplate().findByNamedQuery(queryName);
 	}
 
-	public List<T> findByNamedQuery(String queryName, Object value) throws DataAccessException
+	public List<T> findByNamedQuery(String queryName, Object value)
+			throws DataAccessException
 	{
-		List<T> result = (List<T>) getHibernateTemplate().findByNamedQuery(queryName, value);
+		List<T> result = (List<T>) getHibernateTemplate()
+				.findByNamedQuery(queryName, value);
 		return result;
 	}
 
-	public List<T> findByNamedQuery(String queryName, Object[] values) throws DataAccessException
+	public List<T> findByNamedQuery(String queryName, Object[] values)
+			throws DataAccessException
 	{
-		return (List<T>) getHibernateTemplate().findByNamedQuery(queryName, values);
+		return (List<T>) getHibernateTemplate().findByNamedQuery(queryName,
+				values);
 	}
 
-	public PaginationSupport findPageByCriteria(final DetachedCriteria detachedCriteria, final int pageSize, final int startIndex)
+	public PaginationSupport findPageByCriteria(
+			final DetachedCriteria detachedCriteria, final int pageSize,
+			final int startIndex)
 	{
-		return (PaginationSupport) getHibernateTemplate().executeWithNativeSession(new HibernateCallback()
-		{
-			public Object doInHibernate(Session session) throws HibernateException
-			{
-				Criteria criteria = detachedCriteria.getExecutableCriteria(session);
-				int totalCount = Integer.valueOf(criteria.setProjection(Projections.rowCount()).uniqueResult().toString());
-				criteria.setProjection(null);
-				List items = criteria.setFirstResult(startIndex).setMaxResults(pageSize).list();
-				return new PaginationSupport(items, totalCount, pageSize, startIndex);
-			}
-		});
+		return (PaginationSupport) getHibernateTemplate()
+				.executeWithNativeSession(new HibernateCallback() {
+					public Object doInHibernate(Session session)
+							throws HibernateException
+					{
+						Criteria criteria = detachedCriteria
+								.getExecutableCriteria(session);
+						int totalCount = Integer.valueOf(
+								criteria.setProjection(Projections.rowCount())
+										.uniqueResult().toString());
+						criteria.setProjection(null);
+						List items = criteria.setFirstResult(startIndex)
+								.setMaxResults(pageSize).list();
+						return new PaginationSupport(items, totalCount,
+								pageSize, startIndex);
+					}
+				});
 	}
 
-	public PaginationSupport findPageByQuery(final String hsql, final int pageSize, final int startIndex)
+	public PaginationSupport findPageByQuery(final String hsql,
+			final int pageSize, final int startIndex)
 	{
-		return (PaginationSupport) getHibernateTemplate().execute(new HibernateCallback()
-		{
-			public Object doInHibernate(Session session) throws HibernateException
-			{
-				//get total count
-				String countsql = null;
-				if(hsql.contains("select"))
-				{
-					String[] sql1 = hsql.split("from");
-					countsql = "select count(*) from "+sql1[1];
-				}else
-					countsql = "select count(*) from "+hsql;
-				
-				Query countquery = session.createQuery(countsql);
-				Long totalCount = (Long) countquery.list().get(0);
-				
-				//get result
-				Query query = session.createQuery(hsql);
-				query.setFirstResult(startIndex);
-				query.setMaxResults(pageSize);
-				List items = query.list();
-			
-				return new PaginationSupport(items, totalCount.intValue(), pageSize, startIndex);
+		return (PaginationSupport) getHibernateTemplate()
+				.execute(new HibernateCallback() {
+					public Object doInHibernate(Session session)
+							throws HibernateException
+					{
+						// get total count
+						String countsql = null;
+						if (hsql.contains("select"))
+						{
+							String[] sql1 = hsql.split("from");
+							countsql = "select count(*) from " + sql1[1];
+						} else
+							countsql = "select count(*) from " + hsql;
 
-			}
-		});
+						Query countquery = session.createQuery(countsql);
+						Long totalCount = (Long) countquery.list().get(0);
+
+						// get result
+						Query query = session.createQuery(hsql);
+						query.setFirstResult(startIndex);
+						query.setMaxResults(pageSize);
+						List items = query.list();
+
+						return new PaginationSupport(items,
+								totalCount.intValue(), pageSize, startIndex);
+
+					}
+				});
 	}
 
 	public void merge(T t) throws DataAccessException
@@ -227,20 +248,21 @@ public class GenericDAO<T, ID extends Serializable> extends HibernateDaoSupport 
 
 	public List<T> saveOrUpdateList(final List<T> entites)
 	{
-		return (List<T>) this.getHibernateTemplate().execute(new HibernateCallback()
-		{
-			public Object doInHibernate(Session session) throws HibernateException
-			{
-				for (int i = 0; i < entites.size(); i++)
-				{
-					session.saveOrUpdate(entites.get(i));
-					session.flush();
-					session.clear();
-				}
+		return (List<T>) this.getHibernateTemplate()
+				.execute(new HibernateCallback() {
+					public Object doInHibernate(Session session)
+							throws HibernateException
+					{
+						for (int i = 0; i < entites.size(); i++)
+						{
+							session.saveOrUpdate(entites.get(i));
+							session.flush();
+							session.clear();
+						}
 
-				return entites;
-			}
-		});
+						return entites;
+					}
+				});
 	}
 
 	public List searchByQuery(String queryString)
@@ -251,7 +273,8 @@ public class GenericDAO<T, ID extends Serializable> extends HibernateDaoSupport 
 
 	public Integer countByQuery(String queryString)
 	{
-		Integer count = ((Number) this.currentSession().createQuery(queryString).uniqueResult()).intValue();
+		Integer count = ((Number) this.currentSession().createQuery(queryString)
+				.uniqueResult()).intValue();
 		return count;
 	}
 
@@ -272,8 +295,9 @@ public class GenericDAO<T, ID extends Serializable> extends HibernateDaoSupport 
 	{
 		return "%" + parameter + "%";
 	}
-	
-	protected String getParameterValue(Map<String, String> sp, final String paramName)
+
+	protected String getParameterValue(Map<String, String> sp,
+			final String paramName)
 	{
 		if (sp != null && sp.containsKey(paramName))
 			return sp.get(paramName);
@@ -281,28 +305,28 @@ public class GenericDAO<T, ID extends Serializable> extends HibernateDaoSupport 
 		return StringUtils.EMPTY;
 	}
 
-	protected String convertArray(String[] arrays,String fieldname)
+	protected String convertArray(String[] arrays, String fieldname)
 	{
-		final StringBuilder sb = new StringBuilder(fieldname).append( " in ('");
-	   String condition = StringUtils.join(arrays, "','");
-	   sb.append(condition).append("')");
-	   
-	   return sb.toString();
+		final StringBuilder sb = new StringBuilder(fieldname).append(" in ('");
+		String condition = StringUtils.join(arrays, "','");
+		sb.append(condition).append("')");
+
+		return sb.toString();
 	}
-	
-	protected String getArrayCondtion(Map<String, String[]> sp,final String key, final String param)
+
+	protected String getArrayCondtion(Map<String, String[]> sp,
+			final String key, final String param)
 	{
-		if(sp.containsKey(key)&&sp.get(key)!=null)
-			if(sp.get(key).length==1&&StringUtils.isNotEmpty(sp.get(key)[0]))
+		if (sp.containsKey(key) && sp.get(key) != null)
+			if (sp.get(key).length == 1
+					&& StringUtils.isNotEmpty(sp.get(key)[0]))
 			{
-				return param+" = '"+sp.get(key)[0]+"'";
+				return param + " = '" + sp.get(key)[0] + "'";
+			} else if (sp.get(key).length > 1)
+			{
+				return convertArray(sp.get(key), param);
 			}
-			else
-				if(sp.get(key).length > 1)
-			  {
-				return convertArray(sp.get(key),param);
-			  }
-		
+
 		return StringUtils.EMPTY;
 	}
 }

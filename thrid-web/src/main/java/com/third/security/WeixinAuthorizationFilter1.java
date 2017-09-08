@@ -20,72 +20,67 @@ import com.third.model.CoreConstants;
 import com.third.security.exceptions.WeixinAuthenticationException;
 import com.third.service.user.SessionService;
 
+public class WeixinAuthorizationFilter1 extends GenericFilterBean {
 
-public class WeixinAuthorizationFilter1 extends GenericFilterBean
-{
-
-	protected static final Logger LOG = Logger.getLogger(WeixinAuthorizationFilter1.class);
-	@Resource(name="sessionService")
+	protected static final Logger LOG = Logger
+			.getLogger(WeixinAuthorizationFilter1.class);
+	@Resource(name = "sessionService")
 	private SessionService sessionService;
-	
-	@Resource(name="customerFacade")
+
+	@Resource(name = "customerFacade")
 	private CustomerFacade customerFacade;
 
-	@Resource(name="weixinFacade")
+	@Resource(name = "weixinFacade")
 	private WeixinFacade weixinFacade;
-	
+
 	@Override
-	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException
+	public void doFilter(ServletRequest request, ServletResponse response,
+			FilterChain chain) throws IOException, ServletException
 	{
 		LOG.info("in custom filter");
-		
+
 		// session 中有open id ,证明当前页面是通过微信进入
-		if(sessionService.contains(WXConstant.WX_OPENID))
+		if (sessionService.contains(WXConstant.WX_OPENID))
 		{
-			//该微信已经绑定了有效账户,且已经存在了
-			if(sessionService.contains(CoreConstants.Session.CURRENT_CUSTOMER))
+			// 该微信已经绑定了有效账户,且已经存在了
+			if (sessionService.contains(CoreConstants.Session.CURRENT_CUSTOMER))
 			{
 				LOG.debug("有已绑定的顾客,正常访问");
 				chain.doFilter(request, response);
-			}
-			else
+			} else
 			{
-				//如registerCustomer应该是这种情形
+				// 如registerCustomer应该是这种情形
 				LOG.info("not exist suitation");
 			}
-		}
-		else
+		} else
 		{
 			String code = request.getParameter("code");
-			
-			//该URL是在security的管控下,必须通过微信的页面来访问的
+
+			// 该URL是在security的管控下,必须通过微信的页面来访问的
 			if (StringUtils.isEmpty(code))
 			{
 				LOG.debug("必须通过微信客户端来访问");
-				throw new WeixinAuthenticationException(WXConstant.WX_ERR_MUST_FROM_WX);
-			}
-			else
-			//通过微信菜单初次进入此session
+				throw new WeixinAuthenticationException(
+						WXConstant.WX_ERR_MUST_FROM_WX);
+			} else
+			// 通过微信菜单初次进入此session
 			{
 				LOG.debug("第一次进入此session,初始化openId,customer数据");
 				final String openId = weixinFacade.getOpenId(code);
-				LOG.debug("get open id "+openId);
-				sessionService.save(WXConstant.WX_OPENID,openId );
+				LOG.debug("get open id " + openId);
+				sessionService.save(WXConstant.WX_OPENID, openId);
 				CustomerData customer = customerFacade.loginCustomer(openId);
 
-				if(customer == null)
+				if (customer == null)
 				{
-					LOG.debug(openId+"未找到对应的客户主数据");
-					throw new WeixinAuthenticationException(WXConstant.WX_ERR_NOT_BIND_CUST);
+					LOG.debug(openId + "未找到对应的客户主数据");
+					throw new WeixinAuthenticationException(
+							WXConstant.WX_ERR_NOT_BIND_CUST);
 				}
-				
+
 				chain.doFilter(request, response);
 			}
 		}
-		
-		
-      
-			
 
 	}
 

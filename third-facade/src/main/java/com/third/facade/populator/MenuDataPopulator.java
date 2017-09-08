@@ -3,9 +3,7 @@ package com.third.facade.populator;
 import com.third.facade.data.MenuData;
 import com.third.model.MenuModel;
 
-
-public class MenuDataPopulator implements Populator<MenuModel, MenuData>
-{
+public class MenuDataPopulator implements Populator<MenuModel, MenuData> {
 
 	@Override
 	public void populate(MenuModel source, MenuData target)

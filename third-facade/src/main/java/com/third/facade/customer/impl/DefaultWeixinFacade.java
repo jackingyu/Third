@@ -17,10 +17,9 @@ import com.third.model.SubscribeModel;
 import com.third.service.customer.SubscribeService;
 import com.third.service.customer.WeixinService;
 
-
-public class DefaultWeixinFacade implements WeixinFacade
-{
-	private static final Logger LOG = Logger.getLogger(DefaultWeixinFacade.class);
+public class DefaultWeixinFacade implements WeixinFacade {
+	private static final Logger LOG = Logger
+			.getLogger(DefaultWeixinFacade.class);
 	private SubscribeService subscribeService;
 	private WeixinService weixinService;
 	private final static String wx_title = "\u6B22\u8FCE\u5173\u6CE8\u94C2\u739B\u7537\u58EB\u793C\u670D";
@@ -35,7 +34,7 @@ public class DefaultWeixinFacade implements WeixinFacade
 		Document document = DocumentHelper.createDocument();
 		Element root = document.addElement("xml");
 
-		//Build head information
+		// Build head information
 		int time = (int) System.currentTimeMillis();
 		root.addElement("ToUserName").addCDATA(wxMsg.getFromUserName());
 		root.addElement("FromUserName").addCDATA(wxMsg.getToUserName());
@@ -54,8 +53,7 @@ public class DefaultWeixinFacade implements WeixinFacade
 		try
 		{
 			subscribeData = weixinService.getSubscribe(openid);
-		}
-		catch (IOException e)
+		} catch (IOException e)
 		{
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -73,7 +71,6 @@ public class DefaultWeixinFacade implements WeixinFacade
 		subscribeModel.setTime(subscribeData.getTime());
 		subscribeModel.setUnionId(subscribeData.getUnionId());
 
-
 		subscribeService.save(subscribeModel);
 		LOG.debug("保存关注列表成功");
 
@@ -87,7 +84,7 @@ public class DefaultWeixinFacade implements WeixinFacade
 		Document document = DocumentHelper.createDocument();
 		Element root = document.addElement("xml");
 
-		//Build head information
+		// Build head information
 		int time = (int) System.currentTimeMillis();
 		root.addElement("ToUserName").addCDATA(wxMsg.getFromUserName());
 		root.addElement("FromUserName").addCDATA(wxMsg.getToUserName());
@@ -95,7 +92,7 @@ public class DefaultWeixinFacade implements WeixinFacade
 		root.addElement("MsgType").addCDATA(WXConstant.msgType_news);
 		root.addElement("ArticleCount").addText("1");
 
-		//以后修改成从数据库中读取
+		// 以后修改成从数据库中读取
 		Element item = root.addElement("Articles").addElement("item");
 		item.addElement("Title").addCDATA(wx_title);
 		item.addElement("Description").addCDATA(wx_desc);
@@ -121,17 +118,17 @@ public class DefaultWeixinFacade implements WeixinFacade
 		try
 		{
 			return weixinService.getOpenID(code);
-		}
-		catch (IOException e)
+		} catch (IOException e)
 		{
 			e.printStackTrace();
-			
-			if(Config.getParameter("weixin.enabledev")!=null&&(boolean)Config.getParameter("weixin.enabledev"))
+
+			if (Config.getParameter("weixin.enabledev") != null
+					&& (boolean) Config.getParameter("weixin.enabledev"))
 			{
 				return "mockupopenid";
 			}
 		}
-		
+
 		return StringUtils.EMPTY;
 	}
 

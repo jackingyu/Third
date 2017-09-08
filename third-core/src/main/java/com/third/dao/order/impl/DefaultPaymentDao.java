@@ -16,19 +16,19 @@ import com.third.dao.order.PaymentDao;
 import com.third.dao.util.PaginationSupport;
 import com.third.model.PaymentModel;
 
-
-public class DefaultPaymentDao extends GenericDAO<PaymentModel, String> implements PaymentDao
-{
+public class DefaultPaymentDao extends GenericDAO<PaymentModel, String>
+		implements PaymentDao {
 	private Log logger = LogFactory.getLog(getClass());
 
 	@Override
-	public PaginationSupport findPayments(Date startDate, Date endDate, Integer startIndex, Integer pageSize,
-			Map<String, String[]> sp)
+	public PaginationSupport findPayments(Date startDate, Date endDate,
+			Integer startIndex, Integer pageSize, Map<String, String[]> sp)
 	{
-		StringBuilder sb = new StringBuilder("select p.store.name ," + "p.order.customer.name ,p.order.code,"
+		StringBuilder sb = new StringBuilder("select p.store.name ,"
+				+ "p.order.customer.name ,p.order.code,"
 				+ "p.order.salesperson.name,p.paymentMethod,p.amount,p.paidTime,"
-				+ "p.order.receiveable,p.order.paidamount,p.order.openamount,p.order.orderDate," + "p.order.customer.source.name "
-				+ "from PaymentModel p ");
+				+ "p.order.receiveable,p.order.paidamount,p.order.openamount,p.order.orderDate,"
+				+ "p.order.customer.source.name " + "from PaymentModel p ");
 
 		List<String> condition = new ArrayList<String>();
 
@@ -40,24 +40,26 @@ public class DefaultPaymentDao extends GenericDAO<PaymentModel, String> implemen
 		if (StringUtils.isNotEmpty(c2))
 			condition.add(c2);
 
-
-		String c3 = getArrayCondtion(sp, "sourcePKs", "p.order.customer.source.pk");
+		String c3 = getArrayCondtion(sp, "sourcePKs",
+				"p.order.customer.source.pk");
 		if (StringUtils.isNotEmpty(c3))
 			condition.add(c3);
-		
 
 		String c4 = getArrayCondtion(sp, "paymentMethods", "p.paymentMethod");
 		if (StringUtils.isNotEmpty(c4))
 			condition.add(c4);
-		
-		String c5 = getArrayCondtion(sp, "salesPersons", "p.order.salesperson.userId");
+
+		String c5 = getArrayCondtion(sp, "salesPersons",
+				"p.order.salesperson.userId");
 		if (StringUtils.isNotEmpty(c5))
 			condition.add(c5);
 
-		condition.add(new StringBuilder("p.order.orderDate between '").append(fmt.format(startDate)).append("' and '")
+		condition.add(new StringBuilder("p.order.orderDate between '")
+				.append(fmt.format(startDate)).append("' and '")
 				.append(fmt.format(endDate)).append("'").toString());
-		sb.append("where ").append(StringUtils.join(condition.toArray(), " and "));
-		
+		sb.append("where ")
+				.append(StringUtils.join(condition.toArray(), " and "));
+
 		logger.info(sb.toString());
 
 		return this.findPageByQuery(sb.toString(), pageSize, startIndex);

@@ -13,9 +13,7 @@ import com.third.dao.location.CityDao;
 import com.third.dao.util.PaginationSupport;
 import com.third.model.CityModel;
 
-
-public class DefaultCityDao extends GenericDAO<CityModel, String> implements CityDao
-{
-
+public class DefaultCityDao extends GenericDAO<CityModel, String>
+		implements CityDao {
 
 }

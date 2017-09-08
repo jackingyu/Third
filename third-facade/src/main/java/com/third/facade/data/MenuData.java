@@ -3,12 +3,10 @@ package com.third.facade.data;
 import java.util.ArrayList;
 import java.util.List;
 
-
 /**
  * user menu data when login
  */
-public class MenuData
-{
+public class MenuData {
 
 	private String menuid;
 	private String icon;

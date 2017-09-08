@@ -6,10 +6,7 @@ import com.third.dao.store.StoreDao;
 import com.third.model.StoreModel;
 import com.third.service.store.StoreService;
 
-
-
-public class DefaultStoreService implements StoreService
-{
+public class DefaultStoreService implements StoreService {
 	private StoreDao storeDao;
 
 	@Override
@@ -17,7 +14,7 @@ public class DefaultStoreService implements StoreService
 	{
 		storeDao.save(store);
 	}
-	
+
 	@Override
 	public void saveStore(StoreModel store)
 	{

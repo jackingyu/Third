@@ -23,10 +23,10 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 
 /**
- * A postHandle HandlerInterceptor that runs a number of BeforeViewHandlers before the view is rendered.
+ * A postHandle HandlerInterceptor that runs a number of BeforeViewHandlers
+ * before the view is rendered.
  */
-public class BeforeViewHandlerInterceptor extends HandlerInterceptorAdapter
-{
+public class BeforeViewHandlerInterceptor extends HandlerInterceptorAdapter {
 	private List<BeforeViewHandler> beforeViewHandlers;
 
 	protected List<BeforeViewHandler> getBeforeViewHandlers()
@@ -35,15 +35,19 @@ public class BeforeViewHandlerInterceptor extends HandlerInterceptorAdapter
 	}
 
 	@Required
-	public void setBeforeViewHandlers(final List<BeforeViewHandler> beforeViewHandlers)
+	public void setBeforeViewHandlers(
+			final List<BeforeViewHandler> beforeViewHandlers)
 	{
 		this.beforeViewHandlers = beforeViewHandlers;
 	}
 
 	@Override
-	public void postHandle(final HttpServletRequest request, final HttpServletResponse response, final Object handler, final ModelAndView modelAndView) throws Exception
+	public void postHandle(final HttpServletRequest request,
+			final HttpServletResponse response, final Object handler,
+			final ModelAndView modelAndView) throws Exception
 	{
-		if (modelAndView != null && !isIncludeRequest(request) && isSupportedView(modelAndView))
+		if (modelAndView != null && !isIncludeRequest(request)
+				&& isSupportedView(modelAndView))
 		{
 			for (final BeforeViewHandler beforeViewHandler : getBeforeViewHandlers())
 			{
@@ -54,12 +58,14 @@ public class BeforeViewHandlerInterceptor extends HandlerInterceptorAdapter
 
 	protected boolean isIncludeRequest(final HttpServletRequest request)
 	{
-		return request.getAttribute("javax.servlet.include.request_uri") != null;
+		return request
+				.getAttribute("javax.servlet.include.request_uri") != null;
 	}
 
 	protected boolean isSupportedView(final ModelAndView modelAndView)
 	{
-		return modelAndView.getViewName() != null && !isRedirectView(modelAndView);
+		return modelAndView.getViewName() != null
+				&& !isRedirectView(modelAndView);
 	}
 
 	protected boolean isRedirectView(final ModelAndView modelAndView)

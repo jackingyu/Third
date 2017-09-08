@@ -25,8 +25,8 @@ import org.springframework.security.web.authentication.LoginUrlAuthenticationEnt
  *
  * version:1.0
  */
-public class ThirdLoginUrlAuthenticationEntryPoint extends LoginUrlAuthenticationEntryPoint
-{
+public class ThirdLoginUrlAuthenticationEntryPoint
+		extends LoginUrlAuthenticationEntryPoint {
 
 	public ThirdLoginUrlAuthenticationEntryPoint(String loginFormUrl)
 	{
@@ -34,20 +34,18 @@ public class ThirdLoginUrlAuthenticationEntryPoint extends LoginUrlAuthenticatio
 		// TODO Auto-generated constructor stub
 	}
 
-
 	public static final String AJAX_REQUEST_HEADER_NAME = "X-Requested-With";
 
-	
 	@Override
-	public void commence(HttpServletRequest request, HttpServletResponse response, AuthenticationException authException)
+	public void commence(HttpServletRequest request,
+			HttpServletResponse response, AuthenticationException authException)
 			throws IOException, ServletException
 	{
 
 		if (StringUtils.isBlank(request.getHeader(AJAX_REQUEST_HEADER_NAME)))
 		{
 			super.commence(request, response, authException);
-		}
-		else
+		} else
 		{
 			response.sendError(HttpServletResponse.SC_GATEWAY_TIMEOUT);
 		}

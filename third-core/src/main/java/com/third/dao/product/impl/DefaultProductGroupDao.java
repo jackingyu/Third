@@ -7,8 +7,8 @@ import com.third.dao.product.ProductGroupDao;
 import com.third.dao.util.PaginationSupport;
 import com.third.model.ProductGroupModel;
 
-public class DefaultProductGroupDao extends GenericDAO<ProductGroupModel, String> implements ProductGroupDao
-{
+public class DefaultProductGroupDao extends
+		GenericDAO<ProductGroupModel, String> implements ProductGroupDao {
 	@Override
 	public List<ProductGroupModel> getProductGroupList()
 	{

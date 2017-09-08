@@ -12,9 +12,8 @@ import org.springframework.util.StreamUtils;
 
 import com.third.facade.data.OrderData;
 
-
-public class OrderInputMessageConvertor extends AbstractHttpMessageConverter<OrderData>
-{
+public class OrderInputMessageConvertor
+		extends AbstractHttpMessageConverter<OrderData> {
 
 	@Override
 	protected boolean supports(Class<?> clazz)
@@ -23,16 +22,19 @@ public class OrderInputMessageConvertor extends AbstractHttpMessageConverter<Ord
 	}
 
 	@Override
-	protected OrderData readInternal(Class<? extends OrderData> clazz, HttpInputMessage inputMessage) throws IOException,
-			HttpMessageNotReadableException
+	protected OrderData readInternal(Class<? extends OrderData> clazz,
+			HttpInputMessage inputMessage)
+			throws IOException, HttpMessageNotReadableException
 	{
-		String temp = StreamUtils.copyToString(inputMessage.getBody(), Charset.forName("UTF-8"));
+		String temp = StreamUtils.copyToString(inputMessage.getBody(),
+				Charset.forName("UTF-8"));
 		System.out.println(temp);
 		return null;
 	}
 
 	@Override
-	protected void writeInternal(OrderData t, HttpOutputMessage outputMessage) throws IOException, HttpMessageNotWritableException
+	protected void writeInternal(OrderData t, HttpOutputMessage outputMessage)
+			throws IOException, HttpMessageNotWritableException
 	{
 		// TODO Auto-generated method stub
 

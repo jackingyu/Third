@@ -8,19 +8,19 @@ import com.third.dao.util.PaginationSupport;
 import com.third.model.OrderEntryModel;
 import com.third.model.OrderModel;
 
-
-public interface OrderService
-{
+public interface OrderService {
 	OrderModel getOrderForCode(final String orderCode);
 
 	void createOrder(final OrderModel order);
 
 	void upateOrder(final OrderModel order);
 
-	PaginationSupport getOrders(final Date startDate, final Date endDate, final Integer startIndex, final Integer pageSize,
+	PaginationSupport getOrders(final Date startDate, final Date endDate,
+			final Integer startIndex, final Integer pageSize,
 			final Map<String, String> sp);
-	
-	PaginationSupport getOrderEntries(final Date startDate, final Date endDate, final Integer startIndex, final Integer pageSize,
+
+	PaginationSupport getOrderEntries(final Date startDate, final Date endDate,
+			final Integer startIndex, final Integer pageSize,
 			final Map<String, String> sp);
 
 	void createOrderEntry(final OrderEntryModel orderEntry);
@@ -30,8 +30,8 @@ public interface OrderService
 	void removeOrderEntry(final String orderEntryPK);
 
 	OrderEntryModel getOrderEntry(final String entryPK);
-	
+
 	OrderEntryModel getOrderEntryForExternalId(final String externalId);
-	
+
 	List<OrderModel> getOrdersForCustomer(final String customerPK);
 }

@@ -18,9 +18,7 @@ import com.third.model.CoreConstants.OrderStatus;
 import com.third.model.UserModel;
 import com.third.service.order.OrderProcessService;
 
-
-public class DefaultOrderProcessService implements OrderProcessService
-{
+public class DefaultOrderProcessService implements OrderProcessService {
 	private OrderDao orderDao;
 	private OrderEntryDao orderEntryDao;
 	private OrderProcessRecordDao orderProcessRecordDao;
@@ -45,7 +43,8 @@ public class DefaultOrderProcessService implements OrderProcessService
 	}
 
 	@Override
-	public OrderProcessRecordModel processOrder(OrderModel order, UserModel user, Integer targetStatus)
+	public OrderProcessRecordModel processOrder(OrderModel order,
+			UserModel user, Integer targetStatus)
 			throws NoQualifiedTargetStatusException
 	{
 		Integer currentStatus = order.getStatus();
@@ -63,7 +62,8 @@ public class DefaultOrderProcessService implements OrderProcessService
 		orderProcessRecordModel.setToStatus(nextStatus.toString());
 		orderProcessRecordModel.setOrderCode(order.getCode());
 		orderProcessRecordModel.setCreatedBy(user);
-		orderProcessRecordModel.setProcessTime(Calendar.getInstance().getTime());
+		orderProcessRecordModel
+				.setProcessTime(Calendar.getInstance().getTime());
 		;
 
 		createOrderProcess(orderProcessRecordModel);
@@ -72,10 +72,10 @@ public class DefaultOrderProcessService implements OrderProcessService
 
 		for (int i = 0; i < order.getOrderEntries().size(); i++)
 		{
-			OrderEntryModel e = (OrderEntryModel) order.getOrderEntries().get(i);
+			OrderEntryModel e = (OrderEntryModel) order.getOrderEntries()
+					.get(i);
 			e.setStatus(targetStatus);
 		}
-
 
 		orderDao.save(order);
 
@@ -83,7 +83,8 @@ public class DefaultOrderProcessService implements OrderProcessService
 	}
 
 	@Override
-	public OrderProcessRecordModel processOrderEntry(OrderEntryModel orderEntry, UserModel user, Integer targetStatus)
+	public OrderProcessRecordModel processOrderEntry(OrderEntryModel orderEntry,
+			UserModel user, Integer targetStatus)
 			throws NoQualifiedTargetStatusException
 	{
 		Integer currentStatus = orderEntry.getStatus();
@@ -109,21 +110,21 @@ public class DefaultOrderProcessService implements OrderProcessService
 				ifAllApproved = false;
 		}
 
-
 		OrderProcessRecordModel orderProcessRecordModel = new OrderProcessRecordModel();
 
-		if(ifAllApproved)
+		if (ifAllApproved)
 		{
 			order.setStatus(targetStatus);
 			orderProcessRecordModel.setFromStatus(currentStatus.toString());
 			orderProcessRecordModel.setToStatus(nextStatus.toString());
 			orderProcessRecordModel.setOrderCode(orderEntry.getCode());
 			orderProcessRecordModel.setCreatedBy(user);
-			orderProcessRecordModel.setProcessTime(Calendar.getInstance().getTime());
+			orderProcessRecordModel
+					.setProcessTime(Calendar.getInstance().getTime());
 
 			createOrderProcess(orderProcessRecordModel);
-         
-			//orderEntry will also be saved
+
+			// orderEntry will also be saved
 			orderDao.save(order);
 		}
 
@@ -131,7 +132,8 @@ public class DefaultOrderProcessService implements OrderProcessService
 	}
 
 	@Override
-	public PaginationSupport getOrderProcessRecords(Date startDate, Date endDate, Integer startIndex, Integer pageSize,
+	public PaginationSupport getOrderProcessRecords(Date startDate,
+			Date endDate, Integer startIndex, Integer pageSize,
 			Map<String, String> sp)
 	{
 		// TODO Auto-generated method stub
@@ -143,13 +145,15 @@ public class DefaultOrderProcessService implements OrderProcessService
 		this.orderDao = orderDao;
 	}
 
-	public void setOrderProcessRecordDao(OrderProcessRecordDao orderProcessRecordDao)
+	public void setOrderProcessRecordDao(
+			OrderProcessRecordDao orderProcessRecordDao)
 	{
 		this.orderProcessRecordDao = orderProcessRecordDao;
 	}
 
 	@Override
-	public List<OrderProcessRecordModel> getOrderProcessRecordForOrder(String orderCode)
+	public List<OrderProcessRecordModel> getOrderProcessRecordForOrder(
+			String orderCode)
 	{
 		return orderProcessRecordDao.findOrderProcessForOrder(orderCode);
 	}

@@ -3,8 +3,7 @@ package com.third.facade.data;
 /**
  * Father of all data,handle the attribute of PK
  */
-public abstract class AbstractData
-{
+public abstract class AbstractData {
 	protected String pk;
 
 	public String getPk()

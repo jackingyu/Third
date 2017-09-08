@@ -20,61 +20,58 @@ import com.third.facade.order.OrderProcessFacade;
 import com.third.facade.utils.TextMapperUtils;
 import com.third.model.CoreConstants;
 
-
 @Controller
-public class OrderProcessController extends AbstractPageController
-{
-	private static final Logger LOG = Logger.getLogger(com.third.controller.pages.lte.OrderProcessController.class);
+public class OrderProcessController extends AbstractPageController {
+	private static final Logger LOG = Logger.getLogger(
+			com.third.controller.pages.lte.OrderProcessController.class);
 
 	@Resource(name = "orderProcessFacade")
 	private OrderProcessFacade orderProcessFacade;
-	
+
 	@Resource(name = "textMapperUtils")
 	private TextMapperUtils textMapperUtils;
 
 	@RequestMapping(value = "/order/updatestatus")
 	@ResponseBody
-	public String processOrder(@RequestParam(value = "orderCode", required = true) final String orderCode,
+	public String processOrder(
+			@RequestParam(value = "orderCode", required = true) final String orderCode,
 			@RequestParam(value = "toStatus", required = true) final Integer toStatus,
 			final HttpServletResponse response) throws IOException
 	{
 		try
 		{
 			orderProcessFacade.processOrder(orderCode, toStatus);
-		}
-		catch (NoQualifiedTargetStatusException e)
+		} catch (NoQualifiedTargetStatusException e)
 		{
 			response.sendError(500);
-		}
-		catch (NotFoundException e)
+		} catch (NotFoundException e)
 		{
 			// TODO Auto-generated catch block
 			response.sendError(501);
 		}
-		
+
 		return TextMapperUtils.getOrderStatusText(toStatus);
 	}
-	
+
 	@RequestMapping(value = "/orderentry/updatestatus")
 	@ResponseBody
-	public String processOrderEntry(@RequestParam(value = "entryPK", required = true) final String entryPK,
+	public String processOrderEntry(
+			@RequestParam(value = "entryPK", required = true) final String entryPK,
 			@RequestParam(value = "toStatus", required = true) final Integer toStatus,
 			final HttpServletResponse response) throws IOException
 	{
 		try
 		{
 			orderProcessFacade.processOrderEntry(entryPK, toStatus);
-		}
-		catch (NoQualifiedTargetStatusException e)
+		} catch (NoQualifiedTargetStatusException e)
 		{
 			response.sendError(500);
-		}
-		catch (NotFoundException e)
+		} catch (NotFoundException e)
 		{
 			// TODO Auto-generated catch block
 			response.sendError(501);
 		}
-		
+
 		return TextMapperUtils.getOrderStatusText(toStatus);
 	}
 

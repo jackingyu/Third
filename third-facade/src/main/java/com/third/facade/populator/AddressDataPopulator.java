@@ -5,9 +5,8 @@ import com.third.facade.data.CityData;
 import com.third.facade.data.RegionData;
 import com.third.model.AddressModel;
 
-
-public class AddressDataPopulator implements Populator<AddressModel, AddressData>
-{
+public class AddressDataPopulator
+		implements Populator<AddressModel, AddressData> {
 	private CityDataPopulator cityDataPopulator;
 	private RegionDataPopulator regionDataPopulator;
 

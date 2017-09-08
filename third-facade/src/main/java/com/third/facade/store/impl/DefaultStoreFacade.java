@@ -9,9 +9,7 @@ import com.third.facade.store.StoreFacade;
 import com.third.model.StoreModel;
 import com.third.service.store.StoreService;
 
-
-public class DefaultStoreFacade implements StoreFacade
-{
+public class DefaultStoreFacade implements StoreFacade {
 	private StoreService storeService;
 	private StoreDataPopulator storeDataPopulator;
 
@@ -30,7 +28,7 @@ public class DefaultStoreFacade implements StoreFacade
 
 		return stores;
 	}
-	
+
 	@Override
 	public List<StoreData> getAllStores()
 	{
@@ -53,10 +51,10 @@ public class DefaultStoreFacade implements StoreFacade
 		StoreModel storeModel = storeService.getStoreForCode(storeCode);
 		StoreData store = new StoreData();
 		storeDataPopulator.populate(storeModel, store);
-		
+
 		return store;
 	}
-	
+
 	@Override
 	public void createStore(StoreData store)
 	{
@@ -80,6 +78,5 @@ public class DefaultStoreFacade implements StoreFacade
 	{
 		this.storeDataPopulator = storeDataPopulator;
 	}
-
 
 }

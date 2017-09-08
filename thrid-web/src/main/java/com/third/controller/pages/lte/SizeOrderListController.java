@@ -40,15 +40,14 @@ import com.third.facade.populator.option.OrderOption;
 import com.third.facade.utils.TextMapperUtils;
 import com.third.model.CoreConstants;
 
-
 @Controller
-public class SizeOrderListController extends AbstractPageController
-{
-	private static final Logger LOG = Logger.getLogger(com.third.controller.pages.lte.SizeOrderListController.class);
-	
-	@Resource(name="orderFacade")
+public class SizeOrderListController extends AbstractPageController {
+	private static final Logger LOG = Logger.getLogger(
+			com.third.controller.pages.lte.SizeOrderListController.class);
+
+	@Resource(name = "orderFacade")
 	private OrderFacade orderFacade;
-	
+
 	@RequestMapping(value = "/orderentry/listpage", method = RequestMethod.GET)
 	public String orderEntryListPage(Model model)
 	{
@@ -59,7 +58,8 @@ public class SizeOrderListController extends AbstractPageController
 
 	@RequestMapping(value = "/orderentry/list")
 	@ResponseBody
-	public Object getOrderEntryList(@RequestParam(value = "externalId", required = false) final String externalId,
+	public Object getOrderEntryList(
+			@RequestParam(value = "externalId", required = false) final String externalId,
 			@RequestParam(value = "customerName", required = false) final String name,
 			@RequestParam(value = "storeCodes", required = false) final String storeCodes,
 			@RequestParam(value = "orderEntryStatus", required = false) final String orderEntryStatus,
@@ -73,7 +73,8 @@ public class SizeOrderListController extends AbstractPageController
 		sp.put("status", orderEntryStatus);
 		sp.put("storeCodes", storeCodes);
 
-		DTResults r = orderFacade.getOrderEntries(startDate, endDate,  criterias.getStart(), criterias.getLength(), sp);
+		DTResults r = orderFacade.getOrderEntries(startDate, endDate,
+				criterias.getStart(), criterias.getLength(), sp);
 
 		return r;
 	}

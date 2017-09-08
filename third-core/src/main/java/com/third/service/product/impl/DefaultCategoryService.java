@@ -1,6 +1,5 @@
 package com.third.service.product.impl;
 
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -12,9 +11,7 @@ import com.third.dao.util.PaginationSupport;
 import com.third.model.CategoryModel;
 import com.third.service.product.CategoryService;
 
-
-public class DefaultCategoryService implements CategoryService
-{
+public class DefaultCategoryService implements CategoryService {
 	private CategoryDao categoryDao;
 
 	@Override
@@ -39,5 +36,5 @@ public class DefaultCategoryService implements CategoryService
 	{
 		return categoryDao.list();
 	}
-	
+
 }

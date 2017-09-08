@@ -1,7 +1,6 @@
 package com.third.exceptions;
 
-public class SubscribeException extends BussinessException
-{
+public class SubscribeException extends BussinessException {
 
 	public SubscribeException(String message)
 	{

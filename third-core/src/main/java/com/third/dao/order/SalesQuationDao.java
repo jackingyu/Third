@@ -8,10 +8,10 @@ import com.third.dao.generic.IGenericDAO;
 import com.third.dao.util.PaginationSupport;
 import com.third.model.SalesQuationModel;
 
+public interface SalesQuationDao
+		extends IGenericDAO<SalesQuationModel, String> {
+	PaginationSupport findSalesQuations(final Date startDate,
+			final Date endDate, final Integer startIndex,
+			final Integer pageSize, final Map<String, String> sp);
 
-public interface SalesQuationDao extends IGenericDAO<SalesQuationModel, String>
-{
-	PaginationSupport findSalesQuations(final Date startDate, final Date endDate, final Integer startIndex, final Integer pageSize,
-			final Map<String, String> sp);
-	
 }

@@ -4,10 +4,7 @@ import com.third.dao.customer.SubscribeDao;
 import com.third.model.SubscribeModel;
 import com.third.service.customer.SubscribeService;
 
-
-
-public class DefaultSubscribeService implements SubscribeService
-{
+public class DefaultSubscribeService implements SubscribeService {
 	private SubscribeDao subscribeDao;
 
 	public void setSubscribeDao(SubscribeDao subscribeDao)

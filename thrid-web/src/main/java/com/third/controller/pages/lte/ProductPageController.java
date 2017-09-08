@@ -26,13 +26,11 @@ import com.third.facade.data.ProductData;
 import com.third.facade.data.ProductGroupData;
 import com.third.facade.product.ProductFacade;
 
-
 @Controller
-public class ProductPageController extends AbstractPageController
-{
-	private static final Logger LOG = Logger.getLogger(ProductPageController.class);
+public class ProductPageController extends AbstractPageController {
+	private static final Logger LOG = Logger
+			.getLogger(ProductPageController.class);
 	private static final String PRODUCTCODE_PATH_VARIABLE_PATTERN = "/{productCode:.*}";
-
 
 	@Resource(name = "productFacade")
 	private ProductFacade productFacade;
@@ -45,13 +43,16 @@ public class ProductPageController extends AbstractPageController
 		return ControllerConstants.LTE.PRODUCTLISTPAGE;
 	}
 
-	@RequestMapping(value = "/product/modifyproductpage" + PRODUCTCODE_PATH_VARIABLE_PATTERN, method = RequestMethod.GET)
-	public String getModifyPage(@PathVariable("productCode") String productCode, @ModelAttribute("message") final String message,
-			final Model model)
+	@RequestMapping(value = "/product/modifyproductpage"
+			+ PRODUCTCODE_PATH_VARIABLE_PATTERN, method = RequestMethod.GET)
+	public String getModifyPage(@PathVariable("productCode") String productCode,
+			@ModelAttribute("message") final String message, final Model model)
 	{
 		ProductData product = productFacade.getProductForCode(productCode);
-		model.addAttribute("categories", getAllCategory(product.getCategory().getCode()));
-		model.addAttribute("productGroups", getProductGroups(product.getProductGroup().getPk()));
+		model.addAttribute("categories",
+				getAllCategory(product.getCategory().getCode()));
+		model.addAttribute("productGroups",
+				getProductGroups(product.getProductGroup().getPk()));
 		model.addAttribute("product", product);
 		model.addAttribute("readonly", true);
 		return ControllerConstants.LTE.MODIFYPRODUCTPAGE;
@@ -66,13 +67,14 @@ public class ProductPageController extends AbstractPageController
 		return ControllerConstants.LTE.MODIFYPRODUCTPAGE;
 	}
 
-	//TODO 需要考虑productCode重复的问题
+	// TODO 需要考虑productCode重复的问题
 	@RequestMapping(value = "/product/save", method = RequestMethod.POST)
-	public String saveProduct(@RequestParam(value = "productCode", required = true) final String productCode,
+	public String saveProduct(
+			@RequestParam(value = "productCode", required = true) final String productCode,
 			@RequestParam(value = "producttitle", required = false) final String productTitle,
 			@RequestParam(value = "productGroup", required = false) final String productGroup,
-			@RequestParam(value = "category", required = true) final String category, final Model model,
-			final RedirectAttributes attr)
+			@RequestParam(value = "category", required = true) final String category,
+			final Model model, final RedirectAttributes attr)
 	{
 		ProductData productData = new ProductData();
 		productData.setCode(productCode);
@@ -88,17 +90,19 @@ public class ProductPageController extends AbstractPageController
 		productData.setProductGroup(productGroupData);
 
 		productFacade.saveProduct(productData);
-	
+
 		attr.addFlashAttribute("message", "保存成功!");
 		return REDIRECT_PREFIX + "/product/modifyproductpage/" + productCode;
 	}
 
 	@RequestMapping(value = "/product/productlist", method = RequestMethod.GET)
 	@ResponseBody
-	public Object getProductList(@RequestParam(value = "productCode", required = false) final String productCode,
+	public Object getProductList(
+			@RequestParam(value = "productCode", required = false) final String productCode,
 			@RequestParam(value = "productTitle", required = false) final String productTitle,
 			@RequestParam(value = "productGroup", required = false) final String productGroup,
-			@RequestParam(value = "category", required = true) final String category, final DataTableCriterias criterias)
+			@RequestParam(value = "category", required = true) final String category,
+			final DataTableCriterias criterias)
 	{
 		Map<String, String> sp = new HashMap<String, String>();
 		sp.put("productCode", productCode);
@@ -106,25 +110,27 @@ public class ProductPageController extends AbstractPageController
 		sp.put("category", category);
 		sp.put("productGroup", productGroup);
 
-		return productFacade.getProductList(sp, criterias.getStart(), criterias.getLength());
+		return productFacade.getProductList(sp, criterias.getStart(),
+				criterias.getLength());
 	}
 
 	@RequestMapping(value = "/product/productlist1", method = RequestMethod.GET)
 	@ResponseBody
-	public Object getProductList1(@RequestParam(value = "productCode", required = false) final String productCode,
+	public Object getProductList1(
+			@RequestParam(value = "productCode", required = false) final String productCode,
 			@RequestParam(value = "productTitle", required = false) final String productTitle,
 			@RequestParam(value = "productGroups", required = false) final String[] productGroups,
-			@RequestParam(value = "categories", required = false) final String[] categories, final DataTableCriterias criterias)
+			@RequestParam(value = "categories", required = false) final String[] categories,
+			final DataTableCriterias criterias)
 	{
 		Map<String, String[]> sp = new HashMap<String, String[]>();
-		sp.put("productCode", new String[]
-		{ productCode });
-		sp.put("productTitle", new String[]
-		{ productTitle });
+		sp.put("productCode", new String[] { productCode });
+		sp.put("productTitle", new String[] { productTitle });
 		sp.put("categories", categories);
 		sp.put("productGroups", productGroups);
 
-		return productFacade.getProductList1(sp, criterias.getStart(), criterias.getLength());
+		return productFacade.getProductList1(sp, criterias.getStart(),
+				criterias.getLength());
 	}
 
 }

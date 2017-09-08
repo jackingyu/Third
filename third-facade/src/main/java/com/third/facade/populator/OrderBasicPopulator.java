@@ -10,10 +10,9 @@ import com.third.facade.data.TextMapper;
 import com.third.facade.utils.TextMapperUtils;
 import com.third.model.OrderModel;
 
-
-public class OrderBasicPopulator implements Populator<OrderModel, OrderData>
-{
-	private static final Logger LOG = Logger.getLogger(OrderBasicPopulator.class);
+public class OrderBasicPopulator implements Populator<OrderModel, OrderData> {
+	private static final Logger LOG = Logger
+			.getLogger(OrderBasicPopulator.class);
 
 	private SourceDataPopulator sourceDataPopulator;
 	private StoreDataPopulator storeDataPopulator;
@@ -26,40 +25,48 @@ public class OrderBasicPopulator implements Populator<OrderModel, OrderData>
 
 		target.setPk(source.getPk());
 		target.setOrderCode(source.getCode());
-	  
-		//顾客相关信息
+
+		// 顾客相关信息
 		CustomerData customer = new CustomerData();
 		if (source.getCustomer() != null)
 		{
 			customerDataPopulator.populate(source.getCustomer(), customer);
-		}else
+		} else
 		{
 			LOG.error("order without customer,order no:" + source.getCode());
 		}
-	
-		target.setCustomer(customer);
-		target.setCustomerName(StringUtils.isNotBlank(source.getCustomerName()) ? source.getCustomerName() : customer.getName());
-      target.setContactinfo(source.getContactinfo());
-      target.setWeddingDate(customer.getWeddingdate());
-		target.setCellphone(customer.getCellphone());
 
+		target.setCustomer(customer);
+		target.setCustomerName(StringUtils.isNotBlank(source.getCustomerName())
+				? source.getCustomerName()
+				: customer.getName());
+		target.setContactinfo(source.getContactinfo());
+		target.setWeddingDate(customer.getWeddingdate());
+		target.setCellphone(customer.getCellphone());
 
 		target.setTryDate(source.getTryDate());
 		target.setPhotoDate(source.getPhotoDate());
 		target.setDeliveryDate(source.getDeliveryDate());
 		target.setWeddingDate(source.getWeddingDate());
-      target.setStatus(Integer.valueOf(source.getStatus()));
-      target.setStatusText(TextMapperUtils.getOrderStatusText(source.getStatus()));
-      
+		target.setStatus(Integer.valueOf(source.getStatus()));
+		target.setStatusText(
+				TextMapperUtils.getOrderStatusText(source.getStatus()));
+
 		StoreData store = new StoreData();
 		storeDataPopulator.populate(source.getStore(), store);
 		target.setStore(store);
 
-		//支付相关信息 paid + open = receiveable
-		target.setOpenamount(source.getOpenamount() != null ? source.getOpenamount().toString() : "0");
-		target.setReceiveable(source.getReceiveable() != null ? source.getReceiveable().toString() : "0");
-      target.setPaidamount(source.getPaidamount() != null ? source.getPaidamount().toString() : "0");
-		//订单相关信息
+		// 支付相关信息 paid + open = receiveable
+		target.setOpenamount(source.getOpenamount() != null
+				? source.getOpenamount().toString()
+				: "0");
+		target.setReceiveable(source.getReceiveable() != null
+				? source.getReceiveable().toString()
+				: "0");
+		target.setPaidamount(source.getPaidamount() != null
+				? source.getPaidamount().toString()
+				: "0");
+		// 订单相关信息
 		target.setOrderDate(source.getOrderDate());
 		target.setCoSalesperson(source.getCoSalesperson());
 		target.setComment(source.getComment());
@@ -80,7 +87,8 @@ public class OrderBasicPopulator implements Populator<OrderModel, OrderData>
 		this.userDataPopulator = userDataPopulator;
 	}
 
-	public void setCustomerDataPopulator(CustomerDataPopulator customerDataPopulator)
+	public void setCustomerDataPopulator(
+			CustomerDataPopulator customerDataPopulator)
 	{
 		this.customerDataPopulator = customerDataPopulator;
 	}

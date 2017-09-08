@@ -10,17 +10,17 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.third.facade.store.StoreFacade;
 
-
 @Controller
-public class StorePage1Controller extends AbstractPageController
-{
-	private static final Logger LOG = Logger.getLogger(StorePage1Controller.class);
+public class StorePage1Controller extends AbstractPageController {
+	private static final Logger LOG = Logger
+			.getLogger(StorePage1Controller.class);
 	@Resource(name = "storeFacade")
 	private StoreFacade storeFacade;
 
 	@RequestMapping(value = "/getStores")
 	@ResponseBody
-	public Object getStores(@RequestParam(value = "storeName", required = false) final String name)
+	public Object getStores(
+			@RequestParam(value = "storeName", required = false) final String name)
 	{
 		return storeFacade.getStores(name);
 	}

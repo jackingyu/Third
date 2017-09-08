@@ -13,14 +13,14 @@ import com.third.dao.generic.GenericDAO;
 import com.third.model.CustomerModel;
 import com.third.model.SourceModel;
 
-
-public class DefaultSourceDao extends GenericDAO<SourceModel, String> implements SourceDao
-{
+public class DefaultSourceDao extends GenericDAO<SourceModel, String>
+		implements SourceDao {
 
 	@Override
 	public List<SourceModel> findSourceByName(String name)
 	{
-		DetachedCriteria dcSource  = DetachedCriteria.forClass(SourceModel.class);
+		DetachedCriteria dcSource = DetachedCriteria
+				.forClass(SourceModel.class);
 
 		if (!StringUtils.isEmpty(name))
 			dcSource.add(Restrictions.like("name", name));
@@ -31,15 +31,16 @@ public class DefaultSourceDao extends GenericDAO<SourceModel, String> implements
 	@Override
 	public boolean checkIfExist(String name)
 	{
-		DetachedCriteria dcSource  = DetachedCriteria.forClass(SourceModel.class);
+		DetachedCriteria dcSource = DetachedCriteria
+				.forClass(SourceModel.class);
 
 		if (!StringUtils.isEmpty(name))
 			dcSource.add(Restrictions.eq("name", name));
-		
+
 		dcSource.addOrder(Order.desc("modificationTime"));
-		
+
 		List<SourceModel> sources = findByCriteria(dcSource);
-		
+
 		return CollectionUtils.isNotEmpty(sources);
 	}
 

@@ -12,61 +12,95 @@ public class SubscribeData {
 	private String headimgurl;
 	private Date time;
 	private String unionId;
-	public String getOpenId() {
+
+	public String getOpenId()
+	{
 		return openId;
 	}
-	public void setOpenId(String openId) {
+
+	public void setOpenId(String openId)
+	{
 		this.openId = openId;
 	}
-	public String getNickName() {
+
+	public String getNickName()
+	{
 		return nickName;
 	}
-	public void setNickName(String nickName) {
+
+	public void setNickName(String nickName)
+	{
 		this.nickName = nickName;
 	}
-	public Integer getSex() {
+
+	public Integer getSex()
+	{
 		return sex;
 	}
-	public void setSex(Integer sex) {
+
+	public void setSex(Integer sex)
+	{
 		this.sex = sex;
 	}
-	public String getCity() {
+
+	public String getCity()
+	{
 		return city;
 	}
-	public void setCity(String city) {
+
+	public void setCity(String city)
+	{
 		this.city = city;
 	}
-	public String getCountry() {
+
+	public String getCountry()
+	{
 		return country;
 	}
-	public void setCountry(String country) {
+
+	public void setCountry(String country)
+	{
 		this.country = country;
 	}
-	public String getProvince() {
+
+	public String getProvince()
+	{
 		return province;
 	}
-	public void setProvince(String province) {
+
+	public void setProvince(String province)
+	{
 		this.province = province;
 	}
-	public String getHeadimgurl() {
+
+	public String getHeadimgurl()
+	{
 		return headimgurl;
 	}
-	public void setHeadimgurl(String headimgurl) {
+
+	public void setHeadimgurl(String headimgurl)
+	{
 		this.headimgurl = headimgurl;
 	}
-	public Date getTime() {
+
+	public Date getTime()
+	{
 		return time;
 	}
-	public void setTime(Date time) {
+
+	public void setTime(Date time)
+	{
 		this.time = time;
 	}
-	public String getUnionId() {
+
+	public String getUnionId()
+	{
 		return unionId;
 	}
-	public void setUnionId(String unionId) {
+
+	public void setUnionId(String unionId)
+	{
 		this.unionId = unionId;
 	}
-	
-	
 
 }

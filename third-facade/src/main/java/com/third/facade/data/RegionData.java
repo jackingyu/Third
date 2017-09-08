@@ -1,7 +1,6 @@
 package com.third.facade.data;
 
-public class RegionData
-{
+public class RegionData {
 	private String isoCode;
 	private String name;
 

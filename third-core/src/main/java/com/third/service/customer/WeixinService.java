@@ -6,10 +6,7 @@ import com.third.model.AccessToken;
 import com.third.model.SubscribeData;
 import com.third.model.WeixinInfoModel;
 
-
-
-public interface WeixinService
-{
+public interface WeixinService {
 	public WeixinInfoModel getWeixinInfo(Integer id);
 
 	public void saveWeixinInfo(WeixinInfoModel wxInfo);

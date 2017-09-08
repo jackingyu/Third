@@ -4,13 +4,11 @@ import java.util.List;
 
 import com.third.model.SourceModel;
 
-
-public interface SourceService
-{
+public interface SourceService {
 	public List<SourceModel> getSources();
 
 	public void createSource(SourceModel source);
-	
+
 	public SourceModel getSource(String pk);
 
 	List<SourceModel> getSources(String name);

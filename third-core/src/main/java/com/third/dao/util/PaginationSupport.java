@@ -25,12 +25,14 @@ public class PaginationSupport {
 
 	private int lastIndex;
 
-	public PaginationSupport(int pageSize, int startIndex) {
+	public PaginationSupport(int pageSize, int startIndex)
+	{
 		setPageSize(pageSize);
 		setStartIndex(startIndex);
 	}
 
-	public PaginationSupport(List items, int totalCount) {
+	public PaginationSupport(List items, int totalCount)
+	{
 		setPageSize(PAGESIZE);
 		setTotalCount(totalCount);
 		setItems(items);
@@ -38,7 +40,8 @@ public class PaginationSupport {
 
 	}
 
-	public PaginationSupport(List items, int totalCount, int startIndex) {
+	public PaginationSupport(List items, int totalCount, int startIndex)
+	{
 		setPageSize(PAGESIZE);
 		setTotalCount(totalCount);
 		setItems(items);
@@ -47,7 +50,8 @@ public class PaginationSupport {
 	}
 
 	public PaginationSupport(List items, int totalCount, int pageSize,
-			int startIndex) {
+			int startIndex)
+	{
 		setPageSize(pageSize);
 		setTotalCount(totalCount);
 		setItems(items);
@@ -55,54 +59,66 @@ public class PaginationSupport {
 
 	}
 
-	public void setTotalCount(int totalCount) {
-		if (totalCount > 0) {
+	public void setTotalCount(int totalCount)
+	{
+		if (totalCount > 0)
+		{
 			this.totalCount = totalCount;
 			int count = totalCount / pageSize;
 			if (totalCount % pageSize > 0)
 				count++;
 			indexes = new int[count];
-			for (int i = 0; i < count; i++) {
+			for (int i = 0; i < count; i++)
+			{
 				indexes[i] = pageSize * i;
 			}
-		} else {
+		} else
+		{
 			this.totalCount = 0;
 		}
 	}
 
-	public int getTotalCount() {
+	public int getTotalCount()
+	{
 		return totalCount;
 	}
 
-	public void setIndexes(int[] indexes) {
+	public void setIndexes(int[] indexes)
+	{
 		this.indexes = indexes;
 	}
 
-	public int[] getIndexes() {
+	public int[] getIndexes()
+	{
 		return indexes;
 	}
 
-	public void setStartIndex(int startIndex) {
+	public void setStartIndex(int startIndex)
+	{
 		if (totalCount <= 0)
 			this.startIndex = 0;
 		else if (startIndex >= totalCount)
 			this.startIndex = indexes[indexes.length - 1];
 		else if (startIndex < 0)
 			this.startIndex = 0;
-		else {
+		else
+		{
 			this.startIndex = indexes[startIndex / pageSize];
 		}
 	}
 
-	public int getStartIndex() {
+	public int getStartIndex()
+	{
 		return startIndex;
 	}
 
-	public void setNextIndex(int nextIndex) {
+	public void setNextIndex(int nextIndex)
+	{
 		this.nextIndex = nextIndex;
 	}
 
-	public int getNextIndex() {
+	public int getNextIndex()
+	{
 		int nextIndex = getStartIndex() + pageSize;
 		if (nextIndex >= totalCount)
 			return getStartIndex();
@@ -110,11 +126,13 @@ public class PaginationSupport {
 			return nextIndex;
 	}
 
-	public void setPreviousIndex(int previousIndex) {
+	public void setPreviousIndex(int previousIndex)
+	{
 		this.previousIndex = previousIndex;
 	}
 
-	public int getPreviousIndex() {
+	public int getPreviousIndex()
+	{
 		int previousIndex = getStartIndex() - pageSize;
 		if (previousIndex < 0)
 			return 0;
@@ -122,46 +140,56 @@ public class PaginationSupport {
 			return previousIndex;
 	}
 
-	public void setPageCount(int pageCount) {
+	public void setPageCount(int pageCount)
+	{
 		this.pageCount = pageCount;
 	}
 
-	public int getPageCount() {
+	public int getPageCount()
+	{
 		int count = totalCount / pageSize;
 		if (totalCount % pageSize > 0)
 			count++;
 		return count;
 	}
 
-	public int getCurrentPage() {
+	public int getCurrentPage()
+	{
 		return getStartIndex() / pageSize + 1;
 	}
 
-	public void setCurrentPage(int currentPage) {
+	public void setCurrentPage(int currentPage)
+	{
 		this.currentPage = currentPage;
 	}
 
-	public void setLastIndex(int lastIndex) {
+	public void setLastIndex(int lastIndex)
+	{
 		this.lastIndex = lastIndex;
 	}
 
-	public int getLastIndex() {
+	public int getLastIndex()
+	{
 		return indexes[indexes.length - 1];
 	}
 
-	public int getPageSize() {
+	public int getPageSize()
+	{
 		return pageSize;
 	}
 
-	public void setPageSize(int pageSize) {
+	public void setPageSize(int pageSize)
+	{
 		this.pageSize = pageSize;
 	}
 
-	public List getItems() {
+	public List getItems()
+	{
 		return items;
 	}
 
-	public void setItems(List items) {
+	public void setItems(List items)
+	{
 		this.items = items;
 	}
 

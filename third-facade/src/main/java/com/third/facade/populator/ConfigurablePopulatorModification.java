@@ -5,13 +5,11 @@ import java.lang.reflect.Method;
 import org.springframework.beans.factory.BeanInitializationException;
 import org.springframework.beans.factory.annotation.Required;
 
-
 /**
- * Spring Bean used to modify {@link ModifiableConfigurablePopulator} instances. Supports adding or removing a
- * populator.
+ * Spring Bean used to modify {@link ModifiableConfigurablePopulator} instances.
+ * Supports adding or removing a populator.
  */
-public class ConfigurablePopulatorModification<SOURCE, TARGET, OPTION>
-{
+public class ConfigurablePopulatorModification<SOURCE, TARGET, OPTION> {
 	private ModifiableConfigurablePopulator<SOURCE, TARGET, OPTION> target;
 	private String key;
 	private String keyType;
@@ -32,21 +30,19 @@ public class ConfigurablePopulatorModification<SOURCE, TARGET, OPTION>
 			if (getKeyType() == null || "java.lang.String".equals(getKeyType()))
 			{
 				resolvedKey = key;
-			}
-			else if ("java.lang.Class".equals(getKeyType()))
+			} else if ("java.lang.Class".equals(getKeyType()))
 			{
 				resolvedKey = Class.forName(key);
-			}
-			else
+			} else
 			{
 				final Class cls = Class.forName(getKeyType());
 				final Method valueOf = cls.getMethod("valueOf", String.class);
 				resolvedKey = valueOf.invoke(null, key);
 			}
-		}
-		catch (final ReflectiveOperationException e)
+		} catch (final ReflectiveOperationException e)
 		{
-			throw new BeanInitializationException("Could not create key [" + key + "] of type [" + getKeyType() + "].", e);
+			throw new BeanInitializationException("Could not create key [" + key
+					+ "] of type [" + getKeyType() + "].", e);
 		}
 	}
 
@@ -56,7 +52,8 @@ public class ConfigurablePopulatorModification<SOURCE, TARGET, OPTION>
 	}
 
 	@Required
-	public void setTarget(final ModifiableConfigurablePopulator<SOURCE, TARGET, OPTION> target)
+	public void setTarget(
+			final ModifiableConfigurablePopulator<SOURCE, TARGET, OPTION> target)
 	{
 		this.target = target;
 	}

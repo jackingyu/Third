@@ -5,42 +5,35 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 
-public interface CoreConstants
-{
-	interface PaymentType
-	{
+public interface CoreConstants {
+	interface PaymentType {
 		final String DownPayment = "0";
 		final String NormalPayment = "1";
 	}
 
-	interface PaymentMethod
-	{
+	interface PaymentMethod {
 		final String Cash = "0";
 		final String CreditCard = "1";
 	}
 
-	interface ItemCategory
-	{
+	interface ItemCategory {
 		final String Suit = "10";
 		final String Trousers = "20";
 		final String Shirt = "30";
 		final String Vest = "40";
 		final String Norm = "50";
 	}
-	
-	interface ReservationChannel
-	{
+
+	interface ReservationChannel {
 		final String Weixin = "WEIXIN";
 		final String Web = "WEB";
 	}
-	
-	interface MediaFolder
-	{
+
+	interface MediaFolder {
 		final String SizeOrderFolder = "sizeorders";
 	}
-	
-	interface OrderStatus
-	{
+
+	interface OrderStatus {
 		final Integer NEW = 0;
 		final Integer STORE_APPROVE = 10;
 		final Integer FINICIAL_APPROVE = 20;
@@ -48,12 +41,13 @@ public interface CoreConstants
 		final Integer FACTORY_DELIVERED = 40;
 		final Integer STORE_RECEIPT = 50;
 		final Integer STORE_DELIVERED = 60;
-		final List<Integer> ALL = Arrays.asList(NEW,STORE_APPROVE,FINICIAL_APPROVE,FACTORY_APPROVE,FACTORY_DELIVERED,STORE_RECEIPT,STORE_DELIVERED);
-	
+		final List<Integer> ALL = Arrays.asList(NEW, STORE_APPROVE,
+				FINICIAL_APPROVE, FACTORY_APPROVE, FACTORY_DELIVERED,
+				STORE_RECEIPT, STORE_DELIVERED);
+
 	}
 
-	interface Session
-	{
+	interface Session {
 		static final String CURRENT_CUSTOMER = "currentCustomer";
 		static final String CURRENT_USER = "currentUser";
 		static final String CURRENT_USER_ID = "currentUserId";
@@ -61,8 +55,7 @@ public interface CoreConstants
 		static final String STORE = "avaliableStore";
 	}
 
-	interface Category
-	{
+	interface Category {
 		final String Suit = "A";
 		final String Trousers = "B";
 		final String Shirt = "C";

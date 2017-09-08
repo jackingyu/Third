@@ -7,9 +7,8 @@ import com.third.model.CategoryModel;
 import com.third.model.ProductGroupModel;
 import com.third.model.ProductModel;
 
-
-public class ProductDataPopulator implements Populator<ProductModel, ProductData>
-{
+public class ProductDataPopulator
+		implements Populator<ProductModel, ProductData> {
 
 	@Override
 	public void populate(ProductModel source, ProductData target)
@@ -21,12 +20,12 @@ public class ProductDataPopulator implements Populator<ProductModel, ProductData
 		ProductGroupModel productGroupModel = source.getProductGroup();
 		productGroup.setName(productGroupModel.getName());
 		productGroup.setPk(productGroupModel.getPk());
-		
+
 		CategoryData category = new CategoryData();
 		CategoryModel categoryModel = source.getCategory();
 		category.setCode(categoryModel.getCode());
 		category.setName(categoryModel.getName());
-		
+
 		target.setCategory(category);
 		target.setProductGroup(productGroup);
 	}

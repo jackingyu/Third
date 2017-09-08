@@ -8,14 +8,14 @@ import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.config.ConfigurableListableBeanFactory;
 import org.springframework.beans.factory.config.PropertyPlaceholderConfigurer;
 
-
-public class Config extends PropertyPlaceholderConfigurer
-{
+public class Config extends PropertyPlaceholderConfigurer {
 
 	private static Map<String, Object> ctxPropertiesMap;
 
 	@Override
-	protected void processProperties(ConfigurableListableBeanFactory beanFactoryToProcess, Properties props) throws BeansException
+	protected void processProperties(
+			ConfigurableListableBeanFactory beanFactoryToProcess,
+			Properties props) throws BeansException
 	{
 		super.processProperties(beanFactoryToProcess, props);
 		ctxPropertiesMap = new HashMap<String, Object>();

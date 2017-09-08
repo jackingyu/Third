@@ -8,9 +8,7 @@ import com.third.dao.util.PaginationSupport;
 import com.third.model.PaymentModel;
 import com.third.service.order.PaymentService;
 
-
-public class DefaultPaymentService implements PaymentService
-{
+public class DefaultPaymentService implements PaymentService {
 	private PaymentDao paymentDao;
 
 	public void setPaymentDao(PaymentDao paymentDao)
@@ -38,9 +36,11 @@ public class DefaultPaymentService implements PaymentService
 	}
 
 	@Override
-	public PaginationSupport getPayments(Date startDate, Date endDate, Integer startIndex, Integer pageSize, Map<String, String[]> sp)
+	public PaginationSupport getPayments(Date startDate, Date endDate,
+			Integer startIndex, Integer pageSize, Map<String, String[]> sp)
 	{
-		return paymentDao.findPayments(startDate, endDate, startIndex, pageSize, sp);
+		return paymentDao.findPayments(startDate, endDate, startIndex, pageSize,
+				sp);
 	}
 
 }

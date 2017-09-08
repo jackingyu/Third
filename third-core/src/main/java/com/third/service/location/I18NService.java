@@ -6,9 +6,7 @@ import com.third.model.AddressModel;
 import com.third.model.CityModel;
 import com.third.model.RegionModel;
 
-
-public interface I18NService
-{
+public interface I18NService {
 	void createRegion(RegionModel regionModel);
 
 	void createCity(CityModel cityModel);

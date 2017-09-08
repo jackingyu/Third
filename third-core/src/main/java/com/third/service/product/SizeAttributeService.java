@@ -4,12 +4,10 @@ import java.util.List;
 
 import com.third.model.SizeAttributeModel;
 
-
-
-public interface SizeAttributeService
-{
+public interface SizeAttributeService {
 	public void createSizeAttribute(SizeAttributeModel sizeAttributeModel);
 
-	public List<SizeAttributeModel> getSizeAttributeForItemCategory(final Integer itemCategory);
+	public List<SizeAttributeModel> getSizeAttributeForItemCategory(
+			final Integer itemCategory);
 
 }

@@ -34,9 +34,7 @@ import com.third.service.user.RoleService;
 import com.third.service.user.SessionService;
 import com.third.service.user.UserService;
 
-
-public class DefaultUserFacade implements UserFacade
-{
+public class DefaultUserFacade implements UserFacade {
 	private static final Logger LOG = Logger.getLogger(DefaultUserFacade.class);
 
 	private MenuService menuService;
@@ -55,9 +53,11 @@ public class DefaultUserFacade implements UserFacade
 		UserModel userModel = new UserModel();
 		userModel.setName(user.getName());
 		userModel.setUserId(user.getUserId());
-		userModel.setPassword(user.getPassword() != null ? user.getPassword() : "111111");
+		userModel.setPassword(
+				user.getPassword() != null ? user.getPassword() : "111111");
 		if (null != user.getUserGroup())
-			userModel.setUserGroup(userService.getUserGroup(user.getUserGroup().getPk()));
+			userModel.setUserGroup(
+					userService.getUserGroup(user.getUserGroup().getPk()));
 		userModel.setBlocked(user.isBlocked());
 
 		List<StoreModel> stores = new ArrayList<StoreModel>();
@@ -76,13 +76,13 @@ public class DefaultUserFacade implements UserFacade
 	{
 		UserGroupModel userGroup = userService.getCurrentUser().getUserGroup();
 		Collection<RoleModel> userRoles = userGroup.getRoles();
-		//already handled level 2 menu,this is the result we want
+		// already handled level 2 menu,this is the result we want
 		Map<String, MenuData> lv2Menus = new HashMap<String, MenuData>();
-		//already handled level 3 menu
+		// already handled level 3 menu
 		Map<String, MenuData> lv3Menus = new HashMap<String, MenuData>();
 		List<MenuData> menuDataList = new ArrayList<MenuData>();
 
-		//loop the roles,delete the duplicated
+		// loop the roles,delete the duplicated
 		userRoles.forEach(role -> role.getMenus().forEach(m -> {
 			MenuModel menu = (MenuModel) m;
 
@@ -94,8 +94,7 @@ public class DefaultUserFacade implements UserFacade
 					menuDataPopulator.populate(menu, lv2MenuData);
 					lv2Menus.put(menu.getMenuId(), lv2MenuData);
 				}
-			}
-			else
+			} else
 			{
 				if (!lv3Menus.containsKey(menu.getMenuId()))
 				{
@@ -110,14 +109,16 @@ public class DefaultUserFacade implements UserFacade
 
 						if (lv2Menus.containsKey(parentMenu.getMenuId()))
 						{
-							lv2Menus.get(parentMenu.getMenuId()).addSubMenu(lv3MenuData);
-						}
-						else
+							lv2Menus.get(parentMenu.getMenuId())
+									.addSubMenu(lv3MenuData);
+						} else
 						{
 							MenuData parentMenuData = new MenuData();
-							menuDataPopulator.populate(parentMenu, parentMenuData);
+							menuDataPopulator.populate(parentMenu,
+									parentMenuData);
 							parentMenuData.addSubMenu(lv3MenuData);
-							lv2Menus.put(parentMenuData.getMenuid(), parentMenuData);
+							lv2Menus.put(parentMenuData.getMenuid(),
+									parentMenuData);
 						}
 					}
 
@@ -129,10 +130,12 @@ public class DefaultUserFacade implements UserFacade
 	}
 
 	@Override
-	public ListData getUserGroups(final String userGroupId, final String userGroupName, final Integer startIndex,
+	public ListData getUserGroups(final String userGroupId,
+			final String userGroupName, final Integer startIndex,
 			final Integer pageSize)
 	{
-		PaginationSupport result = userService.getUserGroupList(userGroupId, userGroupName, startIndex, pageSize);
+		PaginationSupport result = userService.getUserGroupList(userGroupId,
+				userGroupName, startIndex, pageSize);
 		ListData grid = new ListData();
 		grid.setTotal(result.getTotalCount());
 		List<Object> userGroups = new ArrayList<Object>();
@@ -149,8 +152,9 @@ public class DefaultUserFacade implements UserFacade
 	@Override
 	public void updateUserGroup(UserGroupData userGroup)
 	{
-		//TODO:修改为从PK拉取,所有的Data继承自一个基础类,增加PK字段
-		UserGroupModel userGroupModel = userService.getUserGroup(userGroup.getPk());
+		// TODO:修改为从PK拉取,所有的Data继承自一个基础类,增加PK字段
+		UserGroupModel userGroupModel = userService
+				.getUserGroup(userGroup.getPk());
 		userGroupModel.setGroupId(userGroup.getGroupId());
 		userGroupModel.setName(userGroup.getName());
 
@@ -199,9 +203,11 @@ public class DefaultUserFacade implements UserFacade
 	}
 
 	@Override
-	public ListData getUsers(String userId, String userName, Integer startIndex, Integer pageSize)
+	public ListData getUsers(String userId, String userName, Integer startIndex,
+			Integer pageSize)
 	{
-		PaginationSupport result = userService.getUserList(userId, userName, startIndex, pageSize);
+		PaginationSupport result = userService.getUserList(userId, userName,
+				startIndex, pageSize);
 		ListData grid = new ListData();
 		grid.setTotal(result.getTotalCount());
 		List<Object> users = new ArrayList<Object>();
@@ -221,7 +227,8 @@ public class DefaultUserFacade implements UserFacade
 		UserModel user = userService.getUserById(userData.getUserId());
 		user.setName(userData.getName());
 		if (null != userData.getUserGroup())
-			user.setUserGroup(userService.getUserGroup(userData.getUserGroup().getPk()));
+			user.setUserGroup(
+					userService.getUserGroup(userData.getUserGroup().getPk()));
 
 		user.setBlocked(userData.isBlocked());
 
@@ -282,7 +289,8 @@ public class DefaultUserFacade implements UserFacade
 	@Override
 	public UserData getCurrentUser()
 	{
-		UserData userData = (UserData) sessionService.get(CoreConstants.Session.CURRENT_USER);
+		UserData userData = (UserData) sessionService
+				.get(CoreConstants.Session.CURRENT_USER);
 		return userData;
 	}
 
@@ -293,7 +301,8 @@ public class DefaultUserFacade implements UserFacade
 		UserData userData = new UserData();
 		userDataPopulator.populate(user, userData);
 		sessionService.save(CoreConstants.Session.CURRENT_USER, userData);
-		sessionService.save(CoreConstants.Session.CURRENT_USER_ID, userData.getUserId());
+		sessionService.save(CoreConstants.Session.CURRENT_USER_ID,
+				userData.getUserId());
 		sessionService.save(CoreConstants.Session.MENU, getMenuData());
 	}
 
@@ -328,7 +337,8 @@ public class DefaultUserFacade implements UserFacade
 		this.menuDataPopulator = menuDataPopulator;
 	}
 
-	public void setUserGroupDataPopulator(UserGroupDataPopulator userGroupDataPopulator)
+	public void setUserGroupDataPopulator(
+			UserGroupDataPopulator userGroupDataPopulator)
 	{
 		this.userGroupDataPopulator = userGroupDataPopulator;
 	}
@@ -361,13 +371,13 @@ public class DefaultUserFacade implements UserFacade
 		String code = storeCode;
 		List<UserModel> userModels = userService.getSalesPerson(code);
 		List<UserData> userDatas = new ArrayList<UserData>();
-		
-		userModels.forEach( u ->{
+
+		userModels.forEach(u -> {
 			UserData ud = new UserData();
 			userDataPopulator.populate(u, ud);
 			userDatas.add(ud);
 		});
-		
+
 		return userDatas;
 	}
 

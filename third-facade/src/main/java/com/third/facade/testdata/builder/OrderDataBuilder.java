@@ -31,15 +31,13 @@ import com.third.service.product.ProductService;
 import com.third.service.store.StoreService;
 import com.third.service.user.UserService;
 
-
-public class OrderDataBuilder implements DataBuilder
-{
+public class OrderDataBuilder implements DataBuilder {
 	@Resource(name = "orderService")
 	private OrderService orderService;
 
 	@Resource(name = "storeService")
 	private StoreService storeService;
-	
+
 	@Resource(name = "sourceService")
 	private SourceService sourceService;
 
@@ -48,46 +46,48 @@ public class OrderDataBuilder implements DataBuilder
 
 	@Resource(name = "productService")
 	private ProductService productService;
-	
-	@Resource(name="orderProcessService")
+
+	@Resource(name = "orderProcessService")
 	private OrderProcessService orderProcessService;
-	
-	@Resource(name="userService")
+
+	@Resource(name = "userService")
 	private UserService userService;
-	
+
 	private List<SourceModel> sources;
 
 	@Override
 	public void buildData()
 	{
-		Map<Integer,Runnable> hs = new HashMap<Integer,Runnable>();
+		Map<Integer, Runnable> hs = new HashMap<Integer, Runnable>();
 		sources = sourceService.getSources();
-		for(int i = 0;i < 10;i++)
+		for (int i = 0; i < 10; i++)
 		{
-			hs.put(i, new Runnable(){
+			hs.put(i, new Runnable() {
 				int m;
+
 				public Runnable setM(int m)
 				{
 					this.m = m;
 					return this;
 				}
+
 				public void run()
 				{
 					for (int j = 0; j < 10; j++)
 					{
-						int n = 10*m+j;
+						int n = 10 * m + j;
 						OrderModel order = buildOrder("o-" + n);
 						buildOrderProcess(order);
 					}
-				}}.setM(i)
-				);
+				}
+			}.setM(i));
 		}
-		
-		for(int i = 0;i < 10;i++)
+
+		for (int i = 0; i < 10; i++)
 		{
 			hs.get(i).run();
 		}
-		
+
 	}
 
 	public void buildOrderProcess(final OrderModel orderModel)
@@ -98,9 +98,9 @@ public class OrderDataBuilder implements DataBuilder
 		op.setFromStatus("0");
 		op.setToStatus("1");
 		orderProcessService.createOrderProcess(op);
-		
+
 	}
-	
+
 	public OrderModel buildOrder(final String orderCode)
 	{
 		OrderModel orderModel = new OrderModel();
@@ -109,15 +109,18 @@ public class OrderDataBuilder implements DataBuilder
 
 		Calendar calendar = Calendar.getInstance();
 		Date today = new Date();
-		orderModel.setDeliveryDate(getNextDay(today, RandomUtils.nextInt(0,365)));
-		orderModel.setOrderDate(getNextDay(today, RandomUtils.nextInt(0,365)));
+		orderModel.setDeliveryDate(
+				getNextDay(today, RandomUtils.nextInt(0, 365)));
+		orderModel.setOrderDate(getNextDay(today, RandomUtils.nextInt(0, 365)));
 		orderModel.setStore(storeService.getStoreForCode("s-1"));
 		orderModel.setPhotoDate(getNextDay(today, 3));
 		orderModel.setWeddingDate(getNextDay(today, 20));
 		orderModel.setStatus(0);
-		CustomerModel customer = buildCustomer("13800138000"+orderCode, "name"+orderCode);
+		CustomerModel customer = buildCustomer("13800138000" + orderCode,
+				"name" + orderCode);
 		orderModel.setCustomer(customer);
-      orderModel.setSalesperson(userService.getUserById("test"+RandomUtils.nextInt(0,20)));
+		orderModel.setSalesperson(
+				userService.getUserById("test" + RandomUtils.nextInt(0, 20)));
 		StoreModel store = storeService.getStoreForCode("s-1");
 		orderModel.setStore(store);
 
@@ -129,12 +132,11 @@ public class OrderDataBuilder implements DataBuilder
 		paymentModel.setPaidTime(Calendar.getInstance().getTime());
 		paymentModel.setStore(store);
 
-
 		List<PaymentModel> payments = new ArrayList<PaymentModel>();
 		payments.add(paymentModel);
 
 		BigDecimal paidamount = new BigDecimal(100);
-		
+
 		for (int i = 0; i < 5; i++)
 		{
 			PaymentModel paymentModel1 = new PaymentModel();
@@ -142,41 +144,45 @@ public class OrderDataBuilder implements DataBuilder
 			paymentModel1.setPaymentType(PaymentType.NormalPayment);
 			paymentModel1.setPaymentEntryNo(10 + i);
 			paymentModel.setStore(store);
-			paymentModel1.setAmount(BigDecimal.valueOf(RandomUtils.nextInt(1, 199)));
+			paymentModel1
+					.setAmount(BigDecimal.valueOf(RandomUtils.nextInt(1, 199)));
 			paymentModel1.setPaidTime(Calendar.getInstance().getTime());
 			payments.add(paymentModel1);
 			paidamount = paidamount.add(paymentModel1.getAmount());
 		}
 
-		orderModel.setReceiveable(BigDecimal.valueOf(RandomUtils.nextInt(1000,9999)));
+		orderModel.setReceiveable(
+				BigDecimal.valueOf(RandomUtils.nextInt(1000, 9999)));
 		orderModel.setPaidamount(paidamount);
-      orderModel.setOpenamount(orderModel.getReceiveable().subtract(orderModel.getPaidamount()));
+		orderModel.setOpenamount(orderModel.getReceiveable()
+				.subtract(orderModel.getPaidamount()));
 
-      List<OrderEntryModel> entries = new ArrayList<OrderEntryModel>();
-	
-      for(int j = 0;j < 5;j++)
-      {
-      	OrderEntryModel entry = new OrderEntryModel();
-   		entry.setQuantity(1);
-   		entry.setEntryNo(j+1);
-   		entry.setComment("test order entry"+j);
-   		entry.setDeliveryDate(orderModel.getDeliveryDate());
-   		entry.setSizeDate(new Date());
-   		Integer itemCategory = RandomUtils.nextInt(1, 4)*10;
-   		entry.setItemCategory(itemCategory.toString());
-   		entry.setStyle("测试规格");
-   		entry.setProductTitle("成品西装");
-   		entry.setSizeDate(new Date());
-   		entry.setDesigner("设计师");
-   		entry.setTryDate(new Date());
-   		entry.setComment("我是一个备注备注备注");
-   		entry.setExternalId(Integer.toString(RandomUtils.nextInt()));
-   		entry.setStore(store);
-   		entry.setStatus(0);
-   		entry.setProduct(productService.getProductForCode("p-"+RandomUtils.nextInt(0, 50)));
-   		
-   		entries.add(entry);
-      }
+		List<OrderEntryModel> entries = new ArrayList<OrderEntryModel>();
+
+		for (int j = 0; j < 5; j++)
+		{
+			OrderEntryModel entry = new OrderEntryModel();
+			entry.setQuantity(1);
+			entry.setEntryNo(j + 1);
+			entry.setComment("test order entry" + j);
+			entry.setDeliveryDate(orderModel.getDeliveryDate());
+			entry.setSizeDate(new Date());
+			Integer itemCategory = RandomUtils.nextInt(1, 4) * 10;
+			entry.setItemCategory(itemCategory.toString());
+			entry.setStyle("测试规格");
+			entry.setProductTitle("成品西装");
+			entry.setSizeDate(new Date());
+			entry.setDesigner("设计师");
+			entry.setTryDate(new Date());
+			entry.setComment("我是一个备注备注备注");
+			entry.setExternalId(Integer.toString(RandomUtils.nextInt()));
+			entry.setStore(store);
+			entry.setStatus(0);
+			entry.setProduct(productService
+					.getProductForCode("p-" + RandomUtils.nextInt(0, 50)));
+
+			entries.add(entry);
+		}
 
 		orderModel.setOrderEntries(entries);
 		orderModel.setPayments(payments);
@@ -189,12 +195,13 @@ public class OrderDataBuilder implements DataBuilder
 	{
 		Calendar calendar = Calendar.getInstance();
 		calendar.setTime(date);
-		calendar.add(Calendar.DAY_OF_MONTH, +after);//+1今天的时间加一天
+		calendar.add(Calendar.DAY_OF_MONTH, +after);// +1今天的时间加一天
 		date = calendar.getTime();
 		return date;
 	}
-	
-	public CustomerModel buildCustomer(final String cellphone, final String name)
+
+	public CustomerModel buildCustomer(final String cellphone,
+			final String name)
 	{
 		CustomerModel customer = new CustomerModel();
 		customer.setCellphone(cellphone);
@@ -204,7 +211,7 @@ public class OrderDataBuilder implements DataBuilder
 		customer.setEmail("dd@tt.com");
 		customer.setComment("yekongzhongzuiliangdexing");
 		customer.setQQ("33445566");
-		customer.setSource(sources.get(RandomUtils.nextInt(0,5)));
+		customer.setSource(sources.get(RandomUtils.nextInt(0, 5)));
 		customerService.createCustomer(customer);
 		return customer;
 	}

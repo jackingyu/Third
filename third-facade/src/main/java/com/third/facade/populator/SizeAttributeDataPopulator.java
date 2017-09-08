@@ -3,9 +3,8 @@ package com.third.facade.populator;
 import com.third.facade.data.SizeAttributeData;
 import com.third.model.SizeAttributeModel;
 
-
-public class SizeAttributeDataPopulator implements Populator<SizeAttributeModel, SizeAttributeData>
-{
+public class SizeAttributeDataPopulator
+		implements Populator<SizeAttributeModel, SizeAttributeData> {
 
 	@Override
 	public void populate(SizeAttributeModel source, SizeAttributeData target)
@@ -15,6 +14,5 @@ public class SizeAttributeDataPopulator implements Populator<SizeAttributeModel,
 		target.setCode(source.getCode());
 		target.setGroup(source.getGroup().toString());
 	}
-
 
 }

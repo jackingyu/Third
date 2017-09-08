@@ -1,6 +1,5 @@
 package com.third.controller.pages.lte;
 
-
 import javax.annotation.Resource;
 import org.apache.log4j.Logger;
 import org.springframework.stereotype.Controller;
@@ -13,11 +12,10 @@ import com.third.controller.pages.AbstractPageController;
 import com.third.facade.customer.CustomerFacade;
 import com.third.facade.local.I18NFacade;
 
-
 @Controller
-public class AddressDataController extends AbstractPageController
-{
-	private static final Logger LOG = Logger.getLogger(AddressDataController.class);
+public class AddressDataController extends AbstractPageController {
+	private static final Logger LOG = Logger
+			.getLogger(AddressDataController.class);
 
 	@Resource(name = "customerFacade")
 	private CustomerFacade customerFacade;
@@ -25,10 +23,10 @@ public class AddressDataController extends AbstractPageController
 	@Resource(name = "i18NFacade")
 	private I18NFacade i18NFacade;
 
-
 	@RequestMapping(value = "/address/getcityforregion", method = RequestMethod.GET)
 	@ResponseBody
-	public Object getCity(@RequestParam(value = "regionISOCode", required = true) final String regionISOCode)
+	public Object getCity(
+			@RequestParam(value = "regionISOCode", required = true) final String regionISOCode)
 	{
 		return getCityForRegion(regionISOCode);
 	}

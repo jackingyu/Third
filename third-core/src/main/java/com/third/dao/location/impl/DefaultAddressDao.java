@@ -13,9 +13,7 @@ import com.third.dao.location.AddressDao;
 import com.third.dao.util.PaginationSupport;
 import com.third.model.AddressModel;
 
-
-public class DefaultAddressDao extends GenericDAO<AddressModel, String> implements AddressDao
-{
-
+public class DefaultAddressDao extends GenericDAO<AddressModel, String>
+		implements AddressDao {
 
 }

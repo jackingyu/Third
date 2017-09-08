@@ -13,9 +13,7 @@ import com.third.dao.location.RegionDao;
 import com.third.dao.util.PaginationSupport;
 import com.third.model.RegionModel;
 
-
-public class DefaultRegionDao extends GenericDAO<RegionModel, String> implements RegionDao
-{
-
+public class DefaultRegionDao extends GenericDAO<RegionModel, String>
+		implements RegionDao {
 
 }

@@ -12,15 +12,17 @@ import org.springframework.security.web.authentication.SimpleUrlAuthenticationSu
 
 import com.third.facade.user.UserFacade;
 
-
-public class LoginAuthenticationSuccessHandler extends SimpleUrlAuthenticationSuccessHandler
-{
-	private static final Logger LOG = Logger.getLogger(LoginAuthenticationSuccessHandler.class);
+public class LoginAuthenticationSuccessHandler
+		extends SimpleUrlAuthenticationSuccessHandler {
+	private static final Logger LOG = Logger
+			.getLogger(LoginAuthenticationSuccessHandler.class);
 	private UserFacade userFacade;
 
 	@Override
-	public void onAuthenticationSuccess(final HttpServletRequest request, final HttpServletResponse response,
-			final Authentication authentication) throws IOException, ServletException
+	public void onAuthenticationSuccess(final HttpServletRequest request,
+			final HttpServletResponse response,
+			final Authentication authentication)
+			throws IOException, ServletException
 	{
 		getUserFacade().loginSuccess(authentication.getName());
 		super.onAuthenticationSuccess(request, response, authentication);

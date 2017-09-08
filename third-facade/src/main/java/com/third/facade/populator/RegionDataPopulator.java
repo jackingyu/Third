@@ -3,9 +3,7 @@ package com.third.facade.populator;
 import com.third.facade.data.RegionData;
 import com.third.model.RegionModel;
 
-
-public class RegionDataPopulator implements Populator<RegionModel, RegionData>
-{
+public class RegionDataPopulator implements Populator<RegionModel, RegionData> {
 
 	@Override
 	public void populate(RegionModel source, RegionData target)

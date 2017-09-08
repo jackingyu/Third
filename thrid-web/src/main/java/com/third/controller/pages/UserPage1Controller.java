@@ -14,11 +14,10 @@ import com.third.facade.data.UserData;
 import com.third.facade.data.UserGroupData;
 import com.third.facade.user.UserFacade;
 
-
 @Controller
-public class UserPage1Controller extends AbstractPageController
-{
-	private static final Logger LOG = Logger.getLogger(UserPage1Controller.class);
+public class UserPage1Controller extends AbstractPageController {
+	private static final Logger LOG = Logger
+			.getLogger(UserPage1Controller.class);
 	@Autowired
 	private UserFacade userFacade;
 
@@ -28,23 +27,24 @@ public class UserPage1Controller extends AbstractPageController
 		return ControllerConstants.Fragements.USERLIST;
 	}
 
-
-
 	@RequestMapping(value = "/getUserList")
 	@ResponseBody
-	public Object getUserList(@RequestParam(value = "userName", required = false) final String userName,
+	public Object getUserList(
+			@RequestParam(value = "userName", required = false) final String userName,
 			@RequestParam(value = "userId", required = false) final String userId,
 			@RequestParam(value = "page", required = false) final Integer page,
 			@RequestParam(value = "rows", required = false) final Integer rows)
 	{
-		ListData users = userFacade.getUsers(userId, userName, getStartIndex(page, rows), rows);
+		ListData users = userFacade.getUsers(userId, userName,
+				getStartIndex(page, rows), rows);
 
 		return users;
 	}
 
 	@RequestMapping(value = "/createUser", method = RequestMethod.POST)
 	@ResponseBody
-	public void createUser(@RequestParam(value = "userId") final String userId, @RequestParam(value = "name") final String name,
+	public void createUser(@RequestParam(value = "userId") final String userId,
+			@RequestParam(value = "name") final String name,
 			@RequestParam(value = "blocked", required = false) final boolean blocked,
 			@RequestParam(value = "password", required = false) final String password,
 			@RequestParam(value = "usergroup") final String userGroupPk)
@@ -64,10 +64,12 @@ public class UserPage1Controller extends AbstractPageController
 
 	@RequestMapping(value = "/modifyUser", method = RequestMethod.POST)
 	@ResponseBody
-	public void modifyUser(@RequestParam(value = "userId") final String userId, @RequestParam(value = "name") final String name,
+	public void modifyUser(@RequestParam(value = "userId") final String userId,
+			@RequestParam(value = "name") final String name,
 			@RequestParam(value = "blocked", required = false, defaultValue = "off") final String blockedString,
 			@RequestParam(value = "password", required = false) final String password,
-			@RequestParam(value = "usergroup") final String userGroupPk, @RequestParam(value = "storeList") final String storeList)
+			@RequestParam(value = "usergroup") final String userGroupPk,
+			@RequestParam(value = "storeList") final String storeList)
 	{
 		boolean blocked = blockedString.equals("on");
 		UserData user = new UserData();
@@ -85,7 +87,8 @@ public class UserPage1Controller extends AbstractPageController
 
 	@RequestMapping(value = "/getDetailsForUser", method = RequestMethod.GET)
 	@ResponseBody
-	public Object getUser(@RequestParam(value = "userId", required = false) final String userId,
+	public Object getUser(
+			@RequestParam(value = "userId", required = false) final String userId,
 			@RequestParam(value = "pk", required = false) final String userPk)
 	{
 		if (!StringUtils.isEmpty(userId))

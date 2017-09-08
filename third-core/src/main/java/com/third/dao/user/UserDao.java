@@ -6,9 +6,7 @@ import com.third.dao.generic.IGenericDAO;
 import com.third.dao.util.PaginationSupport;
 import com.third.model.UserModel;
 
-
-public interface UserDao extends IGenericDAO<UserModel, String>
-{
+public interface UserDao extends IGenericDAO<UserModel, String> {
 
 	/**
 	 * @param userId
@@ -23,7 +21,8 @@ public interface UserDao extends IGenericDAO<UserModel, String>
 	 * @param size
 	 * @return
 	 */
-	PaginationSupport findUser(final String userId, final String userName, final Integer startIndex, final Integer pageSize);
+	PaginationSupport findUser(final String userId, final String userName,
+			final Integer startIndex, final Integer pageSize);
 
-   List<UserModel> findSalesPerson(final String storeCode);
+	List<UserModel> findSalesPerson(final String storeCode);
 }

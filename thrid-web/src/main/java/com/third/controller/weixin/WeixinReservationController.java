@@ -22,43 +22,45 @@ import com.third.facade.data.StoreData;
 import com.third.facade.store.StoreFacade;
 import com.third.model.CoreConstants;
 
-
 @Controller
 @RequestMapping("/wx")
-public class WeixinReservationController extends AbstractWeixinController
-{
-	private static final Logger LOG = Logger.getLogger(WeixinReservationController.class);
-	
-	@Resource(name="storeFacade")
+public class WeixinReservationController extends AbstractWeixinController {
+	private static final Logger LOG = Logger
+			.getLogger(WeixinReservationController.class);
+
+	@Resource(name = "storeFacade")
 	private StoreFacade storeFacade;
-	
-	@Resource(name="reservationFacade")
+
+	@Resource(name = "reservationFacade")
 	private ReservationFacade reservationFacade;
-	
-	@Resource(name="customerFacade")
+
+	@Resource(name = "customerFacade")
 	private CustomerFacade customerFacade;
-	
+
 	@RequestMapping(value = "/getReservationPage")
-	public String getReservationPage(@RequestParam(value="reservationPK",required=false) final String reservationPK,final Model model)
+	public String getReservationPage(
+			@RequestParam(value = "reservationPK", required = false) final String reservationPK,
+			final Model model)
 	{
-	   fillInStoreList(model);
-	   
-	   if(StringUtils.isEmpty(reservationPK))
-		 return ControllerConstants.WeiXin.RESERVATIONPAGE;
-	   
-	   ReservationData reservation = reservationFacade.getReservation(reservationPK);
-	   
-	   model.addAttribute("reservation",reservation);
-	   
-	   return ControllerConstants.WeiXin.RESERVATIONMODIFYPAGE;
+		fillInStoreList(model);
+
+		if (StringUtils.isEmpty(reservationPK))
+			return ControllerConstants.WeiXin.RESERVATIONPAGE;
+
+		ReservationData reservation = reservationFacade
+				.getReservation(reservationPK);
+
+		model.addAttribute("reservation", reservation);
+
+		return ControllerConstants.WeiXin.RESERVATIONMODIFYPAGE;
 	}
-	
-	
+
 	@RequestMapping(value = "/createReservation")
-	public String createReservation(@RequestParam(value ="name",required=true)final String name,
-			@RequestParam(value ="phone",required=true)final String cellphone,
-			@RequestParam(value ="date",required=true) @DateTimeFormat(pattern = "yyyy-MM-dd")final Date reservationDate,
-			@RequestParam(value ="store_select",required=true)final String storeCode,
+	public String createReservation(
+			@RequestParam(value = "name", required = true) final String name,
+			@RequestParam(value = "phone", required = true) final String cellphone,
+			@RequestParam(value = "date", required = true) @DateTimeFormat(pattern = "yyyy-MM-dd") final Date reservationDate,
+			@RequestParam(value = "store_select", required = true) final String storeCode,
 			final Model model)
 	{
 		ReservationData reservationData = new ReservationData();
@@ -71,18 +73,19 @@ public class WeixinReservationController extends AbstractWeixinController
 		reservationData.setStore(store);
 		CustomerData customer = customerFacade.getCurrentCustomer();
 		reservationData.setCustomer(customer);
-		
+
 		reservationFacade.createReservation(reservationData);
-		
+
 		return "redirect:/wx/getReservationList";
 	}
-	
+
 	@RequestMapping(value = "/modifyReservation")
-	public String modifyReservation(@RequestParam(value ="name",required=true)final String name,
-			@RequestParam(value ="phone",required=true)final String cellphone,
-			@RequestParam(value ="date",required=true) @DateTimeFormat(pattern = "yyyy-MM-dd")final Date reservationDate,
-			@RequestParam(value ="store_select",required=true)final String storeCode,
-			@RequestParam(value ="reservationPK",required=true)final String reservationPK,
+	public String modifyReservation(
+			@RequestParam(value = "name", required = true) final String name,
+			@RequestParam(value = "phone", required = true) final String cellphone,
+			@RequestParam(value = "date", required = true) @DateTimeFormat(pattern = "yyyy-MM-dd") final Date reservationDate,
+			@RequestParam(value = "store_select", required = true) final String storeCode,
+			@RequestParam(value = "reservationPK", required = true) final String reservationPK,
 			final Model model)
 	{
 		ReservationData reservationData = new ReservationData();
@@ -96,27 +99,31 @@ public class WeixinReservationController extends AbstractWeixinController
 		reservationData.setStore(store);
 		CustomerData customer = customerFacade.getCurrentCustomer();
 		reservationData.setCustomer(customer);
-		
+
 		reservationFacade.updateReservation(reservationData);
-		
+
 		return "redirect:/wx/getReservationList";
 	}
-	
+
 	@RequestMapping(value = "/getReservationList")
 	public String getReservationList(final Model model)
 	{
 		CustomerData customer = customerFacade.getCurrentCustomer();
-		List<ReservationData> reservations = reservationFacade.getReservationsForCustomer(customer.getCellphone());
-	   model.addAttribute("reservations",reservations);
-	   
+		List<ReservationData> reservations = reservationFacade
+				.getReservationsForCustomer(customer.getCellphone());
+		model.addAttribute("reservations", reservations);
+
 		return ControllerConstants.WeiXin.RESERVATIONLISTPAGE;
 	}
-	
+
 	@RequestMapping(value = "/getReservationDetail")
-	public String getReservationDetail(@RequestParam(value="reservationPK") final String reservationPK,final Model model)
+	public String getReservationDetail(
+			@RequestParam(value = "reservationPK") final String reservationPK,
+			final Model model)
 	{
-		ReservationData reservation = reservationFacade.getReservation(reservationPK);
-		model.addAttribute("reservation",reservation);
+		ReservationData reservation = reservationFacade
+				.getReservation(reservationPK);
+		model.addAttribute("reservation", reservation);
 		return ControllerConstants.WeiXin.RESERVATIONDETAILPAGE;
 	}
 

@@ -4,9 +4,8 @@ import com.third.facade.data.PaymentData;
 import com.third.facade.data.TextMapper;
 import com.third.model.PaymentModel;
 
-
-public class PaymentDataPopulator implements Populator<PaymentModel, PaymentData>
-{
+public class PaymentDataPopulator
+		implements Populator<PaymentModel, PaymentData> {
 
 	@Override
 	public void populate(PaymentModel source, PaymentData target)
@@ -18,8 +17,10 @@ public class PaymentDataPopulator implements Populator<PaymentModel, PaymentData
 		target.setPaymentType(source.getPaymentType());
 		target.setPaymentMethod(source.getPaymentMethod());
 
-		target.setPaymentTypeText(TextMapper.PaymentType.get(source.getPaymentType()));
-		target.setPaymentMethodText(TextMapper.PaymentMethod.get(source.getPaymentMethod()));
+		target.setPaymentTypeText(
+				TextMapper.PaymentType.get(source.getPaymentType()));
+		target.setPaymentMethodText(
+				TextMapper.PaymentMethod.get(source.getPaymentMethod()));
 	}
 
 }

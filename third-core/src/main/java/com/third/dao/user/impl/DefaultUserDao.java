@@ -13,9 +13,8 @@ import com.third.dao.util.PaginationSupport;
 import com.third.model.UserGroupModel;
 import com.third.model.UserModel;
 
-
-public class DefaultUserDao extends GenericDAO<UserModel, String> implements UserDao
-{
+public class DefaultUserDao extends GenericDAO<UserModel, String>
+		implements UserDao {
 
 	private final static String FIND_BY_ID_SQL = "from com.third.model.UserModel u where u.userId=?";
 
@@ -26,15 +25,18 @@ public class DefaultUserDao extends GenericDAO<UserModel, String> implements Use
 	}
 
 	@Override
-	public PaginationSupport findUser(String userId, String userName, Integer startIndex, Integer pageSize)
+	public PaginationSupport findUser(String userId, String userName,
+			Integer startIndex, Integer pageSize)
 	{
 		DetachedCriteria dcUser = DetachedCriteria.forClass(UserModel.class);
 
 		if (!StringUtils.isEmpty(userId))
-			dcUser.add(Restrictions.like("userId", generateLikeParameter(userId)));
+			dcUser.add(
+					Restrictions.like("userId", generateLikeParameter(userId)));
 
 		if (!StringUtils.isEmpty(userName))
-			dcUser.add(Restrictions.like("name", generateLikeParameter(userName)));
+			dcUser.add(
+					Restrictions.like("name", generateLikeParameter(userName)));
 
 		PaginationSupport ps = findPageByCriteria(dcUser, pageSize, startIndex);
 
@@ -43,9 +45,10 @@ public class DefaultUserDao extends GenericDAO<UserModel, String> implements Use
 
 	public List<UserModel> findSalesPerson(final String storeCode)
 	{
-		final StringBuilder sb = new StringBuilder("from UserModel u where u.userGroup.groupId ='sales' ");
-		
-		if(StringUtils.isNotEmpty(storeCode))
+		final StringBuilder sb = new StringBuilder(
+				"from UserModel u where u.userGroup.groupId ='sales' ");
+
+		if (StringUtils.isNotEmpty(storeCode))
 			sb.append("and u.store.id='").append(storeCode).append("'");
 
 		return find(sb.toString());

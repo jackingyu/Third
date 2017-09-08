@@ -11,11 +11,10 @@ import com.third.controller.pages.ControllerConstants;
 import com.third.facade.user.UserFacade;
 import com.third.service.user.UserService;
 
-
 @Controller
-public class LoginPageController
-{
-	private static final Logger LOG = Logger.getLogger(LoginPageController.class);
+public class LoginPageController {
+	private static final Logger LOG = Logger
+			.getLogger(LoginPageController.class);
 
 	@Autowired
 	private UserService userService;
@@ -28,7 +27,5 @@ public class LoginPageController
 	{
 		return ControllerConstants.LTE.LOGINPAGE;
 	}
-
-	
 
 }

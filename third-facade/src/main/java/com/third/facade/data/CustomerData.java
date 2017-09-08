@@ -2,9 +2,7 @@ package com.third.facade.data;
 
 import java.util.Date;
 
-
-public class CustomerData extends AbstractData
-{
+public class CustomerData extends AbstractData {
 	private String name;
 	private String cellphone;
 	private Date birthday;
@@ -64,8 +62,6 @@ public class CustomerData extends AbstractData
 	{
 		this.email = email;
 	}
-
-
 
 	public AddressData getAddress()
 	{

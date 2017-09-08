@@ -14,14 +14,12 @@ import com.third.dao.order.OrderDao;
 import com.third.dao.util.PaginationSupport;
 import com.third.model.OrderModel;
 
-
-public class DefaultOrderDao extends GenericDAO<OrderModel, String> implements OrderDao
-{
+public class DefaultOrderDao extends GenericDAO<OrderModel, String>
+		implements OrderDao {
 	private Log logger = LogFactory.getLog(getClass());
 	private final static String FIND_BY_ORDERCODE_SQL = "from com.third.model.OrderModel o where o.code=?";
 	private final static String FIND_BY_CUSTOMERPK_SQL = "from com.third.model.OrderModel o where o.customer.pk=?";
 	private final static String COUNT_ORDER_BY_CUSTOMER = "select count(*) from com.third.model.OrderModel o where o.customer.cellphone=:cellphone";
-
 
 	@Override
 	public OrderModel findOrder(String orderCode)
@@ -31,52 +29,62 @@ public class DefaultOrderDao extends GenericDAO<OrderModel, String> implements O
 	}
 
 	@Override
-	public PaginationSupport findOrders(Date startDate, Date endDate, final Integer startIndex, final Integer pageSize,
+	public PaginationSupport findOrders(Date startDate, Date endDate,
+			final Integer startIndex, final Integer pageSize,
 			Map<String, String> sp)
 	{
 
-		final StringBuilder sb = new StringBuilder("select s.code,s.customer.name,s.customer.cellphone,s.store.name,s.deliveryDate from OrderModel  s "
-				+ " where ");
+		final StringBuilder sb = new StringBuilder(
+				"select s.code,s.customer.name,s.customer.cellphone,s.store.name,s.deliveryDate from OrderModel  s "
+						+ " where ");
 
 		if (StringUtils.isNotBlank(getParameterValue(sp, "orderCode")))
-			sb.append("s.code = '").append(getParameterValue(sp, "orderCode")).append("' and ");
-
+			sb.append("s.code = '").append(getParameterValue(sp, "orderCode"))
+					.append("' and ");
 
 		if (StringUtils.isNotBlank(getParameterValue(sp, "cellphone")))
-			sb.append("s.customer.cellphone = '").append(getParameterValue(sp, "cellphone")).append("' and ");
+			sb.append("s.customer.cellphone = '")
+					.append(getParameterValue(sp, "cellphone"))
+					.append("' and ");
 
 		if (StringUtils.isNotBlank(getParameterValue(sp, "orderStatus")))
-			sb.append("s.status = ").append(getParameterValue(sp, "orderStatus")).append(" and ");
-		
+			sb.append("s.status = ")
+					.append(getParameterValue(sp, "orderStatus"))
+					.append(" and ");
+
 		if (StringUtils.isNotBlank(getParameterValue(sp, "orderDate")))
-			sb.append("s.orderDate = '").append(getParameterValue(sp, "orderDate")).append("' and ");
-		
+			sb.append("s.orderDate = '")
+					.append(getParameterValue(sp, "orderDate"))
+					.append("' and ");
+
 		if (StringUtils.isNotBlank(getParameterValue(sp, "storeCodes")))
 		{
-			String[] storeArray = getParameterValue(sp, "storeCodes").split(",");
-			
-			if(storeArray.length == 1)
-			   sb.append("s.store.id = '").append(storeArray[0]).append("' and ");
-			else
-				if(storeArray.length > 1)
-				{  
-					sb.append("s.store.id in (");
-					for(int i = 0; i < storeArray.length;i++)
-					{
-						if(i == storeArray.length - 1)
-							sb.append("'").append(storeArray[i]).append("') and ");
-						else
-						   sb.append("'").append(storeArray[i]).append("',");
-					}
+			String[] storeArray = getParameterValue(sp, "storeCodes")
+					.split(",");
+
+			if (storeArray.length == 1)
+				sb.append("s.store.id = '").append(storeArray[0])
+						.append("' and ");
+			else if (storeArray.length > 1)
+			{
+				sb.append("s.store.id in (");
+				for (int i = 0; i < storeArray.length; i++)
+				{
+					if (i == storeArray.length - 1)
+						sb.append("'").append(storeArray[i]).append("') and ");
+					else
+						sb.append("'").append(storeArray[i]).append("',");
 				}
-					
+			}
+
 		}
 
 		if (StringUtils.isNotBlank(getParameterValue(sp, "name")))
-			sb.append("s.customer.name like '%").append(getParameterValue(sp, "name")).append("%' and ");
+			sb.append("s.customer.name like '%")
+					.append(getParameterValue(sp, "name")).append("%' and ");
 
-		sb.append("s.deliveryDate between '").append(fmt.format(startDate)).append("' and '").append(fmt.format(endDate))
-				.append("'");
+		sb.append("s.deliveryDate between '").append(fmt.format(startDate))
+				.append("' and '").append(fmt.format(endDate)).append("'");
 
 		sb.append(" order by s.deliveryDate asc");
 		final String hsql = sb.toString();
@@ -84,33 +92,34 @@ public class DefaultOrderDao extends GenericDAO<OrderModel, String> implements O
 
 		return findPageByQuery(hsql, pageSize, startIndex);
 
-
-		//		if(StringUtils.isNotBlank(getParameterValue(sp,"orderCode")))
-		//			dcOrder.add(Restrictions.eq("code", sp.get("orderCode")));
+		// if(StringUtils.isNotBlank(getParameterValue(sp,"orderCode")))
+		// dcOrder.add(Restrictions.eq("code", sp.get("orderCode")));
 		//
-		//		if( StringUtils.isNotBlank(getParameterValue(sp,"cellphone")))
-		//			dcOrder.add(Restrictions.eq("customer.cellphone", sp.get("cellphone")));
-		//		
-		//		
-		//		if( StringUtils.isNotBlank(getParameterValue(sp,"orderDate")))
-		//			dcOrder.add(Restrictions.eq("orderDate", sp.get("orderDate")));
-		//		
-		//		
-		//		
-		////		if( StringUtils.isNotBlank(getParameterValue(sp,"storeCodes")))
-		////			dcOrder.add(Restrictions.in(("orderDate", sp.get("orderDate")));
-		//		
+		// if( StringUtils.isNotBlank(getParameterValue(sp,"cellphone")))
+		// dcOrder.add(Restrictions.eq("customer.cellphone",
+		// sp.get("cellphone")));
 		//
-		//		if( StringUtils.isNotBlank(getParameterValue(sp,"orderStatus")))
-		//			dcOrder.add(Restrictions.eq("orderStatus", sp.get("orderStatus")));
-		//		
-		//		dcOrder.add(Restrictions.between("deliveryDate", startDate, endDate));
-		//		
-		//		if( StringUtils.isNotBlank(getParameterValue(sp,"name")))
-		//			dcOrder.add(Restrictions.like("customer.name", sp.get("name")));
-		//		
+		//
+		// if( StringUtils.isNotBlank(getParameterValue(sp,"orderDate")))
+		// dcOrder.add(Restrictions.eq("orderDate", sp.get("orderDate")));
+		//
+		//
+		//
+		//// if( StringUtils.isNotBlank(getParameterValue(sp,"storeCodes")))
+		//// dcOrder.add(Restrictions.in(("orderDate", sp.get("orderDate")));
+		//
+		//
+		// if( StringUtils.isNotBlank(getParameterValue(sp,"orderStatus")))
+		// dcOrder.add(Restrictions.eq("orderStatus", sp.get("orderStatus")));
+		//
+		// dcOrder.add(Restrictions.between("deliveryDate", startDate,
+		// endDate));
+		//
+		// if( StringUtils.isNotBlank(getParameterValue(sp,"name")))
+		// dcOrder.add(Restrictions.like("customer.name", sp.get("name")));
+		//
 
-		//return findPageByCriteria(dcOrder, pageSize, startIndex);
+		// return findPageByCriteria(dcOrder, pageSize, startIndex);
 	}
 
 	@Override
@@ -123,8 +132,9 @@ public class DefaultOrderDao extends GenericDAO<OrderModel, String> implements O
 	@Override
 	public Integer countOrderForCustomer(String cellphone)
 	{
-		Long numberOfOrder = (Long) this.currentSession().createQuery(COUNT_ORDER_BY_CUSTOMER).setParameter("cellphone", cellphone)
-				.uniqueResult();
+		Long numberOfOrder = (Long) this.currentSession()
+				.createQuery(COUNT_ORDER_BY_CUSTOMER)
+				.setParameter("cellphone", cellphone).uniqueResult();
 		return numberOfOrder.intValue();
 	}
 

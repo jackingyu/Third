@@ -17,9 +17,7 @@ import com.third.service.customer.SourceService;
 import com.third.service.store.StoreService;
 import com.third.service.user.UserService;
 
-
-public class DefaultSourceFacade implements SourceFacade
-{
+public class DefaultSourceFacade implements SourceFacade {
 	private SourceService sourceService;
 	private StoreService storeService;
 	private SourceDataPopulator sourceDataPopulator;
@@ -33,8 +31,7 @@ public class DefaultSourceFacade implements SourceFacade
 			source = new SourceModel();
 			source.setName(sourceData.getName());
 			sourceService.createSource(source);
-		}
-		else
+		} else
 		{
 			source = sourceService.getSource(sourceData.getPk());
 			source.setName(sourceData.getName());
@@ -115,49 +112,49 @@ public class DefaultSourceFacade implements SourceFacade
 	public void assignSource2Store(List<String> sourcePKs, String storeCode)
 	{
 		StoreModel store = storeService.getStoreForCode(storeCode);
-		List<SourceModel> oldSourceModels = (List<SourceModel>) store.getSources();
-		HashMap<String,SourceModel> oldSourceMaps = new HashMap<String,SourceModel>();
-		
-		oldSourceModels.forEach( os->{
+		List<SourceModel> oldSourceModels = (List<SourceModel>) store
+				.getSources();
+		HashMap<String, SourceModel> oldSourceMaps = new HashMap<String, SourceModel>();
+
+		oldSourceModels.forEach(os -> {
 			oldSourceMaps.put(os.getPk(), os);
 		});
-		
-		sourcePKs.forEach( s->{
-			if(!oldSourceMaps.containsKey(s))
+
+		sourcePKs.forEach(s -> {
+			if (!oldSourceMaps.containsKey(s))
 			{
 				SourceModel source = sourceService.getSource(s);
 				oldSourceModels.add(source);
 				oldSourceMaps.put(s, source);
 			}
 		});
-		
+
 		store.setSources(oldSourceModels);
-		
+
 		// TODO need to add a method save
 		storeService.saveStore(store);
 	}
-	
-	public void removeSourceFromStore(String sourcePK,String storeCode)
+
+	public void removeSourceFromStore(String sourcePK, String storeCode)
 	{
 
 		StoreModel store = storeService.getStoreForCode(storeCode);
-		List<SourceModel> oldSourceModels = (List<SourceModel>) store.getSources();
+		List<SourceModel> oldSourceModels = (List<SourceModel>) store
+				.getSources();
 		List<SourceModel> newSourceModels = new ArrayList<SourceModel>();
-		
-		HashMap<String,SourceModel> oldSourceMaps = new HashMap<String,SourceModel>();
-		
-		oldSourceModels.forEach( os->{
-			if(!os.getPk().equals(sourcePK))
+
+		HashMap<String, SourceModel> oldSourceMaps = new HashMap<String, SourceModel>();
+
+		oldSourceModels.forEach(os -> {
+			if (!os.getPk().equals(sourcePK))
 				newSourceModels.add(os);
 		});
-		
-		
-		
+
 		store.setSources(newSourceModels);
-		
+
 		// TODO need to add a method save
 		storeService.saveStore(store);
-		
+
 	}
 
 }
