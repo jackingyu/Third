@@ -53,6 +53,9 @@
     <alias name="defaultOrderDao" alias="orderDao"></alias>
     <bean id="defaultOrderDao" class="com.third.dao.order.impl.DefaultOrderDao" parent="genericDAO"></bean>
   
+    <alias name="defaultSalesQuationDao" alias="salesQuationDao"></alias>
+    <bean id="defaultSalesQuationDao" class="com.third.dao.order.impl.DefaultSalesQuationDao" parent="genericDAO"></bean>
+  
     <alias name="defaultOrderEntryDao" alias="orderEntryDao"></alias>
     <bean id="defaultOrderEntryDao" class="com.third.dao.order.impl.DefaultOrderEntryDao" parent="genericDAO"></bean>
   
@@ -137,6 +140,10 @@
 	     <property name="orderDao" ref="orderDao" />
 	     <property name="orderEntryDao" ref="orderEntryDao" />
 	     <property name="orderProcessRecordDao" ref="orderProcessRecordDao" />
+	</bean>
+   <alias name="defaultSalesQuatioinService" alias="salesQuationService"></alias>
+	<bean id="defaultSalesQuationService" class="com.third.service.order.impl.DefaultSalesQuationService">
+	     <property name="salesQuationDao" ref="salesQuationDao" />
 	</bean>
 	
    <alias name="defaultProductService" alias="productService"></alias>

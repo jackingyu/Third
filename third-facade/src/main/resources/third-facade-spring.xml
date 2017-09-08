@@ -146,6 +146,11 @@
 	    <property name="orderProcessRecordDataPopulator" ref="orderProcessRecordDataPopulator"></property>
 	</bean>
 	
+	<alias name="defaultSalesQuationFacade" alias="salesQuationFacade"></alias>
+	<bean id="defaultSalesQuationFacade" class="com.third.facade.order.impl.DefaultSalesQuationFacade">
+		<property name="salesQuationService" ref="salesQuationervice"></property>
+	</bean>
+	
 	<alias name="defaultReservationFacade" alias="reservationFacade"></alias>
 	<bean id="defaultReservationFacade" class="com.third.facade.customer.impl.DefaultReservationFacade">
 	    <property name="reservationService" ref="reservationService"></property>

@@ -71,4 +71,8 @@ public class TextMapperUtils
 		return TextMapper.ItemCategory.get(itemCategory);
 	}
 
+	public static String getPaymentMethodText(final String paymentMethod)
+	{
+		return TextMapper.PaymentMethod.get(paymentMethod);
+	}
 }
