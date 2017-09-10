@@ -157,4 +157,12 @@ public class DefaultSourceFacade implements SourceFacade {
 
 	}
 
+
+	@Override
+	public List<SourceData> getExhibitionsForStoreCode(String storeCode)
+	{
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }

@@ -62,4 +62,9 @@ public interface CoreConstants {
 		final String Vest = "D";
 		final String Norm = "N";
 	}
+	
+	interface SourceType {
+		final String NORMAL = "0";
+		final String EXHIBITION = "10";
+	}
 }

@@ -375,4 +375,21 @@ public abstract class AbstractPageController {
 		return comboboxs;
 
 	}
+	
+	protected void getExhibition()
+	{
+		List<ComboboxData> sources = new ArrayList<ComboboxData>();
+		List<SourceData> sourceDatas = sourceFacade.getAllSources();
+
+		for (int i = 0; i < sourceDatas.size(); i++)
+		{
+			SourceData s = sourceDatas.get(i);
+			ComboboxData source = new ComboboxData();
+			source.setCode(s.getPk());
+			source.setText(s.getName());
+			sources.add(source);
+		}
+
+		model.addAttribute("sources", sources);
+	}
 }

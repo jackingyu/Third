@@ -109,10 +109,10 @@ public class UserDataBuilder implements DataBuilder {
 		lv3_orderprocess.setParentMenu(lv2_sales);
 		menuService.createMenu(lv3_orderprocess);
 
-		MenuModel lv3_orderprocesslist = this.buildMenu("25", 3, "展会管理",
-				"/orderprocess/searchprocessrecordspage", "fa-search");
-		lv3_orderprocesslist.setParentMenu(lv2_sales);
-		menuService.createMenu(lv3_orderprocesslist);
+		MenuModel lv3_exhibition = this.buildMenu("25", 3, "展会管理",
+				"/salesquation/salesquationlistpage", "fa-search");
+		lv3_exhibition.setParentMenu(lv2_sales);
+		menuService.createMenu(lv3_exhibition);
 
 		MenuModel lv3_reservationlist = this.buildMenu("26", 3, "预约管理",
 				"/reservation/reservationlistpage", "fa-search");
@@ -167,8 +167,8 @@ public class UserDataBuilder implements DataBuilder {
 
 		List<MenuModel> menus = Arrays.asList(lv3_userlist, lv3_source,
 				lv3_customer, lv3_orders, lv3_reservation, lv3_orderprocess,
-				lv3_source1, lv3_orderprocesslist, lv3_reservationlist,
-				lv3_storereceipt, lv3_storedeliver, lv3_orderentrylist,
+				lv3_source1, lv3_reservationlist,
+				lv3_storereceipt, lv3_storedeliver, lv3_orderentrylist,lv3_exhibition,
 				lv3_factorydeliver, lv3_orderentrylist1, lv3_product,
 				lv3_report1);
 		// create role

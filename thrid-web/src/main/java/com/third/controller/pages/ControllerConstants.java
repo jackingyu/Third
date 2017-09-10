@@ -85,6 +85,7 @@ public interface ControllerConstants {
 
 		static final String PRODUCTLISTPAGE = PAGE + "/product/productList";
 		static final String MODIFYPRODUCTPAGE = PAGE + "/product/modifyProduct";
+		static final String SALESQUATIONLISTPAGE = PAGE + "/sales/salesQuationList";
 
 	}
 

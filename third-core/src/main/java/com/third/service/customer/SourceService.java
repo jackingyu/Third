@@ -6,6 +6,8 @@ import com.third.model.SourceModel;
 
 public interface SourceService {
 	public List<SourceModel> getSources();
+	
+	public List<SourceModel> getExhibitions();
 
 	public void createSource(SourceModel source);
 

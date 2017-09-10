@@ -11,58 +11,6 @@
            http://www.springframework.org/schema/context/spring-context.xsd
 		   http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-3.0.xsd
            ">
-
-	
-	<alias name="testDataGenerator" alias="dataGenerator"></alias>
-	<bean id="testDataGenerator" class="com.third.facade.utils.TestDataGenerator">
-	   <property name="dataBuilders">
-	      <list>
-	         <ref bean="userDataBuilder"></ref>
-	        <ref bean="addressDataBuilder"></ref>
-	        <ref bean="storeDataBuilder"></ref>
-	        <ref bean="productDataBuilder"></ref>
-	        <ref bean="orderDataBuilder"></ref>
-	        <ref bean="sizeAttributeDataBuilder"></ref>
-	        <ref bean="reservationDataBuilder"></ref>
-	      </list>
-	   </property>
-	</bean>
-	
-	<alias name="defaultReservationDataBuilder" alias="reservationDataBuilder"></alias>
-	<bean id="defaultReservationDataBuilder" class="com.third.facade.testdata.builder.ReservationDataBuilder">
-	</bean>
-	
-	<alias name="defaultUserDataBuilder" alias="userDataBuilder"></alias>
-	<bean id="defaultUserDataBuilder" class="com.third.facade.testdata.builder.UserDataBuilder">
-	     <property name="userService" ref="userService"/>
-	     <property name="menuService" ref="menuService"/>
-	     <property name="roleService" ref="roleService"/>
-	     <property name="storeService" ref="storeService"/>
-	</bean>
-	
-	<alias name="defaultAddressDataBuilder" alias="addressDataBuilder"></alias>
-	<bean id="defaultAddressDataBuilder" class="com.third.facade.testdata.builder.AddressDataBuilder">
-	     <property name="i18NService" ref="i18NService"/>
-	</bean>
-	
-	<alias name="defaultStoreDataBuilder" alias="storeDataBuilder"></alias>
-	<bean id="defaultStoreDataBuilder" class="com.third.facade.testdata.builder.StoreDataBuilder">
-	     <property name="i18NService" ref="i18NService"/>
-	     <property name="customerService" ref="customerService"/>
-	     <property name="storeService" ref="storeService"/>
-	</bean>
-	
-	<alias name="defaultProductDataBuilder" alias="productDataBuilder"></alias>
-	<bean id="defaultProductDataBuilder" class="com.third.facade.testdata.builder.ProductDataBuilder">
-	</bean>
-	
-	<alias name="defaultOrderDataBuilder" alias="orderDataBuilder"></alias>
-	<bean id="defaultOrderDataBuilder" class="com.third.facade.testdata.builder.OrderDataBuilder">
-	</bean>
-	
-	<alias name="defaultSizeAttributeDataBuilder" alias="sizeAttributeDataBuilder"></alias>
-	<bean id="defaultSizeAttributeDataBuilder" class="com.third.facade.testdata.builder.SizeAttributeDataBuilder">
-	</bean>
 	
 	<alias name="defaultUserFacade" alias="userFacade"></alias>
 	<bean id="defaultUserFacade" class="com.third.facade.user.impl.DefaultUserFacade">
@@ -294,5 +242,6 @@
      
      <bean id="lotsOrderDataBuilder" class="com.third.facade.testdata.builder.LotsOrderDataBuilder"></bean>
       <!--  <import resource="third-cron-spring.xml" />-->
+      <import resource="third-datainitial-spring.xml" />
 </beans>
  

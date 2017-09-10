@@ -12,6 +12,7 @@ import org.apache.commons.lang3.RandomUtils;
 import com.third.dao.user.UserDao;
 import com.third.model.AddressModel;
 import com.third.model.CityModel;
+import com.third.model.CoreConstants;
 import com.third.model.CustomerModel;
 import com.third.model.RegionModel;
 import com.third.model.SourceModel;
@@ -108,6 +109,11 @@ public class StoreDataBuilder implements DataBuilder {
 		{
 			buildSource("客户来源" + i);
 		}
+		
+		for (int i = 0; i < 5; i++)
+		{
+			buildExhibition("展会" + i);
+		}
 
 	}
 
@@ -115,7 +121,16 @@ public class StoreDataBuilder implements DataBuilder {
 	{
 		SourceModel source = new SourceModel();
 		source.setName(name);
-		source.setType("undefined");
+		source.setType(CoreConstants.SourceType.NORMAL);
+		sourceService.createSource(source);
+		return source;
+	}
+	
+	public SourceModel buildExhibition(final String name)
+	{
+		SourceModel source = new SourceModel();
+		source.setName(name);
+		source.setType(CoreConstants.SourceType.EXHIBITION);
 		sourceService.createSource(source);
 		return source;
 	}
