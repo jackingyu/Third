@@ -5,6 +5,7 @@ import java.util.List;
 import com.third.dao.customer.CustomerDao;
 import com.third.dao.customer.SourceDao;
 import com.third.dao.util.PaginationSupport;
+import com.third.model.CoreConstants;
 import com.third.model.CustomerModel;
 import com.third.model.SourceModel;
 import com.third.model.UserModel;
@@ -47,6 +48,19 @@ public class DefaultSourceService implements SourceService {
 	public SourceModel getSource(String pk)
 	{
 		return sourceDao.get(pk);
+	}
+
+	@Override
+	public List<SourceModel> getExhibitions()
+	{
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public boolean isExhibition(SourceModel source)
+	{
+		return CoreConstants.SourceType.EXHIBITION.equals(source.getType());
 	}
 
 }

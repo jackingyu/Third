@@ -157,12 +157,24 @@ public class DefaultSourceFacade implements SourceFacade {
 
 	}
 
-
 	@Override
 	public List<SourceData> getExhibitionsForStoreCode(String storeCode)
 	{
-		// TODO Auto-generated method stub
-		return null;
+		StoreModel storeModel = storeService.getStoreForCode(storeCode);
+		Collection<SourceModel> sourceModels = storeModel.getSources();
+		List<SourceData> sourceDatas = new ArrayList<SourceData>();
+
+		if (CollectionUtils.isNotEmpty(sourceModels))
+			sourceModels.forEach(s -> {
+				if (sourceService.isExhibition(s))
+				{
+					SourceData source = new SourceData();
+					sourceDataPopulator.populate(s, source);
+					sourceDatas.add(source);
+				}
+			});
+
+		return sourceDatas;
 	}
 
 }

@@ -110,7 +110,7 @@ public class UserDataBuilder implements DataBuilder {
 		menuService.createMenu(lv3_orderprocess);
 
 		MenuModel lv3_exhibition = this.buildMenu("25", 3, "展会管理",
-				"/salesquation/salesquationlistpage", "fa-search");
+				"/salesquation/salesquationlistpage", "fa-institution");
 		lv3_exhibition.setParentMenu(lv2_sales);
 		menuService.createMenu(lv3_exhibition);
 

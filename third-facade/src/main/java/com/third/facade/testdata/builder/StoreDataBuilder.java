@@ -41,8 +41,18 @@ public class StoreDataBuilder implements DataBuilder {
 		for (int i = 0; i < 30; i++)
 		{
 			SourceModel source = new SourceModel();
-			source.setName("合作伙伴" + RandomUtils.nextInt());
+			if(RandomUtils.nextBoolean())
+			{
+				source.setName("合作伙伴" + RandomUtils.nextInt());
+				source.setType(CoreConstants.SourceType.NORMAL);
+			}
+			else
+			{
+				source.setName("展会" + RandomUtils.nextInt());
+				source.setType(CoreConstants.SourceType.EXHIBITION);
+			}
 			sourceService.createSource(source);
+		
 			sourceModels.add(source);
 		}
 
@@ -105,12 +115,12 @@ public class StoreDataBuilder implements DataBuilder {
 			buildCustomer("1380013800" + i, "fly" + i, address5);
 		}
 
-		for (int i = 0; i < 100; i++)
+		for (int i = 0; i < 10; i++)
 		{
 			buildSource("客户来源" + i);
 		}
 		
-		for (int i = 0; i < 5; i++)
+		for (int i = 10; i < 15; i++)
 		{
 			buildExhibition("展会" + i);
 		}

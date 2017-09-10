@@ -376,10 +376,11 @@ public abstract class AbstractPageController {
 
 	}
 	
-	protected void getExhibition()
+	protected List<ComboboxData> getExhibition()
 	{
 		List<ComboboxData> sources = new ArrayList<ComboboxData>();
-		List<SourceData> sourceDatas = sourceFacade.getAllSources();
+		final String storeCode = userFacade.getCurrentUser().getStores().get(0).getCode();
+		List<SourceData> sourceDatas = sourceFacade.getExhibitionsForStoreCode(storeCode);
 
 		for (int i = 0; i < sourceDatas.size(); i++)
 		{
@@ -390,6 +391,11 @@ public abstract class AbstractPageController {
 			sources.add(source);
 		}
 
-		model.addAttribute("sources", sources);
+		return sources;
+	}
+	
+	protected List<ComboboxData> getPaymentMethods()
+	{
+         return	TextMapperUtils.getPaymentMethods();
 	}
 }

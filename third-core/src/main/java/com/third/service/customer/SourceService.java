@@ -16,5 +16,7 @@ public interface SourceService {
 	List<SourceModel> getSources(String name);
 
 	void saveSource(SourceModel source);
+	
+	boolean isExhibition(SourceModel source);
 
 }

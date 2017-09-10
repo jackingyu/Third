@@ -36,7 +36,7 @@ public class ComboboxData1Controller extends AbstractPageController {
 
 	@RequestMapping(value = "/getPaymentMethods")
 	@ResponseBody
-	public Object getPaymentMethods()
+	public Object getPaymentMethods1()
 	{
 		return textMapperUtils.getPaymentMethods();
 	}

@@ -97,6 +97,8 @@
 	<alias name="defaultSalesQuationFacade" alias="salesQuationFacade"></alias>
 	<bean id="defaultSalesQuationFacade" class="com.third.facade.order.impl.DefaultSalesQuationFacade">
 		<property name="salesQuationService" ref="salesQuationService"></property>
+		<property name="sourceService" ref="sourceService"></property>
+		<property name="salesQuationDataPopulator" ref="salesQuationDataPopulator"></property>
 	</bean>
 	
 	<alias name="defaultReservationFacade" alias="reservationFacade"></alias>
@@ -114,134 +116,11 @@
 	    <property name="sourceDataPopulator" ref="sourceDataPopulator"></property>
 	</bean>
     
-    <!-- start of populator  -->
-    <alias name="defaultMenuDataPopulator" alias="menuDataPopulator"></alias>
-    <bean id="defaultMenuDataPopulator" class="com.third.facade.populator.MenuDataPopulator">
-    </bean>
-    
-    <alias name="defaultUserDataPopulator" alias="userDataPopulator"></alias>
-    <bean id="defaultUserDataPopulator" class="com.third.facade.populator.UserDataPopulator">
-        <property name="storeDataPopulator" ref="storeDataPopulator"></property>
-        <property name="userGroupDataPopulator" ref="userGroupDataPopulator"></property>
-    </bean>
-    
-    <alias name="defaultUserGroupDataPopulator" alias="userGroupDataPopulator"></alias>
-    <bean id="defaultUserGroupDataPopulator" class="com.third.facade.populator.UserGroupDataPopulator">
-    </bean>
-    
-    <alias name="defaultRoleDataPopulator" alias="roleDataPopulator"></alias>
-    <bean id="defaultRoleDataPopulator" class="com.third.facade.populator.RoleDataPopulator">
-    </bean>
-    
-    <alias name="defaultCityDataPopulator" alias="cityDataPopulator"></alias>
-    <bean id="defaultCityDataPopulator" class="com.third.facade.populator.CityDataPopulator">
-    </bean>
-    
-    <alias name="defaultRegionDataPopulator" alias="regionDataPopulator"></alias>
-    <bean id="defaultRegionDataPopulator" class="com.third.facade.populator.RegionDataPopulator">
-    </bean>
-    
-    <alias name="defaultAddressDataPopulator" alias="addressDataPopulator"></alias>
-    <bean id="defaultAddressDataPopulator" class="com.third.facade.populator.AddressDataPopulator">
-     <property name="regionDataPopulator" ref="regionDataPopulator"></property>
-     <property name="cityDataPopulator" ref="cityDataPopulator"></property>
-    </bean>
-    
-    <alias name="defaultCustomerDataPopulator" alias="customerDataPopulator"></alias>
-    <bean id="defaultCustomerDataPopulator" class="com.third.facade.populator.CustomerDataPopulator">
-         <property name="addressDataPopulator" ref="addressDataPopulator"></property>
-         <property name="sourceDataPopulator" ref="sourceDataPopulator"></property>
-    </bean>
-    
-    <alias name="defaultSourceDataPopulator" alias="sourceDataPopulator"></alias>
-    <bean id="defaultSourceDataPopulator" class="com.third.facade.populator.SourceDataPopulator">
-    </bean>
-    
-    <alias name="defaultStoreDataPopulator" alias="storeDataPopulator"></alias>
-    <bean id="defaultStoreDataPopulator" class="com.third.facade.populator.StoreDataPopulator">
-        <property name="addressDataPopulator" ref="addressDataPopulator"></property>
-    </bean>
-    
-    <alias name="defaultOrderDataPopulator" alias="orderDataPopulator"></alias>
-    <bean id="defaultOrderDataPopulator" class="com.third.facade.populator.OrderDataPopulator">
-         <property name="orderEntryDataPopulator" ref="orderEntryDataPopulator"></property>
-         <property name="paymentDataPopulator" ref="paymentDataPopulator"></property>
-         <property name="sourceDataPopulator" ref="sourceDataPopulator"></property>
-         <property name="storeDataPopulator" ref="storeDataPopulator"></property>
-         <property name="userDataPopulator" ref="userDataPopulator"></property>
-         <property name="customerDataPopulator" ref="customerDataPopulator"></property>
-    </bean>
-    
-    <alias name="defaultOrderEntryDataPopulator" alias="orderEntryDataPopulator"></alias>
-    <bean id="defaultOrderEntryDataPopulator" class="com.third.facade.populator.OrderEntryDataPopulator">
-          <property name="userDataPopulator" ref="userDataPopulator"></property>
-          <property name="storeDataPopulator" ref="storeDataPopulator"></property>
-          <property name="productDataPopulator" ref="productDataPopulator"></property>
-    </bean>
-    
-    <alias name="defaultPaymentDataPopulator" alias="paymentDataPopulator"></alias>
-    <bean id="defaultPaymentDataPopulator" class="com.third.facade.populator.PaymentDataPopulator">
-    </bean>
-    
-    <alias name="defaultSizeAttributeDataPopulator" alias="sizeAttributeDataPopulator"></alias>
-    <bean id="defaultSizeAttributeDataPopulator" class="com.third.facade.populator.SizeAttributeDataPopulator">
-    </bean>
-    
-    <bean id="textMapperUtils" class="com.third.facade.utils.TextMapperUtils">
-    </bean>
-    
-    <alias name="defaultOrderConfiguredPopulator" alias="orderConfiguredPopulator" />
-	<bean id="defaultOrderConfiguredPopulator"
-		class="com.third.facade.populator.DefaultConfigurablePopulator">
-		<property name="populators">
-			<map key-type="com.third.facade.populator.option.OrderOption">
-				<entry key="BASIC" value-ref="orderBasicPopulator" />
-				<entry key="ENTRIES" value-ref="orderEntryPopulator" />
-				<entry key="PAYMENTS" value-ref="orderPaymentPopulator" />
-			</map>
-		</property>
-	</bean>
-	
-	 <alias name="defaultOrderBasicPopulator" alias="orderBasicPopulator" />
-	 <bean id="defaultOrderBasicPopulator" class="com.third.facade.populator.OrderBasicPopulator">
-         <property name="sourceDataPopulator" ref="sourceDataPopulator"></property>
-         <property name="storeDataPopulator" ref="storeDataPopulator"></property>
-         <property name="userDataPopulator" ref="userDataPopulator"></property>
-         <property name="customerDataPopulator" ref="customerDataPopulator"></property>
-     </bean>
-    
-     <alias name="defaultOrderEntryPopulator" alias="orderEntryPopulator" />
-	 <bean id="defaultOrderEntryPopulator" class="com.third.facade.populator.OrderEntryPopulator">
-         <property name="orderEntryDataPopulator" ref="orderEntryDataPopulator"></property>
-    </bean>
-    
-     <alias name="defaultOrderPaymentPopulator" alias="orderPaymentPopulator" />
-     <bean id="defaultOrderPaymentPopulator" class="com.third.facade.populator.OrderPaymentPopulator">
-         <property name="paymentDataPopulator" ref="paymentDataPopulator"></property>
-     </bean>
-     
-     <alias name="defaultReservationDataPopulator" alias="reservationDataPopulator" />
-     <bean id="defaultReservationDataPopulator" class="com.third.facade.populator.ReservationDataPopulator">
-     </bean>
-     
-     <alias name="defaultOrderProcessRecordDataPopulator" alias="orderProcessRecordDataPopulator" />
-     <bean id="defaultOrderProcessRecordDataPopulator" class="com.third.facade.populator.OrderProcessRecordDataPopulator">
-     </bean>
-     
-     <alias name="defaultProductDataPopulator" alias="productDataPopulator" />
-     <bean id="defaultProductDataPopulator" class="com.third.facade.populator.ProductDataPopulator">
-     </bean>
-     
-     <alias name="defaultProductGroupDataPopulator" alias="productGroupDataPopulator" />
-     <bean id="defaultProductGroupDataPopulator" class="com.third.facade.populator.ProductGroupDataPopulator">
-     </bean>
-     
-     <alias name="defaultCategoryDataPopulator" alias="categoryDataPopulator" />
-     <bean id="defaultCategoryDataPopulator" class="com.third.facade.populator.CategoryDataPopulator">
-     </bean>
+  
      
      <bean id="lotsOrderDataBuilder" class="com.third.facade.testdata.builder.LotsOrderDataBuilder"></bean>
       <!--  <import resource="third-cron-spring.xml" />-->
       <import resource="third-datainitial-spring.xml" />
+      <import resource="third-populator-spring.xml" />
 </beans>
  

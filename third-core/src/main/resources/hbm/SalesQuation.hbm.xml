@@ -29,6 +29,10 @@
 			type="java.math.BigDecimal" />
 		<property column="paymentmethod" lazy="false" name="paymentMethod"
 			type="java.lang.String" />
+		<property name="createDate" update="false" insert="false"
+			type="java.util.Date" generated="insert">
+			<column name="create_date"/>
+		</property>
 		<one-to-one name="salesOrder" class="com.third.model.OrderModel" property-ref="pk"></one-to-one>
 		<many-to-one name="source" lazy="proxy"
 			class="com.third.model.SourceModel" cascade="refresh"

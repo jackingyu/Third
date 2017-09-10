@@ -19,11 +19,19 @@
         <spring:message code="lte.salesquationlist.title"></spring:message>
       </h1>
       </div>
-      <div class="col-lg-4 col-md-4">
+      <div class="col-lg-1 col-md-1 pull-right">
+      </div>
+      <div class="col-lg-1 col-md-1 pull-right">
+       <a href="${contextPath}/salesquation/createpage" target="_blank" class="btn btn-app">
+           <i class="fa fa-edit"></i>  <spring:message code="lte.create"></spring:message>
+       </a>
+      </div>
+      <div class="col-lg-1 col-md-1 pull-right">
        <a onclick="ACC.salesquationlist.query()" class="btn btn-app">
            <i class="fa fa-search"></i>  <spring:message code="lte.search"></spring:message>
        </a>
       </div>
+     
       </div>
     </section>
     <section class="content-header">
@@ -32,12 +40,12 @@
      
         <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
          <label><spring:message code="lte.salesquation.source"></spring:message></label>
-         <common:selection2 id="sourcePKs" data="${sources}" multiple="true" name="sourcePKs"></common:selection2>
+         <common:selection2 id="exhibitions" data="${exhibitions}" multiple="true" name="exhibitions"></common:selection2>
         </div>
         
         <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
          <label><spring:message code="lte.salesquation.cellphone"></spring:message></label>
-         <input class="form-control" placeholder="" name="cellphone" type="text">
+         <input class="form-control"  name="cellphone" type="text">
         </div>
         <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
            <label><spring:message code="lte.salesquation.createdate"></spring:message></label>

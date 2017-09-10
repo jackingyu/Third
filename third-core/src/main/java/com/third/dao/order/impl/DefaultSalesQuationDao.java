@@ -26,22 +26,35 @@ public class DefaultSalesQuationDao extends
 			Integer startIndex, Integer pageSize, Map<String, String> sp)
 	{
 		final StringBuilder sb = new StringBuilder(
-				"select o.source.name, o.customerName,o.cellphone,o.paidamount,o.paymentMethod from SalesQuation o ");
+				"select o.source.name, o.customerName,o.cellphone,o.paidamount,o.paymentMethod,o.pk from SalesQuationModel o ");
 
 		List<String> condition = new ArrayList<String>();
 
 		if (StringUtils.isNotBlank(getParameterValue(sp, "cellphone")))
-			condition.add(sb.append("o.cellphone = '")
+			condition.add(new StringBuilder("o.cellphone = '")
 					.append(getParameterValue(sp, "cellphone")).append("'")
 					.toString());
 
-		if (StringUtils.isNotBlank(getParameterValue(sp, "source")))
-			condition.add(sb.append("o.source.pk = '")
-					.append(getParameterValue(sp, "source")).append("'")
-					.toString());
+		String exhibitions = sp.get("exhibitions");
+		
+		if(StringUtils.isNotEmpty(exhibitions))
+		{
+		    
+			String[] exhibitionArray = exhibitions.split(",");
+			if(exhibitionArray.length >1 )
+			{
+			    String csql = this.convertArray(exhibitionArray, "o.source.pk");
+			    condition.add(csql);
+			}
+			else
+				condition.add(new StringBuilder("o.source.pk = '")
+						.append(exhibitionArray[0]).append("'")
+						.toString());
+		}
+	
 
 		if (StringUtils.isNotBlank(getParameterValue(sp, "customerName")))
-			condition.add(sb.append("o.source.pk like '")
+			condition.add(new StringBuilder("o.customerName like '")
 					.append(generateLikeParameter("customerName")).append("'")
 					.toString());
 
