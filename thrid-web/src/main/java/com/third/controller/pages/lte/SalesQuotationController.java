@@ -67,6 +67,15 @@ public class SalesQuotationController extends AbstractPageController {
 		return ControllerConstants.LTE.SALESQUOTATIONPAGE;
 	}
 
+	@RequestMapping(value = "/salesquotation/convert")
+	public String convertSalesQuotation(	@RequestParam(value = "pk", required = false) final String pk,final Model model)
+	{
+		final String orderCode = salesQuotationFacade.convert2SalesOrder(pk);
+
+		return REDIRECT_PREFIX+"/order/modifyorderpage/"+orderCode;
+	}
+	
+	
 	@RequestMapping(value = "/salesquotation/modify/" + PK_PATH_VARIABLE_PATTERN)
 	public Object getSalesQuotationPage(@PathVariable("pk") String pk,
 			final Model model)

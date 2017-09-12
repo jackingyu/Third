@@ -28,6 +28,8 @@ public class SalesQuotationDataPopulator implements Populator<SalesQuotationMode
 		target.setWeddingDate(source.getWeddingDate());
 		target.setTryDate(source.getTryDate());
 		
+		if(source.getSalesOrder()!=null)
+		target.setOrderCode(source.getSalesOrder().getCode());
 	}
 
 	public void setSourceDataPopulator(SourceDataPopulator sourceDataPopulator)

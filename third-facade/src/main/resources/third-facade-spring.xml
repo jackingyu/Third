@@ -98,6 +98,9 @@
 	<bean id="defaultSalesQuotationFacade" class="com.third.facade.order.impl.DefaultSalesQuotationFacade">
 		<property name="salesQuotationService" ref="salesQuotationService"></property>
 		<property name="sourceService" ref="sourceService"></property>
+		<property name="customerService" ref="customerService"></property>
+		<property name="orderService" ref="orderService"></property>
+		<property name="userService" ref="userService"></property>
 		<property name="salesQuotationDataPopulator" ref="salesQuotationDataPopulator"></property>
 	</bean>
 	

@@ -1,12 +1,16 @@
 ACC.salesquotation = {
-    save : function(){
-    	$("#continuecreate").val(false);
-    	$("#salesQuotationForm").submit();
-    },
-    
-    save1 : function(){
-    	$("#salesQuotationForm").submit();
-    },
+	save : function() {
+		$("#continuecreate").val(false);
+		$("#salesQuotationForm").submit();
+	},
+
+	save1 : function() {
+		$("#salesQuotationForm").submit();
+	},
+	convert: function(){
+		$("#salesQuotationForm").attr("action", ACC.config.contextPath+"/salesquotation/convert");  
+		$("#salesQuotationForm").submit();
+	},
 	init : function() {
 		$('#photodate').datepicker({
 			autoclose : true
