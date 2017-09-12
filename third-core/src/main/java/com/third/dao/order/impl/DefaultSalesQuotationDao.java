@@ -14,19 +14,19 @@ import org.hibernate.criterion.DetachedCriteria;
 import org.springframework.dao.DataAccessException;
 
 import com.third.dao.generic.GenericDAO;
-import com.third.dao.order.SalesQuationDao;
+import com.third.dao.order.SalesQuotationDao;
 import com.third.dao.util.PaginationSupport;
-import com.third.model.SalesQuationModel;
+import com.third.model.SalesQuotationModel;
 
-public class DefaultSalesQuationDao extends
-		GenericDAO<SalesQuationModel, String> implements SalesQuationDao {
+public class DefaultSalesQuotationDao extends
+		GenericDAO<SalesQuotationModel, String> implements SalesQuotationDao {
 
 	@Override
-	public PaginationSupport findSalesQuations(Date startDate, Date endDate,
+	public PaginationSupport findSalesQuotations(Date startDate, Date endDate,
 			Integer startIndex, Integer pageSize, Map<String, String> sp)
 	{
 		final StringBuilder sb = new StringBuilder(
-				"select o.source.name, o.customerName,o.cellphone,o.paidamount,o.paymentMethod,o.pk from SalesQuationModel o ");
+				"select o.source.name, o.customerName,o.cellphone,o.paidamount,o.paymentMethod,o.pk from SalesQuotationModel o ");
 
 		List<String> condition = new ArrayList<String>();
 

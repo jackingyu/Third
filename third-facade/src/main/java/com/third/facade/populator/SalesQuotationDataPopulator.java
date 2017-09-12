@@ -1,17 +1,17 @@
 package com.third.facade.populator;
 
-import com.third.facade.data.SalesQuationData;
+import com.third.facade.data.SalesQuotationData;
 import com.third.facade.data.SourceData;
 import com.third.facade.utils.TextMapperUtils;
-import com.third.model.SalesQuationModel;
+import com.third.model.SalesQuotationModel;
 import com.third.model.SourceModel;
 
-public class SalesQuationDataPopulator implements Populator<SalesQuationModel, SalesQuationData> {
+public class SalesQuotationDataPopulator implements Populator<SalesQuotationModel, SalesQuotationData> {
 
 	private SourceDataPopulator sourceDataPopulator;
 	
 	@Override
-	public void populate(SalesQuationModel source, SalesQuationData target)
+	public void populate(SalesQuotationModel source, SalesQuotationData target)
 	{
 		SourceData sourceData = new SourceData();
 		

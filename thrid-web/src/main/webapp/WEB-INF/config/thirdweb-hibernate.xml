@@ -65,7 +65,7 @@
 			   <value>/hbm/Order.hbm.xml</value>
 			   <value>/hbm/OrderEntry.hbm.xml</value>
 			   <value>/hbm/OrderProcessRecord.hbm.xml</value>
-			   <value>/hbm/SalesQuation.hbm.xml</value>
+			   <value>/hbm/SalesQuotation.hbm.xml</value>
 			   <value>/hbm/Payment.hbm.xml</value>
 			   <value>/hbm/SizeAttribute.hbm.xml</value>
 			   <value>/hbm/Reservation.hbm.xml</value>

@@ -1,11 +1,11 @@
-ACC.salesquation = {
+ACC.salesquotation = {
     save : function(){
     	$("#continuecreate").val(false);
-    	$("#salesQuationForm").submit();
+    	$("#salesQuotationForm").submit();
     },
     
     save1 : function(){
-    	$("#salesQuationForm").submit();
+    	$("#salesQuotationForm").submit();
     },
 	init : function() {
 		$('#photodate').datepicker({
@@ -27,5 +27,5 @@ ACC.salesquation = {
 }
 
 $(document).ready(function() {
-	ACC.salesquation.init();
+	ACC.salesquotation.init();
 });

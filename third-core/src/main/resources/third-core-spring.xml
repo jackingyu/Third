@@ -53,8 +53,8 @@
     <alias name="defaultOrderDao" alias="orderDao"></alias>
     <bean id="defaultOrderDao" class="com.third.dao.order.impl.DefaultOrderDao" parent="genericDAO"></bean>
   
-    <alias name="defaultSalesQuationDao" alias="salesQuationDao"></alias>
-    <bean id="defaultSalesQuationDao" class="com.third.dao.order.impl.DefaultSalesQuationDao" parent="genericDAO"></bean>
+    <alias name="defaultSalesQuotationDao" alias="salesQuotationDao"></alias>
+    <bean id="defaultSalesQuotationDao" class="com.third.dao.order.impl.DefaultSalesQuotationDao" parent="genericDAO"></bean>
   
     <alias name="defaultOrderEntryDao" alias="orderEntryDao"></alias>
     <bean id="defaultOrderEntryDao" class="com.third.dao.order.impl.DefaultOrderEntryDao" parent="genericDAO"></bean>
@@ -141,9 +141,9 @@
 	     <property name="orderEntryDao" ref="orderEntryDao" />
 	     <property name="orderProcessRecordDao" ref="orderProcessRecordDao" />
 	</bean>
-   <alias name="defaultSalesQuationService" alias="salesQuationService"></alias>
-	<bean id="defaultSalesQuationService" class="com.third.service.order.impl.DefaultSalesQuationService">
-	     <property name="salesQuationDao" ref="salesQuationDao" />
+   <alias name="defaultSalesQuotationService" alias="salesQuotationService"></alias>
+	<bean id="defaultSalesQuotationService" class="com.third.service.order.impl.DefaultSalesQuotationService">
+	     <property name="salesQuotationDao" ref="salesQuotationDao" />
 	</bean>
 	
    <alias name="defaultProductService" alias="productService"></alias>

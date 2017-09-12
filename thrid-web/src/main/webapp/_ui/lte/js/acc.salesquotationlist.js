@@ -1,24 +1,24 @@
-ACC.salesquationlist = {
+ACC.salesquotationlist = {
   query:function(){
-	  $('#salesQuationGrid').dataTable().fnDraw();
+	  $('#salesQuotationGrid').dataTable().fnDraw();
   },
   modify:function(e){
 	  var pk = $(e).attr('pk');
-	  window.open(ACC.config.contextPath+"/salesquation/modify/"+pk);
+	  window.open(ACC.config.contextPath+"/salesquotation/modify/"+pk);
   },
   init: function ()
   {
-    $('#salesQuationGrid').DataTable(
+    $('#salesQuotationGrid').DataTable(
       {
       'createdRow': function (row, data, index) {
         $('td', row).eq(5).html(
-           "<a  class='btn'  pk='"+data[5]+"' onclick='ACC.salesquationlist.modify(this)'>修改</a>"
+           "<a  class='btn'  pk='"+data[5]+"' onclick='ACC.salesquotationlist.modify(this)'>修改</a>"
         );
       },
       'ajax': {
-        'url': ACC.config.contextPath + '/salesquation/list',
+        'url': ACC.config.contextPath + '/salesquotation/list',
         'data': function (d) {
-          formData = getQuery('salesQuationListForm');
+          formData = getQuery('salesQuotationListForm');
           d.cellphone = formData.cellphone;
           d.exhibitions =  $('#exhibitions').val()!=null? $('#exhibitions').val().toString():'';
           var createDate = getDate4Range($("#createDate").val());
@@ -41,5 +41,5 @@ ACC.salesquationlist = {
 
 $(document).ready(function ()
 {
-  ACC.salesquationlist.init();
+  ACC.salesquotationlist.init();
 });

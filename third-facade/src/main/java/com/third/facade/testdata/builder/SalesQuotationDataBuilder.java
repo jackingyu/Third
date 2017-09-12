@@ -8,16 +8,16 @@ import java.util.List;
 import org.apache.commons.lang3.RandomUtils;
 
 import com.third.model.CoreConstants;
-import com.third.model.SalesQuationModel;
+import com.third.model.SalesQuotationModel;
 import com.third.model.SourceModel;
 import com.third.model.StoreModel;
 import com.third.service.customer.SourceService;
-import com.third.service.order.SalesQuationService;
+import com.third.service.order.SalesQuotationService;
 import com.third.service.store.StoreService;
 
-public class SalesQuationDataBuilder implements DataBuilder {
+public class SalesQuotationDataBuilder implements DataBuilder {
 
-	private SalesQuationService salesQuationService;
+	private SalesQuotationService salesQuotationService;
 	private StoreService storeService;
 	private SourceService sourceService;
 
@@ -40,7 +40,7 @@ public class SalesQuationDataBuilder implements DataBuilder {
 		
 		for (int i = 0; i < 30; i++)
 		{
-			SalesQuationModel sq = new SalesQuationModel();
+			SalesQuotationModel sq = new SalesQuotationModel();
 			sq.setCellphone("1380013800" + i);
 			sq.setCustomerName("测试用户" + i);
 			sq.setPaidamount(new BigDecimal(1000));
@@ -49,18 +49,18 @@ public class SalesQuationDataBuilder implements DataBuilder {
 			sq.setTryDate(new Date());
 			sq.setCreateDate(new Date());
 			sq.setSource(exhibitions.get(RandomUtils.nextInt(0,4)));
-			salesQuationService.saveSalesQuation(sq);
+			salesQuotationService.saveSalesQuotation(sq);
 		}
 	}
 
-	public SalesQuationService getSalesQuationService()
+	public SalesQuotationService getSalesQuotationService()
 	{
-		return salesQuationService;
+		return salesQuotationService;
 	}
 
-	public void setSalesQuationService(SalesQuationService salesQuationService)
+	public void setSalesQuotationService(SalesQuotationService salesQuotationService)
 	{
-		this.salesQuationService = salesQuationService;
+		this.salesQuotationService = salesQuotationService;
 	}
 
 	public void setStoreService(StoreService storeService)

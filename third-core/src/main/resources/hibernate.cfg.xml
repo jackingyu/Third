@@ -41,7 +41,7 @@
         <mapping resource="hbm/OrderProcessRecord.hbm.xml"/>
         <mapping resource="hbm/Subscribe.hbm.xml"/>
         <mapping resource="hbm/WeixinInfo.hbm.xml"/>
-        <mapping resource="hbm/SalesQuation.hbm.xml"/>
+        <mapping resource="hbm/SalesQuotation.hbm.xml"/>
           
     </session-factory>  
 </hibernate-configuration>  

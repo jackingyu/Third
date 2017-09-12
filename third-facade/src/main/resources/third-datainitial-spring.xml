@@ -23,7 +23,7 @@
 	        <ref bean="orderDataBuilder"></ref>
 	        <ref bean="sizeAttributeDataBuilder"></ref>
 	        <ref bean="reservationDataBuilder"></ref>
-	        <ref bean="salesQuationDataBuilder"></ref>
+	        <ref bean="salesQuotationDataBuilder"></ref>
 	      </list>
 	   </property>
 	</bean>
@@ -64,9 +64,9 @@
 	<bean id="defaultSizeAttributeDataBuilder" class="com.third.facade.testdata.builder.SizeAttributeDataBuilder">
 	</bean>
 	
-	<alias name="defaultSalesQuationDataBuilder" alias="salesQuationDataBuilder"></alias>
-	<bean id="defaultSalesQuationDataBuilder" class="com.third.facade.testdata.builder.SalesQuationDataBuilder">
-	    <property name="salesQuationService" ref="salesQuationService"/>
+	<alias name="defaultSalesQuotationDataBuilder" alias="salesQuotationDataBuilder"></alias>
+	<bean id="defaultSalesQuotationDataBuilder" class="com.third.facade.testdata.builder.SalesQuotationDataBuilder">
+	    <property name="salesQuotationService" ref="salesQuotationService"/>
 	     <property name="sourceService" ref="sourceService"/>
 	     <property name="storeService" ref="storeService"/>
 	</bean>

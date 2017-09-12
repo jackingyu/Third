@@ -94,11 +94,11 @@
 	    <property name="orderProcessRecordDataPopulator" ref="orderProcessRecordDataPopulator"></property>
 	</bean>
 	
-	<alias name="defaultSalesQuationFacade" alias="salesQuationFacade"></alias>
-	<bean id="defaultSalesQuationFacade" class="com.third.facade.order.impl.DefaultSalesQuationFacade">
-		<property name="salesQuationService" ref="salesQuationService"></property>
+	<alias name="defaultSalesQuotationFacade" alias="salesQuotationFacade"></alias>
+	<bean id="defaultSalesQuotationFacade" class="com.third.facade.order.impl.DefaultSalesQuotationFacade">
+		<property name="salesQuotationService" ref="salesQuotationService"></property>
 		<property name="sourceService" ref="sourceService"></property>
-		<property name="salesQuationDataPopulator" ref="salesQuationDataPopulator"></property>
+		<property name="salesQuotationDataPopulator" ref="salesQuotationDataPopulator"></property>
 	</bean>
 	
 	<alias name="defaultReservationFacade" alias="reservationFacade"></alias>

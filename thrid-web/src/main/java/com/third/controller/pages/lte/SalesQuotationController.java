@@ -32,46 +32,46 @@ import com.third.facade.data.ComboboxData;
 import com.third.facade.data.DTResults;
 import com.third.facade.data.OrderData;
 import com.third.facade.data.PaymentData;
-import com.third.facade.data.SalesQuationData;
+import com.third.facade.data.SalesQuotationData;
 import com.third.facade.data.SourceData;
 import com.third.facade.data.StoreData;
 import com.third.facade.data.TextMapper;
 import com.third.facade.order.OrderFacade;
-import com.third.facade.order.SalesQuationFacade;
+import com.third.facade.order.SalesQuotationFacade;
 import com.third.facade.populator.option.OrderOption;
 import com.third.facade.utils.TextMapperUtils;
 import com.third.model.CoreConstants;
 
 @Controller
-public class SalesQuationController extends AbstractPageController {
+public class SalesQuotationController extends AbstractPageController {
 	private static final Logger LOG = Logger.getLogger(
-			com.third.controller.pages.lte.SalesQuationController.class);
+			com.third.controller.pages.lte.SalesQuotationController.class);
 	private static final String PK_PATH_VARIABLE_PATTERN = "/{pk:.*}";
 
-	@Resource(name = "salesQuationFacade")
-	private SalesQuationFacade salesQuationFacade;
+	@Resource(name = "salesQuotationFacade")
+	private SalesQuotationFacade salesQuotationFacade;
 
-	@RequestMapping(value = "/salesquation/salesquationlistpage", method = RequestMethod.GET)
+	@RequestMapping(value = "/salesquotation/salesquotationlistpage", method = RequestMethod.GET)
 	public String orderListPage(Model model)
 	{
 		model.addAttribute("exhibitions", getExhibition());
-		return ControllerConstants.LTE.SALESQUATIONLISTPAGE;
+		return ControllerConstants.LTE.SALESQUOTATIONLISTPAGE;
 	}
 
-	@RequestMapping(value = "/salesquation/createpage")
-	public Object getCreateSalesQuationPage(final Model model)
+	@RequestMapping(value = "/salesquotation/createpage")
+	public Object getCreateSalesQuotationPage(final Model model)
 	{
 		model.addAttribute("paymentMethods", getPaymentMethods());
 		model.addAttribute("exhibitions", getExhibition());
 
-		return ControllerConstants.LTE.SALESQUATIONPAGE;
+		return ControllerConstants.LTE.SALESQUOTATIONPAGE;
 	}
 
-	@RequestMapping(value = "/salesquation/modify/" + PK_PATH_VARIABLE_PATTERN)
-	public Object getSalesQuationPage(@PathVariable("pk") String pk,
+	@RequestMapping(value = "/salesquotation/modify/" + PK_PATH_VARIABLE_PATTERN)
+	public Object getSalesQuotationPage(@PathVariable("pk") String pk,
 			final Model model)
 	{
-		SalesQuationData sqData = salesQuationFacade.getSalesQuation(pk);
+		SalesQuotationData sqData = salesQuotationFacade.getSalesQuotation(pk);
 
 		model.addAttribute("sq", sqData);
 		model.addAttribute("paymentMethods", getPaymentMethods());
@@ -88,12 +88,12 @@ public class SalesQuationController extends AbstractPageController {
 
 		model.addAttribute("exhibitions", exhibitions);
 
-		return ControllerConstants.LTE.SALESQUATIONPAGE;
+		return ControllerConstants.LTE.SALESQUOTATIONPAGE;
 	}
 
-	@RequestMapping(value = "/salesquation/list")
+	@RequestMapping(value = "/salesquotation/list")
 	@ResponseBody
-	public Object getSalesQuationList(
+	public Object getSalesQuotationList(
 			@RequestParam(value = "exhibitions", required = false) final String exhibitions,
 			@RequestParam(value = "cellphone", required = false) final String cellphone,
 			@RequestParam(value = "startDate", required = false) @DateTimeFormat(pattern = "yyyy-MM-dd") Date startDate,
@@ -105,14 +105,14 @@ public class SalesQuationController extends AbstractPageController {
 		sp.put("exhibitions", exhibitions);
 		;
 
-		DTResults r = salesQuationFacade.getSalesQuation(startDate, endDate,
+		DTResults r = salesQuotationFacade.getSalesQuotation(startDate, endDate,
 				criterias.getStart(), criterias.getLength(), sp);
 
 		return r;
 	}
 
-	@RequestMapping(value = "/salesquation/save", method = RequestMethod.POST)
-	public String saveSalesQuation(
+	@RequestMapping(value = "/salesquotation/save", method = RequestMethod.POST)
+	public String saveSalesQuotation(
 			@RequestParam(value = "pk", required = false) final String pk,
 			@RequestParam(value = "sourcePK", required = false) final String sourcePK,
 			@RequestParam(value = "cellphone", required = false) final String cellphone,
@@ -128,27 +128,27 @@ public class SalesQuationController extends AbstractPageController {
 			final Model model, final HttpServletRequest request,
 			final HttpServletResponse response)
 	{
-		SalesQuationData salesQuation = new SalesQuationData();
-		salesQuation.setPk(pk);
-		salesQuation.setCellphone(cellphone);
-		salesQuation.setCustomerName(customerName);
-		salesQuation.setCoSalesperson(coSalesperson);
-		salesQuation.setPaidamount(paidamount);
-		salesQuation.setPaymentMethod(paymentMethod);
-		salesQuation.setDeliveryDate(deliveryDate);
-		salesQuation.setWeddingDate(weddingDate);
-		salesQuation.setPhotoDate(photoDate);
+		SalesQuotationData salesQuotation = new SalesQuotationData();
+		salesQuotation.setPk(pk);
+		salesQuotation.setCellphone(cellphone);
+		salesQuotation.setCustomerName(customerName);
+		salesQuotation.setCoSalesperson(coSalesperson);
+		salesQuotation.setPaidamount(paidamount);
+		salesQuotation.setPaymentMethod(paymentMethod);
+		salesQuotation.setDeliveryDate(deliveryDate);
+		salesQuotation.setWeddingDate(weddingDate);
+		salesQuotation.setPhotoDate(photoDate);
 		SourceData source = new SourceData();
 		source.setPk(sourcePK);
-		salesQuation.setSource(source);
-		salesQuation.setTryDate(tryDate);
+		salesQuotation.setSource(source);
+		salesQuotation.setTryDate(tryDate);
 
-		String pk1 = this.salesQuationFacade.saveSalesQuation(salesQuation);
+		String pk1 = this.salesQuotationFacade.saveSalesQuotation(salesQuotation);
 
 		if (continuecreate)
-			return REDIRECT_PREFIX + "/salesquation/createpage";
+			return REDIRECT_PREFIX + "/salesquotation/createpage";
 
-		return this.REDIRECT_PREFIX + "/salesquation/modify/" + pk1;
+		return this.REDIRECT_PREFIX + "/salesquotation/modify/" + pk1;
 	}
 
 }

@@ -137,8 +137,8 @@
      <bean id="defaultCategoryDataPopulator" class="com.third.facade.populator.CategoryDataPopulator">
      </bean>
      
-     <alias name="defaultSalesQuationDataPopulator" alias="salesQuationDataPopulator" />
-     <bean id="defaultSalesQuationDataPopulator" class="com.third.facade.populator.SalesQuationDataPopulator">
+     <alias name="defaultSalesQuotationDataPopulator" alias="salesQuotationDataPopulator" />
+     <bean id="defaultSalesQuotationDataPopulator" class="com.third.facade.populator.SalesQuotationDataPopulator">
         <property name="sourceDataPopulator" ref="sourceDataPopulator"></property>
      </bean>
 </beans>
