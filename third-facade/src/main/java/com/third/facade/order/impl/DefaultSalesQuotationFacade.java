@@ -173,10 +173,10 @@ public class DefaultSalesQuotationFacade implements SalesQuotationFacade {
 		so.setPayments(Arrays.asList(pm));
 		so.setOrderDate(new Date());
 		so.setSalesperson(userService.getCurrentUser());
-		
+	
 		orderService.createOrder(so);
 		
-		sq.setSalesOrder(so);
+		sq.setOrderCode(so.getCode());
 		salesQuotationService.saveSalesQuotation(sq);
 		
 		return so.getCode();

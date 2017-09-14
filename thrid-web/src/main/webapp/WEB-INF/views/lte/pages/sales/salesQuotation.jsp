@@ -20,10 +20,10 @@
         <spring:message code="lte.salesquotation.title"></spring:message>
       </h1>
       </div>
-      
       <div class="col-lg-1  col-md-1 pull-right">
       </div>
-      
+      <c:choose>
+      <c:when test="${empty sq.orderCode}">
       <div class="col-lg-1  col-md-1 pull-right">
          <a onclick="ACC.salesquotation.save()" class="btn btn-app">
          <i class="fa fa-save"></i>  <spring:message code="lte.save"></spring:message>
@@ -39,7 +39,14 @@
          <i class="fa fa-edit"></i>  <spring:message code="lte.salesquotation.convert"></spring:message>
        </a>
       </div>
-      
+      </c:when>
+      <c:otherwise>
+        <div class="col-lg-1  col-md-1 pull-right">
+         <a href="${contextPath}/order/modifyorderpage/${sq.orderCode}">${sq.orderCode}</a>
+       </a>
+      </div>
+      </c:otherwise>
+      </c:choose>
       </div>
     </section>
     

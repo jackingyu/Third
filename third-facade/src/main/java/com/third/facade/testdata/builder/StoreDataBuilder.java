@@ -41,7 +41,7 @@ public class StoreDataBuilder implements DataBuilder {
 		for (int i = 0; i < 30; i++)
 		{
 			SourceModel source = new SourceModel();
-			if(RandomUtils.nextBoolean())
+			if(i < 15)
 			{
 				source.setName("合作伙伴" + RandomUtils.nextInt());
 				source.setType(CoreConstants.SourceType.NORMAL);
@@ -161,7 +161,7 @@ public class StoreDataBuilder implements DataBuilder {
 			sources.add(sourceModels.get(i));
 		}
 
-		store.setSources(sources);
+		//store.setSources(sources);
 		storeService.createStore(store);
 
 		return store;
