@@ -100,6 +100,7 @@ public class DefaultOrderFacade implements OrderFacade {
 		order.setReceiveable(
 				BigDecimal.valueOf(Double.valueOf(orderData.getReceiveable())));
 		order.setOpenamount(order.getReceiveable());
+		order.setPaidamount(new BigDecimal(0));
 		// init order status
 		order.setStatus(0);
 
@@ -242,6 +243,7 @@ public class DefaultOrderFacade implements OrderFacade {
 		orderEntry.setTryDate(orderEntryData.getTryDate());
 		orderEntry.setStyle(orderEntryData.getStyle());
 		orderEntry.setCustomerName(orderEntryData.getCustomerName());
+		orderEntry.setExternalId(orderEntryData.getExternalId());
 		orderEntry.setStatus(0);
 
 		OrderModel order = orderService
@@ -285,7 +287,8 @@ public class DefaultOrderFacade implements OrderFacade {
 		orderEntry.setTryDate(orderEntryData.getTryDate());
 		orderEntry.setStyle(orderEntryData.getStyle());
 		orderEntry.setCustomerName(orderEntryData.getCustomerName());
-
+		orderEntry.setExternalId(orderEntryData.getExternalId());
+		
 		if (StringUtils.isNotEmpty(orderEntryData.getProduct().getCode()))
 		{
 			ProductModel product = productService
@@ -651,6 +654,11 @@ public class DefaultOrderFacade implements OrderFacade {
 		});
 
 		return result;
+	}
+	
+	public boolean isExist(final String orderCode) 
+	{
+		return orderService.getOrderForCode(orderCode) != null;
 	}
 
 }

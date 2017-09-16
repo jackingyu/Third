@@ -8,6 +8,7 @@
 <%@ attribute name="data" type="java.util.List"  required="true"%>
 <%@ attribute name="value" type="java.lang.String"  required="false"%>
 <%@ attribute name="disabled" type="java.lang.String"  required="false"%>
+<%@ attribute name="readonly" type="java.lang.Boolean"  required="false"%>
 
 
 	<label>
@@ -16,7 +17,10 @@
 	</c:if>
 	</label>
 	 <select
-	    name="${name}" id="${id}" class="form-control" <c:if test="${not empty disabled}">disabled="${disabled}"</c:if>>
+	    name="${name}" id="${id}" class="form-control" <c:if test="${not empty disabled}">disabled="${disabled}"</c:if>
+	     <c:if test="${readonly}">readonly="readonly"</c:if>
+	    
+	    >
 		<c:forEach var="item" items="${data}">
 			<option value="${item.code}" <c:if test="${item.selected}">selected="selected"</c:if> >${item.text}</option>
 		</c:forEach>

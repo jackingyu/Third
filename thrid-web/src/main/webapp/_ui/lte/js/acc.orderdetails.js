@@ -1,34 +1,25 @@
 ACC.orderdetail = {
-	setCustomer:function(o){
+	setCustomer : function(o) {
 		$('#customerName').val(o[1]);
 		$("#weddingdate").datepicker("update", o[2]);
 		$('#cellphone').val(o[0]);
 	},
-	create:function(){
-	  $("#orderForm").submit();
+	create : function() {
+		$("#orderForm").submit();
 	}
 }
 
-$(document).ready(function ()
-{
-$('#photodate').datepicker({
-			autoclose : true
-		});
+$(document).ready(function() {
+	$('#photodate').datepicker();
 
-$('#trydate').datepicker({
-			autoclose : true
-		});
+	$('#trydate').datepicker();
 
-$('#deliverydate').datepicker({
-			autoclose : true
-		});
+	$('#deliverydate').datepicker();
 
-$('#weddingdate').datepicker({
-			autoclose : true
-		});
+	$('#weddingdate').datepicker();
 
-ACC.searchcustomer.callback = ACC.orderdetail.setCustomer;
+	ACC.searchcustomer.callback = ACC.orderdetail.setCustomer;
 
-$('#orderForm').validate();
+	$('#orderForm').validate();
 
 });

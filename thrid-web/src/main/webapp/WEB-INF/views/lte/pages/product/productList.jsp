@@ -25,7 +25,7 @@
        </a>
       </div>
       <div class="col-lg-1 col-md-1 pull-left">
-      <a href="${contextPath}/product/creatpage" class="btn btn-app">
+      <a href="${contextPath}/product/creatproductpage" class="btn btn-app">
           <i class="fa fa-plus-square"></i>  <spring:message code="lte.create"></spring:message>
        </a>
       </div>

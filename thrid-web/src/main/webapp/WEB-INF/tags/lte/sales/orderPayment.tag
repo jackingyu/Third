@@ -20,7 +20,7 @@
 				 <label><spring:message code="lte.order.payment.amount"></spring:message></label>
 				<div class="input-group">
                 <span class="input-group-addon"><i class="fa fa-dollar"></i></span>
-                <input name="amount" class="form-control" type="text">
+                <input name="amount" class="form-control required money" type="text">
               </div>
               </div>
               <div class="modal-footer">

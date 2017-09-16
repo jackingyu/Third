@@ -20,7 +20,7 @@
                   <button type="button" class="btn btn-danger" data-toggle="modal"
 					data-target="#customerSearchPanel"><spring:message code="lte.order.customer.search"></spring:message></button>
                 </div>
-                <input id="customerName"  disabled="disabled" value="${orderData.customerName}" name="customerName" class="form-control" type="text">
+                <input id="customerName"  readonly="readonly" value="${orderData.customerName}" name="customerName" class="form-control required" type="text">
               </div>
 			</div>
 			<div class="col-lg-3 cl-md-3 cl-sm-12 cl-xs-12">

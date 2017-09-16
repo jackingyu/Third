@@ -37,8 +37,8 @@ public class ProductDataBuilder implements DataBuilder {
 		List<CategoryModel> categorys = new ArrayList<CategoryModel>();
 
 		categorys.add(buildCategory("A", "西服"));
-		categorys.add(buildCategory("B", "衬衫"));
-		categorys.add(buildCategory("C", "西裤"));
+		categorys.add(buildCategory("B", "西裤"));
+		categorys.add(buildCategory("C", "衬衫"));
 		categorys.add(buildCategory("D", "马甲"));
 
 		for (int i = 0; i < 100; i++)

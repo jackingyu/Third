@@ -66,4 +66,6 @@ public interface OrderFacade {
 
 	DTResults getOrderEntriesByPKorId(String entryPK, String externalId,
 			Integer status);
+	
+	boolean isExist(final String orderCode);
 }

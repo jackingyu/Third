@@ -31,7 +31,7 @@ public class TextMapper {
 		ItemCategory.put(CoreConstants.ItemCategory.Trousers, "西裤量身单");
 		ItemCategory.put(CoreConstants.ItemCategory.Shirt, "衬衫量身单");
 		ItemCategory.put(CoreConstants.ItemCategory.Vest, "背心量身单");
-		ItemCategory.put(CoreConstants.ItemCategory.Norm, "普通销售项");
+		//ItemCategory.put(CoreConstants.ItemCategory.Norm, "普通销售项");
 	}
 
 	static
@@ -44,8 +44,8 @@ public class TextMapper {
 				CoreConstants.Category.Shirt);
 		ItemCategory2Category.put(CoreConstants.ItemCategory.Vest,
 				CoreConstants.Category.Vest);
-		ItemCategory2Category.put(CoreConstants.ItemCategory.Norm,
-				CoreConstants.Category.Norm);
+//		ItemCategory2Category.put(CoreConstants.ItemCategory.Norm,
+//				CoreConstants.Category.Norm);
 	}
 
 	static

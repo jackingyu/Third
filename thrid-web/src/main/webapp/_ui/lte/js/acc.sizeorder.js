@@ -78,6 +78,7 @@ ACC.sizeorder = {
 		    $("#imagePanel .image").attr("src",$("#sizeImageUrl").val());
 		});
 		
+		$("#orderEntryForm").validate();
 		ACC.searchproduct.callback = ACC.sizeorder.setProduct;
 	}
 }

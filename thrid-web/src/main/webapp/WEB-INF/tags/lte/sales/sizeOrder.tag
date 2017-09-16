@@ -15,17 +15,17 @@
 				<div class="row">
 					<div class="col-md-4 col-lg-4 col-xs-12 col-sm-12">
 						<label><spring:message code="lte.orderentry.itemcategory"></spring:message></label>
-						<common:selection data="${itemCategorys}" name="itemCategory" disabled="disabled" />
+						<common:selection data="${itemCategories}" name="itemCategory" readonly="true" />
 					</div>
 					<div class="col-md-4 col-lg-4 col-xs-12 col-sm-12 ">
 						<label><spring:message code="lte.orderentry.ordercode"></spring:message></label>
-						<input readonly="readonly" name="orderCode" value="${orderEntry.orderCode}"
-							class="form-control required" placeholder="" type="text">
+					    <a href="${contextPath}/order/modifyorderpage/${orderEntry.orderCode}">${orderEntry.orderCode}<input readonly="readonly" name="orderCode" value="${orderEntry.orderCode}"
+							class="form-control" placeholder="" type="text"></a>	
 					</div>
 					<div class="col-md-4 col-lg-4 col-xs-12 col-sm-12 ">
 						<label><spring:message code="lte.orderentry.code"></spring:message></label>
 						<input readonly="readonly" id="orderEntryPK" value="${orderEntry.pk}" name="entryPK"
-							class="form-control required" placeholder="" type="text">
+							class="form-control" placeholder="" type="text">
 					</div>
 				</div>
 				<div class="row">
@@ -35,7 +35,7 @@
 					</div>
 					<div class="col-md-4 col-lg-4 col-xs-12 col-sm-12 ">
 						<label><spring:message code="lte.orderentry.customername"></spring:message></label>
-						<input value="${orderEntry.customerName }" name="customerName" class="form-control"
+						<input value="${orderEntry.customerName }" name="customerName" class="form-control required"
 							placeholder="" type="text">
 					</div>
 					<div class="col-md-4 col-lg-4 col-xs-12 col-sm-12 ">
@@ -63,30 +63,30 @@
 					</div>
 					<div class="col-md-4 col-lg-4 col-xs-12 col-sm-12 ">
 						<label><spring:message code="lte.orderentry.sizedate"></spring:message></label>
-						<common:datepicker value="${orderEntry.sizeDate}" id="sizeDate" name="sizeDate" />
+						<common:datepicker validator="required" value="${orderEntry.sizeDate}" id="sizeDate" name="sizeDate" />
 					</div>
 					<div class="col-md-4 col-lg-4 col-xs-12 col-sm-12 ">
 						<label><spring:message code="lte.orderentry.trydate"></spring:message></label>
-						<common:datepicker value="${orderEntry.tryDate}" id="tryDate" name="tryDate" />
+						<common:datepicker validator="required" value="${orderEntry.tryDate}" id="tryDate" name="tryDate" />
 					</div>
 				</div>
 				<div class="row">
 					<div class="col-md-8 col-lg-8 col-xs-12 col-sm-12 ">
 						<label><spring:message code="lte.orderentry.style"></spring:message></label>
-						<input value="${orderEntry.style}" name="style" class="form-control" placeholder=""
+						<input value="${orderEntry.style}" name="style" class="form-control required" placeholder=""
 							type="text">
 					</div>
 					<div class="col-md-4 col-lg-4 col-xs-12 col-sm-12">
 						<label><spring:message code="lte.orderentry.quantity"></spring:message></label>
-						<input name="quantity" value="${orderEntry.quantity}" class="form-control" placeholder=""
+						<input name="quantity"  value="${orderEntry.quantity}" class="form-control required positiveInteger" placeholder=""
 							type="text">
 					</div>
 				</div>
 				<div class="row">
 					<div class="col-md-6 col-lg-6 col-xs-12 col-sm-12 ">
 						<label><spring:message code="lte.orderentry.product"></spring:message></label>
-						<input id="productInfo"  onclick="ACC.sizeorder.searchProduct()" readonly="readonly" value="${orderEntry.product.producttitle}" name="style"
-								class="form-control" placeholder="" type="text">
+						<input id="productInfo"  onclick="ACC.sizeorder.searchProduct()" readonly="readonly" value="${orderEntry.product.producttitle}"
+								class="form-control required" placeholder="" type="text">
 						<input type="hidden" value="${orderEntry.product.code}" id="productCode" name="productCode">
 					</div>
 					<div class="col-md-6 col-lg-6 col-xs-12 col-sm-12">

@@ -109,6 +109,7 @@ public class CustomerPageController extends AbstractPageController {
 			String[] row = new String[5];
 			row[0] = od.getCellphone();
 			row[1] = od.getName();
+			if(od.getWeddingdate()!=null)
 			row[2] = DateUtils.formatDate(od.getWeddingdate(), "yyyy-MM-dd");
 			row[3] = od.getSource().getName();
 			listDatas.add(row);

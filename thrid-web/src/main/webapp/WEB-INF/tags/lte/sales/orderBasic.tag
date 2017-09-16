@@ -33,7 +33,7 @@
 		<div class="row">
 			<div class="col-lg-3 cl-md-3 cl-sm-12 cl-xs-12">
 				<label><spring:message code="lte.order.basic.deliverydate"></spring:message></label>
-		        <common:datepicker value="${orderData.deliveryDate}" name="deliveryDate" id="deliverydate"/>
+		        <common:datepicker validator="required" value="${orderData.deliveryDate}" name="deliveryDate" id="deliverydate"/>
 			</div>
 			<div class="col-lg-3 cl-md-3 cl-sm-12 cl-xs-12">
 				<label><spring:message code="lte.order.basic.cosalesperson"></spring:message></label>
@@ -52,7 +52,7 @@
 		<div class="row">
 			<div class="col-lg-3 cl-md-3 cl-sm-12 cl-xs-12">
 				<label><spring:message code="lte.order.basic.receiveable"></spring:message></label>
-		         <input name="receiveable" value="${orderData.receiveable}"  class="form-control" placeholder="" type="text">
+		         <input name="receiveable" value="${orderData.receiveable}"  class="form-control required money" placeholder="" type="text">
 			</div>
 			<div class="col-lg-3 cl-md-3 cl-sm-12 cl-xs-12">
 				<label><spring:message code="lte.order.basic.openamount"></spring:message></label>

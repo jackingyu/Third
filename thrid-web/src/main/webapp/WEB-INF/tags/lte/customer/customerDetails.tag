@@ -16,7 +16,7 @@
 				<label><spring:message code="lte.customer.cellphone"></spring:message></label>
 				<div class="input-group">
 					<span class="input-group-addon"><i class="fa fa-mobile-phone"></i></span>
-					<input id="cellphone" name="cellphone" value="${customer.cellphone}" class="form-control" type="text">
+					<input id="cellphone" name="cellphone" value="${customer.cellphone}" class="form-control required cellphone" type="text">
 				</div>
 				<input type="hidden" name="customerPK" value="${customer.pk}">
 			</div>
@@ -24,7 +24,7 @@
 			<div class="form-group">
 				<label><spring:message code="lte.customer.name"></spring:message></label>
 				<div class="input-group col-sm-12 col-xs-12 col-md-12 col-lg-12">
-					<input id="customerName" name="name" value="${customer.name}" class="form-control" type="text">
+					<input id="customerName" name="name" value="${customer.name}" class="form-control required" type="text">
 				</div>
 			</div>
 
@@ -39,7 +39,7 @@
 				<label><spring:message code="lte.customer.email"></spring:message></label>
 				<div class="input-group">
 					<span class="input-group-addon"><i class="fa fa-envelope"></i></span>
-					<input id="email" name="email" value="${customer.email}" class="form-control" type="text">
+					<input id="email" name="email" value="${customer.email}" class="form-control email" type="text">
 				</div>
 			</div>
 
@@ -54,7 +54,7 @@
 
 			<div class="form-group">
 				<label><spring:message code="lte.customer.weddingdate"></spring:message></label>
-				<common:datepicker name="weddingdate" value="${customer.weddingdate}" id="weddingdate" />
+				<common:datepicker validator="required" name="weddingdate" value="${customer.weddingdate}" id="weddingdate" />
 			</div>
 
 			<!--  

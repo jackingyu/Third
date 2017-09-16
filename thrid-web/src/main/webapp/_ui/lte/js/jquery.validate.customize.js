@@ -2,14 +2,14 @@
 $(document).ready(function() {
 
 	 // Mobile
-	$.validator.addMethod("mobile", function(value, element) {
+	$.validator.addMethod("cellphone", function(value, element) {
 		 return this.optional( element ) || /^([1][34578][0-9]{9})$/.test( value );
 	}, 'Please provide valid mobile number.');
 	
 	 // Money		
 	$.validator.addMethod("money", function(value, element) {
-		return this.optional( element ) || /^\d+(?:\.\d{0,2})?$/.test( value );
-	}, 'Please provide valid format money.');
+		return this.optional( element ) || /^\d{1,10}(?:\.\d{0,2})?$/.test( value );
+	}, '请输入符合格式的金额');
 	
 	
 	$.validator.addMethod("moneyLength", function(value, element) {
@@ -35,21 +35,10 @@ $(document).ready(function() {
 		return arg != value;
 	}, 'value not equals.');
 	
-	$.validator.addMethod("huifen", function(value, element) {
-		if (value >= 0 && value <= 100)
-			return true;
-		else{
-			return false;
-		}
-	}, 'Please enter correct huifen value');
-
-	$.validator.addMethod("huifenLength", function(value, element) {
-		return this.optional( element ) || /^\d{1,3}(?:\.\d{0,2})?$/.test( value );
-	}, 'Please enter correct huifen length');
 	
 	$.validator.addMethod("positiveInteger", function(value, element) {
 		return this.optional( element ) || /^\+?[1-9]\d*$/.test( value );
-	}, 'Please provide a positive integer.');
+	}, '请输入正整数');
 		
 	$.validator.addMethod("pwdComplex", function(pwd, element) {
 		var number = false;
@@ -119,6 +108,8 @@ $.extend($.validator.messages, {
     creditcard: "请输入合法的信用卡号",
     equalTo: "请再次输入相同的值",
     accept: "请输入拥有合法后缀名的字符串",
+    cellphone:"请输入正确的手机号码",
+    money:"请输入符合格式的金额",
     maxlength: $.validator.format("请输入一个长度最多是 {0} 的字符串"),
     minlength: $.validator.format("请输入一个长度最少是 {0} 的字符串"),
     rangelength: $.validator.format("请输入一个长度介于 {0} 和 {1} 之间的字符串"),

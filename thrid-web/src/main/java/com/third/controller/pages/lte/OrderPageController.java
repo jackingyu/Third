@@ -19,11 +19,13 @@ import org.apache.log4j.Logger;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.third.controller.pages.AbstractPageController;
 import com.third.controller.pages.ControllerConstants;
@@ -112,7 +114,9 @@ public class OrderPageController extends AbstractPageController {
 	@RequestMapping(value = "/order/modifyorderpage"
 			+ ORDER_CODE_PATH_VARIABLE_PATTERN, method = RequestMethod.GET)
 	public String getModifyOrderPage(
-			@PathVariable("orderCode") String orderCode, final Model model,
+			@PathVariable("orderCode") String orderCode, 
+			@ModelAttribute("message") final String message,
+			final Model model,
 			final HttpServletRequest request,
 			final HttpServletResponse response)
 	{
@@ -124,10 +128,12 @@ public class OrderPageController extends AbstractPageController {
 
 		model.addAttribute("paymentMethods",
 				TextMapperUtils.getPaymentMethods());
-		model.addAttribute("itemCategorys",
+		model.addAttribute("itemCategories",
 				TextMapperUtils.getItemCategories());
 		model.addAttribute("orderData", orderData);
 		model.addAttribute("statusText", orderData.getStatusText());
+		if(StringUtils.isNotEmpty(message))
+		model.addAttribute("message",message);
 		// TODO:订单的允许更新策略
 		model.addAttribute("editable",
 				orderData.getStatus().equals(CoreConstants.OrderStatus.NEW));
@@ -200,7 +206,7 @@ public class OrderPageController extends AbstractPageController {
 	}
 
 	@RequestMapping(value = "/order/save")
-	public String createOrder(
+	public String saveOrder(
 			@RequestParam(value = "orderCode", required = false) final String orderCode,
 			@RequestParam(value = "orderPK", required = true) final String orderPK,
 			@RequestParam(value = "contactinfo", required = false) final String contactinfo,
@@ -214,8 +220,16 @@ public class OrderPageController extends AbstractPageController {
 			@RequestParam(value = "customerName", required = false) final String customerName,
 			@RequestParam(value = "comment", required = false) final String comment,
 			@RequestParam(value = "coSalesperson", required = false) final String coSalesperson,
+			final RedirectAttributes attr,
 			final Model model)
 	{
+		
+		if(StringUtils.isBlank(orderPK)&&orderFacade.isExist(orderCode))
+		{
+			attr.addFlashAttribute("message", "四联单号重复,请重新输入");
+		    return REDIRECT_PREFIX + "/order/createorderpage/";
+		}
+		
 		OrderData order = new OrderData();
 		order.setPk(orderPK);
 		order.setOrderCode(orderCode);
@@ -235,13 +249,22 @@ public class OrderPageController extends AbstractPageController {
 		StoreData store = new StoreData();
 		store.setCode(storeCode);
 		order.setStore(store);
-
+        
 		if (StringUtils.isBlank(orderPK))
 			orderFacade.createOrder(order);
 		else
 			// TODO:需要判断订单状态为新建(需要考虑是否允许admin修改)
 			orderFacade.updateOrder(order);
-
+      
+		model.addAttribute("message","保存成功!");
 		return REDIRECT_PREFIX + "/order/modifyorderpage/" + orderCode;
+	}
+	
+	@RequestMapping(value = "/order/isexist")
+	@ResponseBody
+	public boolean isExist(
+			@RequestParam(value = "orderCode", required = true) final String orderCode) 
+	{
+		return orderFacade.isExist(orderCode);
 	}
 }

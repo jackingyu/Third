@@ -47,7 +47,6 @@ public class OrderBasicPopulator implements Populator<OrderModel, OrderData> {
 		target.setTryDate(source.getTryDate());
 		target.setPhotoDate(source.getPhotoDate());
 		target.setDeliveryDate(source.getDeliveryDate());
-		target.setWeddingDate(source.getWeddingDate());
 		target.setStatus(Integer.valueOf(source.getStatus()));
 		target.setStatusText(
 				TextMapperUtils.getOrderStatusText(source.getStatus()));

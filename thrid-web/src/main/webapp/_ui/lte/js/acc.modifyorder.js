@@ -25,18 +25,21 @@ ACC.modifyorder = {
     });
   },
   addPayment: function () {
+   if($("#paymentForm").valid())
     $.ajax({
       type: 'POST',
       url: ACC.config.contextPath + '/order/addpayment',
       data: $('#paymentForm').serialize(), // 你的formid
       error: function (request) {
         alert('Connection error');
+        $("#paymentForm input[name='amount']").val('');
       },
       success: function (data) {
         ACC.modifyorder.refreshPayments();
         $('#orderPaymentPanel').modal('hide');
         $('.openamount').val(data[1]);
         $('.paidamount').val(data[0]);
+        $("#paymentForm input[name='amount']").val('');
       }
     });
   },
@@ -103,7 +106,7 @@ ACC.modifyorder = {
     });
     // 初始化addPayment button
     $('#addPaymentBtn').on('click', ACC.modifyorder.addPayment);
-
+    $("#paymentForm").validate();
   },
   initEntryGrid:function(){
   	// 初始化 paymentGrid

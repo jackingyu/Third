@@ -48,7 +48,7 @@
 </div>
 
 <div class="modal fade" id="itemCategoryPanel">
-	<div class="modal-dialog modal-sm"  role="dialog">
+	<div class="modal-dialog modal-lg"  role="dialog">
 		<div class="modal-content">
 			<div class="modal-header">
 				<h4 class="modal-title">
@@ -56,16 +56,20 @@
 				</h4>
 			</div>
 			<div class="modal-body">
-			   <common:selection  id="itemCategory"  data="${itemCategorys}"></common:selection>
+			  <div class="row">
+			   <c:forEach var="itemCategory" items="${itemCategories}">
+			    <div class="col-lg-3 col-md-3">
+                   <a href="${contextPath}/orderentry/createorderentrypage/${orderData.orderCode}?itemCategory=${itemCategory.code}" 
+                   class="btn btn-app">
+                   <i class="fa fa-save"></i>  <spring:message code="lte.create"></spring:message>${itemCategory.text}
+                   </a>
+                 </div>
+			    </c:forEach>
+                </div>
 			</div>
 			<div class="modal-footer">
 			<button type="button" class="btn btn-default pull-left" data-dismiss="modal">
 				<spring:message code="lte.close"></spring:message>
-			</button>
-			<button id="confirmItemCategory" 
-			     onclick="ACC.modifyorder.createSizeOrderPage()"
-			     type="button" class="btn btn-primary" data-dismiss="modal">
-				<spring:message code="lte.continue"></spring:message>
 			</button>
 		</div>
 		</div>

@@ -15,10 +15,11 @@
       <h1>
         <spring:message code="lte.order.createorder"></spring:message>
       </h1>
+       <small class="help-block" style="color: #00a65a">${message}</small>
       </div>
       <div class="col-lg-1 col-md-1">
          <a onclick="ACC.orderdetail.create()" class="btn btn-app">
-          <i class="fa fa-save"></i>  <spring:message code="lte.print"></spring:message>
+          <i class="fa fa-save"></i>  <spring:message code="lte.save"></spring:message>
        </a>
       </div>
       </div>

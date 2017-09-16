@@ -47,9 +47,6 @@ public class SizeOrderPageController extends AbstractPageController {
 	@Resource(name = "orderFacade")
 	private OrderFacade orderFacade;
 
-	@Resource(name = "textMapperUtils")
-	private TextMapperUtils textMapperUtils;
-
 	@RequestMapping(value = "/orderentry/createorderentrypage/"
 			+ ORDER_CODE_PATH_VARIABLE_PATTERN, method = RequestMethod.GET)
 	public String createSizeOrderPage(
@@ -66,15 +63,6 @@ public class SizeOrderPageController extends AbstractPageController {
 		// sizeDatas = entry.getSizeDatas();
 
 		// set up item category
-		List<ComboboxData> itemCategorys = textMapperUtils.getItemCategories();
-
-		for (int i = 0; i < itemCategorys.size(); i++)
-		{
-			if (itemCategorys.get(i).getCode().equals(itemCategory))
-			{
-				itemCategorys.get(i).setSelected(Boolean.TRUE);
-			}
-		}
 
 		OrderData order = orderFacade.getOrderForOptions(orderCode,
 				Arrays.asList(OrderOption.BASIC));
@@ -85,14 +73,22 @@ public class SizeOrderPageController extends AbstractPageController {
 		orderEntry.setCustomerName(order.getCustomerName());
 		orderEntry.setSizeDatas(sizeDatas);
 		orderEntry.setOrderCode(order.getOrderCode());
-
-		model.addAttribute("itemCategorys", itemCategorys);
+        orderEntry.setItemCategoryText(TextMapperUtils.getItemCategoryText(itemCategory));
+        orderEntry.setItemCategory(itemCategory);
+        ComboboxData cd = new ComboboxData();
+        	cd.setSelected(true);
+        cd.setCode(orderEntry.getItemCategory());
+        cd.setText(orderEntry.getItemCategoryText());
+        
+		model.addAttribute("message1", "新建"+orderEntry.getItemCategoryText());
+		model.addAttribute("itemCategories", Arrays.asList(cd));
 		model.addAttribute("orderEntry", orderEntry);
 		model.addAttribute("searchCategory", TextMapper.ItemCategory2Category
 				.get(orderEntry.getItemCategory()));
 
+		fillProductGroupsInModel(model);
 		fillStore2View(model, order.getStore().getCode());
-
+    
 		return ControllerConstants.LTE.ORDERENTRYDETAILPAGE;
 	}
 
@@ -107,24 +103,19 @@ public class SizeOrderPageController extends AbstractPageController {
 		// set up item category
 		OrderEntryData orderEntry = orderFacade.getOrderEntry(orderEntryPK);
 
-		List<ComboboxData> itemCategorys = textMapperUtils.getItemCategories();
-
-		for (int i = 0; i < itemCategorys.size(); i++)
-		{
-			if (itemCategorys.get(i).getCode()
-					.equals(orderEntry.getItemCategory()))
-			{
-				itemCategorys.get(i).setSelected(Boolean.TRUE);
-			}
-		}
 
 		// set size details data
 		OrderEntryData entry = orderFacade.getSizeDatas(orderEntry.getPk());
 		orderEntry.setSizeDatas(entry.getSizeDatas());
 
-		model.addAttribute("itemCategorys", itemCategorys);
+	     ComboboxData cd = new ComboboxData();
+     	cd.setSelected(true);
+        cd.setCode(orderEntry.getItemCategory());
+        cd.setText(orderEntry.getItemCategoryText());
+		model.addAttribute("itemCategories", Arrays.asList(cd));
 		model.addAttribute("orderEntry", orderEntry);
-		model.addAttribute("statusText", orderEntry.getStatusText());
+		model.addAttribute("message1", "修改"+orderEntry.getItemCategoryText());
+		model.addAttribute("statusText","量身单状态:" + orderEntry.getStatusText());
 		model.addAttribute("editable",
 				orderEntry.getStatus().equals(CoreConstants.OrderStatus.NEW));
 
@@ -151,6 +142,7 @@ public class SizeOrderPageController extends AbstractPageController {
 			@RequestParam(value = "quantity", required = false) final Integer quantity,
 			@RequestParam(value = "designer", required = false) final String designer,
 			@RequestParam(value = "customerName", required = false) final String customerName,
+			@RequestParam(value = "externalId", required = false) final String externalId,
 			@RequestParam(value = "deliveryDate") @DateTimeFormat(pattern = "yyyy-MM-dd") final Date deliveryDate,
 			@RequestParam(value = "sizeDate") @DateTimeFormat(pattern = "yyyy-MM-dd") final Date sizeDate,
 			@RequestParam(value = "tryDate") @DateTimeFormat(pattern = "yyyy-MM-dd") final Date tryDate,
@@ -166,7 +158,7 @@ public class SizeOrderPageController extends AbstractPageController {
 		orderEntryData.setItemCategory(itemCategory);
 		orderEntryData.setStyle(style);
 		orderEntryData.setProductTitle(productTitle);
-		orderEntryData.setQuantity(quantity);
+		orderEntryData.setQuantity(1);
 		orderEntryData.setDesigner(designer);
 		orderEntryData.setDeliveryDate(deliveryDate);
 		orderEntryData.setSizeDate(sizeDate);
@@ -175,6 +167,7 @@ public class SizeOrderPageController extends AbstractPageController {
 		orderEntryData.setComment(comment);
 		orderEntryData.setCustomerName(customerName);
 		orderEntryData.setSizeDetails(sizeDetails);
+		orderEntryData.setExternalId(externalId);
 
 		ProductData product = new ProductData();
 		product.setCode(productCode);
@@ -187,7 +180,10 @@ public class SizeOrderPageController extends AbstractPageController {
 		}
 
 		if (StringUtils.isBlank(entryPK))
+		{
+			for(int i = 0; i < quantity;i++)
 			orderFacade.createOrderEntry(orderEntryData);
+		}
 		else
 			orderFacade.updateOrderEntry(orderEntryData);
 

@@ -20,7 +20,7 @@
       <div class="row">
        <div class="col-lg-8 col-md-8 col-sm-6 col-xs-6">
       <h2>
-        <spring:message code="lte.orderentry.title"></spring:message>
+        <spring:message code="lte.orderentry.title"></spring:message>-${message1}
         <small>${statusText}</small>
       </h2>
       <small class="help-block" style="color: #00a65a">${message}</small>

@@ -42,8 +42,13 @@ public class DefaultCustomerFacade implements CustomerFacade {
 	@Override
 	public void createCustomer(CustomerData customer)
 	{
-		CustomerModel customerModel = new CustomerModel();
-
+		CustomerModel customerModel = customerService.getCustomerByCellphone(customer.getCellphone());
+		
+		if(customerModel != null)
+        return;
+		
+		customerModel = new CustomerModel();
+		
 		customerModel.setCellphone(customer.getCellphone());
 		customerModel.setName(customer.getName());
 		customerModel.setBirthday(customer.getBirthday());
@@ -59,7 +64,7 @@ public class DefaultCustomerFacade implements CustomerFacade {
 			customerModel.setSource(sourceModel);
 		}
 
-		AddressModel addressModel = new AddressModel();
+	/*	AddressModel addressModel = new AddressModel();
 		AddressData address = customer.getAddress();
 
 		addressModel.setAdr1(address.getAdr1());
@@ -70,7 +75,7 @@ public class DefaultCustomerFacade implements CustomerFacade {
 				i18NService.getRegion(address.getRegion().getIsoCode()));
 		addressModel.setTel1(address.getTel1());
 		addressModel.setTel2(address.getTel2());
-
+*/
 		// i18NService.createAddress(addressModel);
 		// customerModel.setAddress(addressModel);
 
@@ -144,7 +149,7 @@ public class DefaultCustomerFacade implements CustomerFacade {
 		customerModel.setSource(sourceModel);
 
 		// 修改地址信息
-		AddressModel addressModel = customerModel.getAddress();
+	/*	AddressModel addressModel = customerModel.getAddress();
 		if (addressModel == null)
 		{
 			addressModel = new AddressModel();
@@ -162,7 +167,7 @@ public class DefaultCustomerFacade implements CustomerFacade {
 		addressModel.setTel1(address.getTel1());
 		addressModel.setTel2(address.getTel2());
 
-		customerModel.setAddress(addressModel);
+		customerModel.setAddress(addressModel);*/
 		customerService.updateCustomer(customerModel);
 	}
 
