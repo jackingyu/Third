@@ -562,7 +562,7 @@ public class DefaultOrderFacade implements OrderFacade {
 		else
 			return new DTResults();
 
-		if (entryModel == null || !entryModel.getStatus().equals(status))
+		if (entryModel == null)
 			return new DTResults();
 
 		OrderModel orderModel = entryModel.getOrder();

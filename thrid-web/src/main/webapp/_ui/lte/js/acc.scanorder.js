@@ -42,6 +42,7 @@ ACC.scanorder = {
   	$('#entryPK').val('');
   	$('#externalId').val('');
   	ACC.scanorder.unlock();
+  	$('#orderEntryGrid').DataTable().clear().draw();
   },
   scan:function(){
   	var i = 0;
@@ -106,7 +107,7 @@ ACC.scanorder = {
         'data': function (d) {
           formData = getQuery('orderEntryForm');
           d.entryPK = formData.entryPK;
-          d.extenralId = formData.externalId;
+          d.externalId = formData.externalId;
           d.currentStatus = formData.currentStatus;
         }
       },
