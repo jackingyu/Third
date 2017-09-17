@@ -1,6 +1,8 @@
 package com.third.facade.order.impl;
 
 import java.math.BigDecimal;
+import java.time.Instant;
+import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -91,7 +93,7 @@ public class DefaultOrderFacade implements OrderFacade {
 		order.setCustomerName(orderData.getCustomerName());
 
 		order.setDeliveryDate(orderData.getDeliveryDate());
-		order.setOrderDate(new Date());
+		order.setOrderDate(Date.from(Instant.now()));
 		order.setPhotoDate(orderData.getPhotoDate());
 		order.setSalesperson(userService.getCurrentUser());
 		order.setSource(customer.getSource());
@@ -429,7 +431,7 @@ public class DefaultOrderFacade implements OrderFacade {
 		paymentModel.setPaymentMethod(payment.getPaymentMethod());
 		paymentModel.setPaymentType(payment.getPaymentType());
 		paymentModel.setOrder(orderModel);
-
+        paymentModel.setStore(orderModel.getStore());
 		paymentService.createPayment(paymentModel);
 
 		orderModel.setPaidamount(

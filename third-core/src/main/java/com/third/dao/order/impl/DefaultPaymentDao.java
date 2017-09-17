@@ -36,7 +36,7 @@ public class DefaultPaymentDao extends GenericDAO<PaymentModel, String>
 		if (StringUtils.isNotEmpty(c1))
 			condition.add(c1);
 
-		String c2 = getArrayCondtion(sp, "orderStatus", "p.status");
+		String c2 = getArrayCondtion(sp, "orderStatus", "p.order.status");
 		if (StringUtils.isNotEmpty(c2))
 			condition.add(c2);
 
@@ -61,8 +61,10 @@ public class DefaultPaymentDao extends GenericDAO<PaymentModel, String>
 				.append(StringUtils.join(condition.toArray(), " and "));
 
 		logger.info(sb.toString());
+		
+		String hsql = sb.toString();
 
-		return this.findPageByQuery(sb.toString(), pageSize, startIndex);
+		return this.findPageByQuery(hsql, pageSize, startIndex);
 	}
 
 }

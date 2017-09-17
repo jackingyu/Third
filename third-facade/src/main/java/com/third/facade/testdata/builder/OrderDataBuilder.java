@@ -142,7 +142,7 @@ public class OrderDataBuilder implements DataBuilder {
 			paymentModel1.setPaymentMethod(PaymentMethod.CreditCard);
 			paymentModel1.setPaymentType(PaymentType.NormalPayment);
 			paymentModel1.setPaymentEntryNo(10 + i);
-			paymentModel.setStore(store);
+			paymentModel1.setStore(store);
 			paymentModel1
 					.setAmount(BigDecimal.valueOf(RandomUtils.nextInt(1, 199)));
 			paymentModel1.setPaidTime(Calendar.getInstance().getTime());

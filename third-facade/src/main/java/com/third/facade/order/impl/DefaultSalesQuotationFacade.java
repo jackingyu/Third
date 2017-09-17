@@ -170,6 +170,8 @@ public class DefaultSalesQuotationFacade implements SalesQuotationFacade {
 		pm.setPaymentMethod(sq.getPaymentMethod());
 		pm.setPaidTime(sq.getCreateTime());
 		pm.setPaymentEntryNo(0);
+		pm.setPaymentType(CoreConstants.PaymentType.DownPayment);
+		pm.setStore(so.getStore());
 		so.setPayments(Arrays.asList(pm));
 		so.setOrderDate(new Date());
 		so.setSalesperson(userService.getCurrentUser());

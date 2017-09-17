@@ -7,6 +7,7 @@ import com.third.facade.data.CustomerData;
 import com.third.facade.data.OrderData;
 import com.third.facade.data.StoreData;
 import com.third.facade.data.TextMapper;
+import com.third.facade.data.UserData;
 import com.third.facade.utils.TextMapperUtils;
 import com.third.model.OrderModel;
 
@@ -66,6 +67,9 @@ public class OrderBasicPopulator implements Populator<OrderModel, OrderData> {
 				? source.getPaidamount().toString()
 				: "0");
 		// 订单相关信息
+		UserData salesPerson = new UserData();
+		userDataPopulator.populate(source.getSalesperson(), salesPerson);
+		target.setSalesPerson(salesPerson);
 		target.setOrderDate(source.getOrderDate());
 		target.setCoSalesperson(source.getCoSalesperson());
 		target.setComment(source.getComment());

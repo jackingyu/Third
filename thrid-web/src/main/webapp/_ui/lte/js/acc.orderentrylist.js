@@ -38,8 +38,8 @@ ACC.orderEntryList = {
     });
     $('#deliveryDate').daterangepicker({
       locale:datepicker_locale_zh,
-      startDate: moment(),
-      endDate:moment().add(15, 'days')
+      startDate:moment().subtract(15, 'days'),
+      endDate: moment().add(15,'days')
     }
     );
     
