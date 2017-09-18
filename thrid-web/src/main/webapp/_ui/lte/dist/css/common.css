@@ -7,3 +7,35 @@ table.dataTable tbody tr.picked {
 .error{
 	color:#ff0000 
 }
+
+.mcontent-wrapper {
+  -webkit-transition: -webkit-transform 0.3s ease-in-out, margin 0.3s ease-in-out;
+  -moz-transition: -moz-transform 0.3s ease-in-out, margin 0.3s ease-in-out;
+  -o-transition: -o-transform 0.3s ease-in-out, margin 0.3s ease-in-out;
+  transition: transform 0.3s ease-in-out, margin 0.3s ease-in-out;
+  z-index: 820;
+}
+.layout-top-nav .mcontent-wrapper {
+  margin-left: 0;
+}
+
+.mcontent-wrapper {
+  min-height: 100%;
+  background-color: #ecf0f5;
+  z-index: 800;
+}
+
+.fixed .mcontent-wrapper {
+  padding-top: 50px;
+}
+
+body.hold-transition .mcontent-wrapper{
+  /* Fix for IE */
+  -webkit-transition: none;
+  -o-transition: none;
+  transition: none;
+}
+
+.navbar-barmobile:hover{
+	cursor:pointer;
+}

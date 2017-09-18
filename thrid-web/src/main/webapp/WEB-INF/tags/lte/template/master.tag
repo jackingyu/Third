@@ -19,12 +19,22 @@
 </head>
 <body class="hold-transition skin-blue sidebar-mini">
 <div class="wrapper">
-  <template:header />  
-  <template:sidebar />
+  <c:choose>
+     <c:when test="${isMobile}">
+       <template:mobileheader /> 
+     </c:when>
+     <c:otherwise>
+       <template:header />  
+       <template:sidebar />
+     </c:otherwise>
+  </c:choose>
+
   <!-- Content Wrapper. Contains page content -->
   <jsp:doBody></jsp:doBody>
  
-  <template:footer/>
+  <c:if test="${not isMobile}">
+     <template:footer/>
+  </c:if>
   <!-- /.control-sidebar -->
   <!-- Add the sidebar's background. This div must be placed
        immediately after the control sidebar -->

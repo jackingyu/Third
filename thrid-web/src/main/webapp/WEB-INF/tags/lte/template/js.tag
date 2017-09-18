@@ -53,6 +53,9 @@
 <script src="${lteResourcePath}/js/jquery.validate.customize.js"></script>
 <script src="${lteResourcePath}/js/acc.common.js"></script>
     <script type="text/javascript">
+    function home(){
+    	    window.location = ACC.config.contextPath+"/home";
+    }
     function getQuery(formId){  
         var fid = "#" + formId;  
         var str = $(fid).serialize();  

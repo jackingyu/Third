@@ -13,7 +13,7 @@
 		<jsp:invoke fragment="pageScripts"/>
 	</jsp:attribute>
 <jsp:body>
-   <div class="content-wrapper">
+   <div class="<c:if test="${isMobile}">m</c:if>content-wrapper">
     <jsp:doBody></jsp:doBody>
    </div>
 </jsp:body>
