@@ -25,6 +25,7 @@ public class OrderEntryData extends AbstractData {
 	private Date modificationTime;
 	private String comment;
 	private UserData createBy;
+	private UserData salesperson;
 	private String orderCode;
 	private String storeName;
 	private String customerName;
@@ -292,6 +293,16 @@ public class OrderEntryData extends AbstractData {
 	public void setStatus(String status)
 	{
 		this.status = status;
+	}
+
+	public UserData getSalesperson()
+	{
+		return salesperson;
+	}
+
+	public void setSalesperson(UserData salesperson)
+	{
+		this.salesperson = salesperson;
 	}
 
 }

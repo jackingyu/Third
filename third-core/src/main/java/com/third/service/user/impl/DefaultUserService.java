@@ -105,5 +105,11 @@ public class DefaultUserService implements UserService {
 	{
 		return userDao.findSalesPerson(storeCode);
 	}
+	
+	public boolean checkUserGroup(final String userGroup)
+	{
+		UserModel user = getCurrentUser();
+		return user.getUserGroup().getGroupId().equals(userGroup);
+	}
 
 }

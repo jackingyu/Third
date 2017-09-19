@@ -35,8 +35,10 @@ import com.third.facade.data.OrderData;
 import com.third.facade.data.PaymentData;
 import com.third.facade.data.StoreData;
 import com.third.facade.data.TextMapper;
+import com.third.facade.data.UserData;
 import com.third.facade.order.OrderFacade;
 import com.third.facade.populator.option.OrderOption;
+import com.third.facade.user.UserFacade;
 import com.third.facade.utils.TextMapperUtils;
 import com.third.model.CoreConstants;
 
@@ -48,6 +50,9 @@ public class OrderPageController extends AbstractPageController {
 
 	@Resource(name = "orderFacade")
 	private OrderFacade orderFacade;
+	
+	@Resource(name = "userFacade")
+	private UserFacade userFacade;
 
 	@RequestMapping(value = "/order/orderlistpage", method = RequestMethod.GET)
 	public String orderListPage(Model model)
@@ -85,23 +90,7 @@ public class OrderPageController extends AbstractPageController {
 		return r;
 	}
 
-	@RequestMapping(value = "/order/get/"
-			+ ORDER_CODE_PATH_VARIABLE_PATTERN, method = RequestMethod.GET)
-	public String orderDetail(@PathVariable("orderCode") String orderCode,
-			final Model model, final HttpServletRequest request,
-			final HttpServletResponse response)
-	{
-		LOG.info("orderCode:" + orderCode);
-		OrderData orderData = orderFacade.getOrderForOptions(orderCode,
-				Arrays.asList(OrderOption.BASIC, OrderOption.PAYMENTS));
-		model.addAttribute("paymentTypes", TextMapperUtils.getPaymentTypes());
-
-		model.addAttribute("paymentMethods",
-				TextMapperUtils.getPaymentMethods());
-		model.addAttribute("order", orderData);
-		return ControllerConstants.LTE.ORDERDETAILSPAGE;
-	}
-
+	
 	@RequestMapping(value = "/order/createorderpage", method = RequestMethod.GET)
 	public String getCreateOrderPage(final Model model,
 			final HttpServletRequest request,
@@ -120,10 +109,23 @@ public class OrderPageController extends AbstractPageController {
 			final HttpServletRequest request,
 			final HttpServletResponse response)
 	{
-		// TODO:如果角色只有销售员,则只允许看到自己的订单
+		if(isFactory())
+		{
+			return ControllerConstants.LTE.NOAUTHPAGE;
+		}
+		
 		OrderData orderData = orderFacade.getOrderForOptions(orderCode,
 				Arrays.asList(OrderOption.BASIC, OrderOption.PAYMENTS,
 						OrderOption.ENTRIES));
+		
+		if(isSales())
+		{
+			UserData user = userFacade.getCurrentUser();
+			
+			if(!orderData.getSalesPerson().equals(user))
+				return ControllerConstants.LTE.NOAUTHPAGE;
+		}
+		
 		model.addAttribute("paymentTypes", TextMapperUtils.getPaymentTypes());
 
 		model.addAttribute("paymentMethods",

@@ -12,6 +12,7 @@ public class MenuDataPopulator implements Populator<MenuModel, MenuData> {
 		target.setMenuname(source.getMenuName());
 		target.setUrl(source.getUrl());
 		target.setIcon(source.getIcon());
+		target.setMobile(source.getMobile());
 	}
 
 }

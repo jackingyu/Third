@@ -21,6 +21,7 @@ ACC.modifyorder = {
       },
       success: function (data) {
       	ACC.message.alert("审核成功!");
+      	window.location.reload();
       }
     });
   },
@@ -80,10 +81,13 @@ ACC.modifyorder = {
     var orderCode = $('#orderCode').val();
     $('#paymentGrid').DataTable({
       'createdRow': function (row, data, index) {
-        $('td', row).eq(4).html('<a class="removePaymentBtn" onclick="ACC.modifyorder.removePayment(\'' + data[4] + '\')" paymentpk="' +
+    	  if($('#orderStatus').val( )== '0') 
+    	  $('td', row).eq(4).html('<a class="removePaymentBtn" onclick="ACC.modifyorder.removePayment(\'' + data[4] + '\')" paymentpk="' +
           data[4] +
         '"> <i class="fa fa-remove"></i>删除</a>'
         );
+    	  else
+    		  $('td', row).eq(4).html('');
       },
       'ajax': {
         'url': ACC.config.contextPath + '/order/payments/' + orderCode,

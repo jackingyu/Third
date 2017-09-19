@@ -87,5 +87,7 @@ public interface UserService {
 			Integer startIndex, Integer pageSize);
 
 	List<UserModel> getSalesPerson(final String storeCode);
+	
+	boolean checkUserGroup(final String userGroup);
 
 }

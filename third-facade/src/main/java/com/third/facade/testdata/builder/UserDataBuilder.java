@@ -90,7 +90,7 @@ public class UserDataBuilder implements DataBuilder {
 		menuService.createMenu(lv2_sales);
 
 		MenuModel lv3_customer = this.buildMenu("21", 3, "顾客管理",
-				"/customer/customerlistpage", "fa-users");
+				"/customer/customerlistpage", "fa-users",true);
 		lv3_customer.setParentMenu(lv2_sales);
 		menuService.createMenu(lv3_userlist);
 
@@ -100,7 +100,7 @@ public class UserDataBuilder implements DataBuilder {
 		menuService.createMenu(lv3_orders);
 
 		MenuModel lv3_reservation = this.buildMenu("23", 3, "创建订单",
-				"/order/createorderpage", "fa-edit");
+				"/order/createorderpage", "fa-edit",true);
 		lv3_reservation.setParentMenu(lv2_sales);
 		menuService.createMenu(lv3_reservation);
 
@@ -110,17 +110,17 @@ public class UserDataBuilder implements DataBuilder {
 		menuService.createMenu(lv3_orderprocess);
 
 		MenuModel lv3_exhibition = this.buildMenu("25", 3, "展会管理",
-				"/salesquotation/salesquotationlistpage", "fa-institution");
+				"/salesquotation/salesquotationlistpage", "fa-institution",true);
 		lv3_exhibition.setParentMenu(lv2_sales);
 		menuService.createMenu(lv3_exhibition);
 
 		MenuModel lv3_reservationlist = this.buildMenu("26", 3, "预约管理",
-				"/reservation/reservationlistpage", "fa-search");
+				"/reservation/reservationlistpage", "fa-search",true);
 		lv3_reservationlist.setParentMenu(lv2_sales);
 		menuService.createMenu(lv3_reservationlist);
 
 		MenuModel lv3_orderentrylist = this.buildMenu("27", 3, "量身单列表",
-				"/orderentry/listpage", "fa-book");
+				"/orderentry/listpage", "fa-book",true);
 		lv3_orderentrylist.setParentMenu(lv2_sales);
 		menuService.createMenu(lv3_orderentrylist);
 
@@ -216,6 +216,21 @@ public class UserDataBuilder implements DataBuilder {
 		menu.setMenuName(menuName);
 		menu.setUrl(url);
 		menu.setIcon(icon);
+		menu.setMobile(false);
+		menuService.createMenu(menu);
+		return menu;
+	}
+	
+	protected MenuModel buildMenu(final String menuId, final Integer level,
+			final String menuName, final String url, final String icon,final boolean mobile)
+	{
+		MenuModel menu = new MenuModel();
+		menu.setMenuId(menuId);
+		menu.setLevel(level);
+		menu.setMenuName(menuName);
+		menu.setUrl(url);
+		menu.setIcon(icon);
+		menu.setMobile(mobile);
 		menuService.createMenu(menu);
 		return menu;
 	}

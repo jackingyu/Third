@@ -32,8 +32,10 @@ import com.third.facade.data.ProductData;
 import com.third.facade.data.SizeAttributeData;
 import com.third.facade.data.SizeAttributeGroupData;
 import com.third.facade.data.TextMapper;
+import com.third.facade.data.UserData;
 import com.third.facade.order.OrderFacade;
 import com.third.facade.populator.option.OrderOption;
+import com.third.facade.user.UserFacade;
 import com.third.facade.utils.TextMapperUtils;
 import com.third.model.CoreConstants;
 
@@ -46,6 +48,9 @@ public class SizeOrderPageController extends AbstractPageController {
 
 	@Resource(name = "orderFacade")
 	private OrderFacade orderFacade;
+	
+	@Resource(name = "userFacade")
+	private UserFacade userFacade;
 
 	@RequestMapping(value = "/orderentry/createorderentrypage/"
 			+ ORDER_CODE_PATH_VARIABLE_PATTERN, method = RequestMethod.GET)
@@ -86,6 +91,7 @@ public class SizeOrderPageController extends AbstractPageController {
 		model.addAttribute("searchCategory", TextMapper.ItemCategory2Category
 				.get(orderEntry.getItemCategory()));
 
+		model.addAttribute("enableSaveBtn", true);
 		fillProductGroupsInModel(model);
 		fillStore2View(model, order.getStore().getCode());
     
@@ -98,12 +104,20 @@ public class SizeOrderPageController extends AbstractPageController {
 			@PathVariable(value = "orderEntryPK") final String orderEntryPK,
 			@ModelAttribute("message") final String message, Model model)
 	{
+		
 		Map<String, SizeAttributeGroupData> sizeDatas = null;
 
 		// set up item category
 		OrderEntryData orderEntry = orderFacade.getOrderEntry(orderEntryPK);
 
-
+		if(isSales())
+		{
+			UserData user = userFacade.getCurrentUser();
+			
+			if(!orderEntry.getSalesperson().equals(user))
+				return ControllerConstants.LTE.NOAUTHPAGE;
+		}
+	
 		// set size details data
 		OrderEntryData entry = orderFacade.getSizeDatas(orderEntry.getPk());
 		orderEntry.setSizeDatas(entry.getSizeDatas());
@@ -116,8 +130,7 @@ public class SizeOrderPageController extends AbstractPageController {
 		model.addAttribute("orderEntry", orderEntry);
 		model.addAttribute("message1", "修改"+orderEntry.getItemCategoryText());
 		model.addAttribute("statusText","量身单状态:" + orderEntry.getStatusText());
-		model.addAttribute("editable",
-				orderEntry.getStatus().equals(CoreConstants.OrderStatus.NEW));
+		model.addAttribute("enableSaveBtn",isEditable(orderEntry.getStatus()));
 
 		if (StringUtils.isNotEmpty(message))
 			model.addAttribute("message", message);
@@ -152,6 +165,7 @@ public class SizeOrderPageController extends AbstractPageController {
 	{
 		// TODO:校验量身单状态,判断是否允许修改,如果是新建的,则只允许销售员修改
 		// 如果是财务审核通过,只允许裁床修改,需要考虑是否允许admin修改
+		//--通过在页面上隐藏按钮已经实现上述的点,允许admin修改
 		OrderEntryData orderEntryData = new OrderEntryData();
 		orderEntryData.setOrderCode(orderCode);
 		orderEntryData.setPk(entryPK);
@@ -199,6 +213,30 @@ public class SizeOrderPageController extends AbstractPageController {
 			final HttpServletRequest request)
 	{
 		return orderFacade.uploadMediaForOrderEntry(entryPK, file);
+	}
+	
+	protected boolean isEditable(final String statusString)
+	{
+		int status = Integer.valueOf(statusString);
+		
+		if(isAdmin())
+		   return true;
+		if(isSales())
+		  if(CoreConstants.OrderStatus.NEW.equals(status))
+		    return true;
+		  else
+			 return false;
+		
+		if(isFinicial())
+		  return false;
+		
+		if(isFactory())
+			if(CoreConstants.OrderStatus.FINICIAL_APPROVE.equals(status))
+				return true;
+			else
+				return false;
+		
+		return false;
 	}
 
 }

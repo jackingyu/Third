@@ -13,6 +13,18 @@ public class MenuData {
 	private String url;
 	private String menuname;
 	private boolean active = false;
+	private boolean mobile;
+	
+	public boolean isMobile()
+	{
+		return mobile;
+	}
+
+	public void setMobile(boolean mobile)
+	{
+		this.mobile = mobile;
+	}
+
 	private List<MenuData> menus = new ArrayList<MenuData>();
 
 	public void setMenuid(String menuid)

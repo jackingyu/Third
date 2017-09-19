@@ -74,4 +74,8 @@ public class UserData extends AbstractData {
 		this.stores = stores;
 	}
 
+	public boolean equals(UserData user)
+	{
+		return this.userId.equals(user.getUserId());
+	}
 }

@@ -71,8 +71,14 @@ public interface UserFacade {
 	List<UserData> getSalesPerson(final String storeCode);
 
 	boolean isAdmin();
-
+	
+	boolean isSalesperson();
+	
+	boolean isFactory();
+	
 	void loginSuccess(final String userId);
 
 	void logout();
+
+	boolean isFinicial();
 }

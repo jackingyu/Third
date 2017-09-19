@@ -4,7 +4,8 @@
 <%@ taglib prefix="template" tagdir="/WEB-INF/tags/lte/template"%>
 <%@ taglib prefix="common" tagdir="/WEB-INF/tags/lte/common"%>
 <%@ taglib prefix="order" tagdir="/WEB-INF/tags/lte/sales"%>
-<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags"%> 
+<%@ taglib prefix="sec"
+	uri="http://www.springframework.org/security/tags"%>
 <%@ taglib prefix="product" tagdir="/WEB-INF/tags/lte/product"%>
 
 <template:page>
@@ -27,6 +28,7 @@
       </div>
       <div class="col-lg-1 col-md-1 pull-right">
       </div>
+     <c:if test="${enableSaveBtn}">
       <sec:authorize access="hasAnyRole('ROLE_SALES','ROLE_ADMIN','ROLE_FACTORY')">
       <div class="col-lg-1 col-md-1 pull-right">
          <a onclick="ACC.sizeorder.saveSizeOrder()" class="btn btn-app">
@@ -34,13 +36,17 @@
        </a>
       </div>
       </sec:authorize>
+      </c:if>
+      <c:if test="${orderEntry.status == 20}">
       <sec:authorize access="hasAnyRole('ROLE_ADMIN','ROLE_FACTORY')">
       <div class="col-lg-1 col-md-1 pull-right">
          <a onclick="ACC.sizeorder.factoryApprove()" class="btn btn-app">
-          <i class="fa fa-save"></i>  <spring:message code="lte.factoryapprove"></spring:message>
-       </a>
+          <i class="fa fa-save"></i> 
+          <spring:message code="lte.factoryapprove"></spring:message>
+         </a>
       </div>
       </sec:authorize>
+      </c:if>
    <!-- size order image function do not delete this!!!!     
       <c:if test="${not empty orderEntry.pk}">
       <div class="col-lg-1 col-md-1">
@@ -65,13 +71,14 @@
     <section class="content">
        <order:sizeOrder />
     </section>
-     <form id="uploadSizeImageForm" method="post" enctype="multipart/form-data">
+     <form id="uploadSizeImageForm" method="post"
+			enctype="multipart/form-data">
        <common:fileupload name="fileUpload" id="sizeImageUpload"
 				action="ACC.sizeorder.uploadImage()" />
        <input type="hidden" name="entryPK" value="${orderEntry.pk}">
     </form>
     <common:message></common:message>
     <common:image></common:image>
-    <product:searchProduct/>
+    <product:searchProduct />
   </jsp:body>
 </template:page>

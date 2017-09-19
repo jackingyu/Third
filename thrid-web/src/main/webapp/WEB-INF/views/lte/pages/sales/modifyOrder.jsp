@@ -35,18 +35,22 @@
       </c:if>
       </sec:authorize>
       <sec:authorize access="hasAnyRole('ROLE_SALES','ROLE_ADMIN')">
-      <div class="col-lg-1  col-md-1 pull-right">
+       <c:if test="${orderData.status == 0 }"><!-- only new order -->
+       <div class="col-lg-1  col-md-1 pull-right">
          <a onclick="ACC.modifyorder.storeApprove()" class="btn btn-app">
          <i class="fa fa-thumbs-o-up"></i>  <spring:message code="lte.storeapprove"></spring:message>
        </a>
       </div>
+       </c:if>
       </sec:authorize>
       <sec:authorize access="hasAnyRole('ROLE_FINICIAL','ROLE_ADMIN')">
+       <c:if test="${orderData.status == 10 }"><!-- only store approve order-->
       <div class="col-lg-1  col-md-1 pull-right">
          <a onclick="ACC.modifyorder.fiApprove()" class="btn btn-app">
          <i class="fa fa-thumbs-o-up"></i>  <spring:message code="lte.fiapprove"></spring:message>
        </a>
       </div>
+      </c:if>
       </sec:authorize>
       </div>
     </section>

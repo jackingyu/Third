@@ -398,4 +398,9 @@ public abstract class AbstractPageController {
 	{
          return	TextMapperUtils.getPaymentMethods();
 	}
+	
+	protected boolean isAdmin() {return userFacade.isAdmin();}
+	protected boolean isFactory() {return userFacade.isFactory();}
+	protected boolean isFinicial() {return userFacade.isFinicial();}
+	protected boolean isSales() {return userFacade.isSalesperson();}
 }

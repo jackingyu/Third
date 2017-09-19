@@ -26,6 +26,7 @@ import com.third.model.CoreConstants;
 import com.third.model.MenuModel;
 import com.third.model.RoleModel;
 import com.third.model.StoreModel;
+import com.third.model.UserGroupConstants;
 import com.third.model.UserGroupModel;
 import com.third.model.UserModel;
 import com.third.service.store.StoreService;
@@ -359,13 +360,6 @@ public class DefaultUserFacade implements UserFacade {
 	}
 
 	@Override
-	public boolean isAdmin()
-	{
-		userService.getCurrentUser();
-		return false;
-	}
-
-	@Override
 	public List<UserData> getSalesPerson(String storeCode)
 	{
 		String code = storeCode;
@@ -379,6 +373,30 @@ public class DefaultUserFacade implements UserFacade {
 		});
 
 		return userDatas;
+	}
+
+	@Override
+	public boolean isSalesperson()
+	{
+		return userService.checkUserGroup(UserGroupConstants.SALES);
+	}
+
+	@Override
+	public boolean isFactory()
+	{
+		return userService.checkUserGroup(UserGroupConstants.FACTORY);
+	}
+	
+	@Override
+	public boolean isFinicial()
+	{
+		return userService.checkUserGroup(UserGroupConstants.FINICIAL);
+	}
+	
+	@Override
+	public boolean isAdmin()
+	{
+		return userService.checkUserGroup(UserGroupConstants.ADMIN);
 	}
 
 }

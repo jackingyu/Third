@@ -15,6 +15,7 @@
 		<property column="icon" lazy="false" name="icon" type="java.lang.String" />
 		<property column="url" lazy="false" name="url" type="java.lang.String" />
 		<property column="level" lazy="false" name="level" type="java.lang.Integer" />
+		<property column="mobile" lazy="false" name="mobile" type="java.lang.Boolean" />
 		<many-to-one name="parentMenu" class="com.third.model.MenuModel" lazy="false"
 			column="parentmenu">
 		</many-to-one>
