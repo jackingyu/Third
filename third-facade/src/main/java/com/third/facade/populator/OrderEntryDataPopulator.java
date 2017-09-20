@@ -24,7 +24,6 @@ public class OrderEntryDataPopulator
 		target.setCode(source.getCode());
 		target.setExternalId(source.getExternalId());
 		target.setDeliveryDate(source.getDeliveryDate());
-		target.setDesigner(source.getDesigner());
 		target.setEntryNo(source.getEntryNo());
 		target.setItemCategory(source.getItemCategory());
 		target.setItemCategoryText(
@@ -39,7 +38,6 @@ public class OrderEntryDataPopulator
 		target.setTryDate(source.getTryDate());
 		target.setComment(source.getComment());
 		target.setOrderCode(source.getOrder().getCode());
-		target.setStoreName(source.getStore().getName());
 		target.setCustomerName(StringUtils.isBlank(source.getCustomerName())
 				? source.getOrder().getCustomerName()
 				: source.getCustomerName());
@@ -51,6 +49,11 @@ public class OrderEntryDataPopulator
 		UserData  salespersonData = new UserData();
 		userDataPopulator.populate(salesperson, salespersonData);
 		target.setSalesperson(salespersonData);
+		
+		UserModel designer = source.getDesigner();
+		UserData  designerData = new UserData();
+		userDataPopulator.populate(designer, designerData);
+		target.setDesigner(designerData);
 		
 		if (target.getStatus() != null)
 			target.setStatusText(

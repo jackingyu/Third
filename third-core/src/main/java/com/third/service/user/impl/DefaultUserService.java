@@ -9,6 +9,7 @@ import com.third.dao.user.UserDao;
 import com.third.dao.user.UserGroupDao;
 import com.third.dao.util.PaginationSupport;
 import com.third.model.CoreConstants;
+import com.third.model.UserGroupConstants;
 import com.third.model.UserGroupModel;
 import com.third.model.UserModel;
 import com.third.service.user.SessionService;
@@ -103,7 +104,13 @@ public class DefaultUserService implements UserService {
 	@Override
 	public List<UserModel> getSalesPerson(String storeCode)
 	{
-		return userDao.findSalesPerson(storeCode);
+		return userDao.findUserByUserGroup(storeCode, UserGroupConstants.SALES);
+	}
+	
+	@Override
+	public List<UserModel> getDesignerForStore(String storeCode)
+	{
+		return userDao.findUserByUserGroup(storeCode, UserGroupConstants.DESIGNER);
 	}
 	
 	public boolean checkUserGroup(final String userGroup)

@@ -56,6 +56,7 @@ ACC.sizeorder = {
 	      },
 	      success: function (data) {
 	      	ACC.message.alert("确认成功!");
+	      	window.location.reload();
 	      }
 	    });
     },

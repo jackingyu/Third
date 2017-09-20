@@ -50,11 +50,11 @@
 		<property name="quantity" type="java.lang.Integer">
 			<column name="quantity" />
 		</property>
-		<property name="designer" type="java.lang.String">
-			<column name="designer">
-				<comment>设计师</comment>
-			</column>
-		</property>
+		<many-to-one name="designer" lazy="false"
+			class="com.third.model.UserModel" cascade="refresh"
+			fetch="select">
+			<column name="designer" />
+		</many-to-one>
 		<property name="customerName" type="java.lang.String">
 			<column name="customername">
 				<comment>顾客姓名</comment>

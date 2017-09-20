@@ -143,7 +143,7 @@ public class LotsOrderDataBuilder {
 		entry.setStyle("测试规格");
 		entry.setProductTitle("成品西装");
 		entry.setSizeDate(new Date());
-		entry.setDesigner("设计师");
+		entry.setDesigner(userService.getDesignerForStore(entry.getStore().getId()).get(0));
 		entry.setTryDate(new Date());
 		entry.setComment("我是一个备注备注备注");
 		entry.setStore(store);

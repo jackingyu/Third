@@ -1,5 +1,6 @@
 package com.third.controller.pages.lte;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
@@ -51,6 +52,7 @@ public class SizeOrderPageController extends AbstractPageController {
 	
 	@Resource(name = "userFacade")
 	private UserFacade userFacade;
+	
 
 	@RequestMapping(value = "/orderentry/createorderentrypage/"
 			+ ORDER_CODE_PATH_VARIABLE_PATTERN, method = RequestMethod.GET)
@@ -94,7 +96,8 @@ public class SizeOrderPageController extends AbstractPageController {
 		model.addAttribute("enableSaveBtn", true);
 		fillProductGroupsInModel(model);
 		fillStore2View(model, order.getStore().getCode());
-    
+		fillDeisgnerInModel(model,order.getStore().getCode(),StringUtils.EMPTY);
+		
 		return ControllerConstants.LTE.ORDERENTRYDETAILPAGE;
 	}
 
@@ -139,8 +142,8 @@ public class SizeOrderPageController extends AbstractPageController {
 				.get(orderEntry.getItemCategory()));
 
 		fillProductGroupsInModel(model);
-		fillStore2View(model, orderEntry.getStoreName());
-
+		fillStore2View(model, orderEntry.getStore().getCode());
+		fillDeisgnerInModel(model,orderEntry.getStore().getCode(),orderEntry.getDesigner().getUserId());
 		return ControllerConstants.LTE.ORDERENTRYDETAILPAGE;
 	}
 
@@ -173,7 +176,9 @@ public class SizeOrderPageController extends AbstractPageController {
 		orderEntryData.setStyle(style);
 		orderEntryData.setProductTitle(productTitle);
 		orderEntryData.setQuantity(1);
-		orderEntryData.setDesigner(designer);
+		UserData user = new UserData();
+		user.setUserId(designer);
+		orderEntryData.setDesigner(user);
 		orderEntryData.setDeliveryDate(deliveryDate);
 		orderEntryData.setSizeDate(sizeDate);
 		orderEntryData.setTryDate(tryDate);
@@ -237,6 +242,28 @@ public class SizeOrderPageController extends AbstractPageController {
 				return false;
 		
 		return false;
+	}
+	
+	protected void fillDeisgnerInModel(final Model model,final String storeCode,final String userId)
+	{
+		List<UserData> userDatas = userFacade.getDesignerForStore(storeCode);
+		List<ComboboxData> comboboxDatas = new ArrayList<ComboboxData>();
+		for(int i = 0 ; i <userDatas.size();i++)
+		{
+			ComboboxData comboboxData = new ComboboxData();
+			comboboxData.setCode(userDatas.get(i).getUserId());
+			comboboxData.setText(userDatas.get(i).getName());
+//           below code is for multiple select			
+//			if(StringUtils.isEmpty(userId)&&i==0)
+//				comboboxData.setSelected(true);
+//			
+//		    if(StringUtils.isNotEmpty(userId)&&comboboxData.getCode().equals(userId))
+//		    	   comboboxData.setSelected(true);
+			
+			comboboxDatas.add(comboboxData);
+		}
+		
+		model.addAttribute("designers",comboboxDatas);
 	}
 
 }

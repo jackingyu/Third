@@ -16,7 +16,7 @@ public class OrderEntryData extends AbstractData {
 	private ProductData product;
 	private String productTitle;
 	private Integer quantity;
-	private String designer;
+	private UserData designer;
 	private Date deliveryDate;
 	private Date sizeDate;
 	private Date tryDate;
@@ -27,7 +27,6 @@ public class OrderEntryData extends AbstractData {
 	private UserData createBy;
 	private UserData salesperson;
 	private String orderCode;
-	private String storeName;
 	private String customerName;
 	private Map<String, SizeAttributeGroupData> sizeDatas;
 	private String sizeImageUrl;
@@ -93,16 +92,6 @@ public class OrderEntryData extends AbstractData {
 	public void setQuantity(Integer quantity)
 	{
 		this.quantity = quantity;
-	}
-
-	public String getDesigner()
-	{
-		return designer;
-	}
-
-	public void setDesigner(String designer)
-	{
-		this.designer = designer;
 	}
 
 	public Date getDeliveryDate()
@@ -185,15 +174,6 @@ public class OrderEntryData extends AbstractData {
 		this.orderCode = orderCode;
 	}
 
-	public String getStoreName()
-	{
-		return storeName;
-	}
-
-	public void setStoreName(String storeName)
-	{
-		this.storeName = storeName;
-	}
 
 	public Date getTryDate()
 	{
@@ -305,4 +285,13 @@ public class OrderEntryData extends AbstractData {
 		this.salesperson = salesperson;
 	}
 
+	public void setDesigner(UserData designer)
+	{
+		this.designer = designer;
+	}
+
+	public UserData getDesigner()
+	{
+		return designer;
+	}
 }

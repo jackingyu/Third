@@ -23,6 +23,7 @@ import com.third.model.OrderProcessRecordModel;
 import com.third.model.PaymentModel;
 import com.third.model.SourceModel;
 import com.third.model.StoreModel;
+import com.third.model.UserModel;
 import com.third.service.customer.CustomerService;
 import com.third.service.customer.SourceService;
 import com.third.service.order.OrderProcessService;
@@ -118,8 +119,8 @@ public class OrderDataBuilder implements DataBuilder {
 		CustomerModel customer = buildCustomer("13800138000" + orderCode,
 				"name" + orderCode);
 		orderModel.setCustomer(customer);
-		orderModel.setSalesperson(
-				userService.getUserById("test" + RandomUtils.nextInt(0, 20)));
+		UserModel salesperson = userService.getUserById("test" + RandomUtils.nextInt(0, 20));
+		orderModel.setSalesperson(salesperson);
 		StoreModel store = storeService.getStoreForCode("s-1");
 		orderModel.setStore(store);
 
@@ -158,6 +159,8 @@ public class OrderDataBuilder implements DataBuilder {
 
 		List<OrderEntryModel> entries = new ArrayList<OrderEntryModel>();
 
+		List<UserModel> designers = userService.getDesignerForStore(orderModel.getStore().getId());
+		UserModel designer = designers.get(0);
 		for (int j = 0; j < 5; j++)
 		{
 			OrderEntryModel entry = new OrderEntryModel();
@@ -171,15 +174,14 @@ public class OrderDataBuilder implements DataBuilder {
 			entry.setStyle("测试规格");
 			entry.setProductTitle("成品西装");
 			entry.setSizeDate(new Date());
-			entry.setDesigner("设计师");
-			entry.setTryDate(new Date());
+			entry.setDesigner(designer);
+			entry.setTryDate(com.third.facade.utils.DateUtils.getToday());
 			entry.setComment("我是一个备注备注备注");
 			entry.setExternalId(Integer.toString(RandomUtils.nextInt()));
 			entry.setStore(store);
 			entry.setStatus(0);
 			entry.setProduct(productService
 					.getProductForCode("p-" + RandomUtils.nextInt(0, 50)));
-
 			entries.add(entry);
 		}
 

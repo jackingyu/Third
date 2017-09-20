@@ -88,6 +88,8 @@ public interface UserService {
 
 	List<UserModel> getSalesPerson(final String storeCode);
 	
+	List<UserModel> getDesignerForStore(final String storeCode);
+	
 	boolean checkUserGroup(final String userGroup);
 
 }

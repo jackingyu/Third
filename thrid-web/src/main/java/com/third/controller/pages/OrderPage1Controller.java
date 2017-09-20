@@ -195,7 +195,7 @@ public class OrderPage1Controller extends AbstractPageController {
 		orderEntryData.setStyle(style);
 		orderEntryData.setProductTitle(productTitle);
 		orderEntryData.setQuantity(quantity);
-		orderEntryData.setDesigner(designer);
+	//	orderEntryData.setDesigner(designer);
 		orderEntryData.setDeliveryDate(deliveryDate);
 		orderEntryData.setSizeDate(sizeDate);
 		orderEntryData.setTryDate(tryDate);

@@ -81,4 +81,6 @@ public interface UserFacade {
 	void logout();
 
 	boolean isFinicial();
+	
+	List<UserData> getDesignerForStore(final String storeCode);
 }

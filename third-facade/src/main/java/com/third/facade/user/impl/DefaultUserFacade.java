@@ -362,8 +362,7 @@ public class DefaultUserFacade implements UserFacade {
 	@Override
 	public List<UserData> getSalesPerson(String storeCode)
 	{
-		String code = storeCode;
-		List<UserModel> userModels = userService.getSalesPerson(code);
+		List<UserModel> userModels = userService.getSalesPerson(storeCode);
 		List<UserData> userDatas = new ArrayList<UserData>();
 
 		userModels.forEach(u -> {
@@ -397,6 +396,21 @@ public class DefaultUserFacade implements UserFacade {
 	public boolean isAdmin()
 	{
 		return userService.checkUserGroup(UserGroupConstants.ADMIN);
+	}
+
+	@Override
+	public List<UserData> getDesignerForStore(String storeCode)
+	{
+		List<UserModel> userModels = userService.getDesignerForStore(storeCode);
+		List<UserData> userDatas = new ArrayList<UserData>();
+
+		userModels.forEach(u -> {
+			UserData ud = new UserData();
+			userDataPopulator.populate(u, ud);
+			userDatas.add(ud);
+		});
+
+		return userDatas;
 	}
 
 }

@@ -28,7 +28,7 @@
       <sec:authorize access="hasAnyRole('ROLE_SALES','ROLE_ADMIN')">
       <c:if test="${editable}">
       <div class="col-lg-1  col-md-1 pull-right">
-         <a onclick="ACC.modifyorder.save()" class="btn btn-app">
+         <a id="saveOrderLink" onclick="ACC.modifyorder.save()" class="btn btn-app">
          <i class="fa fa-save"></i>  <spring:message code="lte.save"></spring:message>
        </a>
       </div>

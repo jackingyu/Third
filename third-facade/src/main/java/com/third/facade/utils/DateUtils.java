@@ -7,7 +7,7 @@ import java.util.Date;
 
 public class DateUtils {
 	
-	public Date getToday(){
+	public static Date getToday(){
 	    return Date.from(Instant.now());
 	}
 

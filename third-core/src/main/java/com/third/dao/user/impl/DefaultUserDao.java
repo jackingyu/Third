@@ -16,7 +16,7 @@ import com.third.model.UserModel;
 public class DefaultUserDao extends GenericDAO<UserModel, String>
 		implements UserDao {
 
-	private final static String FIND_BY_ID_SQL = "from com.third.model.UserModel u where u.userId=?";
+	private final static String FIND_BY_ID_SQL = " from com.third.model.UserModel u where u.userId=?";
 
 	public UserModel findUserById(final String userId)
 	{
@@ -43,10 +43,11 @@ public class DefaultUserDao extends GenericDAO<UserModel, String>
 		return ps;
 	}
 
-	public List<UserModel> findSalesPerson(final String storeCode)
+	@Override
+	public List<UserModel> findUserByUserGroup(final String storeCode,final String userGroupId)
 	{
 		final StringBuilder sb = new StringBuilder(
-				"from UserModel u where u.userGroup.groupId ='sales' ");
+				"from UserModel u where u.userGroup.groupId ='").append(userGroupId).append("' ");
 
 		if (StringUtils.isNotEmpty(storeCode))
 			sb.append("and u.store.id='").append(storeCode).append("'");

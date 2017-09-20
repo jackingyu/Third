@@ -24,5 +24,5 @@ public interface UserDao extends IGenericDAO<UserModel, String> {
 	PaginationSupport findUser(final String userId, final String userName,
 			final Integer startIndex, final Integer pageSize);
 
-	List<UserModel> findSalesPerson(final String storeCode);
+	List<UserModel> findUserByUserGroup(String storeCode, String userGroupId);
 }

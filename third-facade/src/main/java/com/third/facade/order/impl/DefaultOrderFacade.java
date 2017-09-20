@@ -47,6 +47,7 @@ import com.third.model.PaymentModel;
 import com.third.model.ProductModel;
 import com.third.model.SizeAttributeModel;
 import com.third.model.StoreModel;
+import com.third.model.UserModel;
 import com.third.service.customer.CustomerService;
 import com.third.service.customer.SourceService;
 import com.third.service.media.MediaService;
@@ -236,7 +237,8 @@ public class DefaultOrderFacade implements OrderFacade {
 		OrderEntryModel orderEntry = new OrderEntryModel();
 		orderEntry.setComment(orderEntryData.getComment());
 		// orderEntry.setDeliveryDate(orderEntryData.getDeliveryDate());
-		orderEntry.setDesigner(orderEntryData.getDesigner());
+		UserModel designer = userService.getUserById(orderEntryData.getDesigner().getUserId());
+		orderEntry.setDesigner(designer);
 		orderEntry.setItemCategory(orderEntryData.getItemCategory());
 		orderEntry.setProductTitle(orderEntryData.getProductTitle());
 		orderEntry.setQuantity(orderEntryData.getQuantity());
@@ -280,7 +282,8 @@ public class DefaultOrderFacade implements OrderFacade {
 				.getOrderEntry(orderEntryData.getPk());
 		orderEntry.setComment(orderEntryData.getComment());
 		// orderEntry.setDeliveryDate(orderEntryData.getDeliveryDate());
-		// orderEntry.setDesigner(orderEntryData.getDesigner());
+		UserModel designer = userService.getUserById(orderEntryData.getDesigner().getUserId());
+		orderEntry.setDesigner(designer);
 		// orderEntry.setItemCategory(orderEntryData.getItemCategory());
 		orderEntry.setProductTitle(orderEntryData.getProductTitle());
 		// orderEntry.setQuantity(orderEntryData.getQuantity());

@@ -7,6 +7,7 @@ import org.apache.commons.lang3.RandomUtils;
 
 import com.third.model.MenuModel;
 import com.third.model.RoleModel;
+import com.third.model.UserGroupConstants;
 import com.third.model.UserGroupModel;
 import com.third.model.UserModel;
 import com.third.service.store.StoreService;
@@ -177,17 +178,24 @@ public class UserDataBuilder implements DataBuilder {
 		RoleModel role_sales = buildRole("sales", "销售员", "销售员", menus);
 		RoleModel role_factory = buildRole("factory", "工厂", "工厂", menus);
 		RoleModel role_finicial = buildRole("finicial", "财务", "财务", menus);
+		RoleModel role_designer = buildRole("designer", "设计", "设计", menus);
+		RoleModel role_manager = buildRole("manager", "店长", "店长", menus);
 
 		UserModel admin = new UserModel();
 		admin.setUserId("test");
 		admin.setName("test user");
 		admin.setPassword("test");
+		admin.setStore(storeService.getStoreForCode("s-1"));
+		admin.setStores(storeService.getAllStores());
+		
 		UserGroupModel userGroup = this.buildUserGroupModel("admin", "管理员",
 				role_admin);
 		List<UserGroupModel> userGroups = Arrays.asList(
-				this.buildUserGroupModel("sales", "销售员", role_sales),
-				this.buildUserGroupModel("factory", "工厂", role_factory),
-				this.buildUserGroupModel("finicial", "财务", role_finicial));
+				this.buildUserGroupModel(UserGroupConstants.SALES, "销售员", role_sales),
+				this.buildUserGroupModel(UserGroupConstants.FACTORY, "工厂", role_factory),
+				this.buildUserGroupModel(UserGroupConstants.FINICIAL, "财务", role_finicial),
+				this.buildUserGroupModel(UserGroupConstants.MANAGER, "店长", role_manager),
+				this.buildUserGroupModel(UserGroupConstants.DESIGNER, "设计", role_designer));
 
 		admin.setUserGroup(userGroup);
 		userService.createUserGroup(userGroup);
@@ -197,14 +205,28 @@ public class UserDataBuilder implements DataBuilder {
 		{
 			UserModel u = new UserModel();
 			u.setUserId("test" + i);
-			final int j = RandomUtils.nextInt(0, 3);
-			u.setName("test user" + i + "-" + j);
+			final int j = RandomUtils.nextInt(0, 4);
+			u.setName("test user-" + i + "-" + j);
 			u.setPassword("test");
 			u.setUserGroup(userGroups.get(j));
 			u.setStore(storeService.getStoreForCode("s-1"));
 			u.setStores(storeService.getAllStores());
 			userService.createUser(u);
 		}
+		
+		for (int i = 51; i < 55; i++)
+		{
+			UserModel u = new UserModel();
+			u.setUserId("test" + i);
+			final int j = 4;
+			u.setName("test user-" + i + "-" + j);
+			u.setPassword("test");
+			u.setUserGroup(userGroups.get(j));
+			u.setStore(storeService.getStoreForCode("s-1"));
+			u.setStores(storeService.getAllStores());
+			userService.createUser(u);
+		}
+		
 	}
 
 	protected MenuModel buildMenu(final String menuId, final Integer level,

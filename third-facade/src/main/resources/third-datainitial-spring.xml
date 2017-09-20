@@ -16,9 +16,9 @@
 	<bean id="testDataGenerator" class="com.third.facade.utils.TestDataGenerator">
 	   <property name="dataBuilders">
 	      <list>
+	         <ref bean="storeDataBuilder"></ref>
 	         <ref bean="userDataBuilder"></ref>
 	        <ref bean="addressDataBuilder"></ref>
-	        <ref bean="storeDataBuilder"></ref>
 	        <ref bean="productDataBuilder"></ref>
 	        <ref bean="orderDataBuilder"></ref>
 	        <ref bean="sizeAttributeDataBuilder"></ref>

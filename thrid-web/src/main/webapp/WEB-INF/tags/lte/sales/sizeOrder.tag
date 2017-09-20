@@ -46,14 +46,13 @@
 				</div>
 				<div class="row">
 					<div class="col-md-4 col-lg-4 col-xs-12 col-sm-12 ">
-						<label><spring:message code="lte.orderentry.designer"></spring:message></label>
-						<input value="" readonly="readonly" class="form-control" placeholder="" type="text"
-							value="${orderEntry.designer}">
+					  <common:selection2 data="${designers}" value="${orderEntry.designer.userId}" validator="required
+					  " label="lte.orderentry.designer"  name="designer"></common:selection2>
 					</div>
 					<div class="col-md-4 col-lg-4 col-xs-12 col-sm-12 ">
 						<label><spring:message code="lte.orderentry.salesperson"></spring:message></label>
-						<input value="" readonly="readonly" class="form-control" placeholder="" type="text"
-							value="${orderEntry.designer}">
+						<input readonly="readonly" class="form-control" placeholder="" type="text"
+							value="${orderEntry.salesperson.name}">
 					</div>
 				</div>
 				<div class="row">

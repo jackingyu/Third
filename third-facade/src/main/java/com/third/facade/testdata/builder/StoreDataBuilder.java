@@ -93,20 +93,6 @@ public class StoreDataBuilder implements DataBuilder {
 			}
 		}
 
-		List<UserModel> userList = userDao.list();
-
-		for (int i = 0; i < userList.size(); i++)
-		{
-			UserModel user = userList.get(i);
-
-			user.setStores(Arrays.asList(store, store1));
-
-			userDao.update(user);
-		}
-
-		UserModel user1 = userDao.findUserById("test");
-		user1.setStores(Arrays.asList(store, store1));
-		userDao.update(user1);
 
 		for (int i = 0; i < 100; i++)
 		{
