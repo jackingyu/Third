@@ -3,6 +3,7 @@ ACC.reservationlist = {
     $('#reservationGrid').dataTable().fnDraw();
   },
   save: function () {
+   if($("#reservationForm").valid())
     $.ajax({
       type: 'POST',
       url: ACC.config.contextPath + '/reservation/save',
@@ -39,13 +40,16 @@ ACC.reservationlist = {
       }
     });
     $('#reservationDate').daterangepicker({
-      locale: {
-        format: 'YYYY/MM/DD'
-      }
+   	 locale:datepicker_locale_zh,
+     startDate:moment().subtract(3, 'days'),
+     endDate: moment().add(7,'days')
     });
+    
     $('#reservationPanel').on('hidden.bs.modal', function (e) {
       $(this).removeData('bs.modal');
     });
+    
+    $("#reservationForm").validate();
   }
 }
 

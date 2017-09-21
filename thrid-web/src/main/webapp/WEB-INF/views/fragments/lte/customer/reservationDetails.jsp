@@ -24,14 +24,14 @@
 	<div class="form-group">
 		<label><spring:message code="lte.reservation.name"></spring:message></label>
 		<div class="input-group col-sm-12 col-xs-12 col-md-12 col-lg-12">
-			<input id="rp_name" name="name" class="form-control" type="text" value="${reservation.name}">
+			<input id="rp_name" name="name" class="form-control required" type="text" value="${reservation.name}">
 		</div>
 	</div>
 
 	<div class="form-group">
 		<label><spring:message code="lte.reservation.cellphone"></spring:message></label>
 		<div class="input-group col-sm-12 col-xs-12 col-md-12 col-lg-12">
-			<input id="rp_cellphone" name="cellphone" class="form-control" type="text" value="${reservation.cellphone}">
+			<input id="rp_cellphone" name="cellphone" class="form-control required cellphone" type="text" value="${reservation.cellphone}">
 		</div>
 	</div>
 
@@ -41,7 +41,7 @@
 
 	<div class="form-group">
 		<label><spring:message code="lte.reservation.reservationdate"></spring:message></label>
-		<common:datepicker id="preservationDate" name="reservationDate" value="${reservation.reservationDate}"></common:datepicker>
+		<common:datepicker validator="required" id="preservationDate" name="reservationDate" value="${reservation.reservationDate}"></common:datepicker>
 	</div>
 
 	<c:if test="${not empty reservation.channelText}">
@@ -70,6 +70,7 @@
 </div>
 <script>
 $('#preservationDate').datetimepicker({
-	format:'yyyy-mm-dd hh:ii:ss'
+	format:'yyyy-mm-dd hh:ii:ss',
+	language:  'zh'
 });	
 </script>
