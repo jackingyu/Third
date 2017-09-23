@@ -34,11 +34,14 @@
          <i class="fa fa-save"></i>  <spring:message code="lte.save1"></spring:message>
        </a>
       </div>
+      
+       <c:if test="${not empty sq.pk}">
       <div class="col-lg-1  col-md-1 pull-right">
          <a onclick="ACC.salesquotation.convert()" class="btn btn-app">
          <i class="fa fa-edit"></i>  <spring:message code="lte.salesquotation.convert"></spring:message>
        </a>
       </div>
+      </c:if>
       </c:when>
       <c:otherwise>
         <div class="col-lg-1  col-md-1 pull-right">

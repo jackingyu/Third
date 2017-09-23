@@ -29,7 +29,7 @@ public class WeixinStoreController extends AbstractWeixinController {
 	}
 
 	@RequestMapping(value = "/getStoreDetail")
-	public String getOrderDetail(
+	public String getStoreDetail(
 			@RequestParam(value = "code", required = true) final String storeCode,
 			final Model model)
 	{

@@ -71,6 +71,6 @@
 <script>
 $('#preservationDate').datetimepicker({
 	format:'yyyy-mm-dd hh:ii:ss',
-	language:  'zh'
+	language:  'zh-CN'
 });	
 </script>
