@@ -1,5 +1,7 @@
 package com.third.core.util;
 
+import java.util.List;
+
 import javax.annotation.Resource;
 
 import com.third.dao.generic.TextMessageDao;
@@ -18,6 +20,18 @@ public class MessageUtils {
 		textMessage.setSent(Boolean.FALSE);
 		textMessage.setType("text");
 		textMessageDao.save(textMessage);
+	}
+	
+	public void sentMessage()
+	{
+		List<TextMessageModel> messages = textMessageDao.find("from TextMessageModel where sent = false");
+		for(int i = 0; i < messages.size();i++)
+		{
+			TextMessageModel message = messages.get(i);
+			message.setSent(true);
+		}
+		
+		textMessageDao.saveOrUpdateList(messages);
 	}
 	
 }

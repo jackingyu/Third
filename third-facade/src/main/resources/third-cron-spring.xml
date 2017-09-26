@@ -13,12 +13,12 @@
            ">
 
 <!-- 要执行任务的任务类。 -->
-    <bean id="testQuartz" class="com.third.facade.cronjob.SMSSender">
+    <bean id="messageQuartz" class="com.third.facade.cronjob.SMSSender">
     </bean>
 
     <!-- 将需要执行的定时任务注入JOB中。 -->
-    <bean id="testJob" class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
-        <property name="targetObject" ref="testQuartz"></property>
+    <bean id="messageJob" class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+        <property name="targetObject" ref="messageQuartz"></property>
         <!-- 任务类中需要执行的方法 -->
         <property name="targetMethod" value="send"></property>
         <!-- 上一次未执行完成的，要等待有再执行。 -->
@@ -26,16 +26,16 @@
     </bean>
 
     <!-- 基本的定时器，会绑定具体的任务。 -->
-    <bean id="testTrigger" class="org.springframework.scheduling.quartz.SimpleTriggerFactoryBean">
-        <property name="jobDetail" ref="testJob"></property>
-        <property name="startDelay" value="3000"></property>
-        <property name="repeatInterval" value="2000"></property>
+    <bean id="messageTrigger" class="org.springframework.scheduling.quartz.SimpleTriggerFactoryBean">
+        <property name="jobDetail" ref="messageJob"></property>
+        <property name="startDelay" value="60000"></property>
+        <property name="repeatInterval" value="60000"></property>
     </bean>
 
     <bean id="schedulerFactoryBean" class="org.springframework.scheduling.quartz.SchedulerFactoryBean">
         <property name="triggers">
             <list>
-                <ref bean="testTrigger"></ref>
+                <ref bean="messageTrigger"></ref>
             </list>
         </property>
     </bean>

@@ -1,9 +1,16 @@
 package com.third.facade.cronjob;
 
+import javax.annotation.Resource;
+
+import com.third.core.util.MessageUtils;
+
 public class SMSSender {
+	
+	@Resource(name="messageUtils")
+	private MessageUtils messageUtils;
 
 	public void send()
 	{
-		System.out.println("冲击波>>>>>>>>");
+		messageUtils.sentMessage();
 	}
 }

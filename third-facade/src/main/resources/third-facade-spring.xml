@@ -126,5 +126,6 @@
       <!--  <import resource="third-cron-spring.xml" />-->
       <import resource="third-datainitial-spring.xml" />
       <import resource="third-populator-spring.xml" />
+      <import resource="third-cron-spring.xml" />
 </beans>
  
