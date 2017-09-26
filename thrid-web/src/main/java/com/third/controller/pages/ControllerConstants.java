@@ -94,6 +94,9 @@ public interface ControllerConstants {
 		static final String NOAUTHPAGE = PAGE + "/noauthorization";
 
 		static final String MYORDERPAGE = PAGE + "/sales/myOrder";
+		
+		final static String STORELISTPAGE = PAGE+"/store/storeList";
+		final static String STOREDETAILSPAGE = PAGE+"/store/storeDetails";
 
 	}
 

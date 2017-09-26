@@ -302,7 +302,6 @@ public class DefaultUserFacade implements UserFacade {
 		UserData userData = new UserData();
 		userDataPopulator.populate(user, userData);
 		sessionService.save(CoreConstants.Session.CURRENT_USER, userData);
-	//	sessionService.save(CoreConstants.Session.MOBILE, true);
 		sessionService.save(CoreConstants.Session.CURRENT_USER_ID,
 				userData.getUserId());
 		if(sessionService.isMobile())

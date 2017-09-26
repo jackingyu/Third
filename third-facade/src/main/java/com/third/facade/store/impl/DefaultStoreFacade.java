@@ -58,15 +58,19 @@ public class DefaultStoreFacade implements StoreFacade {
 	@Override
 	public void createStore(StoreData store)
 	{
-		// TODO Auto-generated method stub
+		StoreModel storeModel = new StoreModel();
+		storeModel.setId(store.getCode());
+		storeModel.setName(store.getName());
+		storeService.createStore(storeModel);
 
 	}
 
 	@Override
 	public void updateStore(StoreData store)
 	{
-		// TODO Auto-generated method stub
-
+		StoreModel storeModel = storeService.getStoreForCode(store.getCode());
+		storeModel.setName(store.getName());
+		storeService.saveStore(storeModel);
 	}
 
 	public void setStoreService(StoreService storeService)

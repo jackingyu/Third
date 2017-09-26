@@ -11,12 +11,16 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.web.authentication.SimpleUrlAuthenticationSuccessHandler;
 
 import com.third.facade.user.UserFacade;
+import com.third.model.CoreConstants;
+import com.third.service.user.SessionService;
+import com.third.web.utils.DeviceUtils;
 
 public class LoginAuthenticationSuccessHandler
 		extends SimpleUrlAuthenticationSuccessHandler {
 	private static final Logger LOG = Logger
 			.getLogger(LoginAuthenticationSuccessHandler.class);
 	private UserFacade userFacade;
+	private SessionService sessionService;
 
 	@Override
 	public void onAuthenticationSuccess(final HttpServletRequest request,
@@ -24,6 +28,7 @@ public class LoginAuthenticationSuccessHandler
 			final Authentication authentication)
 			throws IOException, ServletException
 	{
+		sessionService.save(CoreConstants.Session.MOBILE, DeviceUtils.isMobile(request));;
 		getUserFacade().loginSuccess(authentication.getName());
 		request.setAttribute("login_error_message", "");
 		super.onAuthenticationSuccess(request, response, authentication);
@@ -37,6 +42,11 @@ public class LoginAuthenticationSuccessHandler
 	public void setUserFacade(UserFacade userFacade)
 	{
 		this.userFacade = userFacade;
+	}
+
+	public void setSessionService(SessionService sessionService)
+	{
+		this.sessionService = sessionService;
 	}
 
 }

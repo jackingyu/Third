@@ -86,6 +86,11 @@ public class UserDataBuilder implements DataBuilder {
 				"/source/listpage", "fa-users");
 		lv3_source.setParentMenu(lv2_user);
 		menuService.createMenu(lv3_source);
+		
+		MenuModel lv3_store = this.buildMenu("13", 3, "门店列表",
+				"/store/storelistpage", "fa-build");
+		lv3_store.setParentMenu(lv2_user);
+		menuService.createMenu(lv3_store);
 
 		MenuModel lv2_sales = this.buildMenu("2", 2, "销售管理", "#", "fa-book");
 		menuService.createMenu(lv2_sales);
@@ -167,7 +172,7 @@ public class UserDataBuilder implements DataBuilder {
 		menuService.createMenu(lv3_report1);
 
 		List<MenuModel> menus = Arrays.asList(lv3_userlist, lv3_source,
-				lv3_customer, lv3_orders, lv3_reservation, lv3_orderprocess,
+				lv3_customer, lv3_orders, lv3_reservation, lv3_store,
 				lv3_source1, lv3_reservationlist,
 				lv3_storereceipt, lv3_storedeliver, lv3_orderentrylist,lv3_exhibition,
 				lv3_factorydeliver, lv3_orderentrylist1, lv3_product,

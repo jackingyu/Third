@@ -124,6 +124,7 @@
 		<property name="defaultTargetUrl" value="/home"/>
 		<!--  <property name="useReferer" value="true"/>-->
 		<property name="alwaysUseDefaultTargetUrl" value="true"/>
+		<property name="sessionService" ref="sessionService"/>
 	</bean>
 	
 	<bean id="logoutSuccessHandler" class="com.third.security.LogoutSuccessHandler" >
