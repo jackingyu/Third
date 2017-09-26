@@ -21,7 +21,7 @@ ACC.scanorder = {
    if(i!=0)
    {
       ACC.message.alert("剩余"+i+"量身单未拣货,请查看表格中非绿色行");
-      //return;
+      return;
    }
    
     var orderCode  = $('#orderEntryGrid').DataTable().row(0).data()[5];
