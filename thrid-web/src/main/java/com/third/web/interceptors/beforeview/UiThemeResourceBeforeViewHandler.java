@@ -43,9 +43,16 @@ public class UiThemeResourceBeforeViewHandler implements BeforeViewHandler {
 
 		if (menus != null)
 		{
+		   if(!sessionService.isMobile())
 			confirmActiveMenu(menus, request.getServletPath());
+		    
 			modelAndView.addObject("menus", menus);
 		}
+		
+		if(sessionService.isMobile())
+			modelAndView.addObject("isMobile", true);
+		else
+			modelAndView.addObject("isMobile", false);
 
 	}
 

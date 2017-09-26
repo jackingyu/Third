@@ -138,4 +138,20 @@ public class DefaultOrderDao extends GenericDAO<OrderModel, String>
 		return numberOfOrder.intValue();
 	}
 
+	@Override
+	public List<OrderModel> findOrders(Map<String, String> sp)
+	{
+		final StringBuilder sb = new StringBuilder(
+				"from OrderModel s"
+						+ " where ");
+		
+		if(StringUtils.isNotBlank(getParameterValue(sp, "orderStatus")))
+			sb.append("s.status = ").append(getParameterValue(sp, "orderStatus"));
+		
+		if(StringUtils.isNotBlank(getParameterValue(sp, "salesperson")))
+			sb.append(" and ").append(" s.salesperson.userId = '").append(getParameterValue(sp, "salesperson")).append("'");
+		
+		return find(sb.toString());
+	}
+
 }

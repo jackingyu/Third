@@ -20,6 +20,8 @@ public interface UserFacade {
 	 * @return
 	 */
 	public List<MenuData> getMenuData();
+	
+	public List<MenuData> getMenuDataForMobile();
 
 	/**
 	 * @param userGroupName

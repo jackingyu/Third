@@ -51,6 +51,7 @@ public interface ControllerConstants {
 		final static String FRAGEMENTS = "/fragments/lte";
 
 		final static String HOMEPAGE = PAGE + "/home";
+		final static String MHOMEPAGE = PAGE + "/mhome";
 
 		final static String ORDERLISTPAGE = PAGE + "/sales/orderList";
 		final static String ORDERDETAILSPAGE = PAGE + "/sales/orderDetails";
@@ -88,8 +89,11 @@ public interface ControllerConstants {
 		static final String SALESQUOTATIONLISTPAGE = PAGE + "/sales/salesQuotationList";
 
 		static final String SALESQUOTATIONPAGE = PAGE + "/sales/salesQuotation";
+		static final String ORDERITEMFRAGMENT = PAGE + "/sales/orderItem";
 		
 		static final String NOAUTHPAGE = PAGE + "/noauthorization";
+
+		static final String MYORDERPAGE = PAGE + "/sales/myOrder";
 
 	}
 

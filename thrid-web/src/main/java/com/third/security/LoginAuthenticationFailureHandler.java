@@ -20,9 +20,9 @@ public class LoginAuthenticationFailureHandler
 	{
 		request.getSession().setAttribute("SPRING_SECURITY_LAST_USERNAME",
 				request.getParameter("j_username"));
-		// request.getSession().setAttribute("LOGIN_ERROR_MESSAGE", "");
-		request.getSession().setAttribute("login_error_message",
-				exception.getMessage());
+		
+		request.getSession().setAttribute("login_error_message", exception.getMessage());
+		
 		super.onAuthenticationFailure(request, response, exception);
 	}
 

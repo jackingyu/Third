@@ -15,6 +15,8 @@ public interface OrderDao extends IGenericDAO<OrderModel, String> {
 	PaginationSupport findOrders(Date startDate, Date endDate,
 			Integer startIndex, Integer pageSize,
 			Map<String, String> searchParameter);
+	
+	List<OrderModel> findOrders(Map<String, String> searchParameter);
 
 	List<OrderModel> findOrdersForCustomer(final String customerPK);
 

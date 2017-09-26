@@ -269,4 +269,21 @@ public class OrderPageController extends AbstractPageController {
 	{
 		return orderFacade.isExist(orderCode);
 	}
+	
+	
+	@RequestMapping(value = "/order/myorderpage")
+	public String getMyOrderPage(final Model model) 
+	{
+		return ControllerConstants.LTE.MYORDERPAGE;
+	}
+	
+	@RequestMapping(value = "/order/myorder")
+	public String getMyOrder(
+			@RequestParam(value = "orderStatus", required = true) final Integer orderStatus,final Model model) 
+	{
+		List<OrderData> orders = orderFacade.getOrdersForCurrentUser(orderStatus);
+		model.addAttribute("orders",orders);
+		
+		return ControllerConstants.LTE.ORDERITEMFRAGMENT;
+	}
 }

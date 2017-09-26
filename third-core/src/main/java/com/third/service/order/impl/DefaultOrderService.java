@@ -99,4 +99,11 @@ public class DefaultOrderService implements OrderService {
 		return orderEntryDao.findOrderEntries(startDate, endDate, startIndex,
 				pageSize, sp);
 	}
+
+	@Override
+	public List<OrderModel> getOrders(Map<String, String> sp)
+	{
+		return orderDao.findOrders(sp);
+	}
+
 }

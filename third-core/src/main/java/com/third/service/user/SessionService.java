@@ -8,4 +8,6 @@ public interface SessionService {
 	void clear(String key);
 
 	boolean contains(String key);
+	
+	boolean isMobile();
 }

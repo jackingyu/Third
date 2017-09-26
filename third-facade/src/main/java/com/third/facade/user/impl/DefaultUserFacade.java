@@ -302,9 +302,13 @@ public class DefaultUserFacade implements UserFacade {
 		UserData userData = new UserData();
 		userDataPopulator.populate(user, userData);
 		sessionService.save(CoreConstants.Session.CURRENT_USER, userData);
+	//	sessionService.save(CoreConstants.Session.MOBILE, true);
 		sessionService.save(CoreConstants.Session.CURRENT_USER_ID,
 				userData.getUserId());
-		sessionService.save(CoreConstants.Session.MENU, getMenuData());
+		if(sessionService.isMobile())
+		  sessionService.save(CoreConstants.Session.MENU, getMenuDataForMobile());
+		else
+		  sessionService.save(CoreConstants.Session.MENU, getMenuData());
 	}
 
 	@Override
@@ -411,6 +415,65 @@ public class DefaultUserFacade implements UserFacade {
 		});
 
 		return userDatas;
+	}
+
+	@Override
+	public List<MenuData> getMenuDataForMobile()
+	{
+
+		UserGroupModel userGroup = userService.getCurrentUser().getUserGroup();
+		Collection<RoleModel> userRoles = userGroup.getRoles();
+		// already handled level 2 menu,this is the result we want
+		Map<String, MenuData> lv2Menus = new HashMap<String, MenuData>();
+		// already handled level 3 menu
+		Map<String, MenuData> lv3Menus = new HashMap<String, MenuData>();
+		List<MenuData> menuDataList = new ArrayList<MenuData>();
+
+		// loop the roles,delete the duplicated
+		userRoles.forEach(role -> role.getMenus().forEach(m -> {
+			MenuModel menu = (MenuModel) m;
+
+			if (menu.getLevel() == 2)
+			{
+				if (!lv2Menus.containsKey(menu.getMenuId()))
+				{
+					MenuData lv2MenuData = new MenuData();
+					menuDataPopulator.populate(menu, lv2MenuData);
+					lv2Menus.put(menu.getMenuId(), lv2MenuData);
+				}
+			} else
+			{
+				if (!lv3Menus.containsKey(menu.getMenuId())&&menu.getMobile())
+				{
+					MenuData lv3MenuData = new MenuData();
+					menuDataPopulator.populate(menu, lv3MenuData);
+					lv3Menus.put(lv3MenuData.getMenuid(), lv3MenuData);
+
+					if (menu.getParentMenu() != null)
+					{
+						LOG.info("get parent menu " + menu.getMenuName());
+						MenuModel parentMenu = menu.getParentMenu();
+
+						if (lv2Menus.containsKey(parentMenu.getMenuId()))
+						{
+							lv2Menus.get(parentMenu.getMenuId())
+									.addSubMenu(lv3MenuData);
+						} else
+						{
+							MenuData parentMenuData = new MenuData();
+							menuDataPopulator.populate(parentMenu,
+									parentMenuData);
+							parentMenuData.addSubMenu(lv3MenuData);
+							lv2Menus.put(parentMenuData.getMenuid(),
+									parentMenuData);
+						}
+					}
+
+				}
+			}
+		}));
+
+		return new ArrayList<MenuData>(lv2Menus.values());
 	}
 
 }

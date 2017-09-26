@@ -18,7 +18,7 @@
   <jsp:invoke fragment="pageCss"/>
 </head>
 <body class="hold-transition skin-blue sidebar-mini">
-<div class="wrapper">
+<div class="<c:if test="${isMobile}">m</c:if>wrapper">
   <c:choose>
      <c:when test="${isMobile}">
        <template:mobileheader /> 
@@ -34,11 +34,12 @@
  
   <c:if test="${not isMobile}">
      <template:footer/>
-  </c:if>
+
   <!-- /.control-sidebar -->
   <!-- Add the sidebar's background. This div must be placed
        immediately after the control sidebar -->
   <div class="control-sidebar-bg"></div>
+  </c:if>
   <template:confirm/>
 </div>
 <!-- ./wrapper -->

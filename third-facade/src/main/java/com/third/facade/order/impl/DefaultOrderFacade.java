@@ -666,4 +666,23 @@ public class DefaultOrderFacade implements OrderFacade {
 		return orderService.getOrderForCode(orderCode) != null;
 	}
 
+	@Override
+	public List<OrderData> getOrdersForCurrentUser(Integer orderStatus)
+	{
+		HashMap<String,String> sp = new HashMap<String,String>();
+		sp.put("orderStatus", orderStatus.toString());
+		sp.put("salesperson", userService.getCurrentUser().getUserId());
+		
+		List<OrderData> orders = new ArrayList<OrderData>();
+		List<OrderModel> orderModels = orderService.getOrders(sp);
+		
+	     orderModels.forEach( o ->{
+	    	    OrderData od = new OrderData();
+	    	    orderConfiguredPopulator.populate(o, od, Arrays.asList(OrderOption.BASIC));
+	    	    orders.add(od);
+	     });
+
+		return orders;
+	}
+
 }

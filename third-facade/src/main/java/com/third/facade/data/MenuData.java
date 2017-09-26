@@ -14,6 +14,7 @@ public class MenuData {
 	private String menuname;
 	private boolean active = false;
 	private boolean mobile;
+	private List<MenuData> menus = new ArrayList<MenuData>();
 	
 	public boolean isMobile()
 	{
@@ -25,7 +26,6 @@ public class MenuData {
 		this.mobile = mobile;
 	}
 
-	private List<MenuData> menus = new ArrayList<MenuData>();
 
 	public void setMenuid(String menuid)
 	{

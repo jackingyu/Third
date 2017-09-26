@@ -25,6 +25,7 @@ public class LoginAuthenticationSuccessHandler
 			throws IOException, ServletException
 	{
 		getUserFacade().loginSuccess(authentication.getName());
+		request.setAttribute("login_error_message", "");
 		super.onAuthenticationSuccess(request, response, authentication);
 	}
 

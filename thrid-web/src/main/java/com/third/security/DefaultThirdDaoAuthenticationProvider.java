@@ -64,8 +64,8 @@ public class DefaultThirdDaoAuthenticationProvider
 		}
 
 		UserModel user = userService.getUserById(username);
-
-		if (user == null)
+	
+		if (user == null||user.getBlocked())
 		{
 			throw new BadCredentialsException("login.error.account.notexist");
 		}
@@ -109,7 +109,7 @@ public class DefaultThirdDaoAuthenticationProvider
 				.equals(user.getPassword()))
 			return;
 
-		throw new BadCredentialsException("password not right");
+		throw new BadCredentialsException("login.error.passwordnotright");
 	}
 
 	public void setUserDetailsService(UserDetailsService userDetailsService)

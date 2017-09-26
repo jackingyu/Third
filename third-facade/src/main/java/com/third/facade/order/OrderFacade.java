@@ -68,4 +68,6 @@ public interface OrderFacade {
 			Integer status);
 	
 	boolean isExist(final String orderCode);
+	
+	List<OrderData> getOrdersForCurrentUser(Integer orderStatus);
 }

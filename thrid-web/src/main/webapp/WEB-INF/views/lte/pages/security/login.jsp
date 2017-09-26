@@ -10,7 +10,7 @@
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>AdminLTE 2 | Log in</title>
+  <title>Third</title>
   <!-- Tell the browser to be responsive to screen width -->
   <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
   <template:css/>
@@ -25,11 +25,11 @@
 <body class="hold-transition login-page">
 <div class="login-box">
   <div class="login-logo">
-    <a><b>B</b>laimar</a>
+    <a><b>T</b>hird</a>
   </div>
   <!-- /.login-logo -->
   <div class="login-box-body">
-    <p class="login-box-msg">Sign in to start your session</p>
+    <p class="login-box-msg"><spring:message code="lte.loginhint"></spring:message></p>
    <form action="<c:url value='/j_spring_security_check' />"  method="post">
       <div class="form-group has-feedback">
         <input type="text" name="username" class="form-control" placeholder="username">
@@ -43,13 +43,15 @@
         <div class="col-xs-8">
           <div class="checkbox icheck">
             <label>
-              <input type="checkbox"> Remember Me
+              <c:if test="${not empty login_error_message}">
+               <spring:message code="${login_error_message}"></spring:message>
+              </c:if>
             </label>
           </div>
         </div>
         <!-- /.col -->
         <div class="col-xs-4">
-          <button type="submit" class="btn btn-primary btn-block btn-flat">Sign In</button>
+          <button type="submit" class="btn btn-primary btn-block btn-flat"><spring:message code="lte.login"></spring:message></button>
         </div>
         <!-- /.col -->
       </div>

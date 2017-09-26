@@ -21,7 +21,7 @@ public class UserDataPopulator implements Populator<UserModel, UserData> {
 		target.setPk(source.getPk());
 		target.setUserId(source.getUserId());
 		target.setName(source.getName());
-		target.setBlocked(false);
+		target.setBlocked(source.getBlocked()==null?false:source.getBlocked());
 
 		List<StoreModel> storeLists = (List<StoreModel>) source.getStores();
 		List<StoreData> storeDatas = new ArrayList<StoreData>();

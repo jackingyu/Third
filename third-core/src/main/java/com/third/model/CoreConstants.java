@@ -53,6 +53,7 @@ public interface CoreConstants {
 		static final String CURRENT_USER_ID = "currentUserId";
 		static final String MENU = "menu";
 		static final String STORE = "avaliableStore";
+		static final String MOBILE = "isMobile";
 	}
 
 	interface Category {

@@ -39,3 +39,48 @@ body.hold-transition .mcontent-wrapper{
 .navbar-barmobile:hover{
 	cursor:pointer;
 }
+
+.mwrapper {
+    height: 100%;
+    position: relative;
+    overflow-x: hidden;
+    overflow-y: auto;
+}
+
+.btn-app-lg {
+  border-radius: 3px;
+  position: relative;
+  padding: 50px 30px;
+  margin: 0 0 10px 10px;
+  min-width: 80px;
+  height: 100px;
+  text-align: center;
+  color: #666;
+  border: 1px solid #ddd;
+  background-color: #f4f4f4;
+  font-size: px;
+}
+.btn-app-lg > .fa,
+.btn-app-lg > .glyphicon,
+.btn-app-lg > .ion {
+  font-size: 20px;
+  display: block;
+}
+.btn-app-lg:hover {
+  background: #f4f4f4;
+  color: #444;
+  border-color: #aaa;
+}
+.btn-app-lg:active,
+.btn-app-lg:focus {
+  -webkit-box-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
+  -moz-box-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
+  box-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
+}
+.btn-app-lg > .badge {
+  position: absolute;
+  top: -3px;
+  right: -10px;
+  font-size: 10px;
+  font-weight: 400;
+}

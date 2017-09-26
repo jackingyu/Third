@@ -34,4 +34,12 @@ public class DefaultSessionService implements SessionService {
 		Object o = this.get(key);
 		return null != o;
 	}
+	
+	public boolean isMobile()
+	{
+		if(this.contains("isMobile"))
+			return (boolean) this.get("isMobile");
+			
+	    return false;
+	}
 }
