@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+                                   "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+	<class name="com.third.model.TextMessageModel" table="textmessage">
+		<id name="pk" type="java.lang.String">
+			<column name="pk" unique="true" />
+			<generator class="uuid" />
+		</id>
+		<property column="type" lazy="false" name="type"
+			type="java.lang.String" >
+		</property>
+		<property column="message" lazy="false" name="message"
+			type="java.lang.String" >
+		</property>
+		<property column="receiver" lazy="false" name="receiver"
+			type="java.lang.String" >
+		</property>
+		<property name="sentTime" lazy="false" type="java.lang.Boolean">
+			<column name="sent_time" />
+		</property>
+		<property name="sent" lazy="false" type="java.lang.Boolean" >
+			<column name="sent" />
+		</property>
+		<property name="modificationTime" update="false" insert="false" 
+			type="java.util.Date" generated="always">
+			<column name="modification_time" />
+		</property>
+		<property name="createTime" update="false" insert="false"
+			type="java.util.Date" generated="insert">
+			<column name="create_time"/>
+		</property>
+	</class>
+</hibernate-mapping>

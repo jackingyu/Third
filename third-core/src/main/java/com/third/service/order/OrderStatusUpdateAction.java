@@ -1,6 +1,7 @@
 package com.third.service.order;
 
-public interface OrderStatusUpdateAction {
-	public void afterUpdate(final String orderCode);
+import com.third.model.OrderModel;
 
+public interface OrderStatusUpdateAction {
+	public void perform(OrderModel order);
 }

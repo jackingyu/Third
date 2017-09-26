@@ -187,6 +187,7 @@ public class UserDataBuilder implements DataBuilder {
 		admin.setPassword("test");
 		admin.setStore(storeService.getStoreForCode("s-1"));
 		admin.setStores(storeService.getAllStores());
+		admin.setBlocked(false);
 		
 		UserGroupModel userGroup = this.buildUserGroupModel("admin", "管理员",
 				role_admin);
@@ -211,6 +212,7 @@ public class UserDataBuilder implements DataBuilder {
 			u.setUserGroup(userGroups.get(j));
 			u.setStore(storeService.getStoreForCode("s-1"));
 			u.setStores(storeService.getAllStores());
+			u.setBlocked(false);
 			userService.createUser(u);
 		}
 		
@@ -224,6 +226,7 @@ public class UserDataBuilder implements DataBuilder {
 			u.setUserGroup(userGroups.get(j));
 			u.setStore(storeService.getStoreForCode("s-1"));
 			u.setStores(storeService.getAllStores());
+			u.setBlocked(false);
 			userService.createUser(u);
 		}
 		

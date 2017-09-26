@@ -71,6 +71,7 @@
 			   <value>/hbm/Reservation.hbm.xml</value>
 			   <value>/hbm/Subscribe.hbm.xml</value>
 			   <value>/hbm/WeixinInfo.hbm.xml</value>
+			   <value>/hbm/TextMessage.hbm.xml</value>
 			</list>
 		</property>
 		<property name="hibernateProperties">

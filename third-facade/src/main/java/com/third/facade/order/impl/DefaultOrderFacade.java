@@ -53,6 +53,7 @@ import com.third.service.customer.SourceService;
 import com.third.service.media.MediaService;
 import com.third.service.order.OrderService;
 import com.third.service.order.PaymentService;
+import com.third.service.order.impl.NewOrderAction;
 import com.third.service.product.ProductService;
 import com.third.service.product.SizeAttributeService;
 import com.third.service.store.StoreService;
@@ -72,6 +73,7 @@ public class DefaultOrderFacade implements OrderFacade {
 	private ProductService productService;
 	private SizeAttributeService sizeAttributeService;
 	private MediaService mediaService;
+	private NewOrderAction newOrderAction;
 	private static final Logger LOG = Logger
 			.getLogger(DefaultOrderFacade.class);
 
@@ -130,6 +132,8 @@ public class DefaultOrderFacade implements OrderFacade {
 		orderService.createOrder(order);
 
 		orderData.setPk(order.getPk());
+		
+		newOrderAction.perform(order);
 	}
 
 	@Override
@@ -683,6 +687,12 @@ public class DefaultOrderFacade implements OrderFacade {
 	     });
 
 		return orders;
+	}
+
+
+	public void setNewOrderAction(NewOrderAction newOrderAction)
+	{
+		this.newOrderAction = newOrderAction;
 	}
 
 }

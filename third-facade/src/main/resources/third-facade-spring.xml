@@ -84,6 +84,7 @@
 	    <property name="orderConfiguredPopulator" ref="orderConfiguredPopulator"></property>
 	    <property name="orderEntryDataPopulator" ref="orderEntryDataPopulator"></property>
 	    <property name="sizeAttributeDataPopulator" ref="sizeAttributeDataPopulator"></property>
+	    <property name="newOrderAction" ref="newOrderAction"></property>
 	</bean>
 	
 	<alias name="defaultOrderProcessFacade" alias="orderProcessFacade"></alias>

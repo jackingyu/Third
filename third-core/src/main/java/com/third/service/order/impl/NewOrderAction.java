@@ -6,7 +6,7 @@ import com.third.core.util.MessageUtils;
 import com.third.model.OrderModel;
 import com.third.service.order.OrderStatusUpdateAction;
 
-public class FactoryDeliveredAction implements OrderStatusUpdateAction {
+public class NewOrderAction implements OrderStatusUpdateAction {
 
 	@Resource(name = "messageUtils")
 	private MessageUtils messageUtils;
@@ -14,8 +14,9 @@ public class FactoryDeliveredAction implements OrderStatusUpdateAction {
 	@Override
 	public void perform(OrderModel order)
 	{
-		final String message = new StringBuilder("您的订单工厂已经发货!").toString();
+		final String message = new StringBuilder("您的订单已新建!").toString();
 		messageUtils.createMessage(order.getCellphone(), message);
 
 	}
+
 }

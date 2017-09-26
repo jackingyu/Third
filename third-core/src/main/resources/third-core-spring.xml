@@ -80,11 +80,18 @@
     <alias name="defaultReservationDao" alias="reservationDao"></alias>
     <bean id="defaultReservationDao" class="com.third.dao.customer.impl.DefaultReservationDao" parent="genericDAO"></bean>
 	
+    <alias name="defaultTextMessageDao" alias="textMessageDao"></alias>
+    <bean id="defaultTextMessageDao" class="com.third.dao.generic.DefaultTextMessageDao" parent="genericDAO"></bean>
+    
+    <alias name="messageUtils" alias="messageUtils"></alias>
+    <bean id="defaultMessageUtils" class="com.third.core.util.MessageUtils"></bean>
+	
 	<alias name="defaultUserService" alias="userService"></alias>
 	<bean id="defaultUserService" class="com.third.service.user.impl.DefaultUserService">
 	     <property name="userDao" ref="userDao" />
 	     <property name="userGroupDao" ref="userGroupDao" />
 	</bean>
+
 	
 	<alias name="defaultMenuService" alias="menuService"></alias>
 	<bean id="defaultMenuService" class="com.third.service.user.impl.DefaultMenuService">
@@ -140,6 +147,16 @@
 	     <property name="orderDao" ref="orderDao" />
 	     <property name="orderEntryDao" ref="orderEntryDao" />
 	     <property name="orderProcessRecordDao" ref="orderProcessRecordDao" />
+	      <property name="actions">
+			<map key-type="java.lang.Integer">
+				<entry key="10" value-ref="storeApproveAction" />
+				<!--  <entry key="20" value-ref="finicialApproveAction" />-->
+				<entry key="30" value-ref="factoryApproveAction" />
+				<entry key="40" value-ref="factoryDeliveredAction" />
+				<entry key="50" value-ref="storeReceiptAction" />
+				<entry key="60" value-ref="storeDeliveredAction" />
+			</map>
+		</property>
 	</bean>
    <alias name="defaultSalesQuotationService" alias="salesQuotationService"></alias>
 	<bean id="defaultSalesQuotationService" class="com.third.service.order.impl.DefaultSalesQuotationService">
@@ -195,22 +212,9 @@
 	<bean id="factoryDeliveredAction" class="com.third.service.order.impl.FactoryDeliveredAction"></bean>
 	<bean id="storeReceiptAction" class="com.third.service.order.impl.StoreReceiptAction"></bean>
 	<bean id="storeDeliveredAction" class="com.third.service.order.impl.StoreDeliveredAction"></bean>
+	<bean id="newOrderAction" class="com.third.service.order.impl.NewOrderAction"></bean>
 	
-	<alias name="defaultOrderStatusService" alias="orderStatusService"></alias>
-	<bean id="defaultOrderStatusService" class="com.third.service.order.impl.DefaultOrderStatusAction">
-	     <property name="orderDao" ref="orderDao" />
-	     <property name="actions">
-			<map key-type="java.lang.Integer">
-				<entry key="10" value-ref="storeApproveAction" />
-				<entry key="20" value-ref="finicialApproveAction" />
-				<entry key="30" value-ref="factoryApproveAction" />
-				<entry key="40" value-ref="factoryDeliveredAction" />
-				<entry key="50" value-ref="storeReceiptAction" />
-				<entry key="60" value-ref="storeDeliveredAction" />
-			</map>
-		</property>
-	</bean>
-	
+	<bean id="messageUtils" class="com.third.core.util.MessageUtils"></bean>
 	<bean id="config"
 		class="com.third.core.util.Config">
 		<property name="location">

@@ -13,7 +13,7 @@
 		<property column="password" lazy="false" name="password"
 			type="java.lang.String" ></property>
 		<property column="blocked" lazy="false" name="blocked"
-			type="java.lang.Boolean" ></property>
+			type="java.lang.Boolean"></property>
 		<property column="name" lazy="false" name="name" type="java.lang.String" />
 		<property name="modificationTime" update="false" insert="false" 
 			type="java.util.Date" generated="always">

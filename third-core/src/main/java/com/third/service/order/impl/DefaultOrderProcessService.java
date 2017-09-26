@@ -17,12 +17,14 @@ import com.third.model.OrderProcessRecordModel;
 import com.third.model.CoreConstants.OrderStatus;
 import com.third.model.UserModel;
 import com.third.service.order.OrderProcessService;
+import com.third.service.order.OrderStatusUpdateAction;
 
 public class DefaultOrderProcessService implements OrderProcessService {
 	private OrderDao orderDao;
 	private OrderEntryDao orderEntryDao;
 	private OrderProcessRecordDao orderProcessRecordDao;
-
+	private Map<Integer, OrderStatusUpdateAction> actions;
+	
 	@Override
 	public void createOrderProcess(OrderProcessRecordModel orderProcessRecord)
 	{
@@ -78,7 +80,10 @@ public class DefaultOrderProcessService implements OrderProcessService {
 		}
 
 		orderDao.save(order);
-
+		
+		if(actions.containsKey(targetStatus))
+			actions.get(targetStatus).perform(order);
+		
 		return orderProcessRecordModel;
 	}
 
@@ -114,18 +119,7 @@ public class DefaultOrderProcessService implements OrderProcessService {
 
 		if (ifAllApproved)
 		{
-			order.setStatus(targetStatus);
-			orderProcessRecordModel.setFromStatus(currentStatus.toString());
-			orderProcessRecordModel.setToStatus(nextStatus.toString());
-			orderProcessRecordModel.setOrderCode(orderEntry.getCode());
-			orderProcessRecordModel.setCreatedBy(user);
-			orderProcessRecordModel
-					.setProcessTime(Calendar.getInstance().getTime());
-
-			createOrderProcess(orderProcessRecordModel);
-
-			// orderEntry will also be saved
-			orderDao.save(order);
+			processOrder(order, user, targetStatus);
 		}
 
 		return orderProcessRecordModel;
@@ -167,6 +161,11 @@ public class DefaultOrderProcessService implements OrderProcessService {
 	public void setOrderEntryDao(OrderEntryDao orderEntryDao)
 	{
 		this.orderEntryDao = orderEntryDao;
+	}
+	
+	public void setActions(Map<Integer, OrderStatusUpdateAction> actions)
+	{
+		this.actions = actions;
 	}
 
 }
