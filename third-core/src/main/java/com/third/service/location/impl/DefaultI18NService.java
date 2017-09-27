@@ -4,15 +4,18 @@ import java.util.List;
 
 import com.third.dao.location.AddressDao;
 import com.third.dao.location.CityDao;
+import com.third.dao.location.DistrictDao;
 import com.third.dao.location.RegionDao;
 import com.third.model.AddressModel;
 import com.third.model.CityModel;
+import com.third.model.DistrictModel;
 import com.third.model.RegionModel;
 import com.third.service.location.I18NService;
 
 public class DefaultI18NService implements I18NService {
 	private RegionDao regionDao;
 	private CityDao cityDao;
+	private DistrictDao districtDao;
 	private AddressDao addressDao;
 
 	@Override
@@ -72,4 +75,15 @@ public class DefaultI18NService implements I18NService {
 		addressDao.update(addressModel);
 	}
 
+	@Override
+	public void createDistrict(DistrictModel districtModel)
+	{
+		districtDao.save(districtModel);
+	}
+
+	public void setDistrictDao(DistrictDao districtDao)
+	{
+		this.districtDao = districtDao;
+	}
+	
 }

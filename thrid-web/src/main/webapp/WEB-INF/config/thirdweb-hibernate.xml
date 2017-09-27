@@ -72,6 +72,7 @@
 			   <value>/hbm/Subscribe.hbm.xml</value>
 			   <value>/hbm/WeixinInfo.hbm.xml</value>
 			   <value>/hbm/TextMessage.hbm.xml</value>
+			   <value>/hbm/District.hbm.xml</value>
 			</list>
 		</property>
 		<property name="hibernateProperties">

@@ -16,6 +16,10 @@
 	       class="com.third.model.CityModel" cascade="refresh" fetch="join">
 			<column name="city" />
 		</many-to-one>
+	    <many-to-one name="district" lazy="false" 
+	       class="com.third.model.DistrictModel" cascade="refresh" fetch="join">
+			<column name="district" />
+		</many-to-one>
 		<property column="adr1" lazy="false" name="adr1"
 			type="java.lang.String">
 		</property>

@@ -32,6 +32,9 @@
     <alias name="defaultCityDao" alias="cityDao"></alias>
     <bean id="defaultCityDao" class="com.third.dao.location.impl.DefaultCityDao" parent="genericDAO"></bean>
     
+    <alias name="defaultDistrictDao" alias="districtDao"></alias>
+    <bean id="defaultDistrictDao" class="com.third.dao.location.impl.DefaultDistrictDao" parent="genericDAO"></bean>
+    
     <alias name="defaultAddressDao" alias="addressDao"></alias>
     <bean id="defaultAddressDao" class="com.third.dao.location.impl.DefaultAddressDao" parent="genericDAO"></bean>
     
@@ -107,6 +110,7 @@
 	<bean id="defaultI18NService" class="com.third.service.location.impl.DefaultI18NService">
 	     <property name="cityDao" ref="cityDao" />
 	     <property name="regionDao" ref="regionDao" />
+	     <property name="districtDao" ref="districtDao" />
 	     <property name="addressDao" ref="addressDao" />
 	</bean>
 	

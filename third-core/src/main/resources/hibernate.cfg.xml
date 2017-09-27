@@ -24,6 +24,7 @@
         <mapping resource="hbm/Region.hbm.xml"/>  
         <mapping resource="hbm/City.hbm.xml"/>  
         <mapping resource="hbm/Address.hbm.xml"/>
+        <mapping resource="hbm/District.hbm.xml"/>
         
         <mapping resource="hbm/Customer.hbm.xml"/>
         <mapping resource="hbm/Store.hbm.xml"/>

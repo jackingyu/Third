@@ -1,29 +1,36 @@
 package com.third.facade.testdata.builder;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.third.model.AddressModel;
 import com.third.model.CityModel;
+import com.third.model.DistrictModel;
 import com.third.model.RegionModel;
 import com.third.service.location.I18NService;
 
 public class AddressDataBuilder implements DataBuilder {
 	private I18NService i18NService;
+	private final static String filename = "address.xls";
 
 	@Override
 	public void buildData()
 	{
-		for (int j = 0; j < 9; j++)
-		{
-			RegionModel region = buildRegion("CN-0" + j, "测试省" + j);
-
-			for (int i = 0; i < 9; i++)
-			{
-				CityModel city = buildCity("CN-0" + j + i,
-						"测试城市-" + j + "-" + i, region);
-				AddressModel address = buildAddress(region, city);
-			}
-		}
+		List<String[]> results = ExcelFileReader.readFile(filename, 8);
+		results.stream().filter( r -> r[0].equals("1")).forEach( r->{
+			buildRegion(r[1],r[2]);
+		});
+		
+		results.stream().filter( r -> r[0].equals("2")).forEach( r->{
+			RegionModel region = i18NService.getRegion(r[3]);
+			buildCity(r[1],r[2],region);
+		});
+		
+		results.stream().filter( r -> r[0].equals("3")).forEach( r->{
+			CityModel city = i18NService.getCity(r[3]);
+			buildDistrict(r[1],r[2],city);
+		});
 
 	}
 
@@ -45,6 +52,17 @@ public class AddressDataBuilder implements DataBuilder {
 		city.setRegion(region);
 		i18NService.createCity(city);
 		return city;
+	}
+	
+	public DistrictModel buildDistrict(final String code, final String name,
+			CityModel city)
+	{
+		DistrictModel district = new DistrictModel();
+		district.setIsoCode(code);
+		district.setName(name);
+		district.setCity(city);
+		i18NService.createDistrict(district);
+		return district;
 	}
 
 	public AddressModel buildAddress(final RegionModel region,
