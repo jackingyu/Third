@@ -30,5 +30,13 @@ public class AddressDataController extends AbstractPageController {
 	{
 		return getCityForRegion(regionISOCode);
 	}
+	
+	@RequestMapping(value = "/address/getdistrictforcity", method = RequestMethod.GET)
+	@ResponseBody
+	public Object getDistrict(
+			@RequestParam(value = "cityISOCode", required = true) final String cityISOCode)
+	{
+		return getDistrictForCity(cityISOCode);
+	}
 
 }

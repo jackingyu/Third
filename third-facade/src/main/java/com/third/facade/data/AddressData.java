@@ -3,6 +3,7 @@ package com.third.facade.data;
 public class AddressData extends AbstractData {
 	private CityData city;
 	private RegionData region;
+	private DistrictData district;
 	private String adr1;
 	private String adr2;
 	private String tel1;
@@ -66,6 +67,16 @@ public class AddressData extends AbstractData {
 	public void setRegion(RegionData region)
 	{
 		this.region = region;
+	}
+
+	public DistrictData getDistrict()
+	{
+		return district;
+	}
+
+	public void setDistrict(DistrictData district)
+	{
+		this.district = district;
 	}
 
 }

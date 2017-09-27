@@ -8,6 +8,7 @@
 <template:page>
 	<jsp:attribute name="pageScripts">
 	   <script src="${lteResourcePath}/js/acc.storedetails.js" type="text/javascript"></script>
+	   <script src="${lteResourcePath}/js/acc.address.js" type="text/javascript"></script>
 	</jsp:attribute>
 	<jsp:body>
     <!-- Content Header (Page header) -->
@@ -58,7 +59,8 @@
 					<input  name="name" value="${store.name}" class="form-control" type="text">
 				</div>
 			</div>
-
+            <div class="form-group">
+            <common:address></common:address></div>
 		</div>
 	</div>
 </div>

@@ -15,6 +15,7 @@ import com.third.facade.customer.SourceFacade;
 import com.third.facade.data.CategoryData;
 import com.third.facade.data.CityData;
 import com.third.facade.data.ComboboxData;
+import com.third.facade.data.DistrictData;
 import com.third.facade.data.ListData;
 import com.third.facade.data.ProductGroupData;
 import com.third.facade.data.RegionData;
@@ -190,6 +191,8 @@ public abstract class AbstractPageController {
 		model.addAttribute("stores", stores);
 	}
 
+	
+
 	protected void fillAddressInModel(final Model model,
 			final String selectedRegion)
 	{
@@ -212,8 +215,11 @@ public abstract class AbstractPageController {
 			regions.add(region);
 		}
 
+		List<ComboboxData> cities = getCityForRegion(regionISOCode);
+		
 		model.addAttribute("regions", regions);
-		model.addAttribute("citys", getCityForRegion(regionISOCode));
+		model.addAttribute("citys", cities);
+		model.addAttribute("districts",getDistrictForCity(cities.get(0).getCode()));
 	}
 
 	protected void fillAllCategoryView(final Model model)
@@ -270,6 +276,24 @@ public abstract class AbstractPageController {
 		}
 
 		return citys;
+	}
+
+	protected List<ComboboxData> getDistrictForCity(final String cityISOCode)
+	{
+		List<ComboboxData> districts = new ArrayList<ComboboxData>();
+		List<DistrictData> districtDatas = i18NFacade
+				.getDistrictForCity(cityISOCode);
+
+		for (int i = 0; i < districtDatas.size(); i++)
+		{
+			DistrictData d = districtDatas.get(i);
+			ComboboxData district = new ComboboxData();
+			district.setCode(d.getIsoCode());
+			district.setText(d.getName());
+			districts.add(district);
+		}
+
+		return districts;
 	}
 
 	protected void fillOrderStatus2View(final Model model)
@@ -375,12 +399,14 @@ public abstract class AbstractPageController {
 		return comboboxs;
 
 	}
-	
+
 	protected List<ComboboxData> getExhibition()
 	{
 		List<ComboboxData> sources = new ArrayList<ComboboxData>();
-		final String storeCode = userFacade.getCurrentUser().getStores().get(0).getCode();
-		List<SourceData> sourceDatas = sourceFacade.getExhibitionsForStoreCode(storeCode);
+		final String storeCode = userFacade.getCurrentUser().getStores().get(0)
+				.getCode();
+		List<SourceData> sourceDatas = sourceFacade
+				.getExhibitionsForStoreCode(storeCode);
 
 		for (int i = 0; i < sourceDatas.size(); i++)
 		{
@@ -393,14 +419,29 @@ public abstract class AbstractPageController {
 
 		return sources;
 	}
-	
+
 	protected List<ComboboxData> getPaymentMethods()
 	{
-         return	TextMapperUtils.getPaymentMethods();
+		return TextMapperUtils.getPaymentMethods();
 	}
-	
-	protected boolean isAdmin() {return userFacade.isAdmin();}
-	protected boolean isFactory() {return userFacade.isFactory();}
-	protected boolean isFinicial() {return userFacade.isFinicial();}
-	protected boolean isSales() {return userFacade.isSalesperson();}
+
+	protected boolean isAdmin()
+	{
+		return userFacade.isAdmin();
+	}
+
+	protected boolean isFactory()
+	{
+		return userFacade.isFactory();
+	}
+
+	protected boolean isFinicial()
+	{
+		return userFacade.isFinicial();
+	}
+
+	protected boolean isSales()
+	{
+		return userFacade.isSalesperson();
+	}
 }

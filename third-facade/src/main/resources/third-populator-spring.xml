@@ -34,6 +34,10 @@
     <bean id="defaultCityDataPopulator" class="com.third.facade.populator.CityDataPopulator">
     </bean>
     
+    <alias name="defaultDistrictDataPopulator" alias="districtDataPopulator"></alias>
+    <bean id="defaultDistrictDataPopulator" class="com.third.facade.populator.DistrictDataPopulator">
+    </bean>
+    
     <alias name="defaultRegionDataPopulator" alias="regionDataPopulator"></alias>
     <bean id="defaultRegionDataPopulator" class="com.third.facade.populator.RegionDataPopulator">
     </bean>
@@ -42,6 +46,7 @@
     <bean id="defaultAddressDataPopulator" class="com.third.facade.populator.AddressDataPopulator">
      <property name="regionDataPopulator" ref="regionDataPopulator"></property>
      <property name="cityDataPopulator" ref="cityDataPopulator"></property>
+     <property name="districtDataPopulator" ref="districtDataPopulator"></property>
     </bean>
     
     <alias name="defaultCustomerDataPopulator" alias="customerDataPopulator"></alias>

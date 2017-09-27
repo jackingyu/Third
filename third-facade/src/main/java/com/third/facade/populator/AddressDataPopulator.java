@@ -2,12 +2,14 @@ package com.third.facade.populator;
 
 import com.third.facade.data.AddressData;
 import com.third.facade.data.CityData;
+import com.third.facade.data.DistrictData;
 import com.third.facade.data.RegionData;
 import com.third.model.AddressModel;
 
 public class AddressDataPopulator
 		implements Populator<AddressModel, AddressData> {
 	private CityDataPopulator cityDataPopulator;
+	private DistrictDataPopulator districtDataPopulator;
 	private RegionDataPopulator regionDataPopulator;
 
 	@Override
@@ -19,8 +21,11 @@ public class AddressDataPopulator
 		RegionData region = new RegionData();
 		regionDataPopulator.populate(source.getRegion(), region);
 
+		DistrictData district = new DistrictData();
+		districtDataPopulator.populate(source.getDistrict(), district);
 		target.setCity(city);
 		target.setRegion(region);
+		target.setDistrict(district);
 		target.setAdr1(source.getAdr1());
 		target.setAdr2(source.getAdr2());
 		target.setTel1(source.getTel1());
@@ -37,6 +42,12 @@ public class AddressDataPopulator
 	public void setRegionDataPopulator(RegionDataPopulator regionDataPopulator)
 	{
 		this.regionDataPopulator = regionDataPopulator;
+	}
+
+	public void setDistrictDataPopulator(
+			DistrictDataPopulator districtDataPopulator)
+	{
+		this.districtDataPopulator = districtDataPopulator;
 	}
 
 }

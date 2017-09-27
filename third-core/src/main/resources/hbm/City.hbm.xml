@@ -13,5 +13,11 @@
 	       class="com.third.model.RegionModel" cascade="refresh" fetch="select">
 			<column name="region" />
 		</many-to-one>
+		<bag name="districts" inverse="true" table="district" lazy="true" fetch="select">
+			<key>
+				<column name="city" />
+			</key>
+			<one-to-many class="com.third.model.DistrictModel" />
+		</bag>
 	</class>
 </hibernate-mapping>

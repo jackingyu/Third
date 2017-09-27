@@ -13,6 +13,9 @@
   <div class="col-md-3">
     <common:selection2 label="lte.adr.city" id="city" name="city" data="${citys}" value="${address.city.isoCode}"></common:selection2>
   </div>
+  <div class="col-md-3">
+    <common:selection2 label="lte.adr.district" id="district" name="district" data="${districts}" value="${address.district.isoCode}"></common:selection2>
+  </div>
 </div>
 <div class="row">
   <div class="col-md-12">

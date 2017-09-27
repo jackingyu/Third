@@ -47,6 +47,7 @@
 	    <property name="i18NService" ref="i18NService"></property>
 	    <property name="cityDataPopulator" ref="cityDataPopulator"></property>
 	    <property name="regionDataPopulator" ref="regionDataPopulator"></property>
+	    <property name="districtDataPopulator" ref="districtDataPopulator"></property>
 	</bean>
 	
 	<alias name="defaultStoreFacade" alias="storeFacade"></alias>

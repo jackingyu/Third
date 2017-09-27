@@ -68,6 +68,7 @@ public class StoreController extends AbstractPageController {
 	@RequestMapping(value = "/store/createstorepage", method = RequestMethod.GET)
 	public String getCreatePage(final Model model)
 	{
+		fillAddressInModel(model, null);
 		return ControllerConstants.LTE.STOREDETAILSPAGE;
 	}
 
@@ -80,6 +81,7 @@ public class StoreController extends AbstractPageController {
 		StoreData store = storeFacade.getStoreForCode(storeCode);
 		
 		model.addAttribute("store", store);
+		fillAddressInModel(model, store.getAddress().getRegion().getIsoCode());
 		
 		return ControllerConstants.LTE.STOREDETAILSPAGE;
 	}
