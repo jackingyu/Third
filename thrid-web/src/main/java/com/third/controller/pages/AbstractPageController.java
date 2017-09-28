@@ -221,6 +221,35 @@ public abstract class AbstractPageController {
 		model.addAttribute("citys", cities);
 		model.addAttribute("districts",getDistrictForCity(cities.get(0).getCode()));
 	}
+	
+	protected void fillAddressInModel1(final Model model,
+			final String selectedRegion)
+	{
+		List<ComboboxData> regions = new ArrayList<ComboboxData>();
+		List<RegionData> regionDatas = i18NFacade.getRegions();
+		String regionISOCode = StringUtils.isEmpty(selectedRegion)
+				? regionDatas.get(0).getIsoCode()
+						: selectedRegion;
+				
+				for (int i = 0; i < regionDatas.size(); i++)
+				{
+					RegionData r = regionDatas.get(i);
+					ComboboxData region = new ComboboxData();
+					region.setCode(r.getIsoCode());
+					region.setText(r.getName());
+					
+					if (regionISOCode.equals(r.getIsoCode()))
+						region.setSelected(true);
+					
+					regions.add(region);
+				}
+				
+				List<ComboboxData> cities = getCityForRegion(regionISOCode);
+				
+				model.addAttribute("regions", regions);
+				model.addAttribute("citys", cities);
+				model.addAttribute("districts",getDistrictForCity(cities.get(0).getCode()));
+	}
 
 	protected void fillAllCategoryView(final Model model)
 	{

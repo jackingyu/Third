@@ -47,7 +47,7 @@
 			<div class="form-group">
 				<label><spring:message code="lte.store.code"></spring:message></label>
 				<div class="input-group col-sm-12 col-xs-12 col-md-12 col-lg-12"">
-					<input id="storeCode" name="storeCode" value="${store.code}" class="form-control" type="text"
+					<input id="storeCode" name="storeCode" value="${store.code}" class="form-control required" type="text"
 					<c:if test="${not empty store.pk}">readonly="readonly"</c:if> >
 				</div>
 				<input type="hidden" name="storePK" value="${store.pk}">
@@ -56,11 +56,11 @@
 			<div class="form-group">
 				<label><spring:message code="lte.store.name"></spring:message></label>
 				<div class="input-group col-sm-12 col-xs-12 col-md-12 col-lg-12">
-					<input  name="name" value="${store.name}" class="form-control" type="text">
+					<input  name="name" value="${store.name}" class="form-control required" type="text">
 				</div>
 			</div>
             <div class="form-group">
-            <common:address></common:address></div>
+            <common:address address="${store.address}"></common:address></div>
 		</div>
 	</div>
 </div>

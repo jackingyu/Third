@@ -18,9 +18,13 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.third.controller.pages.AbstractPageController;
 import com.third.controller.pages.ControllerConstants;
 import com.third.core.util.DataTableCriterias;
+import com.third.facade.data.AddressData;
+import com.third.facade.data.CityData;
 import com.third.facade.data.ComboboxData;
 import com.third.facade.data.DTResults;
+import com.third.facade.data.DistrictData;
 import com.third.facade.data.ListData;
+import com.third.facade.data.RegionData;
 import com.third.facade.data.StoreData;
 import com.third.facade.data.UserData;
 import com.third.facade.data.UserGroupData;
@@ -90,13 +94,38 @@ public class StoreController extends AbstractPageController {
 	public String saveUser(@RequestParam(value = "storeCode") final String storeCode,
 			@RequestParam(value = "storePK") final String storePK,
 			@RequestParam(value = "name") final String name,
+			@RequestParam(value = "district") final String district,
+			@RequestParam(value = "region") final String region,
+			@RequestParam(value = "city") final String city,
+			@RequestParam(value = "adr1") final String adr1,
+			@RequestParam(value = "adr2",required=false) final String adr2,
+			@RequestParam(value = "tel1",required=false) final String tel1,
+			@RequestParam(value = "tel2",required=false) final String tel2,
 			final Model model)
 	{
 	    StoreData store = new StoreData();
 	    store.setCode(storeCode);
 	    store.setName(name);
+	    AddressData address = new AddressData();
+	    address.setAdr1(adr1);
+	    address.setAdr2(adr2);
+	    address.setTel1(tel1);
+	    address.setTel2(tel2);
+	    CityData cityData = new CityData();
+	    cityData.setIsoCode(city);
 	    
-
+	    RegionData regionData = new RegionData();
+	    regionData.setIsoCode(region);
+	    
+	    DistrictData districtData = new DistrictData();
+	    districtData.setIsoCode(district);
+	    
+	    address.setCity(cityData);
+	    address.setDistrict(districtData);
+        address.setRegion(regionData);
+        
+        store.setAddress(address);
+        
 		if (StringUtils.isEmpty(storePK))
 			storeFacade.createStore(store);
 		else 

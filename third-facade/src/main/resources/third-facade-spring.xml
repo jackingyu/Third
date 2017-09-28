@@ -53,6 +53,7 @@
 	<alias name="defaultStoreFacade" alias="storeFacade"></alias>
 	<bean id="defaultStoreFacade" class="com.third.facade.store.impl.DefaultStoreFacade">
 	    <property name="storeService" ref="storeService"></property>
+	     <property name="i18NService" ref="i18NService"></property>
 	    <property name="storeDataPopulator" ref="storeDataPopulator"></property>
 	</bean>
 	

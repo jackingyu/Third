@@ -1,9 +1,10 @@
 ACC.storedetails = {
 	save:function(){
+	   if($("#storeForm").valid())
 		$("#storeForm").submit();
 	},
 	init:function(){
-	  $(".select2").select2();
+	  $("#storeForm").validate();
 	}
 }
 

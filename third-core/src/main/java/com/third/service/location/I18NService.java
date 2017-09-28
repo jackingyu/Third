@@ -24,4 +24,6 @@ public interface I18NService {
 
 	List<RegionModel> getRegions();
 
+	DistrictModel getDistrict(String isoCode);
+
 }

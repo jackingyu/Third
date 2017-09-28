@@ -85,5 +85,11 @@ public class DefaultI18NService implements I18NService {
 	{
 		this.districtDao = districtDao;
 	}
+
+	@Override
+	public DistrictModel getDistrict(String isoCode)
+	{
+		return districtDao.get(isoCode);
+	}
 	
 }
