@@ -13,11 +13,13 @@ public class SmsVerifyCodeUtils {
 	public boolean verifyVcode(final String inputVCode)
 	{
 		String vcode = (String) sessionService.get(VCODE);
+		System.out.println("vcode is "+vcode);
 		return inputVCode.equals(vcode);
 	}
 
 	public void generateVCode()
 	{
+		System.out.println("generatevcode:111111");
 		sessionService.save(VCODE, "111111");
 	}
 }

@@ -35,11 +35,15 @@
     <security:http  pattern="/data" security="none"></security:http>
     <security:http  pattern="/lotsdata" security="none"></security:http>
     <security:http  pattern="/login" security="none"></security:http>
-    <security:http  pattern="/wx/getStoreList" security="none"></security:http>
+ 
     <security:http  pattern="/wx/callback" security="none"></security:http>
+<!--  if test local uncomment below secuirty setting and comment wx path related security settings-->     
+<!--
+    <security:http  pattern="/wx/getStoreList" security="none"></security:http>
     <security:http  pattern="/wx/getStoreDetail" security="none"></security:http>
     <security:http  pattern="/wx/member/getRegisterPage" security="none"></security:http>
     <security:http  pattern="/wx/member/registerCustomer" security="none"></security:http>
+    --> 
     <!-- weixin related function -->
 <!--     <security:http  pattern="/wx/**" security="none"></security:http> -->
 
