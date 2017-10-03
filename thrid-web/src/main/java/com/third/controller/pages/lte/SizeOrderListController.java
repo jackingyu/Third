@@ -8,6 +8,7 @@ import java.util.Map;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.lang3.StringUtils;
 import org.apache.log4j.Logger;
@@ -37,6 +38,7 @@ import com.third.facade.data.SizeAttributeGroupData;
 import com.third.facade.data.TextMapper;
 import com.third.facade.order.OrderFacade;
 import com.third.facade.populator.option.OrderOption;
+import com.third.facade.utils.ExcelUtils;
 import com.third.facade.utils.TextMapperUtils;
 import com.third.model.CoreConstants;
 
@@ -77,6 +79,29 @@ public class SizeOrderListController extends AbstractPageController {
 				criterias.getStart(), criterias.getLength(), sp);
 
 		return r;
+	}
+	
+	@RequestMapping(value = "/orderentry/export")
+	public void exportOrderEntryList(
+			@RequestParam(value = "externalId", required = false) final String externalId,
+			@RequestParam(value = "customerName", required = false) final String name,
+			@RequestParam(value = "storeCodes", required = false) final String storeCodes,
+			@RequestParam(value = "orderEntryStatus", required = false) final String orderEntryStatus,
+			@RequestParam(value = "startDate", required = false) @DateTimeFormat(pattern = "yyyy-MM-dd") Date startDate,
+			@RequestParam(value = "endDate", required = false) @DateTimeFormat(pattern = "yyyy-MM-dd") Date endDate,
+		    final HttpServletRequest request,
+			final HttpServletResponse response)
+	{
+		Map<String, String> sp = new HashMap<String, String>();
+		sp.put("externalId", externalId);
+		sp.put("name", name);
+		sp.put("status", orderEntryStatus);
+		sp.put("storeCodes", storeCodes);
+		
+		DTResults r = orderFacade.getOrderEntries(startDate, endDate,
+				0, 10000, sp);
+		String[] headername = {"编号","2","3","4","5"};
+		ExcelUtils.exportToExcel1("量身单列表", "量身单", headername, r.getData(), request, response);
 	}
 
 }

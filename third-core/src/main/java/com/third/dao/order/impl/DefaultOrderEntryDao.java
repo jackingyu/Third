@@ -93,7 +93,7 @@ public class DefaultOrderEntryDao extends GenericDAO<OrderEntryModel, String>
 
 		if (StringUtils.isNotBlank(getParameterValue(sp, "name")))
 		{
-			StringBuilder c = new StringBuilder().append("e.name like '%")
+			StringBuilder c = new StringBuilder().append("e.customerName like '%")
 					.append(getParameterValue(sp, "name")).append("%'");
 			condition.add(c.toString());
 		}

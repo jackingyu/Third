@@ -14,6 +14,7 @@ import java.util.UUID;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.commons.lang3.StringUtils;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Row;
@@ -240,5 +241,135 @@ public class ExcelUtils {
 			}
 		}
 		return fileSitePath + "/" + fileName;
+	}
+
+	public static void exportToExcel1(String workbookName, String sheetName,
+			String[] headerNames, List<Object[]> dataList,
+			HttpServletRequest request, HttpServletResponse response)
+	{
+		Workbook wb = new HSSFWorkbook();
+		UUID uuid = UUID.randomUUID();
+		String fileName = System.getProperty("java.io.tmpdir") + "/"
+				+ uuid.toString() + ".xls";
+		File file = new File(fileName);
+		FileOutputStream fileOut = null;
+		try
+		{
+			fileOut = new FileOutputStream(file);
+		} catch (FileNotFoundException e1)
+		{
+			e1.printStackTrace();
+		}
+		Sheet sheet = wb.createSheet(sheetName);
+		int rowIndex = 0;
+		Row headerRow = sheet.createRow(rowIndex++);
+		int colIndex = 0;
+		for (String headerName : headerNames)
+		{
+			Cell headerCell = headerRow.createCell(colIndex++);
+			headerCell.setCellValue(headerName);
+		}
+
+		if (dataList != null && dataList.size() > 0)
+		{
+			for (Object[] data : dataList)
+			{
+				Row dataRow = sheet.createRow(rowIndex++);
+				colIndex = 0;
+				for (Object column : data)
+				{
+					Cell dataCell = dataRow.createCell(colIndex++);
+					if (column == null)
+						dataCell.setCellValue(StringUtils.EMPTY);
+					else
+						dataCell.setCellValue(column.toString());
+				}
+			}
+		}
+		
+		try
+		{
+			wb.write(fileOut);
+		}catch (IOException e)
+		{
+			e.printStackTrace();
+		}finally
+		{
+			if (fileOut != null)
+			{
+				try
+				{
+					fileOut.close();
+				} catch (IOException e)
+				{
+					e.printStackTrace();
+				}
+			}
+		}
+
+		String contentType = "application/vnd.ms-excel";
+		response.setContentType("text/html;charset=UTF-8");
+		try
+		{
+			request.setCharacterEncoding("UTF-8");
+		} catch (UnsupportedEncodingException e)
+		{
+			e.printStackTrace();
+		}
+
+		BufferedInputStream bis = null;
+		BufferedOutputStream bos = null;
+
+		long fileLength = file.length();
+
+		response.setContentType(contentType);
+		response.setHeader("Content-disposition",
+				"attachment; filename=\"" + fileName + "\"");
+		response.setHeader("Content-Length", String.valueOf(fileLength));
+
+		try
+		{
+			bis = new BufferedInputStream(new FileInputStream(file));
+			bos = new BufferedOutputStream(response.getOutputStream());
+			byte[] buff = new byte[1024];
+			int bytesRead;
+			while (-1 != (bytesRead = bis.read(buff, 0, buff.length)))
+			{
+				bos.write(buff, 0, bytesRead);
+			}
+		} catch (FileNotFoundException e)
+		{
+			e.printStackTrace();
+		} catch (IOException e)
+		{
+			e.printStackTrace();
+		} finally
+		{
+			if (bis != null)
+			{
+				try
+				{
+					bis.close();
+				} catch (IOException e)
+				{
+					e.printStackTrace();
+				}
+			}
+			if (bos != null)
+			{
+				try
+				{
+					bos.close();
+				} catch (IOException e)
+				{
+					e.printStackTrace();
+				}
+			}
+			if (file != null && file.exists())
+			{
+				file.delete();
+			}
+		}
+
 	}
 }

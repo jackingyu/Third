@@ -17,15 +17,20 @@
         <spring:message code="lte.orderentrylist.title"></spring:message>
       </h1>
       </div>
-      <div class="col-lg-4 col-md-4">
+      <div class="col-lg-2 col-md-2">
       <a onclick="ACC.orderEntryList.query()" class="btn btn-app">
           <i class="fa fa-search"></i>  <spring:message code="lte.search"></spring:message>
+       </a>
+      </div>
+      <div class="col-lg-2 col-md-2">
+      <a onclick="ACC.orderEntryList.exportExcel()" class="btn btn-app">
+          <i class="fa fa-search"></i>  <spring:message code="lte.export"></spring:message>
        </a>
       </div>
       </div>
     </section>
     <section class="content-header">
-     <form id="orderEntryListForm">
+     <form id="orderEntryListForm" action="${contextPath}/orderentry/export'">
        <div class="row">
        <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
          <label><spring:message code="lte.orderentrylist.externailid"></spring:message></label>
@@ -44,6 +49,10 @@
         <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
          <label><spring:message code="lte.orderentrylist.status"></spring:message></label>
          <common:selection data="${orderStatus}" name="orderEntryStatus"></common:selection>
+         </div>
+        <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
+         <label><spring:message code="lte.orderentrylist.customername"></spring:message></label>
+           <input class="form-control" placeholder="" name="customerName" type="text">
          </div>
        </div>
        </form>
