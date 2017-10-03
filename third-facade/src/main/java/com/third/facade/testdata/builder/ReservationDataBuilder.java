@@ -4,9 +4,9 @@ import java.util.Date;
 
 import javax.annotation.Resource;
 
+import com.third.core.constants.CoreConstants;
 import com.third.dao.location.CityDao;
 import com.third.model.CityModel;
-import com.third.model.CoreConstants;
 import com.third.model.CustomerModel;
 import com.third.model.ReservationModel;
 import com.third.model.StoreModel;

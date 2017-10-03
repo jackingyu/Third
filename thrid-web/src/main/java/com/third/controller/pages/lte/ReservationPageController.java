@@ -24,6 +24,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.third.controller.pages.AbstractPageController;
 import com.third.controller.pages.ControllerConstants;
+import com.third.core.constants.CoreConstants;
 import com.third.core.util.DataTableCriterias;
 import com.third.facade.customer.CustomerFacade;
 import com.third.facade.customer.ReservationFacade;
@@ -37,7 +38,6 @@ import com.third.facade.data.ReservationData;
 import com.third.facade.data.SourceData;
 import com.third.facade.data.StoreData;
 import com.third.facade.local.I18NFacade;
-import com.third.model.CoreConstants;
 
 @Controller
 public class ReservationPageController extends AbstractPageController {

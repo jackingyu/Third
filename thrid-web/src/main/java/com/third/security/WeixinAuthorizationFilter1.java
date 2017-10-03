@@ -12,11 +12,11 @@ import org.apache.commons.lang3.StringUtils;
 import org.apache.log4j.Logger;
 import org.springframework.web.filter.GenericFilterBean;
 
+import com.third.core.constants.CoreConstants;
 import com.third.core.util.WXConstant;
 import com.third.facade.customer.CustomerFacade;
 import com.third.facade.customer.WeixinFacade;
 import com.third.facade.data.CustomerData;
-import com.third.model.CoreConstants;
 import com.third.security.exceptions.WeixinAuthenticationException;
 import com.third.service.user.SessionService;
 

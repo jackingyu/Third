@@ -16,13 +16,13 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.third.controller.pages.AbstractPageController;
 import com.third.controller.pages.ControllerConstants;
+import com.third.core.constants.CoreConstants;
 import com.third.core.util.DataTableCriterias;
 import com.third.exceptions.NoQualifiedTargetStatusException;
 import com.third.exceptions.NotFoundException;
 import com.third.facade.order.OrderFacade;
 import com.third.facade.order.OrderProcessFacade;
 import com.third.facade.utils.TextMapperUtils;
-import com.third.model.CoreConstants;
 
 @Controller
 public class ScanOrderController extends AbstractPageController {

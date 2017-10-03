@@ -13,8 +13,8 @@ import javax.annotation.Resource;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.apache.commons.lang3.RandomUtils;
 
-import com.third.model.CoreConstants.PaymentMethod;
-import com.third.model.CoreConstants.PaymentType;
+import com.third.core.constants.CoreConstants.PaymentMethod;
+import com.third.core.constants.CoreConstants.PaymentType;
 import com.third.model.AddressModel;
 import com.third.model.CustomerModel;
 import com.third.model.OrderEntryModel;

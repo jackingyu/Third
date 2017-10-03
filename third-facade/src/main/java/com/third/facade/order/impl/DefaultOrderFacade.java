@@ -22,6 +22,7 @@ import org.springframework.util.CollectionUtils;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.alibaba.fastjson.JSON;
+import com.third.core.constants.CoreConstants;
 import com.third.dao.util.PaginationSupport;
 import com.third.facade.data.DTResults;
 import com.third.facade.data.ListData;
@@ -39,7 +40,6 @@ import com.third.facade.populator.SizeAttributeDataPopulator;
 import com.third.facade.populator.option.OrderOption;
 import com.third.facade.utils.DTResultConvertor;
 import com.third.facade.utils.TextMapperUtils;
-import com.third.model.CoreConstants;
 import com.third.model.CustomerModel;
 import com.third.model.OrderEntryModel;
 import com.third.model.OrderModel;

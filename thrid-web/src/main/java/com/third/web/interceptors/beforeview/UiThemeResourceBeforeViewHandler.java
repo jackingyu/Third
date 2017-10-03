@@ -9,8 +9,8 @@ import javax.servlet.http.HttpServletResponse;
 import org.apache.log4j.Logger;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.third.core.constants.CoreConstants;
 import com.third.facade.data.MenuData;
-import com.third.model.CoreConstants;
 import com.third.service.user.SessionService;
 import com.third.web.interceptors.BeforeViewHandler;
 

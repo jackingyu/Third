@@ -26,6 +26,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.alibaba.fastjson.JSON;
 import com.third.controller.pages.AbstractPageController;
 import com.third.controller.pages.ControllerConstants;
+import com.third.core.constants.CoreConstants;
 import com.third.facade.data.ComboboxData;
 import com.third.facade.data.OrderData;
 import com.third.facade.data.OrderEntryData;
@@ -38,7 +39,6 @@ import com.third.facade.order.OrderFacade;
 import com.third.facade.populator.option.OrderOption;
 import com.third.facade.user.UserFacade;
 import com.third.facade.utils.TextMapperUtils;
-import com.third.model.CoreConstants;
 
 @Controller
 public class SizeOrderPageController extends AbstractPageController {

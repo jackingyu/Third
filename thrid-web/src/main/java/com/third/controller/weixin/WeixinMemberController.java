@@ -11,12 +11,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.third.controller.pages.ControllerConstants;
+import com.third.core.constants.CoreConstants;
 import com.third.core.util.WXConstant;
 import com.third.exceptions.SubscribeException;
 import com.third.facade.customer.CustomerFacade;
 import com.third.facade.customer.WeixinFacade;
 import com.third.facade.data.CustomerData;
-import com.third.model.CoreConstants;
 import com.third.service.user.SessionService;
 import com.third.web.utils.SmsVerifyCodeUtils;
 
