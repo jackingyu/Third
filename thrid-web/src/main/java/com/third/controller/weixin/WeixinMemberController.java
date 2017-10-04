@@ -52,12 +52,12 @@ public class WeixinMemberController extends AbstractWeixinController {
 
 		// code 必须存在,此处不在进行code 必须输入的判断,直接通过参数进行404控制
 
-		String openId = "";
+//		String openId = "";
 
-		openId = weixinFacade.getOpenId(code);
+		//openId = weixinFacade.getOpenId(code);
 
-		if (StringUtils.isNotEmpty(openId))
-			sessionService.save(WXConstant.WX_OPENID, openId);
+//		if (StringUtils.isNotEmpty(openId))
+//			sessionService.save(WXConstant.WX_OPENID, openId);
 
 		return ControllerConstants.WeiXin.REGISTERPAGE;
 
