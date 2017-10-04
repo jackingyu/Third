@@ -15,6 +15,7 @@ public class WXConstant {
 
 	public static final String event_subscribe = "subscribe";
 	public static final String event_unsubscribe = "unsubscribe";
+	public static final String event_VIEW = "VIEW";
 
 	public static final String WX_CUSTOMER = "wx_customer";
 	public static final String WX_ERROR_MSG = "wx_error_msg";

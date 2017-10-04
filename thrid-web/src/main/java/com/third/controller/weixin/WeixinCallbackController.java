@@ -89,7 +89,18 @@ public class WeixinCallbackController {
 							LOG.debug("回复给用户的XML是：" + xml);
 							return xml;
 						}
-					} else
+//						此URL除了第一次验证以外,微信每次触发事件会进行调用,如果是点击自定义菜单,则会触发VIEW事件
+//						if (wxMsg.getEvent() != null && wxMsg.getEvent()
+//								.equals(WXConstant.event_VIEW))
+//						{
+//							this.processSubscribe(wxMsg);
+//							// 回复图文消息
+//							String xml = weixinFacade.getSubscribeMsg(wxMsg);
+//							LOG.debug("回复给用户的XML是：" + xml);
+//							return xml;
+//						}
+					} 
+					else
 					{
 						LOG.debug("将该消息转发至多客服系统");
 						String xml = weixinFacade.getTransferMsg(wxMsg);
