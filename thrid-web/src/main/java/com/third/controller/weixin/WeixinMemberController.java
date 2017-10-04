@@ -21,7 +21,6 @@ import com.third.service.user.SessionService;
 import com.third.web.utils.SmsVerifyCodeUtils;
 
 @Controller
-@RequestMapping("/wx/member")
 public class WeixinMemberController extends AbstractWeixinController {
 	private static final Logger LOG = Logger
 			.getLogger(WeixinMemberController.class);
@@ -38,7 +37,7 @@ public class WeixinMemberController extends AbstractWeixinController {
 	@Resource(name = "smsVerifyCodeUtils")
 	SmsVerifyCodeUtils smsVerifyCodeUtils;
 
-	@RequestMapping(value = "/getRegisterPage")
+	@RequestMapping(value = "/weixin/memeber/getRegisterPage")
 	public String getRegisterPage(final HttpServletRequest request,
 			final Model model,
 			@RequestParam(value = "code", required = false) final String code,
@@ -65,7 +64,7 @@ public class WeixinMemberController extends AbstractWeixinController {
 
 	}
 
-	@RequestMapping(value = "/home")
+	@RequestMapping(value = "/wx/memeber/home")
 	public String getMemberPage(final HttpServletRequest request,
 			final Model model)
 	{
@@ -82,7 +81,7 @@ public class WeixinMemberController extends AbstractWeixinController {
 		return ControllerConstants.WeiXin.MEMBERPAGE;
 	}
 
-	@RequestMapping(value = "/registerCustomer")
+	@RequestMapping(value = "/wx/memeber/registerCustomer")
 	public String bindCustomer(final HttpServletRequest request,
 			final HttpServletRequest response,
 			@RequestParam(value = "vcode", required = false) final String vcode,

@@ -72,7 +72,8 @@ public class WeixinAuthorizationFilter extends GenericFilterBean {
 				final String openId = weixinFacade.getOpenId(code);
 				sessionService.save(WXConstant.WX_OPENID, openId);
 				HttpServletRequest r =(HttpServletRequest) request;
-				LOG.debug(r.getRequestURL()+"/openID = "+sessionService.get(WXConstant.WX_OPENID));
+				LOG.debug(r.getRequestURL());
+				LOG.debug("openID = "+sessionService.get(WXConstant.WX_OPENID));
 				CustomerData customer = customerFacade.loginCustomer(openId);
 
 				if (customer == null)
