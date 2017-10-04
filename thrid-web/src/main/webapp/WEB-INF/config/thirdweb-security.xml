@@ -151,6 +151,4 @@
      
     <bean id="weixinAuthorizationFilter" class="com.third.security.WeixinAuthorizationFilter"> 
      </bean>
-    <bean id="weixinAuthorizationFilter1" class="com.third.security.WeixinAuthorizationFilter1"> 
-     </bean>
 </beans>
