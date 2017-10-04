@@ -36,6 +36,7 @@
     <security:http  pattern="/lotsdata" security="none"></security:http>
     <security:http  pattern="/login" security="none"></security:http>
  
+    <security:http  pattern="/weixin/**" security="none"></security:http>
     <security:http  pattern="/wx/**" security="none"></security:http>
   
 
