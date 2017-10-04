@@ -38,9 +38,7 @@ public class WeixinAuthorizationFilter extends OncePerRequestFilter {
 
 
 	protected void forward(ServletRequest request,ServletResponse response) throws ServletException, IOException {
-		//request.getRequestDispatcher("/weixin/member/getregisterpage").forward(request, response);
-	    LOG.debug("request ------------>"+request);
-		response.getWriter().write("OK!");
+		request.getRequestDispatcher("/weixin/member/getregisterpage").forward(request, response);
 	}
 
 	@Override
