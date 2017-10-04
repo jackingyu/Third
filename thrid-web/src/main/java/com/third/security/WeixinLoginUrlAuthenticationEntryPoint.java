@@ -46,8 +46,8 @@ public class WeixinLoginUrlAuthenticationEntryPoint
 			throws IOException, ServletException
 	{
 		if (WXConstant.WX_ERR_NOT_BIND_CUST.equals(authException.getMessage()))
-			//request.getRequestDispatcher("/wx/member/getRegisterPage").forward(request, response);
-			redirectStrategy.sendRedirect(request, response, "/weixin/member/getRegisterPage");
+			request.getRequestDispatcher("/weixin/member/getRegisterPage").forward(request, response);
+		//	redirectStrategy.sendRedirect(request, response, "/weixin/member/getRegisterPage");
 		// redirectStrategy
 		// .sendRedirect(
 		// request,
