@@ -39,7 +39,8 @@ public class WeixinAuthorizationFilter extends GenericFilterBean {
 			FilterChain chain) throws IOException, ServletException
 	{
 		LOG.debug("in custom filter");
-
+		HttpServletRequest r =(HttpServletRequest) request;
+		LOG.debug(r.getRequestURL());
 		// session 中有open id ,证明当前页面是通过微信进入
 		if (sessionService.contains(WXConstant.WX_OPENID))
 		{
@@ -71,8 +72,6 @@ public class WeixinAuthorizationFilter extends GenericFilterBean {
 				LOG.debug("init session context");
 				final String openId = weixinFacade.getOpenId(code);
 				sessionService.save(WXConstant.WX_OPENID, openId);
-				HttpServletRequest r =(HttpServletRequest) request;
-				LOG.debug(r.getRequestURL());
 				LOG.debug("openID = "+sessionService.get(WXConstant.WX_OPENID));
 				CustomerData customer = customerFacade.loginCustomer(openId);
 
