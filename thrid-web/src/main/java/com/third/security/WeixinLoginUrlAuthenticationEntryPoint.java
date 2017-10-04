@@ -51,8 +51,8 @@ public class WeixinLoginUrlAuthenticationEntryPoint
 	{
 		System.out.println("---------"+sessionService.get(WXConstant.WX_OPENID));
 		if (WXConstant.WX_ERR_NOT_BIND_CUST.equals(authException.getMessage()))
-			//request.getRequestDispatcher("http://baidu.com").forward(request, response);
-		redirectStrategy.sendRedirect(request, response, "/weixin/member/getRegisterPage");
+			request.getRequestDispatcher("/wx/member/getRegisterPage").forward(request, response);
+		//redirectStrategy.sendRedirect(request, response, "http://baidu.com");
 		// redirectStrategy
 		// .sendRedirect(
 		// request,

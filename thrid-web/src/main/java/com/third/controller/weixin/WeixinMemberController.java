@@ -37,11 +37,12 @@ public class WeixinMemberController extends AbstractWeixinController {
 	@Resource(name = "smsVerifyCodeUtils")
 	SmsVerifyCodeUtils smsVerifyCodeUtils;
 
-	@RequestMapping(value = "/weixin/member/getRegisterPage")
+	@RequestMapping(value = "/wx/member/getRegisterPage")
 	public String getRegisterPage(final HttpServletRequest request,
 			final Model model,
 			@RequestParam(value = "code", required = false) final String code,
-			@RequestParam(value = "state", required = false) final String state)
+			@RequestParam(value = "state", required = false) final String state,
+         	@RequestParam(value = "openId", required = false) final String openId)
 	{
 		if (sessionService.contains(CoreConstants.Session.CURRENT_CUSTOMER))
 		{
@@ -49,7 +50,8 @@ public class WeixinMemberController extends AbstractWeixinController {
 			return getMemberPage(request, model);
 		}
 		
-		LOG.debug("openID = "+sessionService.get(WXConstant.WX_OPENID));
+		LOG.debug("+++++++openID in session = "+sessionService.get(WXConstant.WX_OPENID));
+		LOG.debug("+++++++openID in request = "+openId);
 
 		// code 必须存在,此处不在进行code 必须输入的判断,直接通过参数进行404控制
 
