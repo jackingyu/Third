@@ -40,7 +40,7 @@ public class WeixinCallbackController {
 	@Resource(name="sessionService")
 	private SessionService sessionService;
 
-	@RequestMapping(value = "/wx/callback")
+	@RequestMapping(value = "/weixin/callback")
 	public @ResponseBody Object callback(
 			@RequestParam(value = "signature", defaultValue = StringUtils.EMPTY) final String signature,
 			@RequestParam(value = "timestamp", defaultValue = StringUtils.EMPTY) final String timestamp,
