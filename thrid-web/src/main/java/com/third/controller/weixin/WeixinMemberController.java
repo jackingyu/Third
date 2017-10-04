@@ -90,7 +90,9 @@ public class WeixinMemberController extends AbstractWeixinController {
 	{
 		LOG.debug("vcode=" + vcode);
 		LOG.debug("cellphone=" + cellphone);
-
+		
+		LOG.debug("openID = "+sessionService.get(WXConstant.WX_OPENID));
+		
 		if (!sessionService.contains(WXConstant.WX_OPENID))
 		{
 			LOG.fatal("必须通过微信页面进行用户注册");

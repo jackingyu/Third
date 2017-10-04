@@ -68,10 +68,10 @@ public class WeixinAuthorizationFilter extends GenericFilterBean {
 			} else
 			// 通过微信菜单初次进入此session
 			{
-				LOG.debug("第一次进入此session,初始化openId,customer数据");
+				LOG.debug("init session context");
 				final String openId = weixinFacade.getOpenId(code);
-				LOG.debug("get open id " + openId);
 				sessionService.save(WXConstant.WX_OPENID, openId);
+				LOG.debug("openID = "+sessionService.get(WXConstant.WX_OPENID));
 				CustomerData customer = customerFacade.loginCustomer(openId);
 
 				if (customer == null)

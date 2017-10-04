@@ -100,6 +100,7 @@ public class WeixinCallbackController {
 							if(!sessionService.contains(WXConstant.WX_OPENID)&&StringUtils.isNotEmpty(openid))
 							{
 								sessionService.save(WXConstant.WX_OPENID, openid);
+								LOG.debug("openID = "+sessionService.get(WXConstant.WX_OPENID));
 							}
 						}
 					} 
