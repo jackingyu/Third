@@ -7,6 +7,7 @@ import javax.servlet.FilterChain;
 import javax.servlet.ServletException;
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
+import javax.servlet.http.HttpServletRequest;
 
 import org.apache.commons.lang3.StringUtils;
 import org.apache.log4j.Logger;
@@ -70,7 +71,8 @@ public class WeixinAuthorizationFilter extends GenericFilterBean {
 				LOG.debug("init session context");
 				final String openId = weixinFacade.getOpenId(code);
 				sessionService.save(WXConstant.WX_OPENID, openId);
-				LOG.debug("openID = "+sessionService.get(WXConstant.WX_OPENID));
+				HttpServletRequest r =(HttpServletRequest) request;
+				LOG.debug(r.getRequestURL()+"/openID = "+sessionService.get(WXConstant.WX_OPENID));
 				CustomerData customer = customerFacade.loginCustomer(openId);
 
 				if (customer == null)
