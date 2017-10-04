@@ -123,6 +123,7 @@ public class DefaultWeixinService implements WeixinService {
 			CloseableHttpResponse response = httpClient.execute(get);
 			HttpEntity entity = response.getEntity();
 			String content = EntityUtils.toString(entity);
+			LOG.debug("response content is:"+content);
 			if (null != content)
 			{
 				// 解析Json格式
