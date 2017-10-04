@@ -37,7 +37,7 @@ public class WeixinMemberController extends AbstractWeixinController {
 	@Resource(name = "smsVerifyCodeUtils")
 	SmsVerifyCodeUtils smsVerifyCodeUtils;
 
-	@RequestMapping(value = "/wx/member/getRegisterPage")
+	@RequestMapping(value = "/wx/member/getregisterpage")
 	public String getRegisterPage(final HttpServletRequest request,
 			final Model model,
 			@RequestParam(value = "code", required = false) final String code,

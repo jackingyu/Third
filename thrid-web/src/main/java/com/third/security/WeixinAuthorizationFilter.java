@@ -8,10 +8,12 @@ import javax.servlet.ServletException;
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.lang3.StringUtils;
 import org.apache.log4j.Logger;
 import org.springframework.web.filter.GenericFilterBean;
+import org.springframework.web.filter.OncePerRequestFilter;
 
 import com.third.core.constants.CoreConstants;
 import com.third.core.util.WXConstant;
@@ -21,7 +23,7 @@ import com.third.facade.data.CustomerData;
 import com.third.security.exceptions.WeixinAuthenticationException;
 import com.third.service.user.SessionService;
 
-public class WeixinAuthorizationFilter extends GenericFilterBean {
+public class WeixinAuthorizationFilter extends OncePerRequestFilter {
 
 	protected static final Logger LOG = Logger
 			.getLogger(WeixinAuthorizationFilter.class);
@@ -34,10 +36,17 @@ public class WeixinAuthorizationFilter extends GenericFilterBean {
 	@Resource(name = "weixinFacade")
 	private WeixinFacade weixinFacade;
 
+
+	protected void forward(ServletRequest request,ServletResponse response) throws ServletException, IOException {
+		request.getRequestDispatcher("/wx/member/getregisterpage").forward(request, response);
+	}
+
 	@Override
-	public void doFilter(ServletRequest request, ServletResponse response,
-			FilterChain chain) throws IOException, ServletException
+	protected void doFilterInternal(HttpServletRequest request,
+			HttpServletResponse response, FilterChain filterChain)
+			throws ServletException, IOException
 	{
+
 		LOG.debug("in custom filter");
 		HttpServletRequest r =(HttpServletRequest) request;
 		LOG.debug(r.getRequestURL());
@@ -48,13 +57,12 @@ public class WeixinAuthorizationFilter extends GenericFilterBean {
 			if (sessionService.contains(CoreConstants.Session.CURRENT_CUSTOMER))
 			{
 				LOG.debug("detect customer master data");
-				chain.doFilter(request, response);
+				filterChain.doFilter(request, response);
 			} else
 			{
 				// 如registerCustomer应该是这种情形,但是为了暂时保持逻辑的简单,不通过此filter实现
 				LOG.debug("not exist customer suitation");
-				throw new WeixinAuthenticationException(
-						WXConstant.WX_ERR_NOT_BIND_CUST);
+				this.forward(request, response);
 			}
 		} else
 		{
@@ -64,8 +72,7 @@ public class WeixinAuthorizationFilter extends GenericFilterBean {
 			if (StringUtils.isEmpty(code))
 			{
 				LOG.debug("must access via wechat client");
-				throw new WeixinAuthenticationException(
-						WXConstant.WX_ERR_MUST_FROM_WX);
+				this.forward(request, response);
 			} else
 			// 通过微信菜单初次进入此session
 			{
@@ -78,14 +85,12 @@ public class WeixinAuthorizationFilter extends GenericFilterBean {
 				if (customer == null)
 				{
 					LOG.debug(openId + " openid can not find customer master data");
-					throw new WeixinAuthenticationException(
-							WXConstant.WX_ERR_NOT_BIND_CUST);
+					this.forward(request, response);
 				}
 
-				chain.doFilter(request, response);
+				filterChain.doFilter(request, response);
 			}
 		}
-
+		
 	}
-
 }
