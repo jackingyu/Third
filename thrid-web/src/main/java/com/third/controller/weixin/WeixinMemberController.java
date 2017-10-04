@@ -41,7 +41,7 @@ public class WeixinMemberController extends AbstractWeixinController {
 	@RequestMapping(value = "/getRegisterPage")
 	public String getRegisterPage(final HttpServletRequest request,
 			final Model model,
-			@RequestParam(value = "code", required = true) final String code,
+			@RequestParam(value = "code", required = false) final String code,
 			@RequestParam(value = "state", required = false) final String state)
 	{
 		if (sessionService.contains(CoreConstants.Session.CURRENT_CUSTOMER))
@@ -49,6 +49,8 @@ public class WeixinMemberController extends AbstractWeixinController {
 			LOG.debug("有已绑定的顾客,跳转到member页");
 			return getMemberPage(request, model);
 		}
+		
+		LOG.debug("openID = "+sessionService.get(WXConstant.WX_OPENID));
 
 		// code 必须存在,此处不在进行code 必须输入的判断,直接通过参数进行404控制
 
@@ -95,7 +97,7 @@ public class WeixinMemberController extends AbstractWeixinController {
 		
 		if (!sessionService.contains(WXConstant.WX_OPENID))
 		{
-			LOG.fatal("必须通过微信页面进行用户注册");
+			LOG.fatal("must access via wechat client");
 			model.addAttribute("wx_error_msg", "必须通过微信页面进行用户注册");
 			return "forward:" + ControllerConstants.WeiXin.ERRORPAGE;
 		}
@@ -118,7 +120,7 @@ public class WeixinMemberController extends AbstractWeixinController {
 			return getMemberPage(request, model);
 		}
 
-		LOG.debug("验证码不正确");
+		LOG.debug("sms verify code is not correct");
 		model.addAttribute("WxErrorMessage", "验证码不正确");
 		return "forward:" + ControllerConstants.WeiXin.ERRORURL;
 	}

@@ -45,13 +45,12 @@ public class WeixinAuthorizationFilter extends GenericFilterBean {
 			// 该微信已经绑定了有效账户,且已经存在了
 			if (sessionService.contains(CoreConstants.Session.CURRENT_CUSTOMER))
 			{
-				LOG.debug("有已绑定的顾客,正常访问");
+				LOG.debug("detect customer master data");
 				chain.doFilter(request, response);
 			} else
 			{
 				// 如registerCustomer应该是这种情形,但是为了暂时保持逻辑的简单,不通过此filter实现
-				LOG.debug("not exist suitation");
-				LOG.debug("未找到对应的客户主数据");
+				LOG.debug("not exist customer suitation");
 				throw new WeixinAuthenticationException(
 						WXConstant.WX_ERR_NOT_BIND_CUST);
 			}
@@ -62,7 +61,7 @@ public class WeixinAuthorizationFilter extends GenericFilterBean {
 			// 该URL是在security的管控下,必须通过微信的页面来访问的
 			if (StringUtils.isEmpty(code))
 			{
-				LOG.debug("必须通过微信客户端来访问");
+				LOG.debug("must access via wechat client");
 				throw new WeixinAuthenticationException(
 						WXConstant.WX_ERR_MUST_FROM_WX);
 			} else
@@ -76,7 +75,7 @@ public class WeixinAuthorizationFilter extends GenericFilterBean {
 
 				if (customer == null)
 				{
-					LOG.debug(openId + "未找到对应的客户主数据");
+					LOG.debug(openId + " openid can not find customer master data");
 					throw new WeixinAuthenticationException(
 							WXConstant.WX_ERR_NOT_BIND_CUST);
 				}
