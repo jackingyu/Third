@@ -13,6 +13,13 @@
 
 		<div class="box-body">
 			<div class="form-group">
+				<label><spring:message code="lte.customer.name"></spring:message></label>
+				<div class="input-group col-sm-12 col-xs-12 col-md-12 col-lg-12">
+					<input id="customerName" name="name" value="${customer.name}" class="form-control required" type="text">
+				</div>
+			</div>
+			
+			<div class="form-group">
 				<label><spring:message code="lte.customer.cellphone"></spring:message></label>
 				<div class="input-group">
 					<span class="input-group-addon"><i class="fa fa-mobile-phone"></i></span>
@@ -21,12 +28,7 @@
 				<input type="hidden" name="customerPK" value="${customer.pk}">
 			</div>
 
-			<div class="form-group">
-				<label><spring:message code="lte.customer.name"></spring:message></label>
-				<div class="input-group col-sm-12 col-xs-12 col-md-12 col-lg-12">
-					<input id="customerName" name="name" value="${customer.name}" class="form-control required" type="text">
-				</div>
-			</div>
+	
 
 			<div class="form-group">
 				<label><spring:message code="lte.customer.QQ"></spring:message></label>
