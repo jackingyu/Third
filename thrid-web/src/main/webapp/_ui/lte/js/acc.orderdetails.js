@@ -10,13 +10,37 @@ ACC.orderdetail = {
 }
 
 $(document).ready(function() {
-	$('#photodate').datepicker();
+	$('#photodate').datepicker({
+		autoclose : true,
+		locale : {
+			format : 'YYYY/MM/DD'
+		},
+		language : 'zh-CN'
+	});
 
-	$('#trydate').datepicker();
+	$('#trydate').datepicker({
+		autoclose : true,
+		locale : {
+			format : 'YYYY/MM/DD'
+		},
+		language : 'zh-CN'
+	});
 
-	$('#deliverydate').datepicker();
+	$('#deliverydate').datepicker({
+		autoclose : true,
+		locale : {
+			format : 'YYYY/MM/DD'
+		},
+		language : 'zh-CN'
+	});
 
-	$('#weddingdate').datepicker();
+	$('#weddingdate').datepicker({
+		autoclose : true,
+		locale : {
+			format : 'YYYY/MM/DD'
+		},
+		language : 'zh-CN'
+	});
 
 	ACC.searchcustomer.callback = ACC.orderdetail.setCustomer;
 

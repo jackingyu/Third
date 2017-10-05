@@ -4,9 +4,21 @@ ACC.customerdetails = {
 	},
 
 	init : function() {
-		$("#weddingdate").datepicker();
+		$("#weddingdate").datepicker({
+			autoclose : true,
+			locale : {
+				format : 'YYYY/MM/DD'
+			},
+			language : 'zh-CN'
+		});
 
-		$("#birthday").datepicker();
+		$("#birthday").datepicker({
+			autoclose : true,
+			locale : {
+				format : 'YYYY/MM/DD'
+			},
+			language : 'zh-CN'
+		});
 
 		$(".select2").select2();
 
