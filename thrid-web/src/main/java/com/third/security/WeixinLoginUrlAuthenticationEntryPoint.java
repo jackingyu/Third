@@ -8,6 +8,7 @@ package com.third.security;
 
 import java.io.IOException;
 
+import javax.annotation.Resource;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -18,6 +19,7 @@ import org.springframework.security.web.RedirectStrategy;
 import org.springframework.security.web.authentication.LoginUrlAuthenticationEntryPoint;
 
 import com.third.core.util.WXConstant;
+import com.third.service.user.SessionService;
 
 /**
  * create time: Apr 19, 2016 10:42:58 AM
@@ -31,6 +33,8 @@ import com.third.core.util.WXConstant;
 public class WeixinLoginUrlAuthenticationEntryPoint
 		extends LoginUrlAuthenticationEntryPoint {
 	private final RedirectStrategy redirectStrategy = new DefaultRedirectStrategy();
+	@Resource(name="sessionService")
+	private SessionService sessionService;
 
 	public WeixinLoginUrlAuthenticationEntryPoint(String loginFormUrl)
 	{
@@ -45,9 +49,10 @@ public class WeixinLoginUrlAuthenticationEntryPoint
 			HttpServletResponse response, AuthenticationException authException)
 			throws IOException, ServletException
 	{
+		System.out.println("---------"+sessionService.get(WXConstant.WX_OPENID));
 		if (WXConstant.WX_ERR_NOT_BIND_CUST.equals(authException.getMessage()))
-			request.getRequestDispatcher("/wx/member/getRegisterPage")
-					.forward(request, response);
+			request.getRequestDispatcher("/wx/member/getRegisterPage").forward(request, response);
+		//redirectStrategy.sendRedirect(request, response, "http://baidu.com");
 		// redirectStrategy
 		// .sendRedirect(
 		// request,

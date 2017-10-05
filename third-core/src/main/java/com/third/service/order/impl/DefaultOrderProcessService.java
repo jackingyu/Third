@@ -14,7 +14,7 @@ import com.third.exceptions.NoQualifiedTargetStatusException;
 import com.third.model.OrderEntryModel;
 import com.third.model.OrderModel;
 import com.third.model.OrderProcessRecordModel;
-import com.third.model.CoreConstants.OrderStatus;
+import com.third.core.constants.CoreConstants.OrderStatus;
 import com.third.model.UserModel;
 import com.third.service.order.OrderProcessService;
 import com.third.service.order.OrderStatusUpdateAction;

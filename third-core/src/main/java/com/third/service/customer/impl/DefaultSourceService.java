@@ -2,10 +2,10 @@ package com.third.service.customer.impl;
 
 import java.util.List;
 
+import com.third.core.constants.CoreConstants;
 import com.third.dao.customer.CustomerDao;
 import com.third.dao.customer.SourceDao;
 import com.third.dao.util.PaginationSupport;
-import com.third.model.CoreConstants;
 import com.third.model.CustomerModel;
 import com.third.model.SourceModel;
 import com.third.model.UserModel;

@@ -8,6 +8,7 @@ import java.util.Map;
 
 import org.apache.commons.lang3.StringUtils;
 
+import com.third.core.constants.CoreConstants;
 import com.third.dao.util.PaginationSupport;
 import com.third.facade.data.DTResults;
 import com.third.facade.data.SalesQuotationData;
@@ -15,7 +16,6 @@ import com.third.facade.order.SalesQuotationFacade;
 import com.third.facade.populator.SalesQuotationDataPopulator;
 import com.third.facade.utils.DTResultConvertor;
 import com.third.facade.utils.TextMapperUtils;
-import com.third.model.CoreConstants;
 import com.third.model.CustomerModel;
 import com.third.model.OrderModel;
 import com.third.model.PaymentModel;

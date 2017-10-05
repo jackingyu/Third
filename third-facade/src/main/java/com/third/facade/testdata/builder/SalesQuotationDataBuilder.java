@@ -7,7 +7,7 @@ import java.util.List;
 
 import org.apache.commons.lang3.RandomUtils;
 
-import com.third.model.CoreConstants;
+import com.third.core.constants.CoreConstants;
 import com.third.model.SalesQuotationModel;
 import com.third.model.SourceModel;
 import com.third.model.StoreModel;

@@ -2,7 +2,8 @@ package com.third.facade.data;
 
 import java.util.HashMap;
 
-import com.third.model.CoreConstants;
+import com.third.core.constants.CoreConstants;
+
 
 public class TextMapper {
 	public static HashMap<String, String> PaymentType = new HashMap<String, String>();

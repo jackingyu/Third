@@ -26,6 +26,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.third.facade.customer.WeixinFacade;
 import com.third.facade.data.WXMessage;
+import com.third.service.user.SessionService;
 import com.third.core.util.WXConstant;
 
 @Controller
@@ -35,8 +36,11 @@ public class WeixinCallbackController {
 			.getLogger(WeixinCallbackController.class);
 	@Resource(name = "weixinFacade")
 	private WeixinFacade weixinFacade;
+	
+	@Resource(name="sessionService")
+	private SessionService sessionService;
 
-	@RequestMapping(value = "/wx/callback")
+	@RequestMapping(value = "/weixin/callback")
 	public @ResponseBody Object callback(
 			@RequestParam(value = "signature", defaultValue = StringUtils.EMPTY) final String signature,
 			@RequestParam(value = "timestamp", defaultValue = StringUtils.EMPTY) final String timestamp,
@@ -89,7 +93,18 @@ public class WeixinCallbackController {
 							LOG.debug("回复给用户的XML是：" + xml);
 							return xml;
 						}
-					} else
+//						此URL除了第一次验证以外,微信每次触发事件会进行调用,如果是点击自定义菜单,则会触发VIEW事件
+						if (wxMsg.getEvent() != null && wxMsg.getEvent()
+								.equals(WXConstant.event_VIEW))
+						{
+							if(!sessionService.contains(WXConstant.WX_OPENID)&&StringUtils.isNotEmpty(openid))
+							{
+								sessionService.save(WXConstant.WX_OPENID, openid);
+								LOG.debug("openID = "+sessionService.get(WXConstant.WX_OPENID));
+							}
+						}
+					} 
+					else
 					{
 						LOG.debug("将该消息转发至多客服系统");
 						String xml = weixinFacade.getTransferMsg(wxMsg);

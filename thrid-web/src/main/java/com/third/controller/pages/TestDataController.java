@@ -27,6 +27,7 @@ public class TestDataController {
 	@RequestMapping(value = "/data", method = RequestMethod.GET)
 	public String testData()
 	{
+		LOG.info("start create test data");
 		testDataGenerator.generateData();
 		return "redirect:/login";
 	}

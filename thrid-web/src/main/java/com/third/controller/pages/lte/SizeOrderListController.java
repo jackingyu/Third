@@ -15,32 +15,18 @@ import org.apache.log4j.Logger;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import com.alibaba.fastjson.JSON;
 import com.third.controller.pages.AbstractPageController;
 import com.third.controller.pages.ControllerConstants;
 import com.third.core.util.DataTableCriterias;
-import com.third.facade.data.ComboboxData;
 import com.third.facade.data.DTResults;
-import com.third.facade.data.OrderData;
-import com.third.facade.data.OrderEntryData;
-import com.third.facade.data.ProductData;
-import com.third.facade.data.SizeAttributeData;
-import com.third.facade.data.SizeAttributeGroupData;
-import com.third.facade.data.TextMapper;
+
 import com.third.facade.order.OrderFacade;
-import com.third.facade.populator.option.OrderOption;
 import com.third.facade.utils.ExcelUtils;
-import com.third.facade.utils.TextMapperUtils;
-import com.third.model.CoreConstants;
 
 @Controller
 public class SizeOrderListController extends AbstractPageController {

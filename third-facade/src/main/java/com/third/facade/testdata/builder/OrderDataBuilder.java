@@ -13,8 +13,7 @@ import javax.annotation.Resource;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.apache.commons.lang3.RandomUtils;
 
-import com.third.model.CoreConstants.PaymentMethod;
-import com.third.model.CoreConstants.PaymentType;
+import com.third.core.constants.CoreConstants;
 import com.third.model.AddressModel;
 import com.third.model.CustomerModel;
 import com.third.model.OrderEntryModel;
@@ -31,6 +30,8 @@ import com.third.service.order.OrderService;
 import com.third.service.product.ProductService;
 import com.third.service.store.StoreService;
 import com.third.service.user.UserService;
+import com.third.core.constants.CoreConstants.PaymentMethod;
+import com.third.core.constants.CoreConstants.PaymentType;
 
 public class OrderDataBuilder implements DataBuilder {
 	@Resource(name = "orderService")

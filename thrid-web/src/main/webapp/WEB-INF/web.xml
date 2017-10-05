@@ -67,6 +67,16 @@
 			　　　　　　<param-value>AUTO</param-value>
   　　　　</init-param>
 	</filter>
+	<filter>
+		<filter-name>weixinAuthorizationFilter</filter-name>
+		<filter-class>org.springframework.web.filter.DelegatingFilterProxy</filter-class>
+	</filter>
+	
+	<filter-mapping>
+		<filter-name>weixinAuthorizationFilter</filter-name>
+		<url-pattern>/wx/*</url-pattern>
+	</filter-mapping>
+	
 	<filter-mapping>
 		<filter-name>OpenSessionInViewFilter</filter-name>
 		<url-pattern>/*</url-pattern>

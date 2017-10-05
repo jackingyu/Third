@@ -16,3 +16,6 @@ http://localhost:8080/thrid-web/test 初始化数据
 2 在根目录下运行mvn jetty:run 启动jetty,debug模式为mvnDebug jetty:run,之后eclipse启用Debug,服务器就可以启动
 #orderstatus
 orderstatus没有存表,核心数据维护在CoreConstants中,文本部分使用了模式进行匹配,存在于统一的文本文件中,后期考虑修改这一部分的处理
+
+微信公众号调试
+1 目前采用高级接口在点击菜单的时候回调url,需要注意的是需要在公众号中修改高级接口认可的网页地址,否则会出现10003错误

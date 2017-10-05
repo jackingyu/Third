@@ -1,4 +1,4 @@
-package com.third.model;
+package com.third.core.constants;
 
 import java.util.ArrayList;
 import java.util.Arrays;

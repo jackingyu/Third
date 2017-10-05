@@ -6,6 +6,7 @@ import java.util.List;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.log4j.Logger;
 
+import com.third.core.constants.CoreConstants;
 import com.third.dao.util.PaginationSupport;
 import com.third.exceptions.BussinessException;
 import com.third.exceptions.NotFoundException;
@@ -18,7 +19,6 @@ import com.third.facade.data.SourceData;
 import com.third.facade.populator.CustomerDataPopulator;
 import com.third.facade.populator.SourceDataPopulator;
 import com.third.model.AddressModel;
-import com.third.model.CoreConstants;
 import com.third.model.CustomerModel;
 import com.third.model.SourceModel;
 import com.third.model.SubscribeModel;

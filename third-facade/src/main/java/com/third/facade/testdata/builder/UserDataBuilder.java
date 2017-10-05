@@ -7,7 +7,7 @@ import org.apache.commons.lang3.RandomUtils;
 
 import com.third.model.MenuModel;
 import com.third.model.RoleModel;
-import com.third.model.UserGroupConstants;
+import com.third.core.constants.UserGroupConstants;
 import com.third.model.UserGroupModel;
 import com.third.model.UserModel;
 import com.third.service.store.StoreService;

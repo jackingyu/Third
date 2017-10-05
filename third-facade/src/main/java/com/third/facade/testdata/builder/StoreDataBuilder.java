@@ -9,10 +9,10 @@ import javax.annotation.Resource;
 
 import org.apache.commons.lang3.RandomUtils;
 
+import com.third.core.constants.CoreConstants;
 import com.third.dao.user.UserDao;
 import com.third.model.AddressModel;
 import com.third.model.CityModel;
-import com.third.model.CoreConstants;
 import com.third.model.CustomerModel;
 import com.third.model.RegionModel;
 import com.third.model.SourceModel;

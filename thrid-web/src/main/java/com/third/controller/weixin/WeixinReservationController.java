@@ -14,13 +14,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.third.controller.pages.ControllerConstants;
+import com.third.core.constants.CoreConstants;
 import com.third.facade.customer.CustomerFacade;
 import com.third.facade.customer.ReservationFacade;
 import com.third.facade.data.CustomerData;
 import com.third.facade.data.ReservationData;
 import com.third.facade.data.StoreData;
 import com.third.facade.store.StoreFacade;
-import com.third.model.CoreConstants;
 
 @Controller
 @RequestMapping("/wx")

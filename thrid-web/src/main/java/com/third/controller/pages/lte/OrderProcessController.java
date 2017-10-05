@@ -18,7 +18,6 @@ import com.third.exceptions.NoQualifiedTargetStatusException;
 import com.third.exceptions.NotFoundException;
 import com.third.facade.order.OrderProcessFacade;
 import com.third.facade.utils.TextMapperUtils;
-import com.third.model.CoreConstants;
 
 @Controller
 public class OrderProcessController extends AbstractPageController {

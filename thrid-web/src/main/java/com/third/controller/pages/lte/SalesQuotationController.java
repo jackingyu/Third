@@ -40,7 +40,6 @@ import com.third.facade.order.OrderFacade;
 import com.third.facade.order.SalesQuotationFacade;
 import com.third.facade.populator.option.OrderOption;
 import com.third.facade.utils.TextMapperUtils;
-import com.third.model.CoreConstants;
 
 @Controller
 public class SalesQuotationController extends AbstractPageController {
