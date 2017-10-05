@@ -33,11 +33,11 @@
        <div class="row">
        <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12">
          <label><spring:message code="lte.userlist.name"></spring:message></label>
-         <input class="form-control" placeholder="" name="name" type="text">
+         <input class="form-control" placeholder="" name="userName" type="text">
          </div>
         <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12">
          <label><spring:message code="lte.userlist.id"></spring:message></label>
-         <input class="form-control" placeholder="" name="userid" type="text">
+         <input class="form-control" placeholder="" name="userId" type="text">
         </div>
 <!--         <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12"> -->
 <%--          <label><spring:message code="lte.userlist.store"></spring:message></label> --%>

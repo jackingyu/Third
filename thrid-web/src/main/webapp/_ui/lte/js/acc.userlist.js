@@ -18,7 +18,7 @@ ACC.userlist = {
         'data': function (d) {
           formData = getQuery('userListForm');
           d.userId = formData.userId;
-          d.name = formData.name;
+          d.userName = formData.userName;
         }
       },
       'fnDrawCallback': function () {
