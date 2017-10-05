@@ -57,7 +57,7 @@ public class CustomerPageController extends AbstractPageController {
 	}
 
 	@RequestMapping(value = "/customer/createcustomerpage", method = RequestMethod.GET)
-	public String getCreateCustomerPage(final Model model,
+	public String getCreateCustomerPage(final Model model,@ModelAttribute("message") final String message,
 			final HttpServletRequest request,
 			final HttpServletResponse response)
 	{
@@ -152,6 +152,11 @@ public class CustomerPageController extends AbstractPageController {
 			final Model model, final RedirectAttributes attr)
 	{
 
+		if (StringUtils.isEmpty(customerPK)&&customerFacade.getCustomerByCellphone(cellphone).getPk()!=null)
+		{
+			attr.addFlashAttribute("message", "手机号重复!");
+			return REDIRECT_PREFIX + "/customer/createcustomerpage/";
+		}	
 		CustomerData customer = new CustomerData();
 		customer.setCellphone(cellphone);
 		customer.setName(name);

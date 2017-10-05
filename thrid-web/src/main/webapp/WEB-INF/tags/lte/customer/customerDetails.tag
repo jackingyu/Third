@@ -56,7 +56,7 @@
 
 			<div class="form-group">
 				<label><spring:message code="lte.customer.weddingdate"></spring:message></label>
-				<common:datepicker validator="required" name="weddingdate" value="${customer.weddingdate}" id="weddingdate" />
+				<common:datepicker name="weddingdate" value="${customer.weddingdate}" id="weddingdate" />
 			</div>
 
 			<!--  

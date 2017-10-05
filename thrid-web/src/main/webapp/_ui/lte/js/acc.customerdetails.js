@@ -21,7 +21,7 @@ ACC.customerdetails = {
 		});
 
 		$(".select2").select2();
-
+		$("#customerForm").validate();
 		if ($("#cellphone").val() != null && $("#cellphone").val() != '')
 			$("#cellphone").attr("readonly", "readonly");
 
