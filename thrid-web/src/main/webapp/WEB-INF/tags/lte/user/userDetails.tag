@@ -15,7 +15,7 @@
 			<div class="form-group">
 				<label><spring:message code="lte.user.id"></spring:message></label>
 				<div class="input-group col-sm-12 col-xs-12 col-md-12 col-lg-12"">
-					<input id="userId" name="userId" value="${user.userId}" class="form-control" type="text">
+					<input <c:if test="${not empty user.pk}">readonly="readonly"</c:if> id="userId" name="userId" value="${user.userId}" class="form-control required" type="text">
 				</div>
 				<input type="hidden" name="userPK" value="${user.pk}">
 			</div>
@@ -23,25 +23,25 @@
 			<div class="form-group">
 				<label><spring:message code="lte.user.name"></spring:message></label>
 				<div class="input-group col-sm-12 col-xs-12 col-md-12 col-lg-12">
-					<input  name="name" value="${user.name}" class="form-control" type="text">
+					<input  name="name" value="${user.name}" class="form-control required" type="text">
 				</div>
 			</div>
 
 			<div class="form-group">
 				<label><spring:message code="lte.user.password"></spring:message></label>
                 <div class="input-group col-sm-12 col-xs-12 col-md-12 col-lg-12">
-					<input  name="password" value="${user.password}" class="form-control" type="text">
+					<input  name="password" value="${user.password}" class="form-control required" type="text">
 				</div>
 			</div>
 			<div class="form-group">
-				<common:selection2 data="${userGroups}" label="lte.user.usergroup"  name="usergroupPK"></common:selection2>
+				<common:selection2  validator="required" data="${userGroups}" label="lte.user.usergroup"  name="usergroupPK"></common:selection2>
 			</div>
 			
 			<div class="form-group">
-				<common:selection2 data="${stores}" label="lte.user.store"  multiple="true" name="stores"></common:selection2>
+				<common:selection2  data="${stores}" label="lte.user.store"  multiple="true" name="stores"></common:selection2>
 			</div>
 			<div class="checkbox">
-			    <label><input  name="blocked"  <c:if test="${user.blocked}">checked="checked"</c:if> type="checkbox">
+			    <label><input name="blocked"  <c:if test="${user.blocked}">checked="checked"</c:if> type="checkbox">
 			    <spring:message code="lte.user.blocked"></spring:message></label>
 			</div>
 		</div>

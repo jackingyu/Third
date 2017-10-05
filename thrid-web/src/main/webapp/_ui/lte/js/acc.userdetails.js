@@ -4,6 +4,7 @@ ACC.userdetails = {
 	},
 	init:function(){
 	  $(".select2").select2();
+	  $("#userForm").validate();
 	}
 }
 
