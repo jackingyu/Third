@@ -24,6 +24,7 @@ public class TextMapper {
 	{
 		PaymentMethod.put(CoreConstants.PaymentMethod.CreditCard, "信用卡");
 		PaymentMethod.put(CoreConstants.PaymentMethod.Cash, "现金");
+		PaymentMethod.put(CoreConstants.PaymentMethod.O2OAliPay, "网络支付");
 	}
 
 	static

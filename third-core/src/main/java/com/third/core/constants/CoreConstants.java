@@ -14,6 +14,7 @@ public interface CoreConstants {
 	interface PaymentMethod {
 		final String Cash = "0";
 		final String CreditCard = "1";
+		final String O2OAliPay = "2";
 	}
 
 	interface ItemCategory {
