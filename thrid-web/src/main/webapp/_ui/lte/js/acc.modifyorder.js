@@ -87,7 +87,7 @@ ACC.modifyorder = {
         '"> <i class="fa fa-remove"></i>删除</a>'
         );
     	  else
-    		  $('td', row).eq(4).html('');
+    		  $('td', row).eq(4).html('<i></i>');
       },
       'ajax': {
         'url': ACC.config.contextPath + '/order/payments/' + orderCode,
