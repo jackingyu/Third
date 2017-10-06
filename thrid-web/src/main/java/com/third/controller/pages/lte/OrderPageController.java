@@ -126,6 +126,10 @@ public class OrderPageController extends AbstractPageController {
 				return ControllerConstants.LTE.NOAUTHPAGE;
 		}
 		
+		if(isAdmin())
+		{
+			model.addAttribute("receivableEditable",true);
+		}
 		model.addAttribute("paymentTypes", TextMapperUtils.getPaymentTypes());
 
 		model.addAttribute("paymentMethods",
