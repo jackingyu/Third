@@ -49,7 +49,6 @@
 		         <input name="orderDate" value="${orderData.orderDate}" disabled="disabled" class="form-control" placeholder="" type="text">
 			</div>
 		</div>
-		
 		<div class="row">
 			<div class="col-lg-3 cl-md-3 cl-sm-12 cl-xs-12">
 				<label><spring:message code="lte.order.basic.receiveable"></spring:message></label>
@@ -62,6 +61,12 @@
 			<div class="col-lg-3 cl-md-3 cl-sm-12 cl-xs-12">
 				<label><spring:message code="lte.order.basic.paidamount"></spring:message></label>
 		        <input  value="${orderData.paidamount}" class="form-control paidamount" disabled="disabled" placeholder="" type="text">
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-lg-6 cl-md-6 cl-sm-12 cl-xs-12">
+				<label><spring:message code="lte.order.basic.comment"></spring:message></label>
+		       <textarea name="comment" class="form-control" rows="3" placeholder="">${orderData.comment}</textarea>
 			</div>
 		</div>
 	</div>
