@@ -1,5 +1,7 @@
 package com.third.service.customer.impl;
 
+import java.util.Date;
+
 import com.third.dao.customer.CustomerDao;
 import com.third.dao.customer.ReservationDao;
 import com.third.dao.order.OrderDao;
@@ -69,6 +71,13 @@ public class DefaultCustomerService implements CustomerService {
 	public Integer getNumberOfReservation(String cellphone)
 	{
 		return reservationDao.countReservationForCustomer(cellphone);
+	}
+
+	@Override
+	public PaginationSupport getCustomerList(String cellphone, String name,
+			Date startDate, Date endDate, Integer startIndex, Integer pageSize)
+	{
+		return customerDao.findCustomer(cellphone, name,startDate,endDate, startIndex, pageSize);
 	}
 
 }

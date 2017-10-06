@@ -1,6 +1,7 @@
 package com.third.facade.customer.impl;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import org.apache.commons.lang3.StringUtils;
@@ -95,6 +96,35 @@ public class DefaultCustomerFacade implements CustomerFacade {
 		return customerData;
 	}
 
+	/**
+	 * @param cellphone
+	 * @param name
+	 * @param startDate - wedding date
+	 * @param endDate -wedding date
+	 * @param startIndex
+	 * @param pageSize
+	 * @return
+	 */
+	@Override
+	public ListData getCustomers(final String cellphone, final String name,final Date startDate,final Date endDate,
+			final Integer startIndex, final Integer pageSize)
+	{
+		PaginationSupport result = customerService.getCustomerList(cellphone,
+				name, startDate,endDate,startIndex, pageSize);
+		ListData grid = new ListData();
+		grid.setTotal(result.getTotalCount());
+		List<Object> customers = new ArrayList<Object>();
+		result.getItems().forEach(n -> {
+			CustomerData customerData = new CustomerData();
+			customerDataPopulator.populate((CustomerModel) n, customerData);
+			customers.add(customerData);
+		});
+
+		grid.setRows(customers);
+
+		return grid;
+	}
+	
 	@Override
 	public ListData getCustomers(final String cellphone, final String name,
 			final Integer startIndex, final Integer pageSize)
@@ -109,9 +139,9 @@ public class DefaultCustomerFacade implements CustomerFacade {
 			customerDataPopulator.populate((CustomerModel) n, customerData);
 			customers.add(customerData);
 		});
-
+		
 		grid.setRows(customers);
-
+		
 		return grid;
 	}
 

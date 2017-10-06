@@ -1,5 +1,7 @@
 package com.third.service.customer;
 
+import java.util.Date;
+
 import com.third.dao.util.PaginationSupport;
 import com.third.model.CustomerModel;
 
@@ -18,5 +20,8 @@ public interface CustomerService {
 	Integer getNumberOfSalesOrder(final String cellphone);
 
 	Integer getNumberOfReservation(final String cellphone);
+
+	public PaginationSupport getCustomerList(String cellphone, String name,
+			Date startDate, Date endDate, Integer startIndex, Integer pageSize);
 
 }

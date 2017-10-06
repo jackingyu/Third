@@ -57,7 +57,8 @@ public class CustomerPageController extends AbstractPageController {
 	}
 
 	@RequestMapping(value = "/customer/createcustomerpage", method = RequestMethod.GET)
-	public String getCreateCustomerPage(final Model model,@ModelAttribute("message") final String message,
+	public String getCreateCustomerPage(final Model model,
+			@ModelAttribute("message") final String message,
 			final HttpServletRequest request,
 			final HttpServletResponse response)
 	{
@@ -89,13 +90,23 @@ public class CustomerPageController extends AbstractPageController {
 
 	@RequestMapping(value = "/customer/customerlist", method = RequestMethod.GET)
 	@ResponseBody
-	public Object searchCustomers(
+	public Object getCustomers(
 			@RequestParam(value = "cellphone", required = false) final String cellphone,
 			@RequestParam(value = "customerName", required = false) final String customerName,
+			@RequestParam(value = "startDate", required = false) @DateTimeFormat(pattern = "yyyy-MM-dd") final Date startDate,
+			@RequestParam(value = "endDate", required = false) @DateTimeFormat(pattern = "yyyy-MM-dd") final Date endDate,
 			final DataTableCriterias criterias)
 	{
-		ListData results = customerFacade.getCustomers(cellphone, customerName,
-				getStartIndexForDT(criterias), getPagesizeForDT(criterias));
+		ListData results = null;
+		
+		if (startDate != null && endDate != null)
+			results = customerFacade.getCustomers(cellphone, customerName,
+					startDate, endDate, getStartIndexForDT(criterias),
+					getPagesizeForDT(criterias));
+
+		if (startDate == null && endDate == null)
+			results = customerFacade.getCustomers(cellphone, customerName,
+					getStartIndexForDT(criterias), getPagesizeForDT(criterias));
 
 		List<Object> customers = results.getRows();
 
@@ -109,8 +120,9 @@ public class CustomerPageController extends AbstractPageController {
 			String[] row = new String[5];
 			row[0] = od.getCellphone();
 			row[1] = od.getName();
-			if(od.getWeddingdate()!=null)
-			row[2] = DateUtils.formatDate(od.getWeddingdate(), "yyyy-MM-dd");
+			if (od.getWeddingdate() != null)
+				row[2] = DateUtils.formatDate(od.getWeddingdate(),
+						"yyyy-MM-dd");
 			row[3] = od.getSource().getName();
 			listDatas.add(row);
 		}
@@ -152,11 +164,12 @@ public class CustomerPageController extends AbstractPageController {
 			final Model model, final RedirectAttributes attr)
 	{
 
-		if (StringUtils.isEmpty(customerPK)&&customerFacade.getCustomerByCellphone(cellphone).getPk()!=null)
+		if (StringUtils.isEmpty(customerPK) && customerFacade
+				.getCustomerByCellphone(cellphone).getPk() != null)
 		{
 			attr.addFlashAttribute("message", "手机号重复!");
 			return REDIRECT_PREFIX + "/customer/createcustomerpage/";
-		}	
+		}
 		CustomerData customer = new CustomerData();
 		customer.setCellphone(cellphone);
 		customer.setName(name);

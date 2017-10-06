@@ -1,5 +1,6 @@
 package com.third.facade.customer;
 
+import java.util.Date;
 import java.util.List;
 
 import com.third.exceptions.BussinessException;
@@ -15,9 +16,6 @@ public interface CustomerFacade {
 	public void updateCustomer(final CustomerData customer);
 
 	public CustomerData getCustomerByCellphone(final String cellphone);
-
-	ListData getCustomers(final String cellphone, final String name,
-			final Integer startIndex, final Integer pageSize);
 
 	List<SourceData> getSources();
 
@@ -35,5 +33,11 @@ public interface CustomerFacade {
 	Integer countOrder(String cellphone);
 
 	void createSource(SourceData source);
+
+	public ListData getCustomers(String cellphone, String customerName, Integer startIndexForDT,
+			Integer pagesizeForDT);
+	
+	ListData getCustomers(String cellphone, String name, Date startDate,
+			Date endDate, Integer startIndex, Integer pageSize);
 
 }

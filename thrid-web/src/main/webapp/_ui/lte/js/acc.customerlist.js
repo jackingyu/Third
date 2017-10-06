@@ -23,11 +23,21 @@ ACC.customerlist = {
           formData = getQuery('customerListForm');
           d.cellphone = formData.cellphone;
           d.customerName = formData.customerName;
+          var weddingDate = getDate4Range($("#weddingDate").val());
+          d.startDate = weddingDate[0];
+          d.endDate = weddingDate[1];
+          
         }
       },
       'fnDrawCallback': function () {
       }
     });
+    
+    $('#weddingDate').daterangepicker({
+        locale:datepicker_locale_zh,
+        startDate:moment().format('YYYY-MM-DD'),
+        endDate: moment().add(60,'days')    }
+      );
   }
 }
 
