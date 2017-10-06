@@ -33,8 +33,8 @@
          	<common:selection2 data="${stores}"  multiple="true" id="storeCodes" name="storeCodes"></common:selection2>
          </div>
         <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
-         <label><spring:message code="lte.paymentlist.orderdate"></spring:message></label>
-            <common:datepicker id="orderDate" name="orderDate"></common:datepicker>
+         <label><spring:message code="lte.paymentlist.paymentdate"></spring:message></label>
+            <common:datepicker id="paymentDate" name="paymentDate"></common:datepicker>
         </div>
         <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
          <label><spring:message code="lte.paymentlist.paymentmethod"></spring:message></label>
@@ -77,7 +77,7 @@
                   <th><spring:message code="lte.paymentlist.ordercode"></spring:message></th>
                   <th><spring:message code="lte.paymentlist.salesperson"></spring:message></th>
                   <th><spring:message code="lte.paymentlist.paymentmethod"></spring:message></th>
-                  <th><spring:message code="lte.paymentlist.paidamount"></spring:message></th>
+                  <th><spring:message code="lte.paymentlist.paymentamount"></spring:message></th>
                   <th><spring:message code="lte.paymentlist.paymentdate"></spring:message></th>
                   <th><spring:message code="lte.paymentlist.receiveable"></spring:message></th>
                   <th><spring:message code="lte.paymentlist.paidamount"></spring:message></th>

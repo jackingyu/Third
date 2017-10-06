@@ -54,7 +54,7 @@ public class DefaultPaymentDao extends GenericDAO<PaymentModel, String>
 		if (StringUtils.isNotEmpty(c5))
 			condition.add(c5);
 
-		condition.add(new StringBuilder("p.order.orderDate between '")
+		condition.add(new StringBuilder("p.paidTime between '")
 				.append(fmt.format(startDate)).append("' and '")
 				.append(fmt.format(endDate)).append("'").toString());
 		sb.append("where ")

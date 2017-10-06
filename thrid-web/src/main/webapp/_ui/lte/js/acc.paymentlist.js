@@ -7,15 +7,15 @@ ACC.paymentList = {
     $('#paymentGrid').DataTable({
        'createdRow': function (row, data, index) {
         $('td', row).eq(2).html(
-           '<a  href="'+ACC.config.contextPath+"/order/modifyorderpage/"+data[2]+'" target="_blank">'+data[2]+'</a>'
+           '<a  href="'+ACC.config.contextPath+"/order/modifyorderpage/"+data[2]+'" >'+data[2]+'</a>'
         );
       },
       'ajax': {
         'url': ACC.config.contextPath + '/payment/getlist',
         'data': function (d) {
-           var deliveryDate = getDate4Range($("#orderDate").val());
+           var deliveryDate = getDate4Range($("#paymentDate").val());
            d.startDate = deliveryDate[0];
-           d.endDate = deliveryDate[1];
+           d.endDate = moment(deliveryDate[1]).add(1,'days').format('YYYY-MM-DD');
            d.storeCodes = $('#storeCodes').val()!=null?$('#storeCodes').val().toString():'';
            d.sourcePKs = $('#sourcePKs').val()!=null?$('#sourcePKs').val().toString():'';
            d.paymentMethods = $('#paymentMethods').val()!=null?$('#paymentMethods').val().toString():'';
@@ -28,7 +28,7 @@ ACC.paymentList = {
       }
     });
     
-    $('#orderDate').daterangepicker({
+    $('#paymentDate').daterangepicker({
       locale:datepicker_locale_zh,
       startDate:moment().subtract(1, 'months'),
       endDate: moment().add(1,'days')
