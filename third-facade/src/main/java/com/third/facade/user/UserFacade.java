@@ -85,4 +85,6 @@ public interface UserFacade {
 	boolean isFinicial();
 	
 	List<UserData> getDesignerForStore(final String storeCode);
+
+	boolean isManager();
 }

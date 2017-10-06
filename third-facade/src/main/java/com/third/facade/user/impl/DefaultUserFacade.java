@@ -400,6 +400,12 @@ public class DefaultUserFacade implements UserFacade {
 	{
 		return userService.checkUserGroup(UserGroupConstants.ADMIN);
 	}
+	
+	@Override
+	public boolean isManager()
+	{
+		return userService.checkUserGroup(UserGroupConstants.MANAGER);
+	}
 
 	@Override
 	public List<UserData> getDesignerForStore(String storeCode)

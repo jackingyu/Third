@@ -30,7 +30,7 @@ ACC.scanorder = {
       url: ACC.config.contextPath + '/order/updatestatus',
       data: {'orderCode':orderCode,'toStatus':ACC.scanorder.status}, // 你的formid
       error: function (request) {
-         ACC.message.alert("请检查该订单状态！");
+         ACC.message.alert(request.responseText);
       },
       success: function (data) {
       	ACC.message.alert(ACC.scanorder.message);

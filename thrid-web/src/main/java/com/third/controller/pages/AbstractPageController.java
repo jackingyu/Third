@@ -473,4 +473,9 @@ public abstract class AbstractPageController {
 	{
 		return userFacade.isSalesperson();
 	}
+	
+	protected boolean isManger()
+	{
+		return userFacade.isManager();
+	}
 }
