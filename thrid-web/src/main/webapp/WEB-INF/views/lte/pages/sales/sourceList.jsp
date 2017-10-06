@@ -18,6 +18,7 @@
       <h1>
         <spring:message code="lte.sourcelist.title"></spring:message>
       </h1>
+      <small><spring:message code="lte.sourcelist.hint"></spring:message></small>
       </div>
       </div>
     </section>
@@ -39,6 +40,11 @@
         <a class="btn btn-app" id="assignSource2StoreBtn">
           <i class="fa fa-edit"></i>  <spring:message code="lte.create"></spring:message>
          </a>
+       </div>
+        <div class="col-lg-1 col-md-1">
+         <a onclick="ACC.storesourcelist.query()" class="btn btn-app">
+          <i class="fa fa-search"></i>  <spring:message code="lte.search"></spring:message>
+       </a>
        </div>
       
        </div>

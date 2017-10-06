@@ -18,7 +18,11 @@ ACC.storesourcelist = {
   save: function(){
   	var sourcePKs = $("#sourcePKs").val();
   	var storeCode = $("#storeCode").val();
-    $("#sourcePKs").val(null).trigger("change");
+  	if(sourcePKs==null)
+  		return;
+    
+  	$("#sourcePKs").val(null).trigger("change");
+  	
   	$.ajax({
       type: 'POST',
       url: ACC.config.contextPath + '/source/source2store',
