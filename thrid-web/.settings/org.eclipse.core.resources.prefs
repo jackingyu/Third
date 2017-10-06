@@ -1,4 +1,6 @@
 eclipse.preferences.version=1
+encoding//src/main/java=UTF-8
+encoding//src/main/resources=UTF-8
 encoding//src/main/webapp/WEB-INF/messages/locales.properties=UTF-8
 encoding//src/main/webapp/WEB-INF/messages/locales_zh_CN.properties=UTF-8
 encoding//src/main/webapp/WEB-INF/properties/log4j.properties=UTF-8
@@ -25,3 +27,4 @@ encoding//src/main/webapp/WEB-INF/views/pages/weixin/reservationlist.jsp=UTF-8
 encoding//src/main/webapp/WEB-INF/views/pages/weixin/reservationmodify.jsp=UTF-8
 encoding//src/main/webapp/WEB-INF/views/pages/weixin/storedetail.jsp=UTF-8
 encoding//src/main/webapp/WEB-INF/views/pages/weixin/storelist.jsp=UTF-8
+encoding/<project>=UTF-8
