@@ -74,6 +74,7 @@ public interface ControllerConstants {
 		final static String SOURCELISTPAGE = PAGE + "/customer/sourceList";
 		final static String SOURCELISTFORSTOREPAGE = PAGE + "/sales/sourceList";
 		final static String PAYMENTLISTPAGE = PAGE + "/fi/paymentList";
+		final static String STOREDASHBOARDPAGE = PAGE + "/fi/storeDashboard";
 
 		final static String USERLISTPAGE = PAGE + "/user/userList";
 		final static String USERDETAILSPAGE = PAGE + "/user/userDetails";

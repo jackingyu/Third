@@ -1,5 +1,6 @@
 package com.third.dao.order.impl;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
@@ -123,6 +124,44 @@ public class DefaultOrderDao extends GenericDAO<OrderModel, String>
 	}
 
 	@Override
+	public PaginationSupport findOrdersByOrderDate(Date startDate, Date endDate,
+			final Integer startIndex, final Integer pageSize,
+			Map<String, String[]> sp) 
+	{
+		final StringBuilder sb = new StringBuilder(
+				"select s.store.id,s.receiveable,s.openamount,s.paidamount from OrderModel  s ");
+		
+		List<String> condition = new ArrayList<String>();
+
+		
+		String c1 = getArrayCondtion(sp, "storeCodes", "s.store.id");
+		
+		if (StringUtils.isNotEmpty(c1))
+			condition.add(c1);
+
+		String c2 = getArrayCondtion(sp, "customerSources", "s.source");
+		if (StringUtils.isNotEmpty(c2))
+			condition.add(c2);
+
+		condition.add(new StringBuilder("s.orderDate between '")
+				.append(fmt.format(startDate)).append("' and '")
+				.append(fmt.format(endDate)).append("'").toString());
+		
+		sb.append("where ")
+				.append(StringUtils.join(condition.toArray(), " and "));
+		System.out.println("details-----------------------------------");
+		System.out.println(sb.toString());
+		
+		List result = this.searchByQuery(sb.toString());
+		result.forEach(r -> {
+			Object[] X = (Object[]) r;
+			System.out.println(X[0]+"--"+X[1]+"--"+X[2]+"--"+X[3]);
+		});
+		
+		return null;
+	}
+	
+	@Override
 	public List<OrderModel> findOrdersForCustomer(String customerPK)
 	{
 		List<OrderModel> orders = find(FIND_BY_CUSTOMERPK_SQL, customerPK);
@@ -152,6 +191,36 @@ public class DefaultOrderDao extends GenericDAO<OrderModel, String>
 			sb.append(" and ").append(" s.salesperson.userId = '").append(getParameterValue(sp, "salesperson")).append("'");
 		
 		return find(sb.toString());
+	}
+	
+	@Override
+	public List<Object[]> anlysisOrder(Date startDate, Date endDate,
+			Map<String, String[]> sp)
+	{
+		final StringBuilder sb = new StringBuilder(
+				"select s.store.id,count(s.pk),sum(s.receiveable), sum(s.openamount),sum(s.paidamount) from OrderModel  s ");
+		
+		List<String> condition = new ArrayList<String>();
+
+		
+		String c1 = getArrayCondtion(sp, "storeCodes", "s.store.id");
+		
+		if (StringUtils.isNotEmpty(c1))
+			condition.add(c1);
+
+		String c2 = getArrayCondtion(sp, "customerSources", "s.source");
+		if (StringUtils.isNotEmpty(c2))
+			condition.add(c2);
+
+		condition.add(new StringBuilder("s.orderDate between '")
+				.append(fmt.format(startDate)).append("' and '")
+				.append(fmt.format(endDate)).append("'").toString());
+		
+		sb.append("where ")
+				.append(StringUtils.join(condition.toArray(), " and "));
+		sb.append(" group by s.store.id");
+		List<Object[]> result = this.searchByQuery(sb.toString());
+	    return result;
 	}
 
 }

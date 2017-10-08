@@ -44,6 +44,65 @@ public class FIReportController extends AbstractPageController {
 		model.addAttribute("salesPersons", getSalesPerson());
 		return ControllerConstants.LTE.PAYMENTLISTPAGE;
 	}
+	
+	@RequestMapping(value = "/storedashboard/dashboardpage", method = RequestMethod.GET)
+	public String getStoreDashboardPage(Model model)
+	{
+		
+		fillAllStore2View(model);
+		fillAllSourceInView(model);
+		
+		return ControllerConstants.LTE.STOREDASHBOARDPAGE;
+	}
+	
+	@RequestMapping(value = "/storedashboard/query", method = RequestMethod.GET)
+	@ResponseBody
+	public Object queryDashboardResult(
+			@RequestParam(value = "storeCodes", required = false) final String[] storeCodes,
+			@RequestParam(value = "customerSources", required = false) final String[] customerSources,
+			@RequestParam(value = "startDate", required = false) @DateTimeFormat(pattern = "yyyy-MM-dd") Date startDate,
+			@RequestParam(value = "endDate", required = false) @DateTimeFormat(pattern = "yyyy-MM-dd") Date endDate,
+			Model model)
+	{
+		Map<String, String[]> sp = new HashMap<String, String[]>();
+		sp.put("storeCodes", storeCodes);
+		sp.put("customerSources", customerSources);
+		
+		return fiReportFacade.getStoreDashboardResult1(startDate, endDate, sp);
+	}
+	
+	@RequestMapping(value = "/storedashboard/querypaymentdetails", method = RequestMethod.GET)
+	@ResponseBody
+	public Object queryPaymentDetails(
+			@RequestParam(value = "storeCode", required = false) final String storeCode,
+			@RequestParam(value = "customerSources", required = false) final String[] customerSources,
+			@RequestParam(value = "startDate", required = false) @DateTimeFormat(pattern = "yyyy-MM-dd") Date startDate,
+			@RequestParam(value = "endDate", required = false) @DateTimeFormat(pattern = "yyyy-MM-dd") Date endDate,
+			Model model,final DataTableCriterias criterias)
+	{
+		Map<String, String[]> sp = new HashMap<String, String[]>();
+		String[] storeCodes = {storeCode};
+		sp.put("storeCodes", storeCodes);
+		sp.put("customerSources", customerSources);
+		
+		return fiReportFacade.getDashboardPaymentDetails(startDate, endDate, sp, criterias.getStart(), criterias.getLength());
+	}
+	
+	@RequestMapping(value = "/storedashboard/querypaymentpercentage", method = RequestMethod.GET)
+	@ResponseBody
+	public Object queryPaymentByMethod(
+			@RequestParam(value = "storeCode", required = false) final String storeCode,
+			@RequestParam(value = "customerSources", required = false) final String[] customerSources,
+			@RequestParam(value = "startDate", required = false) @DateTimeFormat(pattern = "yyyy-MM-dd") Date startDate,
+			@RequestParam(value = "endDate", required = false) @DateTimeFormat(pattern = "yyyy-MM-dd") Date endDate)
+	{
+		Map<String, String[]> sp = new HashMap<String, String[]>();
+		String[] storeCodes = {storeCode};
+		sp.put("storeCodes", storeCodes);
+		sp.put("customerSources", customerSources);
+		
+		return fiReportFacade.getDashboardPaymentsByMethod(startDate, endDate, sp);
+	}
 
 	@RequestMapping(value = "/payment/getlist")
 	@ResponseBody

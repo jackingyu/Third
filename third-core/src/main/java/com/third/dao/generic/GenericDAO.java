@@ -268,6 +268,7 @@ public class GenericDAO<T, ID extends Serializable> extends HibernateDaoSupport
 	public List searchByQuery(String queryString)
 	{
 		Query query = this.currentSession().createQuery(queryString);
+		logger.debug(queryString);
 		return query.list();
 	}
 

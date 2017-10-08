@@ -22,4 +22,9 @@ public interface OrderDao extends IGenericDAO<OrderModel, String> {
 
 	Integer countOrderForCustomer(final String cellphone);
 
+	List<Object[]> anlysisOrder(Date startDate, Date endDate, Map<String, String[]> sp);
+
+	PaginationSupport findOrdersByOrderDate(Date startDate, Date endDate,
+			Integer startIndex, Integer pageSize, Map<String, String[]> sp);
+
 }

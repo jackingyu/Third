@@ -40,6 +40,14 @@ public class DefaultOrderService implements OrderService {
 		return orderDao.findOrders(startDate, endDate, startIndex, pageSize,
 				sp);
 	}
+	
+	@Override
+	public PaginationSupport getOrdersByOrderDate(final Date startDate, final Date endDate,
+			final Integer startIndex, final Integer pageSize,
+			final Map<String, String[]> sp)
+	{
+		return orderDao.findOrdersByOrderDate(startDate, endDate, startIndex, pageSize, sp);
+	}
 
 	@Override
 	public void createOrderEntry(OrderEntryModel orderEntry)
@@ -104,6 +112,13 @@ public class DefaultOrderService implements OrderService {
 	public List<OrderModel> getOrders(Map<String, String> sp)
 	{
 		return orderDao.findOrders(sp);
+	}
+
+	@Override
+	public List<Object[]> anlysisOrder(Date startDate, Date endDate,
+			Map<String, String[]> sp)
+	{
+		return orderDao.anlysisOrder(startDate, endDate,sp);
 	}
 
 }

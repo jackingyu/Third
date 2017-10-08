@@ -18,6 +18,10 @@ public interface OrderService {
 	PaginationSupport getOrders(final Date startDate, final Date endDate,
 			final Integer startIndex, final Integer pageSize,
 			final Map<String, String> sp);
+	
+	PaginationSupport getOrdersByOrderDate(final Date startDate, final Date endDate,
+			final Integer startIndex, final Integer pageSize,
+			final Map<String, String[]> sp);
 
 	PaginationSupport getOrderEntries(final Date startDate, final Date endDate,
 			final Integer startIndex, final Integer pageSize,
@@ -36,4 +40,6 @@ public interface OrderService {
 	OrderEntryModel getOrderEntryForExternalId(final String externalId);
 
 	List<OrderModel> getOrdersForCustomer(final String customerPK);
+	
+	List<Object[]> anlysisOrder(Date startDate, Date endDate,Map<String, String[]> sp);
 }

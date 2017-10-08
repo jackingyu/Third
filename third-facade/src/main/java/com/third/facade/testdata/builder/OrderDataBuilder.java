@@ -10,6 +10,7 @@ import java.util.Map;
 
 import javax.annotation.Resource;
 
+import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.apache.commons.lang3.RandomUtils;
 
@@ -122,7 +123,7 @@ public class OrderDataBuilder implements DataBuilder {
 		orderModel.setCustomer(customer);
 		UserModel salesperson = userService.getUserById("test" + RandomUtils.nextInt(0, 20));
 		orderModel.setSalesperson(salesperson);
-		StoreModel store = storeService.getStoreForCode("s-1");
+		StoreModel store = storeService.getStoreForCode("s-"+RandomUtils.nextInt(1, 30));
 		orderModel.setStore(store);
 
 		PaymentModel paymentModel = new PaymentModel();
@@ -161,7 +162,10 @@ public class OrderDataBuilder implements DataBuilder {
 		List<OrderEntryModel> entries = new ArrayList<OrderEntryModel>();
 
 		List<UserModel> designers = userService.getDesignerForStore(orderModel.getStore().getId());
-		UserModel designer = designers.get(0);
+		
+		UserModel designer = null;
+		if(CollectionUtils.isNotEmpty(designers))
+		 designer = designers.get(0);
 		for (int j = 0; j < 5; j++)
 		{
 			OrderEntryModel entry = new OrderEntryModel();
@@ -175,7 +179,10 @@ public class OrderDataBuilder implements DataBuilder {
 			entry.setStyle("测试规格");
 			entry.setProductTitle("成品西装");
 			entry.setSizeDate(new Date());
+			
+			if(designer!=null)
 			entry.setDesigner(designer);
+			
 			entry.setTryDate(com.third.facade.utils.DateUtils.getToday());
 			entry.setComment("我是一个备注备注备注");
 			entry.setExternalId(Integer.toString(RandomUtils.nextInt()));

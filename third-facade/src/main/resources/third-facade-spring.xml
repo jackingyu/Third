@@ -60,6 +60,8 @@
 	<alias name="defaultFIReportFacade" alias="FIReportFacade"></alias>
 	<bean id="defaultFIReportFacade" class="com.third.facade.store.impl.DefaultFIReportFacade">
 	    <property name="paymentService" ref="paymentService"></property>
+	    <property name="orderService" ref="orderService"></property>
+	    <property name="storeService" ref="storeService"></property>
 	</bean>
 	
 	<alias name="defaultProductFacade" alias="productFacade"></alias>
@@ -128,6 +130,5 @@
       <!--  <import resource="third-cron-spring.xml" />-->
       <import resource="third-datainitial-spring.xml" />
       <import resource="third-populator-spring.xml" />
-      <import resource="third-cron-spring.xml" />
 </beans>
  

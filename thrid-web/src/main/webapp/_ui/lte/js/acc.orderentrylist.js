@@ -43,7 +43,7 @@ ACC.orderEntryList = {
 							var deliveryDate = getDate4Range($("#deliveryDate")
 									.val());
 							d.startDate = deliveryDate[0];
-							d.endDate = deliveryDate[1];
+							  d.endDate = moment(deliveryDate[1]).add(1,'days').format('YYYY-MM-DD');
 
 							/*
 							 * var storeCodes = $('#storeCodes').val(),;

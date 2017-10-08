@@ -67,4 +67,71 @@ public class DefaultPaymentDao extends GenericDAO<PaymentModel, String>
 		return this.findPageByQuery(hsql, pageSize, startIndex);
 	}
 
+	@Override
+	public PaginationSupport findPaymentsByOrderDate(Date startDate,
+			Date endDate, Integer startIndex, Integer pageSize,
+			Map<String, String[]> sp)
+	{
+		StringBuilder sb = new StringBuilder("select p.order.customerName,p.paymentMethod,p.amount,p.paidTime,p.order.code " 
+	              + "from PaymentModel p ");
+
+		List<String> condition = new ArrayList<String>();
+
+		String c1 = getArrayCondtion(sp, "storeCodes", "p.store.id");
+		if (StringUtils.isNotEmpty(c1))
+			condition.add(c1);
+
+		String c3 = getArrayCondtion(sp, "customerSources",
+				"p.order.source.pk");
+		
+		if (StringUtils.isNotEmpty(c3))
+			condition.add(c3);
+//
+//		String c4 = getArrayCondtion(sp, "paymentMethods", "p.paymentMethod");
+//		if (StringUtils.isNotEmpty(c4))
+//			condition.add(c4);
+
+		condition.add(new StringBuilder("p.order.orderDate between '")
+				.append(fmt.format(startDate)).append("' and '")
+				.append(fmt.format(endDate)).append("'").toString());
+		sb.append("where ")
+				.append(StringUtils.join(condition.toArray(), " and "));
+		
+		String hsql = sb.toString();
+
+		return this.findPageByQuery(hsql, pageSize, startIndex);
+	}
+	
+	@Override
+	public List<Object[]> getTotalPaymentsByMethod(Date startDate, Date endDate,
+			Map<String, String[]> sp)
+	{
+		StringBuilder sb = new StringBuilder("select p.paymentMethod,sum(p.amount) " 
+	              + "from PaymentModel p ");
+
+		List<String> condition = new ArrayList<String>();
+
+		String c1 = getArrayCondtion(sp, "storeCodes", "p.store.id");
+		if (StringUtils.isNotEmpty(c1))
+			condition.add(c1);
+
+		String c3 = getArrayCondtion(sp, "customerSources",
+				"p.order.source.pk");
+		
+		if (StringUtils.isNotEmpty(c3))
+			condition.add(c3);
+
+		condition.add(new StringBuilder("p.order.orderDate between '")
+				.append(fmt.format(startDate)).append("' and '")
+				.append(fmt.format(endDate)).append("'").toString());
+		sb.append("where ")
+				.append(StringUtils.join(condition.toArray(), " and "));
+		
+		sb.append(" group by p.paymentMethod ");
+		
+		String hsql = sb.toString();
+
+		return this.searchByQuery(hsql);
+	}
+
 }

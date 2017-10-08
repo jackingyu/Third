@@ -1,6 +1,7 @@
 package com.third.service.order.impl;
 
 import java.util.Date;
+import java.util.List;
 import java.util.Map;
 
 import com.third.dao.order.PaymentDao;
@@ -41,6 +42,21 @@ public class DefaultPaymentService implements PaymentService {
 	{
 		return paymentDao.findPayments(startDate, endDate, startIndex, pageSize,
 				sp);
+	}
+	
+	@Override
+	public PaginationSupport getPaymentsByOrderDate(Date startDate, Date endDate,
+			Integer startIndex, Integer pageSize, Map<String, String[]> sp)
+	{
+		return paymentDao.findPaymentsByOrderDate(startDate, endDate, startIndex, pageSize,
+				sp);
+	}
+
+	@Override
+	public List<Object[]> getTotalPaymentsByMethod(Date startDate,
+			Date endDate, Map<String, String[]> sp)
+	{
+		return paymentDao.getTotalPaymentsByMethod(startDate,endDate,sp);
 	}
 
 }
