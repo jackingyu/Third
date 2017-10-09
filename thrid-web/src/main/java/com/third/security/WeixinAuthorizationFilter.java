@@ -60,8 +60,7 @@ public class WeixinAuthorizationFilter extends OncePerRequestFilter {
 				filterChain.doFilter(request, response);
 			} else
 			{
-				// 如registerCustomer应该是这种情形,但是为了暂时保持逻辑的简单,不通过此filter实现
-				LOG.debug("not exist customer suitation");
+				if(null==customerFacade.loginCustomer(sessionService.get(WXConstant.WX_OPENID).toString()))
 				this.forward(request, response);
 			}
 		} else
