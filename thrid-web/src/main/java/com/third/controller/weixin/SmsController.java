@@ -5,20 +5,23 @@ import javax.annotation.Resource;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.third.web.utils.Message;
 import com.third.web.utils.SmsVerifyCodeUtils;
 
 @Controller
-@RequestMapping(value = "/sms")
 public class SmsController {
 	@Resource(name = "smsVerifyCodeUtils")
 	SmsVerifyCodeUtils smsVerifyCodeUtils;
 
-	@RequestMapping(value = "/generateVCode")
-	public void sendVCode(
+	@RequestMapping(value = "/weixin/generatevcode")
+	@ResponseBody
+	public Object sendVCode(
 			@RequestParam(value = "cellphone") final String cellphone)
 	{
 		smsVerifyCodeUtils.generateVCode();
+		return new Message(true);
 	}
 
 }
