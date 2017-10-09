@@ -83,7 +83,7 @@ public class WeixinMemberController extends AbstractWeixinController {
 		return ControllerConstants.WeiXin.MEMBERPAGE;
 	}
 
-	@RequestMapping(value = "/weixin/memeber/registercustomer")
+	@RequestMapping(value = "/weixin/member/registercustomer")
 	public String bindCustomer(final HttpServletRequest request,
 			final HttpServletRequest response,
 			@RequestParam(value = "vcode", required = false) final String vcode,
