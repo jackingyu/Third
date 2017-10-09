@@ -19,7 +19,6 @@ import com.third.facade.order.OrderFacade;
 import com.third.facade.populator.option.OrderOption;
 
 @Controller
-@RequestMapping("/wx")
 public class WeixinOrderController extends AbstractWeixinController {
 	private static final Logger LOG = Logger
 			.getLogger(WeixinOrderController.class);
@@ -30,7 +29,7 @@ public class WeixinOrderController extends AbstractWeixinController {
 	@Resource(name = "customerFacade")
 	private CustomerFacade customerFacade;
 
-	@RequestMapping(value = "/getOrderList")
+	@RequestMapping(value = "/wx/getOrderList")
 	public String getOrderList(final Model model)
 	{
 		CustomerData customer = customerFacade.getCurrentCustomer();
@@ -41,7 +40,7 @@ public class WeixinOrderController extends AbstractWeixinController {
 		return ControllerConstants.WeiXin.ORDERLISTPAGE;
 	}
 
-	@RequestMapping(value = "/getOrderDetail")
+	@RequestMapping(value = "/wx/getOrderDetail")
 	public String getOrderDetail(
 			@RequestParam(value = "orderCode", required = true) final String orderCode,
 			final Model model)
