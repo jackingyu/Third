@@ -53,8 +53,7 @@ public class DefaultSourceService implements SourceService {
 	@Override
 	public List<SourceModel> getExhibitions()
 	{
-		// TODO Auto-generated method stub
-		return null;
+		return sourceDao.list();
 	}
 
 	@Override

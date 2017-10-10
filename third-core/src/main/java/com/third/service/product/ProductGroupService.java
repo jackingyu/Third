@@ -11,4 +11,6 @@ public interface ProductGroupService {
 	List<ProductGroupModel> getProductGroupList();
 
 	ProductGroupModel getProductGroupByPK(String pk);
+	
+	ProductGroupModel getProductGroupByName(final String name);
 }

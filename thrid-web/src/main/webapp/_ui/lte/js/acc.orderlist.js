@@ -32,7 +32,7 @@ ACC.orderList = {
           	d.storeCodes[i] = storeCodes[i];
           }
           */
-          d.storeCodes = $('#storeCodes').val().toString();
+          d.storeCodes = $('#storeCodes').val()!=null?$('#storeCodes').val().toString():'';
           d.orderStatus = formData.orderStatus;
            
         }

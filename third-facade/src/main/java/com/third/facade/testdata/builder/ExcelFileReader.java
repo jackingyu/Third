@@ -88,6 +88,8 @@ public class ExcelFileReader {
 			e.printStackTrace();
 		}
 
+		results.remove(0);
+		
 		return results;
 
 	}

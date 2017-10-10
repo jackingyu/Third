@@ -9,4 +9,6 @@ import com.third.model.ProductGroupModel;
 public interface ProductGroupDao
 		extends IGenericDAO<ProductGroupModel, String> {
 	public List<ProductGroupModel> getProductGroupList();
+
+	List<ProductGroupModel> findProductGroupByName(String name);
 }

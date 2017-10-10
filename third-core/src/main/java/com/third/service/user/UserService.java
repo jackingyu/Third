@@ -22,7 +22,7 @@ public interface UserService {
 	 * @param useGroupdId
 	 * @return
 	 */
-	public UserGroupModel getUserGroupById(final String useGroupdId);
+	public UserGroupModel getUserGroupById(final String userGroupId);
 
 	/**
 	 * @param pk

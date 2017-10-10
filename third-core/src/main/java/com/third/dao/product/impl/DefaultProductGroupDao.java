@@ -14,4 +14,10 @@ public class DefaultProductGroupDao extends
 	{
 		return list();
 	}
+	
+	@Override
+	public List<ProductGroupModel> findProductGroupByName(final String name)
+	{
+		return find("from ProductGroupModel pg where pg.name = ?", name);
+	}
 }

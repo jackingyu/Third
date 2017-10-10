@@ -14,7 +14,7 @@ ACC.orderEntryList = {
 		d.endDate = deliveryDate[1];
 
 		d.orderEntryStatus = formData.orderEntryStatus;
-		d.storeCodes = $('#storeCodes').val().toString();	
+		d.storeCodes = $('#storeCodes').val()!=null?$('#storeCodes').val().toString():'';	
 		
 		var url = ACC.config.contextPath + '/orderentry/export?externalId='+d.externalId
 		          +"&startDate="+d.startDate+"&endDate="+d.endDate+"&customerName="+d.customerName
@@ -53,7 +53,7 @@ ACC.orderEntryList = {
 							 */
 
 							d.orderEntryStatus = formData.orderEntryStatus;
-							d.storeCodes = $('#storeCodes').val().toString();
+							d.storeCodes = $('#storeCodes').val()!=null? $('#storeCodes').val().toString():'';
 						}
 					},
 					'fnDrawCallback' : function() {

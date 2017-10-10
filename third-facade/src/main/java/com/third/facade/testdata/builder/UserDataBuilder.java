@@ -3,7 +3,7 @@ package com.third.facade.testdata.builder;
 import java.util.Arrays;
 import java.util.List;
 
-import org.apache.commons.lang3.RandomUtils;
+import javax.annotation.Resource;
 
 import com.third.model.MenuModel;
 import com.third.model.RoleModel;
@@ -20,14 +20,39 @@ import com.third.service.user.UserService;
  * {@link DataBuilder}
  */
 public class UserDataBuilder implements DataBuilder {
+	private String filename;
+	@Resource(name="userService")
 	private UserService userService;
+	@Resource(name="menuService")
 	private MenuService menuService;
+	@Resource(name="roleService")
 	private RoleService roleService;
+	@Resource(name="storeService")
 	private StoreService storeService;
 
 	public void buildData()
 	{
+		this.buildBasicData();
+		List<String[]> results = ExcelFileReader.readFile(filename, 5);
 
+		results.forEach(r->{
+			UserModel user = new UserModel();
+			user.setBlocked(false);
+			user.setUserId(r[0]);
+			user.setName(r[1]);
+			user.setPassword(r[2]);
+			user.setUserGroup(userService.getUserGroupById(r[4]));
+			user.setStore(storeService.getStoreForCode(r[3]));
+			user.setStores(Arrays.asList(storeService.getStoreForCode(r[3])));
+			if(!r[4].equals("sales")&&!r[4].equals("manager"))
+				user.setStores(storeService.getAllStores());
+			
+			userService.createUser(user);
+		});
+	}
+	
+	protected void buildBasicData()
+	{
 		/*
 		 * 创建符合easy-ui的菜单,如果需要启用easyui需要将这段注释掉 MenuModel lv2_user =
 		 * this.buildMenu("1", 2, "系统管理", "#", "menu-icon-sys");
@@ -72,18 +97,12 @@ public class UserDataBuilder implements DataBuilder {
 
 		MenuModel lv2_user = this.buildMenu("1", 2, "系统管理", "#", "fa-opera");
 		menuService.createMenu(lv2_user);
-
-		// MenuModel lv3_usergroup = this.buildMenu("11", 3, "用户组列表",
-		// "/user/usergrouplistpage", "fa-users");
 		MenuModel lv3_userlist = this.buildMenu("11", 3, "用户列表",
 				"/user/userlistpage", "fa-user");
-		// lv3_usergroup.setParentMenu(lv2_user);
 		lv3_userlist.setParentMenu(lv2_user);
-		// menuService.createMenu(lv3_usergroup);
 		menuService.createMenu(lv3_userlist);
 
-		MenuModel lv3_source = this.buildMenu("12", 3, "顾客来源管理",
-				"/source/listpage", "fa-users");
+		MenuModel lv3_source = this.buildMenu("12", 3, "顾客来源管理","/source/listpage", "fa-users");
 		lv3_source.setParentMenu(lv2_user);
 		menuService.createMenu(lv3_source);
 		
@@ -170,32 +189,41 @@ public class UserDataBuilder implements DataBuilder {
 				"/payment/listpage", "fa-money");
 		lv3_report1.setParentMenu(lv2_report);
 		menuService.createMenu(lv3_report1);
-
-		List<MenuModel> menus = Arrays.asList(lv3_userlist, lv3_source,
-				lv3_customer, lv3_orders, lv3_reservation, lv3_store,
-				lv3_source1, lv3_reservationlist,
-				lv3_storereceipt, lv3_storedeliver, lv3_orderentrylist,lv3_exhibition,
-				lv3_factorydeliver, lv3_orderentrylist1, lv3_product,
-				lv3_report1);
 		// create role
 
-		RoleModel role_admin = buildRole("admin", "管理员", "管理员", menus);
-		RoleModel role_sales = buildRole("sales", "销售员", "销售员", menus);
-		RoleModel role_factory = buildRole("factory", "工厂", "工厂", menus);
-		RoleModel role_finicial = buildRole("finicial", "财务", "财务", menus);
-		RoleModel role_designer = buildRole("designer", "设计", "设计", menus);
-		RoleModel role_manager = buildRole("manager", "店长", "店长", menus);
+		RoleModel role_admin = buildRole("admin", "管理员", "管理员",
+				Arrays.asList(lv3_userlist, lv3_source,lv3_store,
+					    lv3_customer, lv3_orders, lv3_reservation, lv3_reservationlist,lv3_source1,lv3_storereceipt, lv3_storedeliver, lv3_orderentrylist,lv3_exhibition,
+						lv3_factorydeliver, lv3_orderentrylist1, lv3_product,
+						lv3_report1));
+		RoleModel role_sales = buildRole("sales", "销售员", "销售员",
+				Arrays.asList(
+					    lv3_customer, lv3_orders, lv3_reservation, lv3_reservationlist,lv3_storereceipt, lv3_storedeliver, lv3_orderentrylist,lv3_exhibition
+						));
+		RoleModel role_factory = buildRole("factory", "工厂", "工厂", 
+				Arrays.asList(lv3_factorydeliver, lv3_orderentrylist1, lv3_product));
+		
+		RoleModel role_finicial = buildRole("finicial", "财务", "财务",
+				Arrays.asList(
+					    lv3_customer, lv3_orders, lv3_report1));
+		RoleModel role_designer = buildRole("designer", "设计", "设计", 
+				Arrays.asList(
+					    lv3_customer, lv3_orders, lv3_reservation, lv3_reservationlist,lv3_storereceipt, lv3_storedeliver, lv3_orderentrylist,lv3_exhibition
+				));
+		RoleModel role_manager = buildRole("manager", "店长", "店长", 
+				Arrays.asList(
+					    lv3_customer, lv3_orders, lv3_reservation, lv3_reservationlist,lv3_storereceipt, lv3_storedeliver, lv3_orderentrylist,lv3_exhibition,lv3_source1
+				));
 
 		UserModel admin = new UserModel();
-		admin.setUserId("test");
-		admin.setName("test user");
-		admin.setPassword("test");
-		admin.setStore(storeService.getStoreForCode("s-1"));
+		admin.setUserId("admin");
+		admin.setName("admin");
+		admin.setPassword("admin");
 		admin.setStores(storeService.getAllStores());
+		admin.setStore(storeService.getAllStores().get(0));
 		admin.setBlocked(false);
 		
-		UserGroupModel userGroup = this.buildUserGroupModel("admin", "管理员",
-				role_admin);
+		UserGroupModel userGroup = this.buildUserGroupModel("admin", "管理员",role_admin);
 		List<UserGroupModel> userGroups = Arrays.asList(
 				this.buildUserGroupModel(UserGroupConstants.SALES, "销售员", role_sales),
 				this.buildUserGroupModel(UserGroupConstants.FACTORY, "工厂", role_factory),
@@ -206,35 +234,6 @@ public class UserDataBuilder implements DataBuilder {
 		admin.setUserGroup(userGroup);
 		userService.createUserGroup(userGroup);
 		userService.createUser(admin);
-
-		for (int i = 0; i < 50; i++)
-		{
-			UserModel u = new UserModel();
-			u.setUserId("test" + i);
-			final int j = RandomUtils.nextInt(0, 4);
-			u.setName("test user-" + i + "-" + j);
-			u.setPassword("test");
-			u.setUserGroup(userGroups.get(j));
-			u.setStore(storeService.getStoreForCode("s-1"));
-			u.setStores(storeService.getAllStores());
-			u.setBlocked(false);
-			userService.createUser(u);
-		}
-		
-		for (int i = 51; i < 55; i++)
-		{
-			UserModel u = new UserModel();
-			u.setUserId("test" + i);
-			final int j = 4;
-			u.setName("test user-" + i + "-" + j);
-			u.setPassword("test");
-			u.setUserGroup(userGroups.get(j));
-			u.setStore(storeService.getStoreForCode("s-1"));
-			u.setStores(storeService.getAllStores());
-			u.setBlocked(false);
-			userService.createUser(u);
-		}
-		
 	}
 
 	protected MenuModel buildMenu(final String menuId, final Integer level,
@@ -288,24 +287,14 @@ public class UserDataBuilder implements DataBuilder {
 		return role;
 	}
 
-	public void setUserService(UserService userService)
+	public String getFilename()
 	{
-		this.userService = userService;
+		return filename;
 	}
 
-	public void setMenuService(MenuService menuService)
+	public void setFilename(String filename)
 	{
-		this.menuService = menuService;
-	}
-
-	public void setRoleService(RoleService roleService)
-	{
-		this.roleService = roleService;
-	}
-
-	public void setStoreService(StoreService storeService)
-	{
-		this.storeService = storeService;
+		this.filename = filename;
 	}
 
 }

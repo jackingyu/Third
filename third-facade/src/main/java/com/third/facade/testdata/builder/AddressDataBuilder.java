@@ -12,7 +12,7 @@ import com.third.service.location.I18NService;
 
 public class AddressDataBuilder implements DataBuilder {
 	private I18NService i18NService;
-	private final static String filename = "address.xls";
+	private String filename;
 
 	@Override
 	public void buildData()
@@ -80,4 +80,14 @@ public class AddressDataBuilder implements DataBuilder {
 		i18NService = i18nService;
 	}
 
+	public String getFilename()
+	{
+		return filename;
+	}
+
+	public void setFilename(String filename)
+	{
+		this.filename = filename;
+	}
+	
 }

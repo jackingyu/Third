@@ -9,16 +9,22 @@ import com.third.model.SizeAttributeModel;
 import com.third.service.product.SizeAttributeService;
 
 public class SizeAttributeDataBuilder implements DataBuilder {
+	private String filename;
 	@Resource(name = "sizeAttributeService")
 	private SizeAttributeService sizeAttributeService;
 
 	@Override
 	public void buildData()
 	{
-		List<SizeAttributeModel> attributes = JSON
-				.parseArray(sizeAttributesJson, SizeAttributeModel.class);
-		attributes.forEach(a -> {
-			sizeAttributeService.createSizeAttribute(a);
+//		List<SizeAttributeModel> attributes = JSON
+//				.parseArray(sizeAttributesJson, SizeAttributeModel.class);
+		List<String[]> results = ExcelFileReader.readFile(filename, 2);
+
+		results.forEach(r -> {
+			for(int i = 1; i < 4; i++ )
+			{
+				buildSizeAttribute(Double.valueOf(r[0]).intValue(),i*10,r[1]);
+			}
 		});
 	}
 
@@ -30,6 +36,16 @@ public class SizeAttributeDataBuilder implements DataBuilder {
 		sizeAttributeModel.setItemCategory(itemCategory);
 		sizeAttributeModel.setName(name);
 		sizeAttributeService.createSizeAttribute(sizeAttributeModel);
+	}
+
+	public String getFilename()
+	{
+		return filename;
+	}
+
+	public void setFilename(String filename)
+	{
+		this.filename = filename;
 	}
 
 	private final String sizeAttributesJson = "[" +

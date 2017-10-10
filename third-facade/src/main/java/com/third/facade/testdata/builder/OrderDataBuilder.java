@@ -33,6 +33,7 @@ import com.third.service.store.StoreService;
 import com.third.service.user.UserService;
 import com.third.core.constants.CoreConstants.PaymentMethod;
 import com.third.core.constants.CoreConstants.PaymentType;
+import com.third.dao.product.ProductDao;
 
 public class OrderDataBuilder implements DataBuilder {
 	@Resource(name = "orderService")
@@ -55,41 +56,18 @@ public class OrderDataBuilder implements DataBuilder {
 
 	@Resource(name = "userService")
 	private UserService userService;
+	
+	@Resource(name="productDao")
+	private ProductDao productDao;
 
 	private List<SourceModel> sources;
 
 	public void buildData()
 	{
-		Map<Integer, Runnable> hs = new HashMap<Integer, Runnable>();
-		sources = sourceService.getSources();
-		for (int i = 0; i < 10; i++)
+		for(int i = 0; i < 50;i++)
 		{
-			hs.put(i, new Runnable() {
-				int m;
-
-				public Runnable setM(int m)
-				{
-					this.m = m;
-					return this;
-				}
-
-				public void run()
-				{
-					for (int j = 0; j < 10; j++)
-					{
-						int n = 10 * m + j;
-						OrderModel order = buildOrder("o-" + n);
-						buildOrderProcess(order);
-					}
-				}
-			}.setM(i));
+			buildOrder("T-"+i);
 		}
-
-		for (int i = 0; i < 10; i++)
-		{
-			hs.get(i).run();
-		}
-
 	}
 
 	public void buildOrderProcess(final OrderModel orderModel)
@@ -105,6 +83,7 @@ public class OrderDataBuilder implements DataBuilder {
 
 	public OrderModel buildOrder(final String orderCode)
 	{
+		sources = sourceService.getSources();
 		OrderModel orderModel = new OrderModel();
 
 		orderModel.setCode(orderCode);
@@ -114,18 +93,18 @@ public class OrderDataBuilder implements DataBuilder {
 		orderModel.setDeliveryDate(
 				getNextDay(today, RandomUtils.nextInt(0, 365)));
 		orderModel.setOrderDate(getNextDay(today, RandomUtils.nextInt(0, 365)));
-		orderModel.setStore(storeService.getStoreForCode("s-1"));
-		orderModel.setPhotoDate(getNextDay(today, 3));
-		orderModel.setWeddingDate(getNextDay(today, 20));
+		orderModel.setPhotoDate(getNextDay(today, RandomUtils.nextInt(0, 365)));
+		orderModel.setWeddingDate(getNextDay(today, RandomUtils.nextInt(0, 365)));
 		orderModel.setStatus(0);
 		CustomerModel customer = buildCustomer("13800138000" + orderCode,
 				"name" + orderCode);
 		orderModel.setCustomer(customer);
-		UserModel salesperson = userService.getUserById("test" + RandomUtils.nextInt(0, 20));
-		orderModel.setSalesperson(salesperson);
-		StoreModel store = storeService.getStoreForCode("s-"+RandomUtils.nextInt(1, 30));
+		
+		StoreModel store = storeService.getStoreForCode("1");
 		orderModel.setStore(store);
-
+		UserModel salesperson = userService.getSalesPerson(store.getId()).get(RandomUtils.nextInt(0,3));
+	    orderModel.setSalesperson(salesperson);
+	    
 		PaymentModel paymentModel = new PaymentModel();
 		paymentModel.setPaymentMethod(PaymentMethod.Cash);
 		paymentModel.setPaymentType(PaymentType.DownPayment);
@@ -188,8 +167,7 @@ public class OrderDataBuilder implements DataBuilder {
 			entry.setExternalId(Integer.toString(RandomUtils.nextInt()));
 			entry.setStore(store);
 			entry.setStatus(0);
-			entry.setProduct(productService
-					.getProductForCode("p-" + RandomUtils.nextInt(0, 50)));
+			entry.setProduct(productDao.list().get(RandomUtils.nextInt(0,10)));
 			entries.add(entry);
 		}
 

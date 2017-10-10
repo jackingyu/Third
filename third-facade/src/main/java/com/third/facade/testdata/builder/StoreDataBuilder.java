@@ -14,6 +14,7 @@ import com.third.dao.user.UserDao;
 import com.third.model.AddressModel;
 import com.third.model.CityModel;
 import com.third.model.CustomerModel;
+import com.third.model.DistrictModel;
 import com.third.model.RegionModel;
 import com.third.model.SourceModel;
 import com.third.model.StoreModel;
@@ -25,8 +26,12 @@ import com.third.service.store.StoreService;
 import com.third.service.user.UserService;
 
 public class StoreDataBuilder implements DataBuilder {
+	private String filename;
+	@Resource(name = "i18NService")
 	private I18NService i18NService;
+	@Resource(name = "customerService")
 	private CustomerService customerService;
+	@Resource(name = "storeService")
 	private StoreService storeService;
 	@Resource(name = "sourceService")
 	private SourceService sourceService;
@@ -38,78 +43,31 @@ public class StoreDataBuilder implements DataBuilder {
 	@Override
 	public void buildData()
 	{
-		for (int i = 0; i < 30; i++)
-		{
-			SourceModel source = new SourceModel();
-			if(i < 15)
-			{
-				source.setName("合作伙伴" + RandomUtils.nextInt());
-				source.setType(CoreConstants.SourceType.NORMAL);
-			}
-			else
-			{
-				source.setName("展会" + RandomUtils.nextInt());
-				source.setType(CoreConstants.SourceType.EXHIBITION);
-			}
-			sourceService.createSource(source);
+		List<String[]> results = ExcelFileReader.readFile(filename, 9);
 		
-			sourceModels.add(source);
-		}
-
-		RegionModel region = buildRegion("cn11", "上海市");
-		CityModel city = buildCity("cn12", "上海市", region);
-		RegionModel region1 = buildRegion("CN13", "江苏省");
-		CityModel city1 = buildCity("CN14", "泰州市", region);
-		AddressModel address = buildAddress(region, city, "闵行区古龙路XX弄");
-		AddressModel address1 = buildAddress(region1, city1, "泰兴市江平路22号");
-		StoreModel store = buildStore("s-1", "南方一店", address);
-		StoreModel store1 = buildStore("a-1", "王者荣耀店", address);
-
-		for (int i = 2; i < 30; i++)
-		{
-			String storeName = "默认店名";
-
-			if (i <= 10)
-			{
-				storeName = "南方" + i + "店";
-				buildStore("s-" + i, storeName, address);
-				continue;
-			}
-
-			if (i > 10 && i <= 20)
-			{
-
-				storeName = "北方" + i + "店";
-				buildStore("s-" + i, storeName, address);
-				continue;
-			}
-
-			if (i > 20)
-			{
-				storeName = "森林" + i + "店";
-				buildStore("s-" + i, storeName, address1);
-				continue;
-
-			}
-		}
-
-
-		for (int i = 0; i < 100; i++)
-		{
-			AddressModel address5 = buildAddress(region, city,
-					"shanghai street" + i);
-			buildCustomer("1380013800" + i, "fly" + i, address5);
-		}
-
-		for (int i = 0; i < 10; i++)
-		{
-			buildSource("客户来源" + i);
-		}
-		
-		for (int i = 10; i < 15; i++)
-		{
-			buildExhibition("展会" + i);
-		}
+		results.forEach(r->{
+			StoreModel store = new StoreModel();
+			store.setId(r[0]);
+			store.setName(r[1]);
+			
+			AddressModel addressModel = new AddressModel();
+			RegionModel region = i18NService.getRegion(r[2]);
+			CityModel city = i18NService.getCity(r[3]);
+			DistrictModel district = i18NService.getDistrict(r[4]);
+			addressModel.setCity(city);
+			addressModel.setRegion(region);
+			addressModel.setDistrict(district);
+			addressModel.setAdr1(r[5]);;
+			addressModel.setAdr2(r[6]);;
+			addressModel.setTel1(r[7]);;
+			addressModel.setTel2(r[8]);;
+			
+			i18NService.createAddress(addressModel);
+			
+			store.setAddress(addressModel);
+			
+			storeService.createStore(store);
+		});
 
 	}
 
@@ -201,19 +159,14 @@ public class StoreDataBuilder implements DataBuilder {
 		return address;
 	}
 
-	public void setI18NService(I18NService i18nService)
+	public String getFilename()
 	{
-		i18NService = i18nService;
+		return filename;
 	}
 
-	public void setCustomerService(CustomerService customerService)
+	public void setFilename(String filename)
 	{
-		this.customerService = customerService;
-	}
-
-	public void setStoreService(StoreService storeService)
-	{
-		this.storeService = storeService;
+		this.filename = filename;
 	}
 
 }

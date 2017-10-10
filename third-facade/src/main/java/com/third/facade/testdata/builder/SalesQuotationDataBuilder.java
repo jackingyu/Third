@@ -2,6 +2,7 @@ package com.third.facade.testdata.builder;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 
@@ -23,20 +24,7 @@ public class SalesQuotationDataBuilder implements DataBuilder {
 
 	public void buildData()
 	{
-		StoreModel store = storeService.getStoreForCode("s-1");
-	
-		List<SourceModel> exhibitions = new ArrayList<SourceModel>();
-		
-		for(int i = 0;i < 5;i++)
-		{
-			SourceModel source = new SourceModel();
-			source.setName("展会S-1-"+i);
-			source.setType(CoreConstants.SourceType.EXHIBITION);
-			sourceService.saveSource(source);
-			exhibitions.add(source);
-		}
-		store.getSources().addAll(exhibitions);
-		storeService.saveStore(store);
+		List<SourceModel> exhibitions = sourceService.getExhibitions();
 		
 		for (int i = 0; i < 30; i++)
 		{
@@ -48,7 +36,7 @@ public class SalesQuotationDataBuilder implements DataBuilder {
 			sq.setWeddingDate(new Date());
 			sq.setTryDate(new Date());
 			sq.setCreateDate(new Date());
-			sq.setSource(exhibitions.get(RandomUtils.nextInt(0,4)));
+			sq.setSource(exhibitions.get(RandomUtils.nextInt(0,1)));
 			salesQuotationService.saveSalesQuotation(sq);
 		}
 	}

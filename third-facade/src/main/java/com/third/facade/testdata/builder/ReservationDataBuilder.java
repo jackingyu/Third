@@ -4,7 +4,10 @@ import java.util.Date;
 
 import javax.annotation.Resource;
 
+import org.apache.commons.lang3.RandomUtils;
+
 import com.third.core.constants.CoreConstants;
+import com.third.dao.customer.CustomerDao;
 import com.third.dao.location.CityDao;
 import com.third.model.CityModel;
 import com.third.model.CustomerModel;
@@ -26,13 +29,14 @@ public class ReservationDataBuilder implements DataBuilder {
 
 	@Resource(name = "customerService")
 	private CustomerService customerService;
+	@Resource(name = "customerDao")
+	private CustomerDao customerDao;
 
 	@Override
 	public void buildData()
 	{
-		CustomerModel customer = customerService
-				.getCustomerByCellphone("13800138000");
-		StoreModel store = storeService.getStoreForCode("s-2");
+		CustomerModel customer = customerDao.list().get(RandomUtils.nextInt(0,5));
+		StoreModel store = storeService.getStoreForCode("1");
 		CityModel city = cityDao.get("cn12");
 
 		for (int i = 0; i < 20; i++)
@@ -49,7 +53,6 @@ public class ReservationDataBuilder implements DataBuilder {
 			reservationService.createrReservation(reservation);
 		}
 
-		store = storeService.getStoreForCode("s-1");
 		for (int i = 0; i < 20; i++)
 		{
 			ReservationModel reservation = new ReservationModel();

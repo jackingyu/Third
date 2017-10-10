@@ -15,6 +15,8 @@ import com.third.service.product.ProductGroupService;
 import com.third.service.product.ProductService;
 
 public class ProductDataBuilder implements DataBuilder {
+	private String filename;
+	
 	@Resource(name = "productService")
 	ProductService productService;
 
@@ -27,39 +29,36 @@ public class ProductDataBuilder implements DataBuilder {
 	@Override
 	public void buildData()
 	{
-		List<ProductGroupModel> pgm = new ArrayList<ProductGroupModel>();
+		List<String[]> results = ExcelFileReader.readFile(filename, 3);
+		
+		buildCategories();
+		List<CategoryModel> categories = categoryService.getCategories();
 
-		pgm.add(buildProductGroup("1000-2000"));
-		pgm.add(buildProductGroup("2000-3000"));
-		pgm.add(buildProductGroup("3000-4000"));
-		pgm.add(buildProductGroup("4000-5000"));
-
-		List<CategoryModel> categorys = new ArrayList<CategoryModel>();
-
-		categorys.add(buildCategory("A", "西服"));
-		categorys.add(buildCategory("B", "西裤"));
-		categorys.add(buildCategory("C", "衬衫"));
-		categorys.add(buildCategory("D", "马甲"));
-
-		for (int i = 0; i < 100; i++)
-			buildProduct("p-" + i, pgm, categorys);
+		results.forEach(r->{
+	    	   String[] item = r;
+	    	   ProductGroupModel pgm = productGroupService.getProductGroupByName(r[2]);
+	    	   
+	    	   if(pgm == null)
+	    	   {
+	    		   pgm = buildProductGroup(r[2]);
+	    	   }
+	    	   
+	    	   ProductModel product = new ProductModel();
+	    	   product.setProductGroup(pgm);
+	    	   product.setProducttitle(r[1]);
+	    	   product.setCode(r[0]);
+	    	   product.setCategory(categories.get(RandomUtils.nextInt(0, 4)));
+	    	   productService.saveProduct(product);
+	    });
 
 	}
 
-	public ProductModel buildProduct(final String code,
-			final List<ProductGroupModel> pgms,
-			final List<CategoryModel> categorys)
+	private void buildCategories()
 	{
-		ProductModel product = new ProductModel();
-		product.setCode(code);
-		product.setProducttitle("商品" + code);
-
-		product.setProductGroup(pgms.get(RandomUtils.nextInt(0, 4)));
-		product.setCategory(categorys.get(RandomUtils.nextInt(0, 4)));
-		productService.createProduct(product);
-
-		return product;
-
+	    buildCategory("A", "西服");
+		buildCategory("B", "西裤");
+		buildCategory("C", "衬衫");
+		buildCategory("D", "马甲");
 	}
 
 	public CategoryModel buildCategory(final String code, final String name)
@@ -76,7 +75,18 @@ public class ProductDataBuilder implements DataBuilder {
 		ProductGroupModel productGroup = new ProductGroupModel();
 		productGroup.setName(name);
 		productGroupService.createProductGroup(productGroup);
+		
 		return productGroup;
+	}
+
+	public String getFilename()
+	{
+		return filename;
+	}
+
+	public void setFilename(String filename)
+	{
+		this.filename = filename;
 	}
 
 }

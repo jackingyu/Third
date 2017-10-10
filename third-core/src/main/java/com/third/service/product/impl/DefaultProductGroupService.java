@@ -37,4 +37,18 @@ public class DefaultProductGroupService implements ProductGroupService {
 		return productGroupDao.get(pk);
 	}
 
+	@Override
+	public ProductGroupModel getProductGroupByName(String name)
+	{
+		List<ProductGroupModel> productGroups = productGroupDao
+				.findProductGroupByName(name);
+		
+		if (CollectionUtils.isEmpty(productGroups))
+		{
+			return null;
+		}
+		else
+			return productGroups.get(0);
+	}
+
 }

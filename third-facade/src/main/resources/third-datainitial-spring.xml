@@ -16,44 +16,51 @@
 	<bean id="testDataGenerator" class="com.third.facade.utils.TestDataGenerator">
 	   <property name="dataBuilders">
 	      <list>
-	         <ref bean="storeDataBuilder"></ref>
-	         <ref bean="userDataBuilder"></ref>
 	        <ref bean="addressDataBuilder"></ref>
+	        <ref bean="storeDataBuilder"></ref>
+	        <ref bean="customerSourceDataBuilder"></ref>
 	        <ref bean="productDataBuilder"></ref>
-	        <ref bean="orderDataBuilder"></ref>
+	        <ref bean="userDataBuilder"></ref>
 	        <ref bean="sizeAttributeDataBuilder"></ref>
-	        <ref bean="reservationDataBuilder"></ref>
-	        <ref bean="salesQuotationDataBuilder"></ref>
+	        
+	        <ref bean="orderDataBuilder"></ref> 
+            <ref bean="salesQuotationDataBuilder"></ref>
+            <ref bean="reservationDataBuilder"></ref>
 	      </list>
 	   </property>
-	</bean>
-	
-	<alias name="defaultReservationDataBuilder" alias="reservationDataBuilder"></alias>
-	<bean id="defaultReservationDataBuilder" class="com.third.facade.testdata.builder.ReservationDataBuilder">
-	</bean>
-	
-	<alias name="defaultUserDataBuilder" alias="userDataBuilder"></alias>
-	<bean id="defaultUserDataBuilder" class="com.third.facade.testdata.builder.UserDataBuilder">
-	     <property name="userService" ref="userService"/>
-	     <property name="menuService" ref="menuService"/>
-	     <property name="roleService" ref="roleService"/>
-	     <property name="storeService" ref="storeService"/>
 	</bean>
 	
 	<alias name="defaultAddressDataBuilder" alias="addressDataBuilder"></alias>
 	<bean id="defaultAddressDataBuilder" class="com.third.facade.testdata.builder.AddressDataBuilder">
 	     <property name="i18NService" ref="i18NService"/>
+	     <property name="filename" value="address.xls"/>
 	</bean>
 	
 	<alias name="defaultStoreDataBuilder" alias="storeDataBuilder"></alias>
 	<bean id="defaultStoreDataBuilder" class="com.third.facade.testdata.builder.StoreDataBuilder">
-	     <property name="i18NService" ref="i18NService"/>
-	     <property name="customerService" ref="customerService"/>
-	     <property name="storeService" ref="storeService"/>
+	     <property name="filename" value="store.xls"/>
 	</bean>
+	
+	<alias name="defaultReservationDataBuilder" alias="reservationDataBuilder"></alias>
+	<bean id="defaultReservationDataBuilder" class="com.third.facade.testdata.builder.ReservationDataBuilder">
+	</bean>
+	<alias name="defaultCustomerSourceDataBuilder" alias="customerSourceDataBuilder"></alias>
+	<bean id="defaultCustomerSourceDataBuilder" class="com.third.facade.testdata.builder.CustomerSourceDataBuilder">
+	    <property name="filename" value="customersrouce.xls"></property>
+	</bean>
+	
+	<alias name="defaultUserDataBuilder" alias="userDataBuilder"></alias>
+	<bean id="defaultUserDataBuilder" class="com.third.facade.testdata.builder.UserDataBuilder">
+	     <property name="filename" value="user.xls"></property>
+	</bean>
+	
+	
+	
+	
 	
 	<alias name="defaultProductDataBuilder" alias="productDataBuilder"></alias>
 	<bean id="defaultProductDataBuilder" class="com.third.facade.testdata.builder.ProductDataBuilder">
+	     <property name="filename" value="material.xls"></property>
 	</bean>
 	
 	<alias name="defaultOrderDataBuilder" alias="orderDataBuilder"></alias>
@@ -62,6 +69,7 @@
 	
 	<alias name="defaultSizeAttributeDataBuilder" alias="sizeAttributeDataBuilder"></alias>
 	<bean id="defaultSizeAttributeDataBuilder" class="com.third.facade.testdata.builder.SizeAttributeDataBuilder">
+	  <property name="filename" value="sizeattribute.xls"></property>
 	</bean>
 	
 	<alias name="defaultSalesQuotationDataBuilder" alias="salesQuotationDataBuilder"></alias>

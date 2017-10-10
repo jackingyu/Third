@@ -44,9 +44,9 @@ public class DefaultUserService implements UserService {
 		userGroupDao.save(userGroup);
 	}
 
-	public UserGroupModel getUserGroupById(String useGroupdId)
+	public UserGroupModel getUserGroupById(String userGroupId)
 	{
-		return null;
+		return userGroupDao.findUserGroupById(userGroupId);
 	}
 
 	public boolean isExist(String userId)
