@@ -29,7 +29,7 @@ public class ProductDataBuilder implements DataBuilder {
 	@Override
 	public void buildData()
 	{
-		List<String[]> results = ExcelFileReader.readFile(filename, 3);
+		List<String[]> results = ExcelFileReader.readFile(filename, 4);
 		
 		buildCategories();
 		List<CategoryModel> categories = categoryService.getCategories();
@@ -47,7 +47,7 @@ public class ProductDataBuilder implements DataBuilder {
 	    	   product.setProductGroup(pgm);
 	    	   product.setProducttitle(r[1]);
 	    	   product.setCode(r[0]);
-	    	   product.setCategory(categories.get(RandomUtils.nextInt(0, 4)));
+	    	   product.setCategory(categoryService.getCategoryForCode(r[3]));
 	    	   productService.saveProduct(product);
 	    });
 

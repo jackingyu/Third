@@ -41,11 +41,11 @@ public class TextMapper {
 		ItemCategory2Category.put(CoreConstants.ItemCategory.Suit,
 				CoreConstants.Category.Suit);
 		ItemCategory2Category.put(CoreConstants.ItemCategory.Trousers,
-				CoreConstants.Category.Trousers);
+				CoreConstants.Category.Suit);
 		ItemCategory2Category.put(CoreConstants.ItemCategory.Shirt,
 				CoreConstants.Category.Shirt);
 		ItemCategory2Category.put(CoreConstants.ItemCategory.Vest,
-				CoreConstants.Category.Vest);
+				CoreConstants.Category.Suit);
 //		ItemCategory2Category.put(CoreConstants.ItemCategory.Norm,
 //				CoreConstants.Category.Norm);
 	}

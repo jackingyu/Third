@@ -95,6 +95,15 @@ public class ProductPageController extends AbstractPageController {
 		return REDIRECT_PREFIX + "/product/modifyproductpage/" + productCode;
 	}
 
+	/**
+	 * use for searchProduct and product List report
+	 * @param productCode
+	 * @param productTitle
+	 * @param productGroup
+	 * @param category
+	 * @param criterias
+	 * @return
+	 */
 	@RequestMapping(value = "/product/productlist", method = RequestMethod.GET)
 	@ResponseBody
 	public Object getProductList(
