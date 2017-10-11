@@ -30,11 +30,13 @@ public class DefaultSourceFacade implements SourceFacade {
 		{
 			source = new SourceModel();
 			source.setName(sourceData.getName());
+			source.setType(sourceData.getType());
 			sourceService.createSource(source);
 		} else
 		{
 			source = sourceService.getSource(sourceData.getPk());
 			source.setName(sourceData.getName());
+			source.setType(sourceData.getType());
 			sourceService.saveSource(source);
 		}
 	}
@@ -175,6 +177,15 @@ public class DefaultSourceFacade implements SourceFacade {
 			});
 
 		return sourceDatas;
+	}
+
+	@Override
+	public SourceData getSource(String pk)
+	{
+		SourceModel source = sourceService.getSource(pk);
+		SourceData sourceData  = new SourceData();
+		sourceDataPopulator.populate(source, sourceData);
+		return sourceData;
 	}
 
 }

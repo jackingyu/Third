@@ -1,20 +1,32 @@
 ACC.sourcelist = {
   modify: function(e){
-  	var name= $(e).attr('name');
   	var pk = $(e).attr('pk');
-  	$('#sourceForm input[name="name"]').val(name);
-  	$('#sourceForm input[name="pk"]').val(pk);
+  	 $.ajax({
+  	      type: 'GET',
+  	      url: ACC.config.contextPath + '/source/getdetail',
+  	      data: {'pk':pk}, 
+  	      error: function (request) {
+  	        ACC.message.alert("通讯失败");
+  	      },
+  	      success: function (data) {
+  	    	    $("#sourceName").val(data.name);
+  	        $("#sourcePK").val(data.pk);
+  	        $("#sourceType").val(data.type);
+  	        $('#sourcePanel').modal('show');
+  	      }
+  	    });
   	
-  	$('#sourcePanel').modal('show');
+  	
   },
   save: function(){
   	var sourceName = $("#sourceName").val();
   	var sourcePK = $("#sourcePK").val();
+  	var sourceType = $("#sourceType").val();
   	$('#sourcePanel').modal('hide');
     $.ajax({
       type: 'POST',
       url: ACC.config.contextPath + '/source/save',
-      data: {'name':sourceName,'pk':sourcePK}, 
+      data: {'name':sourceName,'pk':sourcePK,'type':sourceType}, 
       error: function (request) {
         ACC.message.alert("保存失败");
       },
@@ -40,7 +52,7 @@ ACC.sourcelist = {
       'bPaginate': false,
       'createdRow': function (row, data, index) {
         $('td', row).eq(1).html(
-           "<a  class='btn' name='"+data[0]+"' pk='"+data[1]+"' onclick='ACC.sourcelist.modify(this)'>修改</a>"
+           "<a  class='btn' name='"+data[0]+"' pk='"+data[1]+"' sourceType='"+data[2]+"' onclick='ACC.sourcelist.modify(this)'>修改</a>"
         );
         },
       'ajax': {

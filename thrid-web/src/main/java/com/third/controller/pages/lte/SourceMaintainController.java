@@ -32,6 +32,7 @@ public class SourceMaintainController extends AbstractPageController {
 	@RequestMapping(value = "/source/listpage", method = RequestMethod.GET)
 	public String sourceListPage(Model model)
 	{
+		//fillAllSourceInView(model);
 		return ControllerConstants.LTE.SOURCELISTPAGE;
 	}
 
@@ -47,15 +48,24 @@ public class SourceMaintainController extends AbstractPageController {
 	@ResponseBody
 	public void saveSource(
 			@RequestParam(value = "name", required = true) final String name,
-			@RequestParam(value = "pk", required = false) final String pk)
+			@RequestParam(value = "pk", required = false) final String pk,
+	       @RequestParam(value = "type", required = false) final String type)
 	{
 		SourceData source = new SourceData();
 		source.setName(name);
-
+        source.setType(type);
 		if (StringUtils.isNotEmpty(pk))
 			source.setPk(pk);
 
 		sourceFacade.saveSource(source);
+	}
+	
+	@RequestMapping(value = "/source/getdetail", method = RequestMethod.GET)
+	@ResponseBody
+	public Object getSource(
+			@RequestParam(value = "pk", required = true) final String pk)
+	{
+		return sourceFacade.getSource(pk);
 	}
 
 	@RequestMapping(value = "/source/list")
@@ -74,7 +84,7 @@ public class SourceMaintainController extends AbstractPageController {
 
 		for (int i = 0; i < sources.size(); i++)
 		{
-			Object[] row = { sources.get(i).getName(), sources.get(i).getPk() };
+			Object[] row = { sources.get(i).getName(), sources.get(i).getPk(),sources.get(i).getType()};
 			results.add(row);
 		}
 		r.setData(results);

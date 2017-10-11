@@ -10,6 +10,7 @@ public class SourceDataPopulator implements Populator<SourceModel, SourceData> {
 	{
 		target.setPk(source.getPk());
 		target.setName(source.getName());
+		target.setType(source.getType());
 	}
 
 }

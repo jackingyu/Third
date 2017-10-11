@@ -2,6 +2,7 @@ package com.third.facade.data;
 
 public class SourceData extends AbstractData {
 	private String name;
+	private String type;
 
 	public String getName()
 	{
@@ -11,6 +12,16 @@ public class SourceData extends AbstractData {
 	public void setName(String name)
 	{
 		this.name = name;
+	}
+
+	public String getType()
+	{
+		return type;
+	}
+
+	public void setType(String type)
+	{
+		this.type = type;
 	}
 
 }

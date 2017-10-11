@@ -32,6 +32,13 @@
 						</div>
 					</div>
 					
+					<div class="form-group">
+						<label><spring:message code="lte.sourcelist.type"></spring:message></label>
+						<div class="input-group">
+					   	<input id="sourceType" name="type" class="form-control" type="text">
+						</div>
+					</div>
+					
 				</div>
 				<div class="modal-footer">
 					<button type="button" class="btn btn-default pull-left" data-dismiss="modal">

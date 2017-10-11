@@ -15,6 +15,8 @@ public interface SourceFacade {
 
 	List<SourceData> getAllSources();
 	
+	SourceData getSource(final String pk);
+	
 	List<SourceData> getExhibitionsForStoreCode(final String storeCode);
 
 	void assignSource2Store(List<String> sourcePKs, String storeCode);
