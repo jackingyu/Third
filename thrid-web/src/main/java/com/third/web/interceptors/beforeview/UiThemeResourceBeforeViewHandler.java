@@ -12,6 +12,7 @@ import org.springframework.web.servlet.ModelAndView;
 import com.third.core.constants.CoreConstants;
 import com.third.facade.data.MenuData;
 import com.third.service.user.SessionService;
+import com.third.service.user.UserService;
 import com.third.web.interceptors.BeforeViewHandler;
 
 /**
@@ -25,6 +26,8 @@ public class UiThemeResourceBeforeViewHandler implements BeforeViewHandler {
 			.getLogger(UiThemeResourceBeforeViewHandler.class);
 	@Resource(name = "sessionService")
 	private SessionService sessionService;
+	@Resource(name = "userService")
+	private UserService userService;
 
 	@Override
 	public void beforeView(final HttpServletRequest request,
@@ -48,6 +51,9 @@ public class UiThemeResourceBeforeViewHandler implements BeforeViewHandler {
 		    
 			modelAndView.addObject("menus", menus);
 		}
+		
+		if(userService.getCurrentUser()!=null)
+	 	modelAndView.addObject("userName", userService.getCurrentUser().getName());
 		
 		if(sessionService.isMobile())
 			modelAndView.addObject("isMobile", true);
