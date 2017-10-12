@@ -10,4 +10,7 @@ public interface SizeAttributeService {
 	public List<SizeAttributeModel> getSizeAttributeForItemCategory(
 			final Integer itemCategory);
 
+	List<SizeAttributeModel> getSizeAttribute(Integer itemCategory,
+			Integer sizeGroup);
+
 }

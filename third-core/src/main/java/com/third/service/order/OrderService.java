@@ -27,6 +27,10 @@ public interface OrderService {
 			final Integer startIndex, final Integer pageSize,
 			final Map<String, String> sp);
 	
+	PaginationSupport getOrderEntriesWithSizeData(final Date startDate, final Date endDate,
+			final Integer startIndex, final Integer pageSize,
+			final Map<String, String> sp);
+	
 	List<OrderModel> getOrders(final Map<String, String> sp);
 
 	void createOrderEntry(final OrderEntryModel orderEntry);

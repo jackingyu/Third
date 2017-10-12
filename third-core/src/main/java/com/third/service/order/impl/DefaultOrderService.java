@@ -121,4 +121,12 @@ public class DefaultOrderService implements OrderService {
 		return orderDao.anlysisOrder(startDate, endDate,sp);
 	}
 
+	@Override
+	public PaginationSupport getOrderEntriesWithSizeData(Date startDate,
+			Date endDate, Integer startIndex, Integer pageSize,
+			Map<String, String> sp)
+	{
+		return orderEntryDao.findOrderEntriesWithSizeData(startDate, endDate, startIndex, pageSize, sp);
+	}
+
 }

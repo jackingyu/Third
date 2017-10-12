@@ -13,6 +13,7 @@ public class UserData extends AbstractData {
 	public boolean blocked;
 	public UserGroupData userGroup;
 	public List<StoreData> stores;
+	private StoreData store;
 
 	public String getUserId()
 	{
@@ -77,5 +78,15 @@ public class UserData extends AbstractData {
 	public boolean equals(UserData user)
 	{
 		return this.userId.equals(user.getUserId());
+	}
+
+	public StoreData getStore()
+	{
+		return store;
+	}
+
+	public void setStore(StoreData store)
+	{
+		this.store = store;
 	}
 }

@@ -67,6 +67,7 @@ public class DefaultUserFacade implements UserFacade {
 			stores.add(store);
 		});
 		userModel.setStores(stores);
+		userModel.setStore(storeService.getStoreForCode(user.getStore().getCode()));
 
 		userService.createUser(userModel);
 	}
@@ -241,8 +242,10 @@ public class DefaultUserFacade implements UserFacade {
 			StoreModel store = storeService.getStoreForCode(s.getCode());
 			stores.add(store);
 		});
+		
 		user.setStores(stores);
-
+		user.setStore(storeService.getStoreForCode(userData.getStore().getCode()));
+		
 		userService.updateUser(user);
 	}
 

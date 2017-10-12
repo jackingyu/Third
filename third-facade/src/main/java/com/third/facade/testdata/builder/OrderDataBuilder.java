@@ -14,6 +14,7 @@ import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.apache.commons.lang3.RandomUtils;
 
+import com.alibaba.fastjson.JSON;
 import com.third.core.constants.CoreConstants;
 import com.third.model.AddressModel;
 import com.third.model.CustomerModel;
@@ -21,6 +22,7 @@ import com.third.model.OrderEntryModel;
 import com.third.model.OrderModel;
 import com.third.model.OrderProcessRecordModel;
 import com.third.model.PaymentModel;
+import com.third.model.SizeAttributeModel;
 import com.third.model.SourceModel;
 import com.third.model.StoreModel;
 import com.third.model.UserModel;
@@ -29,11 +31,13 @@ import com.third.service.customer.SourceService;
 import com.third.service.order.OrderProcessService;
 import com.third.service.order.OrderService;
 import com.third.service.product.ProductService;
+import com.third.service.product.SizeAttributeService;
 import com.third.service.store.StoreService;
 import com.third.service.user.UserService;
 import com.third.core.constants.CoreConstants.PaymentMethod;
 import com.third.core.constants.CoreConstants.PaymentType;
 import com.third.dao.product.ProductDao;
+import com.third.facade.data.SizeAttributeData;
 
 public class OrderDataBuilder implements DataBuilder {
 	@Resource(name = "orderService")
@@ -51,22 +55,36 @@ public class OrderDataBuilder implements DataBuilder {
 	@Resource(name = "productService")
 	private ProductService productService;
 
+	@Resource(name = "sizeAttributeService")
+	private SizeAttributeService sizeAttributeService;
+
 	@Resource(name = "orderProcessService")
 	private OrderProcessService orderProcessService;
 
 	@Resource(name = "userService")
 	private UserService userService;
-	
-	@Resource(name="productDao")
+
+	@Resource(name = "productDao")
 	private ProductDao productDao;
+
+	private HashMap<String, List<SizeAttributeModel>> sizeAttributeModels = new HashMap<String, List<SizeAttributeModel>>();;
 
 	private List<SourceModel> sources;
 
 	public void buildData()
 	{
-		for(int i = 0; i < 50;i++)
+		sizeAttributeModels.put("10",
+				sizeAttributeService.getSizeAttributeForItemCategory(10));
+		sizeAttributeModels.put("20",
+				sizeAttributeService.getSizeAttributeForItemCategory(20));
+		sizeAttributeModels.put("30",
+				sizeAttributeService.getSizeAttributeForItemCategory(30));
+		sizeAttributeModels.put("40",
+				sizeAttributeService.getSizeAttributeForItemCategory(40));
+
+		for (int i = 0; i < 50; i++)
 		{
-			buildOrder("T-"+i);
+			buildOrder("T-" + i);
 		}
 	}
 
@@ -94,17 +112,19 @@ public class OrderDataBuilder implements DataBuilder {
 				getNextDay(today, RandomUtils.nextInt(0, 365)));
 		orderModel.setOrderDate(getNextDay(today, RandomUtils.nextInt(0, 365)));
 		orderModel.setPhotoDate(getNextDay(today, RandomUtils.nextInt(0, 365)));
-		orderModel.setWeddingDate(getNextDay(today, RandomUtils.nextInt(0, 365)));
+		orderModel
+				.setWeddingDate(getNextDay(today, RandomUtils.nextInt(0, 365)));
 		orderModel.setStatus(0);
 		CustomerModel customer = buildCustomer("13800138000" + orderCode,
 				"name" + orderCode);
 		orderModel.setCustomer(customer);
-		
+
 		StoreModel store = storeService.getStoreForCode("1");
 		orderModel.setStore(store);
-		UserModel salesperson = userService.getSalesPerson(store.getId()).get(RandomUtils.nextInt(0,3));
-	    orderModel.setSalesperson(salesperson);
-	    
+		UserModel salesperson = userService.getSalesPerson(store.getId())
+				.get(RandomUtils.nextInt(0, 3));
+		orderModel.setSalesperson(salesperson);
+
 		PaymentModel paymentModel = new PaymentModel();
 		paymentModel.setPaymentMethod(PaymentMethod.Cash);
 		paymentModel.setPaymentType(PaymentType.DownPayment);
@@ -140,11 +160,13 @@ public class OrderDataBuilder implements DataBuilder {
 
 		List<OrderEntryModel> entries = new ArrayList<OrderEntryModel>();
 
-		List<UserModel> designers = userService.getDesignerForStore(orderModel.getStore().getId());
-		
+		List<UserModel> designers = userService
+				.getDesignerForStore(orderModel.getStore().getId());
+
 		UserModel designer = null;
-		if(CollectionUtils.isNotEmpty(designers))
-		 designer = designers.get(0);
+		if (CollectionUtils.isNotEmpty(designers))
+			designer = designers.get(0);
+
 		for (int j = 0; j < 5; j++)
 		{
 			OrderEntryModel entry = new OrderEntryModel();
@@ -155,19 +177,35 @@ public class OrderDataBuilder implements DataBuilder {
 			entry.setSizeDate(new Date());
 			Integer itemCategory = RandomUtils.nextInt(1, 4) * 10;
 			entry.setItemCategory(itemCategory.toString());
+			List<SizeAttributeModel> sizeAttributes = sizeAttributeService
+					.getSizeAttributeForItemCategory(
+							Integer.valueOf(itemCategory));
+			List<SizeAttributeData> sizeAttributeDatas = new ArrayList<SizeAttributeData>();
+
+			sizeAttributes.forEach(s -> {
+					SizeAttributeData sizeAttributeData = new SizeAttributeData();
+					sizeAttributeData.setName(s.getName());
+					sizeAttributeData.setValue(
+							new Integer(RandomUtils.nextInt(1, 50)).toString());
+					sizeAttributeData.setGroup(s.getGroup().toString());
+					sizeAttributeDatas.add(sizeAttributeData);
+			});
+
+			entry.setSizeDetails(JSON.toJSONString(sizeAttributeDatas));
+
 			entry.setStyle("测试规格");
 			entry.setProductTitle("成品西装");
 			entry.setSizeDate(new Date());
-			
-			if(designer!=null)
-			entry.setDesigner(designer);
-			
+
+			if (designer != null)
+				entry.setDesigner(designer);
+
 			entry.setTryDate(com.third.facade.utils.DateUtils.getToday());
 			entry.setComment("我是一个备注备注备注");
 			entry.setExternalId(Integer.toString(RandomUtils.nextInt()));
 			entry.setStore(store);
 			entry.setStatus(0);
-			entry.setProduct(productDao.list().get(RandomUtils.nextInt(0,10)));
+			entry.setProduct(productDao.list().get(RandomUtils.nextInt(0, 10)));
 			entries.add(entry);
 		}
 

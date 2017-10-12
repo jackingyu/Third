@@ -307,6 +307,12 @@ public class ExcelUtils {
 			}
 		}
 
+		exportFile(fileName,file,request,response);
+	}
+	
+	public static void exportFile(String fileName,File file,
+			HttpServletRequest request, HttpServletResponse response)
+	{
 		String contentType = "application/vnd.ms-excel";
 		response.setContentType("text/html;charset=UTF-8");
 		try
@@ -370,6 +376,89 @@ public class ExcelUtils {
 				file.delete();
 			}
 		}
+	}
+	
+	/**
+	 * 导出内容成生excel文件
+	 * 
+	 * @param workbookName
+	 * @param sheetName
+	 * @param headerNames
+	 * @param dataList
+	 * @param request
+	 * @param response
+	 * @return
+	 */
+	public static void exportExcel(String workbookName, String[] sheetName,
+			List<List<Object[]>> dataListArray, HttpServletRequest request,
+			HttpServletResponse response)
+	{
+		Workbook wb = new HSSFWorkbook();
+		UUID uuid = UUID.randomUUID();
+		String fileName = System.getProperty("java.io.tmpdir") + "/"
+				+ uuid.toString() + ".xls";
+		File file = new File(fileName);
+		FileOutputStream fileOut = null;
+		try
+		{
+			fileOut = new FileOutputStream(file);
+		} catch (FileNotFoundException e1)
+		{
+			e1.printStackTrace();
+		}
 
+		//loop the sheet
+		for (int i = 0; i < dataListArray.size(); i++)
+		{
+			List<Object[]> dataList = dataListArray.get(i);
+			Sheet sheet = wb.createSheet(sheetName[i]);
+			int rowIndex = 0;
+			Row headerRow = sheet.createRow(rowIndex++);
+			int colIndex = 0;
+			Object[] headerNames = dataList.get(0);
+			dataList.remove(0);
+			for (Object headerName : headerNames)
+			{
+				Cell headerCell = headerRow.createCell(colIndex++);
+				headerCell.setCellValue(headerName.toString());
+			}
+
+			if (dataList != null && dataList.size() > 0)
+			{
+				for (Object[] data : dataList)
+				{
+					Row dataRow = sheet.createRow(rowIndex++);
+					colIndex = 0;
+					for (Object column : data)
+					{
+						Cell dataCell = dataRow.createCell(colIndex++);
+						dataCell.setCellValue(column!=null?column.toString():StringUtils.EMPTY);
+					}
+				}
+			}
+		}
+		
+		
+		try
+		{
+			wb.write(fileOut);
+		} catch (IOException e)
+		{
+			e.printStackTrace();
+		} finally
+		{
+			if (fileOut != null)
+			{
+				try
+				{
+					fileOut.close();
+				} catch (IOException e)
+				{
+					e.printStackTrace();
+				}
+			}
+		}
+		
+		exportFile(fileName,file,request,response);
 	}
 }

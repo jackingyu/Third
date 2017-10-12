@@ -21,6 +21,13 @@ public class DefaultSizeAttributeService implements SizeAttributeService {
 	{
 		return sizeAttributeDao.findSizeAttributeForItemCategory(itemCategory);
 	}
+	
+	@Override
+	public List<SizeAttributeModel> getSizeAttribute(
+			Integer itemCategory,Integer sizeGroup)
+	{
+		return sizeAttributeDao.findSizeAttributes(itemCategory, sizeGroup);
+	}
 
 	public void setSizeAttributeDao(SizeAttributeDao sizeAttributeDao)
 	{

@@ -10,12 +10,14 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
+import org.apache.commons.lang3.ArrayUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.log4j.Logger;
 import org.springframework.util.CollectionUtils;
@@ -132,7 +134,7 @@ public class DefaultOrderFacade implements OrderFacade {
 		orderService.createOrder(order);
 
 		orderData.setPk(order.getPk());
-		
+
 		newOrderAction.perform(order);
 	}
 
@@ -241,7 +243,8 @@ public class DefaultOrderFacade implements OrderFacade {
 		OrderEntryModel orderEntry = new OrderEntryModel();
 		orderEntry.setComment(orderEntryData.getComment());
 		// orderEntry.setDeliveryDate(orderEntryData.getDeliveryDate());
-		UserModel designer = userService.getUserById(orderEntryData.getDesigner().getUserId());
+		UserModel designer = userService
+				.getUserById(orderEntryData.getDesigner().getUserId());
 		orderEntry.setDesigner(designer);
 		orderEntry.setItemCategory(orderEntryData.getItemCategory());
 		orderEntry.setProductTitle(orderEntryData.getProductTitle());
@@ -286,7 +289,8 @@ public class DefaultOrderFacade implements OrderFacade {
 				.getOrderEntry(orderEntryData.getPk());
 		orderEntry.setComment(orderEntryData.getComment());
 		// orderEntry.setDeliveryDate(orderEntryData.getDeliveryDate());
-		UserModel designer = userService.getUserById(orderEntryData.getDesigner().getUserId());
+		UserModel designer = userService
+				.getUserById(orderEntryData.getDesigner().getUserId());
 		orderEntry.setDesigner(designer);
 		// orderEntry.setItemCategory(orderEntryData.getItemCategory());
 		orderEntry.setProductTitle(orderEntryData.getProductTitle());
@@ -297,7 +301,7 @@ public class DefaultOrderFacade implements OrderFacade {
 		orderEntry.setStyle(orderEntryData.getStyle());
 		orderEntry.setCustomerName(orderEntryData.getCustomerName());
 		orderEntry.setExternalId(orderEntryData.getExternalId());
-		
+
 		if (StringUtils.isNotEmpty(orderEntryData.getProduct().getCode()))
 		{
 			ProductModel product = productService
@@ -438,7 +442,7 @@ public class DefaultOrderFacade implements OrderFacade {
 		paymentModel.setPaymentMethod(payment.getPaymentMethod());
 		paymentModel.setPaymentType(payment.getPaymentType());
 		paymentModel.setOrder(orderModel);
-        paymentModel.setStore(orderModel.getStore());
+		paymentModel.setStore(orderModel.getStore());
 		paymentService.createPayment(paymentModel);
 
 		orderModel.setPaidamount(
@@ -664,8 +668,8 @@ public class DefaultOrderFacade implements OrderFacade {
 
 		return result;
 	}
-	
-	public boolean isExist(final String orderCode) 
+
+	public boolean isExist(final String orderCode)
 	{
 		return orderService.getOrderForCode(orderCode) != null;
 	}
@@ -673,26 +677,79 @@ public class DefaultOrderFacade implements OrderFacade {
 	@Override
 	public List<OrderData> getOrdersForCurrentUser(Integer orderStatus)
 	{
-		HashMap<String,String> sp = new HashMap<String,String>();
+		HashMap<String, String> sp = new HashMap<String, String>();
 		sp.put("orderStatus", orderStatus.toString());
 		sp.put("salesperson", userService.getCurrentUser().getUserId());
-		
+
 		List<OrderData> orders = new ArrayList<OrderData>();
 		List<OrderModel> orderModels = orderService.getOrders(sp);
-		
-	     orderModels.forEach( o ->{
-	    	    OrderData od = new OrderData();
-	    	    orderConfiguredPopulator.populate(o, od, Arrays.asList(OrderOption.BASIC));
-	    	    orders.add(od);
-	     });
+
+		orderModels.forEach(o -> {
+			OrderData od = new OrderData();
+			orderConfiguredPopulator.populate(o, od,
+					Arrays.asList(OrderOption.BASIC));
+			orders.add(od);
+		});
 
 		return orders;
 	}
 
-
 	public void setNewOrderAction(NewOrderAction newOrderAction)
 	{
 		this.newOrderAction = newOrderAction;
+	}
+
+	@Override
+	public List<Object[]> exportOrderEntries(Date startDate, Date endDate,
+			int startIndex, int pageSize, Map<String, String> sp)
+	{
+		PaginationSupport ps = orderService.getOrderEntriesWithSizeData(
+				startDate, endDate, startIndex, pageSize, sp);
+
+		List<Object[]> datas = ps.getItems();
+		List<Object[]> exportResults = new ArrayList<Object[]>();
+		int itemCategory = Integer.valueOf(sp.get("itemCategory"));
+		List<SizeAttributeModel> sizeAttributes = sizeAttributeService
+				.getSizeAttributeForItemCategory(itemCategory);
+		HashMap<String, String> sizeAttributesSorter = new HashMap<String, String>();
+		sizeAttributes.forEach(s -> {
+			sizeAttributesSorter.put(s.getName(), "");
+		});
+
+//select e.itemCategory,e.externalId,e.deliveryDate,e.customerName,e.product.code,e.style,e.comment,e.sizeDetails
+		Object[] title1 = {"量身单号码","交付日","顾客姓名","布料","布料补充说明","款式"};
+		Object[] title= ArrayUtils.addAll(title1,sizeAttributesSorter.keySet().toArray());
+		int arrayLength = sizeAttributes.size();
+		exportResults.add(title);
+		
+		datas.forEach(d -> {
+			Object[] basicInformation =  Arrays.copyOfRange(d, 0, 6);
+			Object[] sizeDataArrays = new String[arrayLength];
+
+			List<SizeAttributeData> attributeDatas = JSON
+					.parseArray(d[6].toString(), SizeAttributeData.class);
+			HashMap<String, String> attrDataMap = new HashMap<String, String>();
+
+			for (SizeAttributeData attrData : attributeDatas)
+			{
+				attrDataMap.put(attrData.getName(), attrData.getValue());
+			}
+			int i = 0;
+
+			Iterator<String> itr = sizeAttributesSorter.keySet().iterator();
+			
+			while (itr.hasNext())
+			{
+				String k = itr.next();
+				sizeDataArrays[i] = attrDataMap.containsKey(k)? attrDataMap.get(k): StringUtils.EMPTY;
+				i = i + 1;
+			}
+			
+			exportResults.add(ArrayUtils.addAll(basicInformation, sizeDataArrays));
+
+		});
+
+		return exportResults;
 	}
 
 }

@@ -70,4 +70,8 @@ public interface OrderFacade {
 	boolean isExist(final String orderCode);
 	
 	List<OrderData> getOrdersForCurrentUser(Integer orderStatus);
+
+	List<Object[]> exportOrderEntries(Date startDate, Date endDate, int i, int j,
+			Map<String, String> sp);
+	
 }

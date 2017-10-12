@@ -1,5 +1,7 @@
 package com.third.controller.pages.lte;
 
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -115,8 +117,9 @@ public class UserPageController extends AbstractPageController {
 			@RequestParam(value = "blocked", required = false) final boolean blocked,
 			@RequestParam(value = "password", required = false) final String password,
 			@RequestParam(value = "stores", required = false) final List<String> storeCodes,
+			@RequestParam(value = "store", required = false) final String storeCode,
 			@RequestParam(value = "usergroupPK") final String userGroupPk,
-			final Model model)
+			final Model model) throws UnsupportedEncodingException
 	{
 		UserData user = new UserData();
 		user.setName(name);
@@ -138,6 +141,10 @@ public class UserPageController extends AbstractPageController {
 			}
 			user.setStores(stores);
 		}
+		
+		StoreData store1 = new StoreData();
+		store1.setCode(storeCode);
+		user.setStore(store1);
 
 		if (StringUtils.isEmpty(userPK))
 			userFacade.createUser(user);
@@ -147,6 +154,7 @@ public class UserPageController extends AbstractPageController {
 		model.addAttribute("message", "保存成功!");
 
 		return REDIRECT_PREFIX + "/user/modifyuserpage/" + userId;
+		//URLEncoder.encode(java.net.URLEncoder.encode(userId,"UTF-8")  ,"UTF-8");
 	}
 
 	private void fillUserGroupInView(final Model model,

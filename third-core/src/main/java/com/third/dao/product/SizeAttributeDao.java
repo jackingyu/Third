@@ -10,4 +10,7 @@ public interface SizeAttributeDao
 	List<SizeAttributeModel> findSizeAttributeForItemCategory(
 			final Integer itemCategory);
 
+	List<SizeAttributeModel> findSizeAttributes(Integer itemCategory,
+			Integer group);
+
 }

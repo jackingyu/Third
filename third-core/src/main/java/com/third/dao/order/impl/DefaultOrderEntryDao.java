@@ -115,4 +115,87 @@ public class DefaultOrderEntryDao extends GenericDAO<OrderEntryModel, String>
 		logger.info(sb.toString());
 		return findPageByQuery(sb.toString(), pageSize, startIndex);
 	}
+
+	@Override
+	public PaginationSupport findOrderEntriesWithSizeData(Date startDate,
+			Date endDate, Integer startIndex, Integer pageSize,
+			Map<String, String> sp)
+	{
+
+		final StringBuilder sb = new StringBuilder(
+				"select e.externalId,e.deliveryDate,e.customerName,e.product.code,e.comment,e.style,e.sizeDetails from OrderEntryModel  e "
+						+ " where ");
+
+		List<String> condition = new ArrayList<String>();
+
+		if (StringUtils.isNotBlank(getParameterValue(sp, "externalId")))
+		{
+			StringBuilder c = new StringBuilder().append("e.externalId = '")
+					.append(getParameterValue(sp, "externalId")).append("'");
+			condition.add(c.toString());
+		}
+
+		if (StringUtils.isNotBlank(getParameterValue(sp, "status")))
+		{
+			StringBuilder c = new StringBuilder().append("e.status = ")
+					.append(getParameterValue(sp, "status"));
+			condition.add(c.toString());
+		}
+
+		// TODO if there is no store parameter get store from session
+		if (StringUtils.isNotBlank(getParameterValue(sp, "storeCodes")))
+		{
+			String[] storeArray = getParameterValue(sp, "storeCodes")
+					.split(",");
+			StringBuilder c = new StringBuilder();
+
+			if (storeArray.length == 1)
+				c = c.append("e.store.id = '").append(storeArray[0])
+						.append("'");
+			else if (storeArray.length > 1)
+			{
+				c.append("e.store.id in (");
+				for (int i = 0; i < storeArray.length; i++)
+				{
+					if (i == storeArray.length - 1)
+						c.append("'").append(storeArray[i]).append("') ");
+					else
+						c.append("'").append(storeArray[i]).append("',");
+				}
+			}
+
+			condition.add(c.toString());
+		}
+
+		if (StringUtils.isNotBlank(getParameterValue(sp, "name")))
+		{
+			StringBuilder c = new StringBuilder().append("e.customerName like '%")
+					.append(getParameterValue(sp, "name")).append("%'");
+			condition.add(c.toString());
+		}
+		
+		if (StringUtils.isNotBlank(getParameterValue(sp, "itemCategory")))
+		{
+			StringBuilder c = new StringBuilder().append("e.itemCategory = ")
+					.append(getParameterValue(sp, "itemCategory"));
+			condition.add(c.toString());
+		}
+
+		if (CollectionUtils.isNotEmpty(condition))
+		{
+
+			for (int i = 0; i < condition.size(); i++)
+			{
+				sb.append(condition.get(i)).append(" and ");
+			}
+
+		}
+
+		sb.append("e.order.deliveryDate between '")
+				.append(fmt.format(startDate)).append("' and '")
+				.append(fmt.format(endDate)).append("'");
+		sb.append(" order by e.order.deliveryDate asc");
+		logger.info(sb.toString());
+		return findPageByQuery(sb.toString(), pageSize, startIndex);
+	}
 }

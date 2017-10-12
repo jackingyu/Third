@@ -1,5 +1,6 @@
 package com.third.controller.pages.lte;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.HashMap;
@@ -22,11 +23,13 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.third.controller.pages.AbstractPageController;
 import com.third.controller.pages.ControllerConstants;
+import com.third.core.constants.CoreConstants;
 import com.third.core.util.DataTableCriterias;
 import com.third.facade.data.DTResults;
-
+import com.third.facade.data.TextMapper;
 import com.third.facade.order.OrderFacade;
 import com.third.facade.utils.ExcelUtils;
+import com.third.facade.utils.TextMapperUtils;
 
 @Controller
 public class SizeOrderListController extends AbstractPageController {
@@ -83,11 +86,35 @@ public class SizeOrderListController extends AbstractPageController {
 		sp.put("name", name);
 		sp.put("status", orderEntryStatus);
 		sp.put("storeCodes", storeCodes);
+		String[] sheetNames = new String[4];
 		
-		DTResults r = orderFacade.getOrderEntries(startDate, endDate,
+		
+		sp.put("itemCategory", CoreConstants.ItemCategory.Shirt);
+		sheetNames[0] = TextMapperUtils.getItemCategoryText(CoreConstants.ItemCategory.Shirt);
+		List<Object[]> r1 = orderFacade.exportOrderEntries(startDate, endDate,
 				0, 10000, sp);
-		String[] headername = {"编号","2","3","4","5"};
-		ExcelUtils.exportToExcel1("量身单列表", "量身单", headername, r.getData(), request, response);
+		
+		sp.put("itemCategory", CoreConstants.ItemCategory.Trousers);
+		sheetNames[1] = TextMapperUtils.getItemCategoryText(CoreConstants.ItemCategory.Trousers);
+		List<Object[]> r2 = orderFacade.exportOrderEntries(startDate, endDate,
+				0, 10000, sp);
+		
+		sp.put("itemCategory", CoreConstants.ItemCategory.Suit);
+		sheetNames[2] = TextMapperUtils.getItemCategoryText(CoreConstants.ItemCategory.Suit);
+		List<Object[]> r3 = orderFacade.exportOrderEntries(startDate, endDate,
+				0, 10000, sp);
+		
+		sp.put("itemCategory", CoreConstants.ItemCategory.Vest);
+		sheetNames[3] = TextMapperUtils.getItemCategoryText(CoreConstants.ItemCategory.Vest);
+		List<Object[]> r4 = orderFacade.exportOrderEntries(startDate, endDate,
+				0, 10000, sp);
+		
+		List<List<Object[]>> dataArrays = new ArrayList<List<Object[]>>();
+		dataArrays.add(r1);
+		dataArrays.add(r2);
+		dataArrays.add(r3);
+		dataArrays.add(r4);
+		ExcelUtils.exportExcel("量身单列表", sheetNames,dataArrays, request,response);
 	}
 
 }

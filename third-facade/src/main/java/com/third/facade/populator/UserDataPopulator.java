@@ -39,7 +39,9 @@ public class UserDataPopulator implements Populator<UserModel, UserData> {
 
 		UserGroupData userGroup = new UserGroupData();
 		userGroupDataPopulator.populate(source.getUserGroup(), userGroup);
-
+		StoreData store = new StoreData();
+		storeDataPopulator.populate(source.getStore(), store);
+        target.setStore(store);
 		target.setUserGroup(userGroup);
 		// 不将真实的密码传递出去
 		target.setPassword(source.getPassword());

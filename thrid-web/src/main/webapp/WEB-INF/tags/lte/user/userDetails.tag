@@ -40,6 +40,9 @@
 			<div class="form-group">
 				<common:selection2  data="${stores}" label="lte.user.store"  multiple="true" name="stores"></common:selection2>
 			</div>
+			<div class="form-group">
+				<common:selection2  data="${stores}" label="lte.user.store1"  value="${user.store.code}" name="store"></common:selection2>
+			</div>
 			<div class="checkbox">
 			    <label><input name="blocked"  <c:if test="${user.blocked}">checked="checked"</c:if> type="checkbox">
 			    <spring:message code="lte.user.blocked"></spring:message></label>
