@@ -66,7 +66,7 @@ public class WeixinMemberController extends AbstractWeixinController {
 
 	}
 
-	@RequestMapping(value = "/wx/memeber/home")
+	@RequestMapping(value = "/wx/member/home")
 	public String getMemberPage(final HttpServletRequest request,
 			final Model model)
 	{
