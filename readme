@@ -7,13 +7,17 @@ http://localhost:8080/thrid-web/loginPage 为正式版本登录入口
 
 http://localhost:8080/thrid-web/test 初始化数据
 
-根据hbm生成数据库 ant databasegen 
-根据hbm生成dao等java类 ant codegen 
+环境初始化
+1 运行shell脚本. ./setantenv.sh,后续可加wx,dev参数,读取env folder下的变量设置
+2 ant configureserver-如果使用tocmat则需要此步骤初始化tomcat server.xml配置
+3 ant codegen->生成java model ,ant databasegen->生成数据库,此两步骤也会将对应的hibernate.cfg.xml进行自动配置
+4 mvn clean package
 开发过程中调试ui ant deployui
 
-两种部署方法
-1 使用build.xml脚本 ant deploy部署到内嵌的tomcat下
-2 在根目录下运行mvn jetty:run 启动jetty,debug模式为mvnDebug jetty:run,之后eclipse启用Debug,服务器就可以启动
+两种启动方法
+1 在根目录下运行mvn jetty:run 启动jetty,debug模式为mvnDebug jetty:run,之后eclipse启用Debug,服务器就可以启动
+2 . ./server.sh debug
+
 #orderstatus
 orderstatus没有存表,核心数据维护在CoreConstants中,文本部分使用了模式进行匹配,存在于统一的文本文件中,后期考虑修改这一部分的处理
 
