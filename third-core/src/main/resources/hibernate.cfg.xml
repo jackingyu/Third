@@ -7,11 +7,11 @@
         <!-- 设置数据库驱动 -->  
         <property name="hibernate.connection.driver_class">com.mysql.jdbc.Driver</property>  
         <!-- 设置数据库URL -->  
-        <property name="hibernate.connection.url">jdbc:mysql://localhost:3306/test</property>  
+        <property name="hibernate.connection.url">${datasource.url}</property>  
         <!-- 数据库用户名 -->  
-        <property name="hibernate.connection.username">root</property>  
+        <property name="hibernate.connection.username">${datasource.username}</property>  
         <!-- 数据库密码 -->  
-        <property name="hibernate.connection.password">jackingyu123</property>  
+        <property name="hibernate.connection.password">${datasource.password}</property>  
         <!-- 指定对应数据库的方言，hibernate为了更好适配各种关系数据库，针对每种数据库都指定了一个方言dialect -->  
         <property name="hibernate.dialect">org.hibernate.dialect.MySQLDialect</property>  
           
