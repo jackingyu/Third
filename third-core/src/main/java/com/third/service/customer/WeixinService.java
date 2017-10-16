@@ -2,8 +2,8 @@ package com.third.service.customer;
 
 import java.io.IOException;
 
-import com.third.model.AccessToken;
-import com.third.model.SubscribeData;
+import com.third.dao.util.AccessToken;
+import com.third.dao.util.SubscribeData;
 import com.third.model.WeixinInfoModel;
 
 public interface WeixinService {

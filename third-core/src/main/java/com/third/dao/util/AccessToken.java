@@ -1,4 +1,4 @@
-package com.third.model;
+package com.third.dao.util;
 
 import java.util.Date;
 

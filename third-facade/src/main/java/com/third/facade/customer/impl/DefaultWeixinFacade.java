@@ -10,9 +10,9 @@ import org.dom4j.Element;
 
 import com.third.core.util.Config;
 import com.third.core.util.WXConstant;
+import com.third.dao.util.SubscribeData;
 import com.third.facade.customer.WeixinFacade;
 import com.third.facade.data.WXMessage;
-import com.third.model.SubscribeData;
 import com.third.model.SubscribeModel;
 import com.third.service.customer.SubscribeService;
 import com.third.service.customer.WeixinService;

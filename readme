@@ -11,7 +11,7 @@ http://localhost:8080/thrid-web/test 初始化数据
 1 运行shell脚本. ./setantenv.sh,后续可加wx,dev参数,读取env folder下的变量设置
 2 ant configureserver-如果使用tocmat则需要此步骤初始化tomcat server.xml配置
 3 ant codegen->生成java model ,ant databasegen->生成数据库,此两步骤也会将对应的hibernate.cfg.xml进行自动配置
-4 mvn clean package
+4 mvn clean package,如果是服务器端需要加 -Pdev或者-Pwx等
 开发过程中调试ui ant deployui
 
 两种启动方法
