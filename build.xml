@@ -30,10 +30,8 @@
 	<property name="jdbc.driver.jar" value="lib/mysql-connector-java-5.1.6.jar"
 		description="mysql database driver" />
 	
-    <property name="db.user" value="root" description="mysql database driver" />
-	<property name="db.password" value="jackingyu123" description="mysql database driver" />
-	<property name="db.url" value="jdbc:mysql://127.0.0.1:3306/test" description="database url" />
-
+	<property file="${basedir}/env/local.properties"></property>
+	
 	<path id="toolslib">
 		<fileset dir="${basedir}">
 			<include name="tools/hibernatetools/*.jar" />
@@ -71,7 +69,7 @@
 
 	<taskdef name="hibernatetool" classname="org.hibernate.tool.ant.HibernateToolTask"
 		classpathref="toolslib" />
-
+	
 	<target name="initdbenv">
 		<copy file="${core_resourcepath}/hibernate-template.cfg.xml" tofile="${core_resourcepath}/hibernate.cfg.xml" overwrite="true"/>
 		<replaceregexp byline="true">
@@ -81,7 +79,7 @@
 		</replaceregexp>
 		<replaceregexp byline="true">
 					<regexp pattern="\$\{datasource.username\}" />
-					<substitution expression="${db.user}" />
+					<substitution expression="${db.username}" />
 					<fileset file="${core_resourcepath}/hibernate.cfg.xml" />
 		</replaceregexp>
 		<replaceregexp byline="true">
@@ -92,6 +90,9 @@
 	</target>
 	
 	<target name="codegen" depends="initdbenv">
+		<echo message="dburl is ${db.url}"></echo>
+		<echo message="dbusername is ${db.username}"></echo>
+		<echo message="dbpassword is ${db.password}"></echo>
 		<hibernatetool destdir="${basedir}/third-core/src/main/java">
 			<classpath>
 				<path location="${core_resourcepath}" />
@@ -102,8 +103,11 @@
 	</target>
 
 	<target name="databasegen" depends="initdbenv">
-		<echo message="initial database" />
-		<sql driver="com.mysql.jdbc.Driver" url="${db.url}" userid="${db.user}"
+		<echo message="init database" />
+		<echo message="dburl is ${db.url}"></echo>
+		<echo message="dbusername is ${db.username}"></echo>
+		<echo message="dbpassword is ${db.password}"></echo>
+		<sql driver="com.mysql.jdbc.Driver" url="${db.url}" userid="${db.username}"
 			password="${db.password}" onerror="continue">
 			<classpath>
 				<fileset dir="tools/hibernatetools">
