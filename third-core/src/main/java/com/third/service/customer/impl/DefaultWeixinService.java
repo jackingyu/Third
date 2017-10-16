@@ -17,9 +17,9 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.third.core.util.WXConstant;
 import com.third.dao.customer.WeixinInfoDao;
+import com.third.dao.util.AccessToken;
 import com.third.dao.util.HttpClientUtil;
-import com.third.model.AccessToken;
-import com.third.model.SubscribeData;
+import com.third.dao.util.SubscribeData;
 import com.third.model.WeixinInfoModel;
 import com.third.service.customer.WeixinService;
 
