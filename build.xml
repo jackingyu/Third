@@ -29,11 +29,10 @@
 		description="message source path" />
 	<property name="jdbc.driver.jar" value="lib/mysql-connector-java-5.1.6.jar"
 		description="mysql database driver" />
-	<property name="db.user" value="root" description="mysql database driver" />
+	
+    <property name="db.user" value="root" description="mysql database driver" />
 	<property name="db.password" value="jackingyu123" description="mysql database driver" />
-	<property name="db.url" value="jdbc:mysql://127.0.0.1:3306/test"
-		description="database url" />
-
+	<property name="db.url" value="jdbc:mysql://127.0.0.1:3306/test" description="database url" />
 
 	<path id="toolslib">
 		<fileset dir="${basedir}">
@@ -73,18 +72,36 @@
 	<taskdef name="hibernatetool" classname="org.hibernate.tool.ant.HibernateToolTask"
 		classpathref="toolslib" />
 
-	<target name="codegen">
+	<target name="initdbenv">
+		<copy file="${core_resourcepath}/hibernate-template.cfg.xml" tofile="${core_resourcepath}/hibernate.cfg.xml" overwrite="true"/>
+		<replaceregexp byline="true">
+					<regexp pattern="\$\{datasource.url\}" />
+					<substitution expression="${db.url}" />
+					<fileset file="${core_resourcepath}/hibernate.cfg.xml" />
+		</replaceregexp>
+		<replaceregexp byline="true">
+					<regexp pattern="\$\{datasource.username\}" />
+					<substitution expression="${db.user}" />
+					<fileset file="${core_resourcepath}/hibernate.cfg.xml" />
+		</replaceregexp>
+		<replaceregexp byline="true">
+					<regexp pattern="\$\{datasource.password\}" />
+					<substitution expression="${db.password}" />
+					<fileset file="${core_resourcepath}/hibernate.cfg.xml" />
+		</replaceregexp>
+	</target>
+	
+	<target name="codegen" depends="initdbenv">
 		<hibernatetool destdir="${basedir}/third-core/src/main/java">
 			<classpath>
 				<path location="${core_resourcepath}" />
 			</classpath>
-
 			<configuration configurationfile="${core_resourcepath}/hibernate.cfg.xml" />
 			<hbm2java />
 		</hibernatetool>
 	</target>
 
-	<target name="databasegen">
+	<target name="databasegen" depends="initdbenv">
 		<echo message="initial database" />
 		<sql driver="com.mysql.jdbc.Driver" url="${db.url}" userid="${db.user}"
 			password="${db.password}" onerror="continue">
