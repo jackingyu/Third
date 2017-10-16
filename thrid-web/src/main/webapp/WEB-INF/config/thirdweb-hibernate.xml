@@ -24,7 +24,7 @@
 	<bean id="propertyConfigurer"
 		class="org.springframework.context.support.PropertySourcesPlaceholderConfigurer">
 		<property name="location">
-			<value>WEB-INF/properties/jdbc.properties</value>
+			<value>/WEB-INF/classes/jdbc.properties</value>
 		</property>
 	</bean>
 
