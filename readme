@@ -13,6 +13,7 @@ http://localhost:8080/thrid-web/test 初始化数据
 3 ant codegen->生成java model ,ant databasegen->生成数据库,此两步骤也会将对应的hibernate.cfg.xml进行自动配置
 4 mvn clean package,如果是服务器端需要加 -Pdev或者-Pwx等
 开发过程中调试ui ant deployui
+5 微信如果需要启用,需要向表wxinfo中初始化接口配置数据
 
 两种启动方法
 1 在根目录下运行mvn jetty:run 启动jetty,debug模式为mvnDebug jetty:run,之后eclipse启用Debug,服务器就可以启动
