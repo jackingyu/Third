@@ -52,8 +52,8 @@ public class TextMapper {
 
 	static
 	{
-		SizeAttributeGroup.put("10", "量");
-		SizeAttributeGroup.put("20", "裁");
+		SizeAttributeGroup.put("10", "裁");
+		SizeAttributeGroup.put("20", "量");
 		SizeAttributeGroup.put("30", "试");
 	}
 

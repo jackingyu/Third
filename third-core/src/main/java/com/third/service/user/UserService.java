@@ -83,7 +83,7 @@ public interface UserService {
 	 * @param pageSize
 	 * @return
 	 */
-	PaginationSupport getUserList(String userId, String userName,
+	PaginationSupport getUserList(String userId, String userName,String storeCode,
 			Integer startIndex, Integer pageSize);
 
 	List<UserModel> getSalesPerson(final String storeCode);
@@ -91,5 +91,7 @@ public interface UserService {
 	List<UserModel> getDesignerForStore(final String storeCode);
 	
 	boolean checkUserGroup(final String userGroup);
+	
+	String generateUserId();
 
 }

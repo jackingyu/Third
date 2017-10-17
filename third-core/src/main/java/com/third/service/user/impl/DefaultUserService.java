@@ -63,10 +63,10 @@ public class DefaultUserService implements UserService {
 
 	@Override
 	public PaginationSupport getUserList(final String userId,
-			final String userName, final Integer startIndex,
+			final String userName,final String storeCode, final Integer startIndex,
 			final Integer pageSize)
 	{
-		return userDao.findUser(userId, userName, startIndex, pageSize);
+		return userDao.findUser(userId, userName, storeCode,startIndex, pageSize);
 	}
 
 	@Override
@@ -116,6 +116,12 @@ public class DefaultUserService implements UserService {
 	{
 		UserModel user = getCurrentUser();
 		return user.getUserGroup().getGroupId().equals(userGroup);
+	}
+	
+	public String generateUserId()
+	{
+		Integer i =  userDao.countByQuery("select pk from UserModel")+1;
+		return i.toString();
 	}
 
 }

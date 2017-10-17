@@ -66,7 +66,7 @@
 					</div>
 					<div class="col-md-4 col-lg-4 col-xs-12 col-sm-12 ">
 						<label><spring:message code="lte.orderentry.trydate"></spring:message></label>
-						<common:datepicker validator="required" value="${orderEntry.tryDate}" id="tryDate" name="tryDate" />
+						<common:datepicker value="${orderEntry.tryDate}" id="tryDate" name="tryDate" />
 					</div>
 				</div>
 				<div class="row">

@@ -37,8 +37,9 @@ public class UserPageController extends AbstractPageController {
 	private UserFacade userFacade;
 
 	@RequestMapping(value = "/user/userlistpage", method = RequestMethod.GET)
-	public String getUserListPage()
+	public String getUserListPage(final Model model)
 	{
+		fillAllStoreInView(model, null);
 		return ControllerConstants.LTE.USERLISTPAGE;
 	}
 
@@ -70,9 +71,10 @@ public class UserPageController extends AbstractPageController {
 	public Object getUserList(
 			@RequestParam(value = "userName", required = false) final String userName,
 			@RequestParam(value = "userId", required = false) final String userId,
+			@RequestParam(value = "storeCode", required = false) final String storeCode,
 			final DataTableCriterias criterias)
 	{
-		ListData results = userFacade.getUsers(userId, userName,
+		ListData results = userFacade.getUsers(userId, userName,storeCode,
 				getStartIndexForDT(criterias), getPagesizeForDT(criterias));
 
 		List<Object> users = results.getRows();
@@ -111,8 +113,8 @@ public class UserPageController extends AbstractPageController {
 	}
 
 	@RequestMapping(value = "/user/save", method = RequestMethod.POST)
-	public String saveUser(@RequestParam(value = "userId") final String userId,
-			@RequestParam(value = "userPK") final String userPK,
+	public String saveUser(@RequestParam(value = "userPK") final String userPK,
+			@RequestParam(value = "userId") String userId,
 			@RequestParam(value = "name") final String name,
 			@RequestParam(value = "blocked", required = false) final boolean blocked,
 			@RequestParam(value = "password", required = false) final String password,
@@ -123,9 +125,9 @@ public class UserPageController extends AbstractPageController {
 	{
 		UserData user = new UserData();
 		user.setName(name);
-		user.setUserId(userId);
 		UserGroupData userGroup = new UserGroupData();
 		userGroup.setPk(userGroupPk);
+		user.setUserId(userId);
 		user.setUserGroup(userGroup);
 		user.setPassword(password);
 		user.setBlocked(blocked);
@@ -145,11 +147,11 @@ public class UserPageController extends AbstractPageController {
 		StoreData store1 = new StoreData();
 		store1.setCode(storeCode);
 		user.setStore(store1);
-
+		
 		if (StringUtils.isEmpty(userPK))
-			userFacade.createUser(user);
+			userId = userFacade.createUser(user);
 		else
-			userFacade.updateUser(user);
+			userId = userFacade.updateUser(user);
 
 		model.addAttribute("message", "保存成功!");
 

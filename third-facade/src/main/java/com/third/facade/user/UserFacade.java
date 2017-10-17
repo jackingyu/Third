@@ -13,8 +13,9 @@ public interface UserFacade {
 
 	/**
 	 * @param user
+	 * @return 
 	 */
-	public void createUser(UserData user);
+	public String createUser(UserData user);
 
 	/**
 	 * @return
@@ -40,7 +41,7 @@ public interface UserFacade {
 	 * @param pageSize
 	 * @return
 	 */
-	ListData getUsers(String userName, String userId, Integer startIndex,
+	ListData getUsers(String userName, String userId,String storeCode, Integer startIndex,
 			Integer pageSize);
 
 	/**
@@ -64,7 +65,7 @@ public interface UserFacade {
 	 */
 	List<RoleData> getRolesForUserGroup(final String userGroupPK);
 
-	void updateUser(UserData user);
+	String updateUser(UserData user);
 
 	UserData getUserById(final String userId);
 

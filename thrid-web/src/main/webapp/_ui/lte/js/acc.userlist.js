@@ -19,6 +19,7 @@ ACC.userlist = {
           formData = getQuery('userListForm');
           d.userId = formData.userId;
           d.userName = formData.userName;
+          d.storeCode = formData.storeCode;
         }
       },
       'fnDrawCallback': function () {

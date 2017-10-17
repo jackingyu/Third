@@ -1,11 +1,12 @@
 package com.third.dao.user.impl;
 
+import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.hibernate.criterion.DetachedCriteria;
 import org.hibernate.criterion.Restrictions;
-import org.springframework.util.CollectionUtils;
 
 import com.third.dao.generic.GenericDAO;
 import com.third.dao.user.UserDao;
@@ -25,20 +26,29 @@ public class DefaultUserDao extends GenericDAO<UserModel, String>
 	}
 
 	@Override
-	public PaginationSupport findUser(String userId, String userName,
+	public PaginationSupport findUser(String userId, String userName,String storeCode,
 			Integer startIndex, Integer pageSize)
 	{
-		DetachedCriteria dcUser = DetachedCriteria.forClass(UserModel.class);
+		final StringBuilder sb = new StringBuilder(
+				"from com.third.model.UserModel u ");
+		List<String> condition = new ArrayList<String>();
 
-		if (!StringUtils.isEmpty(userId))
-			dcUser.add(
-					Restrictions.like("userId", generateLikeParameter(userId)));
+		if (StringUtils.isNotEmpty(userId))
+			condition.add("u.userId like '"+generateLikeParameter(userId)+"'");
 
-		if (!StringUtils.isEmpty(userName))
-			dcUser.add(
-					Restrictions.like("name", generateLikeParameter(userName)));
+		if (StringUtils.isNotEmpty(userName))
+			condition.add("u.name like '"+generateLikeParameter(userName)+"'");
 
-		PaginationSupport ps = findPageByCriteria(dcUser, pageSize, startIndex);
+		
+		if (StringUtils.isNotEmpty(storeCode))
+			condition.add("u.store.id='"+storeCode+"'");
+
+		if(CollectionUtils.isNotEmpty(condition))
+		{
+			sb.append("where ").append(StringUtils.join(condition.toArray(), " and "));
+		}
+		
+		PaginationSupport ps = findPageByQuery(sb.toString(), pageSize, startIndex);
 
 		return ps;
 	}

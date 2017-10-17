@@ -15,7 +15,7 @@
 			<div class="form-group">
 				<label><spring:message code="lte.user.id"></spring:message></label>
 				<div class="input-group col-sm-12 col-xs-12 col-md-12 col-lg-12"">
-					<input <c:if test="${not empty user.pk}">readonly="readonly"</c:if> id="userId" name="userId" value="${user.userId}" class="form-control required" type="text">
+					<input <c:if test="${not empty user.pk}">readonly="readonly"</c:if> id="userId" name="userId" value="${user.userId}" class="form-control" type="text">
 				</div>
 				<input type="hidden" name="userPK" value="${user.pk}">
 			</div>
@@ -38,7 +38,7 @@
 			</div>
 			
 			<div class="form-group">
-				<common:selection2  data="${stores}" label="lte.user.store"  multiple="true" name="stores"></common:selection2>
+				<common:selection2   data="${stores}" label="lte.user.store"  multiple="true" name="stores"></common:selection2>
 			</div>
 			<div class="form-group">
 				<common:selection2  data="${stores}" label="lte.user.store1"  value="${user.store.code}" name="store"></common:selection2>

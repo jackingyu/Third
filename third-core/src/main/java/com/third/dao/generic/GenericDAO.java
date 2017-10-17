@@ -222,7 +222,7 @@ public class GenericDAO<T, ID extends Serializable> extends HibernateDaoSupport
 							String[] sql1 = hsql.split("from");
 							countsql = "select count(*) from " + sql1[1];
 						} else
-							countsql = "select count(*) from " + hsql;
+							countsql = "select count(*) " + hsql;
 
 						Query countquery = session.createQuery(countsql);
 						Long totalCount = (Long) countquery.list().get(0);
@@ -272,11 +272,20 @@ public class GenericDAO<T, ID extends Serializable> extends HibernateDaoSupport
 		return query.list();
 	}
 
-	public Integer countByQuery(String queryString)
+	public Integer countByQuery(String hsql)
 	{
-		Integer count = ((Number) this.currentSession().createQuery(queryString)
-				.uniqueResult()).intValue();
-		return count;
+		String countsql = null;
+		if (hsql.contains("select"))
+		{
+			String[] sql1 = hsql.split("from");
+			countsql = "select count(*) from " + sql1[1];
+		} else
+			countsql = "select count(*) " + hsql;
+
+		Query countquery = this.getSessionFactory().getCurrentSession().createQuery(countsql);
+		Long totalCount = (Long) countquery.list().get(0);
+		
+		return Integer.valueOf(totalCount.intValue());
 	}
 
 	public List searchBySQL(String sql)

@@ -49,11 +49,11 @@ public class DefaultUserFacade implements UserFacade {
 	private RoleDataPopulator roleDataPopulator;
 	private UserDataPopulator userDataPopulator;
 
-	public void createUser(UserData user)
+	public String createUser(UserData user)
 	{
 		UserModel userModel = new UserModel();
 		userModel.setName(user.getName());
-		userModel.setUserId(user.getUserId());
+		userModel.setUserId(userService.generateUserId());
 		userModel.setPassword(
 				user.getPassword() != null ? user.getPassword() : "111111");
 		if (null != user.getUserGroup())
@@ -70,6 +70,7 @@ public class DefaultUserFacade implements UserFacade {
 		userModel.setStore(storeService.getStoreForCode(user.getStore().getCode()));
 
 		userService.createUser(userModel);
+		return userModel.getUserId();
 	}
 
 	@SuppressWarnings("unchecked")
@@ -205,10 +206,10 @@ public class DefaultUserFacade implements UserFacade {
 	}
 
 	@Override
-	public ListData getUsers(String userId, String userName, Integer startIndex,
+	public ListData getUsers(String userId, String userName,String storeCode, Integer startIndex,
 			Integer pageSize)
 	{
-		PaginationSupport result = userService.getUserList(userId, userName,
+		PaginationSupport result = userService.getUserList(userId, userName,storeCode,
 				startIndex, pageSize);
 		ListData grid = new ListData();
 		grid.setTotal(result.getTotalCount());
@@ -224,7 +225,7 @@ public class DefaultUserFacade implements UserFacade {
 	}
 
 	@Override
-	public void updateUser(UserData userData)
+	public String updateUser(UserData userData)
 	{
 		UserModel user = userService.getUserById(userData.getUserId());
 		user.setName(userData.getName());
@@ -247,6 +248,7 @@ public class DefaultUserFacade implements UserFacade {
 		user.setStore(storeService.getStoreForCode(userData.getStore().getCode()));
 		
 		userService.updateUser(user);
+		return user.getUserId();
 	}
 
 	@Override

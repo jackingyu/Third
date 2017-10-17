@@ -39,10 +39,10 @@
          <label><spring:message code="lte.userlist.id"></spring:message></label>
          <input class="form-control" placeholder="" name="userId" type="text">
         </div>
-<!--         <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12"> -->
-<%--          <label><spring:message code="lte.userlist.store"></spring:message></label> --%>
-<%--          <common:selection data="${stores}" name="store"></common:selection> --%>
-<!--          </div> -->
+        <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12">
+         <label><spring:message code="lte.userlist.hrstore"></spring:message></label>
+         <common:selection data="${stores}" name="storeCode"></common:selection>
+         </div>
        </div>
        </form>
     </section>
