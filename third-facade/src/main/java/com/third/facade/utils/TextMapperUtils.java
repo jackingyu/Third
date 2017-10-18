@@ -63,6 +63,11 @@ public class TextMapperUtils {
 	{
 		return TextMapper.OrderStatus.get(status.toString());
 	}
+	
+	public static String getOrderStatusText4Cust(final Integer status)
+	{
+		return TextMapper.OrderStatus4Cust.get(status.toString());
+	}
 
 	public static String getItemCategoryText(final String itemCategory)
 	{

@@ -38,6 +38,8 @@ public class OrderDataPopulator implements Populator<OrderModel, OrderData> {
 		target.setStatus(source.getStatus());
 		target.setStatusText(
 				TextMapperUtils.getOrderStatusText(source.getStatus()));
+		target.setStatusText4Cust(
+				TextMapperUtils.getOrderStatusText4Cust(source.getStatus()));
 		// 顾客相关信息
 		CustomerData customer = new CustomerData();
 		if (source.getCustomer() != null)

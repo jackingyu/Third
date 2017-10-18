@@ -12,6 +12,7 @@ public class TextMapper {
 	public static HashMap<String, String> SizeAttributeGroup = new HashMap<String, String>();
 	public static HashMap<String, String> ReservationChannel = new HashMap<String, String>();
 	public static HashMap<String, String> OrderStatus = new HashMap<String, String>();
+	public static HashMap<String, String> OrderStatus4Cust = new HashMap<String, String>();
 	public static HashMap<String, String> ItemCategory2Category = new HashMap<String, String>();
 
 	static
@@ -78,6 +79,23 @@ public class TextMapper {
 				"门店已收货");
 		OrderStatus.put(CoreConstants.OrderStatus.STORE_DELIVERED.toString(),
 				"顾客已取件");
+	}
+	
+	static
+	{
+		OrderStatus4Cust.put(CoreConstants.OrderStatus.NEW.toString(), "已创建");
+		OrderStatus4Cust.put(CoreConstants.OrderStatus.FACTORY_APPROVE.toString(),
+				"工厂已排产");
+		OrderStatus4Cust.put(CoreConstants.OrderStatus.FINICIAL_APPROVE.toString(),
+				"工厂已排产");
+		OrderStatus4Cust.put(CoreConstants.OrderStatus.STORE_APPROVE.toString(),
+				"工厂已排产");
+		OrderStatus4Cust.put(CoreConstants.OrderStatus.FACTORY_DELIVERED.toString(),
+				"工厂已发货");
+		OrderStatus4Cust.put(CoreConstants.OrderStatus.STORE_RECEIPT.toString(),
+				"门店已收货");
+		OrderStatus4Cust.put(CoreConstants.OrderStatus.STORE_DELIVERED.toString(),
+				"已取件");
 	}
 
 }
