@@ -7,7 +7,8 @@
 
 <template:page>
 	<jsp:attribute name="pageScripts">
-	   <script src="${lteResourcePath}/js/acc.customerdetails.js" type="text/javascript"></script>
+	   <script src="${lteResourcePath}/js/acc.customerdetails.js"
+			type="text/javascript"></script>
 	</jsp:attribute>
 	<jsp:body>
     <!-- Content Header (Page header) -->
@@ -30,6 +31,14 @@
       <a onclick="ACC.customerdetails.save()" class="btn btn-app">
           <i class="fa fa-save"></i>  <spring:message code="lte.save"></spring:message>
        </a>
+      </div>
+      <div class="col-lg-1 col-md-1">
+      <c:if test="${not empty customer.cellphone}">
+       <a href="${contextPath}/order/createorderpage?cellphone=${customer.cellphone}" class="btn btn-app">
+          <i class="fa fa-edit"></i>  
+          <spring:message code="lte.order.createorder"></spring:message>
+       </a>
+       </c:if>
       </div>
       </div>
     </section>

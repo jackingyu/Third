@@ -31,6 +31,8 @@ import com.third.controller.pages.AbstractPageController;
 import com.third.controller.pages.ControllerConstants;
 import com.third.core.constants.CoreConstants;
 import com.third.core.util.DataTableCriterias;
+import com.third.facade.customer.CustomerFacade;
+import com.third.facade.data.CustomerData;
 import com.third.facade.data.DTResults;
 import com.third.facade.data.OrderData;
 import com.third.facade.data.PaymentData;
@@ -53,6 +55,9 @@ public class OrderPageController extends AbstractPageController {
 	
 	@Resource(name = "userFacade")
 	private UserFacade userFacade;
+	
+	@Resource(name = "customerFacade")
+	private CustomerFacade customerFacade;
 
 	@RequestMapping(value = "/order/orderlistpage", method = RequestMethod.GET)
 	public String orderListPage(Model model)
@@ -92,11 +97,25 @@ public class OrderPageController extends AbstractPageController {
 
 	
 	@RequestMapping(value = "/order/createorderpage", method = RequestMethod.GET)
-	public String getCreateOrderPage(final Model model,
+	public String getCreateOrderPage(
+			@RequestParam(value = "cellphone", required = false) final String cellphone,
+			final Model model,
 			final HttpServletRequest request,
 			final HttpServletResponse response)
 	{
 		fillAllStore2View(model);
+		
+		if(StringUtils.isNotEmpty(cellphone))
+		{
+		    CustomerData customer = customerFacade.getCustomerByCellphone(cellphone);
+		    OrderData orderData = new OrderData();
+		    orderData.setCellphone(customer.getCellphone());
+		    orderData.setCustomerName(customer.getName());
+		    orderData.setWeddingDate(customer.getWeddingdate());
+		    
+		    model.addAttribute("orderData", orderData);
+		}
+
 		return ControllerConstants.LTE.CREATEORDERPAGE;
 	}
 
