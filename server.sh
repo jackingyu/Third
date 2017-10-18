@@ -1,7 +1,10 @@
 #!/bin/bash
-if [ $1 == "start" ]
+if [ $1 == “run” ]
 then
 ${TOMCAT_HOME}/bin/catalina.sh run
+elif [ $1 == "start" ]
+then
+${TOMCAT_HOME}/bin/catalina.sh start
 elif [ $1 == "restart" ]
 then
 ${TOMCAT_HOME}/bin/catalina.sh stop && ${TOMCAT_HOME}/bin/catalina.sh run
