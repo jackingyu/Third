@@ -15,7 +15,7 @@
 				<div class="row">
 					<div class="col-md-4 col-lg-4 col-xs-12 col-sm-12">
 						<label><spring:message code="lte.orderentry.itemcategory"></spring:message></label>
-						<common:selection data="${itemCategories}" name="itemCategory" readonly="true" />
+						<common:selection data="${itemCategories}" value="${orderEntry.itemCategory}" name="itemCategory" readonly="true" />
 					</div>
 					<div class="col-md-4 col-lg-4 col-xs-12 col-sm-12 ">
 						<label><spring:message code="lte.orderentry.ordercode"></spring:message></label>

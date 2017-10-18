@@ -82,17 +82,15 @@ public class SizeOrderPageController extends AbstractPageController {
 		orderEntry.setOrderCode(order.getOrderCode());
         orderEntry.setItemCategoryText(TextMapperUtils.getItemCategoryText(itemCategory));
         orderEntry.setItemCategory(itemCategory);
-        ComboboxData cd = new ComboboxData();
-        	cd.setSelected(true);
-        cd.setCode(orderEntry.getItemCategory());
-        cd.setText(orderEntry.getItemCategoryText());
         
 		model.addAttribute("message1", "新建"+orderEntry.getItemCategoryText());
-		model.addAttribute("itemCategories", Arrays.asList(cd));
+		model.addAttribute("itemCategories",TextMapperUtils.getItemCategories());
 		model.addAttribute("orderEntry", orderEntry);
 		model.addAttribute("searchCategory", TextMapper.ItemCategory2Category
 				.get(orderEntry.getItemCategory()));
 
+		//this is for enable create size order button,for create page ,default value is true
+		model.addAttribute("editable",true);
 		model.addAttribute("enableSaveBtn", true);
 		fillProductGroupsInModel(model);
 		fillStore2View(model, order.getStore().getCode());
@@ -125,16 +123,14 @@ public class SizeOrderPageController extends AbstractPageController {
 		OrderEntryData entry = orderFacade.getSizeDatas(orderEntry.getPk());
 		orderEntry.setSizeDatas(entry.getSizeDatas());
 
-	     ComboboxData cd = new ComboboxData();
-     	cd.setSelected(true);
-        cd.setCode(orderEntry.getItemCategory());
-        cd.setText(orderEntry.getItemCategoryText());
-		model.addAttribute("itemCategories", Arrays.asList(cd));
+		model.addAttribute("itemCategories",TextMapperUtils.getItemCategories());
+	
 		model.addAttribute("orderEntry", orderEntry);
 		model.addAttribute("message1", "修改"+orderEntry.getItemCategoryText());
 		model.addAttribute("statusText","量身单状态:" + orderEntry.getStatusText());
 		model.addAttribute("enableSaveBtn",isEditable(orderEntry.getStatus()));
-
+		model.addAttribute("editable",orderEntry.getStatus().equals(CoreConstants.OrderStatus.NEW.toString()));
+		
 		if (StringUtils.isNotEmpty(message))
 			model.addAttribute("message", message);
 

@@ -47,6 +47,14 @@
       </div>
       </sec:authorize>
       </c:if>
+      <c:if test="${editable}">
+        <div class="col-lg-1 col-md-1 pull-right">
+         <a onclick="ACC.sizeorder.createSizeOrder()" class="btn btn-app">
+          <i class="fa fa-edit"></i> 
+            <spring:message code="lte.orderentry.create"></spring:message>
+          </a>
+		</div>
+	  </c:if>
    <!-- size order image function do not delete this!!!!     
       <c:if test="${not empty orderEntry.pk}">
       <div class="col-lg-1 col-md-1">
@@ -80,5 +88,6 @@
     <common:message></common:message>
     <common:image></common:image>
     <product:searchProduct />
+    <order:itemCategoryPanel orderCode="${orderEntry.orderCode}"></order:itemCategoryPanel>
   </jsp:body>
 </template:page>

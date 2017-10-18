@@ -22,6 +22,6 @@
 	    
 	    >
 		<c:forEach var="item" items="${data}">
-			<option value="${item.code}" <c:if test="${item.selected}">selected="selected"</c:if> >${item.text}</option>
+			<option value="${item.code}" <c:if test="${item.selected || item.code == value }">selected="selected"</c:if> >${item.text}</option>
 		</c:forEach>
 	</select>
