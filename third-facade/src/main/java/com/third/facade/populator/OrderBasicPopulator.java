@@ -51,6 +51,9 @@ public class OrderBasicPopulator implements Populator<OrderModel, OrderData> {
 		target.setStatus(Integer.valueOf(source.getStatus()));
 		target.setStatusText(
 				TextMapperUtils.getOrderStatusText(source.getStatus()));
+		
+		target.setStatusText4Cust(
+				TextMapperUtils.getOrderStatusText4Cust(source.getStatus()));
 
 		StoreData store = new StoreData();
 		storeDataPopulator.populate(source.getStore(), store);

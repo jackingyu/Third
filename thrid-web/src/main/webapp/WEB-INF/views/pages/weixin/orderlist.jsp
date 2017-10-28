@@ -46,7 +46,7 @@
 					</tr>
 					<tr>
 						<td class="table_td"><spring:message code="wx.orderlist.orderstatus"/></td>
-						<td class="table_td">${order.status}</td>
+						<td class="table_td">${order.statusText4Cust}</td>
 					</tr>
 				</table>
 				<div style="display: inline;position: absolute;right: 5px;top: 50%; margin-top: -10px;"><span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span></div>

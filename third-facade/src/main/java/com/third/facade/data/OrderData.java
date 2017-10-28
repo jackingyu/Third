@@ -29,6 +29,7 @@ public class OrderData extends AbstractData {
 	private String contactinfo;
 	private Integer status;
 	private String statusText;
+	private String statusText4Cust;
 
 	public String getOrderCode()
 	{
@@ -248,6 +249,16 @@ public class OrderData extends AbstractData {
 	public void setContactinfo(String contactinfo)
 	{
 		this.contactinfo = contactinfo;
+	}
+
+	public String getStatusText4Cust()
+	{
+		return statusText4Cust;
+	}
+
+	public void setStatusText4Cust(String statusText4Cust)
+	{
+		this.statusText4Cust = statusText4Cust;
 	}
 
 }
