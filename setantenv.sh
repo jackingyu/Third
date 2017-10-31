@@ -19,21 +19,7 @@ export -p PATH=$ANT_HOME/bin:$PATH
 export -p TOMCAT_HOME=$PLATFORM_HOME/apache-tomcat-8.0.35
 export -p PATH=$TOMCAT_HOME/bin:$PATH
 
-if [ "$1" == "wx" ]
-then
-cp ./env/local-$1.properties ./env/local.properties
-elif [ "$1" == "dev" ]
-then
-cp ./env/local-$1.properties ./env/local.properties
-elif [ "$1" == "qas" ]
-then
-cp ./env/local-$1.properties ./env/local.properties
-elif [ "$1" == "prd" ]
-then
-cp ./env/local-$1.properties ./env/local.properties
-else
-cp ./env/local-local.properties ./env/local.properties
-fi
+
 
 
 

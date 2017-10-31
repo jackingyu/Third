@@ -30,6 +30,7 @@
 	<property name="jdbc.driver.jar" value="lib/mysql-connector-java-5.1.6.jar"
 		description="mysql database driver" />
 	
+	<property name="env" value="${env}"></property>
 	<property file="${basedir}/env/local.properties"></property>
 	
 	<path id="toolslib">
@@ -48,6 +49,11 @@
 		</replaceregexp>
 	</target>
 
+	<target name="init">
+		<echo message="${env}"></echo>
+		<copy file="${basedir}/env/local-${env}.properties" tofile="${basedir}/env/local.properties" overwrite="true"/>
+	</target>
+		
 	<target name="deployui">
 		<copy todir="${ui_targetpath}">
 			<fileset dir="${ui_sourcepath}">
