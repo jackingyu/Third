@@ -3,6 +3,7 @@ package com.third.facade.utils;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.third.core.constants.CoreConstants;
 import com.third.facade.data.ComboboxData;
 import com.third.facade.data.TextMapper;
 
@@ -53,6 +54,11 @@ public class TextMapperUtils {
 			ComboboxData combobox = new ComboboxData();
 			combobox.setCode(s.getKey());
 			combobox.setText(s.getValue());
+			
+			//this means the status is all
+			if(Integer.valueOf(s.getKey()) == CoreConstants.OrderStatus.ALL_STATUS)
+			    combobox.setSelected(true);
+			
 			results.add(combobox);
 		});
 

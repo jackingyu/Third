@@ -36,7 +36,7 @@ public class DefaultOrderDao extends GenericDAO<OrderModel, String>
 	{
 
 		final StringBuilder sb = new StringBuilder(
-				"select s.code,s.customer.name,s.customer.cellphone,s.store.name,s.deliveryDate from OrderModel  s "
+				"select s.code,s.customer.name,s.customer.cellphone,s.store.name,s.deliveryDate,s.status from OrderModel  s "
 						+ " where ");
 
 		if (StringUtils.isNotBlank(getParameterValue(sp, "orderCode")))

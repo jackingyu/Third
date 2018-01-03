@@ -35,15 +35,17 @@ public interface CoreConstants {
 	}
 
 	interface OrderStatus {
+	    final Integer ALL_STATUS = -1;
 		final Integer NEW = 0;
 		final Integer STORE_APPROVE = 10;
 		final Integer FINICIAL_APPROVE = 20;
 		final Integer FACTORY_APPROVE = 30;
+		final Integer FACTORY_RECEIPT = 35;
 		final Integer FACTORY_DELIVERED = 40;
 		final Integer STORE_RECEIPT = 50;
 		final Integer STORE_DELIVERED = 60;
 		final List<Integer> ALL = Arrays.asList(NEW, STORE_APPROVE,
-				FINICIAL_APPROVE, FACTORY_APPROVE, FACTORY_DELIVERED,
+				FINICIAL_APPROVE, FACTORY_APPROVE, FACTORY_DELIVERED,FACTORY_RECEIPT,
 				STORE_RECEIPT, STORE_DELIVERED);
 
 	}

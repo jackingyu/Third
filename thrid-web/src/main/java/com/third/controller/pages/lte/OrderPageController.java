@@ -85,6 +85,8 @@ public class OrderPageController extends AbstractPageController {
 		sp.put("orderCode", orderCode);
 		sp.put("name", name);
 		sp.put("orderDate", orderDate);
+		
+		if(StringUtils.isNotEmpty(orderStatus)&&Integer.valueOf(orderStatus) > 0)
 		sp.put("orderStatus", orderStatus);
 
 		sp.put("storeCodes", storeCodes);

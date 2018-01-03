@@ -35,6 +35,19 @@ public class ScanOrderController extends AbstractPageController {
 	@Resource(name = "textMapperUtils")
 	private TextMapperUtils textMapperUtils;
 
+	@RequestMapping(value = "/factory/orderreceipt", method = RequestMethod.GET)
+	public String getFactoryOrderReceiptPage(Model model)
+	{
+	    // TODO need to change to the right status
+	    model.addAttribute("status",
+	            CoreConstants.OrderStatus.FACTORY_RECEIPT);
+	    model.addAttribute("currentStatus",
+	            CoreConstants.OrderStatus.FACTORY_APPROVE);
+	    model.addAttribute("successmessage", "工厂收货成功");
+	    model.addAttribute("title", "工厂收货");
+	    return ControllerConstants.LTE.SCANORDERPAGE;
+	}
+	
 	@RequestMapping(value = "/factory/orderdeliver", method = RequestMethod.GET)
 	public String getFactoryDeliverOrderPage(Model model)
 	{

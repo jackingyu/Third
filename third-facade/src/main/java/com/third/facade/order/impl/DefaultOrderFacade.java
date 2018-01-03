@@ -144,7 +144,12 @@ public class DefaultOrderFacade implements OrderFacade {
 	{
 		PaginationSupport ps = orderService.getOrders(startDate, endDate,
 				startIndex, pageSize, sp);
-
+		List<Object[]> rows = ps.getItems();
+		for(Object[] row:rows)
+		{
+		    row[5] = TextMapperUtils.getOrderStatusText(Integer.valueOf(row[5].toString()));
+		}
+		
 		return DTResultConvertor.convertPS2DT(ps);
 	}
 

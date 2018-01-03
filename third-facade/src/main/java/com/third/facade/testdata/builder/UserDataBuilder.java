@@ -167,9 +167,12 @@ public class UserDataBuilder implements DataBuilder {
 				"fa-building");
 		menuService.createMenu(lv2_sales);
 
+		MenuModel lv3_factoryreceipt = this.buildMenu("35", 3, "扫码收货",
+		        "/factory/orderreceipt", "fa-truck");
+		lv3_factoryreceipt.setParentMenu(lv2_factory);
+		
 		MenuModel lv3_factorydeliver = this.buildMenu("32", 3, "扫码发货",
 				"/factory/orderdeliver", "fa-truck");
-		lv3_customer.setParentMenu(lv2_sales);
 		lv3_factorydeliver.setParentMenu(lv2_factory);
 
 		MenuModel lv3_orderentrylist1 = this.buildMenu("33", 3, "量身单列表",
@@ -199,14 +202,14 @@ public class UserDataBuilder implements DataBuilder {
 		RoleModel role_admin = buildRole("admin", "管理员", "管理员",
 				Arrays.asList(lv3_userlist, lv3_source,lv3_store,
 					    lv3_customer, lv3_orders, lv3_reservation, lv3_reservationlist,lv3_source1,lv3_storereceipt, lv3_storedeliver, lv3_orderentrylist,lv3_exhibition,
-						lv3_factorydeliver, lv3_orderentrylist1, lv3_product,
+						lv3_factorydeliver, lv3_orderentrylist1, lv3_product,lv3_factoryreceipt,
 						lv3_report1,lv3_report2));
 		RoleModel role_sales = buildRole("sales", "销售员", "销售员",
 				Arrays.asList(
 					    lv3_customer, lv3_orders, lv3_reservation, lv3_reservationlist,lv3_storereceipt, lv3_storedeliver, lv3_orderentrylist,lv3_exhibition
 						));
 		RoleModel role_factory = buildRole("factory", "工厂", "工厂", 
-				Arrays.asList(lv3_factorydeliver, lv3_orderentrylist1, lv3_product));
+				Arrays.asList(lv3_factoryreceipt,lv3_factorydeliver, lv3_orderentrylist1, lv3_product));
 		
 		RoleModel role_finicial = buildRole("finicial", "财务", "财务",
 				Arrays.asList(

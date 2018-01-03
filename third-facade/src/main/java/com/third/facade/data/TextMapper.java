@@ -66,6 +66,7 @@ public class TextMapper {
 
 	static
 	{
+	    OrderStatus.put(CoreConstants.OrderStatus.ALL_STATUS.toString(), "所有");
 		OrderStatus.put(CoreConstants.OrderStatus.NEW.toString(), "新建");
 		OrderStatus.put(CoreConstants.OrderStatus.FACTORY_APPROVE.toString(),
 				"工厂已排产");
