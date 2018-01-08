@@ -59,7 +59,7 @@ public class ReservationPageController extends AbstractPageController {
 			final HttpServletRequest request,
 			final HttpServletResponse response)
 	{
-		fillAllStore2View(model);
+		fillAuthorizedStoreInView(model);
 		return ControllerConstants.LTE.RESERVATIONLISTPAGE;
 	}
 
@@ -68,7 +68,7 @@ public class ReservationPageController extends AbstractPageController {
 			final HttpServletRequest request,
 			final HttpServletResponse response)
 	{
-		fillAllStore2View(model);
+		fillAuthorizedStoreInView(model);
 		return ControllerConstants.LTE.RESERVATIONDETAILSPAGE;
 	}
 

@@ -52,7 +52,7 @@ public class CustomerPageController extends AbstractPageController {
 			final HttpServletRequest request,
 			final HttpServletResponse response)
 	{
-		fillAllStore2View(model);
+		fillAuthorizedStoreInView(model);
 		return ControllerConstants.LTE.CUSTOMERLISTPAGE;
 	}
 

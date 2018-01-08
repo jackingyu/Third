@@ -206,7 +206,7 @@ public class UserDataBuilder implements DataBuilder {
 						lv3_report1,lv3_report2));
 		RoleModel role_sales = buildRole("sales", "销售员", "销售员",
 				Arrays.asList(
-					    lv3_customer, lv3_orders, lv3_reservation, lv3_reservationlist,lv3_storereceipt, lv3_storedeliver, lv3_orderentrylist,lv3_exhibition
+					    lv3_customer, lv3_orders, lv3_reservation, lv3_reservationlist,lv3_storereceipt, lv3_storedeliver, lv3_orderentrylist,lv3_exhibition,lv3_report1
 						));
 		RoleModel role_factory = buildRole("factory", "工厂", "工厂", 
 				Arrays.asList(lv3_factoryreceipt,lv3_factorydeliver, lv3_orderentrylist1, lv3_product));
@@ -220,7 +220,7 @@ public class UserDataBuilder implements DataBuilder {
 				));
 		RoleModel role_manager = buildRole("manager", "店长", "店长", 
 				Arrays.asList(
-					    lv3_customer, lv3_orders, lv3_reservation, lv3_reservationlist,lv3_storereceipt, lv3_storedeliver, lv3_orderentrylist,lv3_exhibition,lv3_source1
+					    lv3_customer, lv3_orders, lv3_reservation, lv3_reservationlist,lv3_storereceipt, lv3_storedeliver, lv3_orderentrylist,lv3_exhibition,lv3_source1,lv3_report1
 				));
 
 		UserModel admin = new UserModel();

@@ -42,7 +42,7 @@ public class SizeOrderListController extends AbstractPageController {
 	@RequestMapping(value = "/orderentry/listpage", method = RequestMethod.GET)
 	public String orderEntryListPage(Model model)
 	{
-		fillAllStore2View(model);
+		fillAuthorizedStoreInView(model);
 		fillOrderStatus2View(model);
 		return ControllerConstants.LTE.ORDERENTRYLISTPAGE;
 	}

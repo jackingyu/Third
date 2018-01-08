@@ -1,6 +1,7 @@
 package com.third.controller.pages;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import javax.annotation.Resource;
@@ -71,7 +72,24 @@ public abstract class AbstractPageController {
 
 	protected List<ComboboxData> getSalesPerson()
 	{
-		List<UserData> userDatas = userFacade.getSalesPerson(StringUtils.EMPTY);
+	    List<UserData> userDatas = null;
+	    
+	    if(userFacade.isFinicial()||userFacade.isAdmin())
+	    {
+		   userDatas = userFacade.getSalesPerson(StringUtils.EMPTY);
+	    }
+	    
+	    if(userFacade.isManager())
+	    {
+	        userDatas = userFacade.getSalesPerson(userFacade.getCurrentUser().getStore().getCode());
+	    }
+	    
+	    if(userFacade.isSalesperson())
+	    {
+	       userDatas = Arrays.asList(userFacade.getCurrentUser());   
+	    }
+	    
+	    
 		List<ComboboxData> users = new ArrayList<ComboboxData>();
 
 		for (int i = 0; i < userDatas.size(); i++)
@@ -91,7 +109,7 @@ public abstract class AbstractPageController {
 	 * 
 	 * @param model
 	 */
-	protected void fillAllStore2View(final Model model)
+	protected void fillAuthorizedStoreInView(final Model model)
 	{
 		List<ComboboxData> stores = new ArrayList<ComboboxData>();
 		List<StoreData> storeDatas = userFacade.getCurrentUser().getStores();

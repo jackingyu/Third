@@ -62,7 +62,7 @@ public class OrderPageController extends AbstractPageController {
 	@RequestMapping(value = "/order/orderlistpage", method = RequestMethod.GET)
 	public String orderListPage(Model model)
 	{
-		fillAllStore2View(model);
+		fillAuthorizedStoreInView(model);
 		fillOrderStatus2View(model);
 		return ControllerConstants.LTE.ORDERLISTPAGE;
 	}
@@ -105,7 +105,7 @@ public class OrderPageController extends AbstractPageController {
 			final HttpServletRequest request,
 			final HttpServletResponse response)
 	{
-		fillAllStore2View(model);
+		fillAuthorizedStoreInView(model);
 		
 		if(StringUtils.isNotEmpty(cellphone))
 		{
