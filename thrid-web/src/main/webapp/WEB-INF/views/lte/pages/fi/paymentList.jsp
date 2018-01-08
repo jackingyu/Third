@@ -92,5 +92,46 @@
           </div>
         </div>
     </section>
+    <section class="content">
+    	 <div class="row">
+		    <div class="col-lg-3 cl-md-3 cl-sm-12 cl-xs-12">
+				<label><spring:message code="lte.paymentlist.creditcard"></spring:message></label>
+				<input id="creditCardAmount" readonly="true"  class="form-control required"
+					placeholder="" type="text">
+			</div>
+			<div class="col-lg-3 cl-md-3 cl-sm-12 cl-xs-12">
+				<label><spring:message code="lte.paymentlist.cash"></spring:message></label>
+				<input id="cashAmount"  readonly="true"  class="form-control required"
+					placeholder="" type="text">
+			</div>
+			<div class="col-lg-3 cl-md-3 cl-sm-12 cl-xs-12">
+				<label><spring:message code="lte.paymentlist.alipay"></spring:message></label>
+				<input id="aliPayAmount"  readonly="true"  class="form-control required"
+					placeholder="" type="text">
+			</div>
+			<div class="col-lg-3 cl-md-3 cl-sm-12 cl-xs-12">
+				<label><spring:message code="lte.paymentlist.totalpayment"></spring:message></label>
+				<input id="totalPayment"  readonly="true"  class="form-control required"
+					placeholder="" type="text">
+			</div>
+		</div>
+        <div class="row">
+			<div class="col-lg-3 cl-md-3 cl-sm-12 cl-xs-12">
+				<label><spring:message code="lte.paymentlist.receiveable"></spring:message></label>
+				<input id="receiveable" readonly="true"  class="form-control required"
+					placeholder="" type="text">
+			</div>
+			<div class="col-lg-3 cl-md-3 cl-sm-12 cl-xs-12">
+				<label><spring:message code="lte.paymentlist.paidamount"></spring:message></label>
+				<input id="paidAmount"  readonly="true"  class="form-control required"
+					placeholder="" type="text">
+			</div>
+			<div class="col-lg-3 cl-md-3 cl-sm-12 cl-xs-12">
+				<label><spring:message code="lte.paymentlist.openamount"></spring:message></label>
+				<input id="openAmount"  readonly="true"  class="form-control required"
+					placeholder="" type="text">
+			</div>
+		</div>
+    </section>
   </jsp:body>
 </template:page>

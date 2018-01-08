@@ -1,5 +1,6 @@
 package com.third.service.order.impl;
 
+import java.math.BigDecimal;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
@@ -58,5 +59,18 @@ public class DefaultPaymentService implements PaymentService {
 	{
 		return paymentDao.getTotalPaymentsByMethod(startDate,endDate,sp);
 	}
+
+    @Override
+    public BigDecimal sumPaymentsByPaymentMethod(Date startDate, Date endDate,
+            Map<String, String[]> sp, String paymentMethod)
+    {
+        return paymentDao.sumPayments(startDate, endDate, sp, paymentMethod);
+    }
+    
+    @Override
+    public BigDecimal[] sumPaymentsByOrder(Date startDate, Date endDate,Map<String, String[]> sp)
+    {
+        return paymentDao.sumPaymentsByOrder(startDate, endDate, sp);
+    }
 
 }

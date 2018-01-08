@@ -172,5 +172,63 @@ public class FIReportController extends AbstractPageController {
 
         return r;
     }
+    
+    @RequestMapping(value = "/payment/getsummary")
+    @ResponseBody
+    public Object getPaymentSummary(
+            @RequestParam(value = "storeCodes", required = false) final String[] storeCodes,
+            @RequestParam(value = "sourcePKs", required = false) final String[] sourcePKs,
+            @RequestParam(value = "paymentMethods", required = false) final String[] paymentMethods,
+            @RequestParam(value = "orderStatus", required = false) final String[] orderStatus,
+            @RequestParam(value = "salesPersons", required = false) final String[] salesPersons,
+            @RequestParam(value = "startDate", required = false) @DateTimeFormat(pattern = "yyyy-MM-dd") Date startDate,
+            @RequestParam(value = "endDate", required = false) @DateTimeFormat(pattern = "yyyy-MM-dd") Date endDate,
+            final DataTableCriterias criterias)
+    {
+        
+        Map<String, String[]> sp = new HashMap<String, String[]>();
+        
+        sp.put("sourcePKs", sourcePKs);
+        sp.put("paymentMethods", paymentMethods);
+        
+        
+        if ((this.isManger()||this.isSales()) && (storeCodes == null || storeCodes.length == 0))
+        {
+            List<StoreData> stores = userFacade.getCurrentUser().getStores();
+            String[] userStoreCodes = new String[stores.size()];
+            for (int i = 0; i < stores.size(); i++)
+            {
+                userStoreCodes[i] = stores.get(i).getCode();
+            }
+            
+            sp.put("storeCodes", userStoreCodes);
+        }else
+            sp.put("storeCodes", storeCodes);
+        
+        if (this.isSales())
+        {
+            String[] sales = { userFacade.getCurrentUser().getUserId() };
+            sp.put("salesPersons", sales);
+        } else
+        {
+            sp.put("salesPersons", salesPersons);
+        }
+        
+        //if query order and set order status to all
+        boolean ifAll = false;
+        for(int i = 0; i < orderStatus.length;i++)
+        {
+            if(Integer.valueOf(orderStatus[i])<0)
+            {
+                ifAll = true;
+                break;
+            }
+        }
+        
+        if(!ifAll)
+            sp.put("orderStatus", orderStatus);
+        
+        return this.fiReportFacade.getPaymentListSummary(startDate, endDate, sp);
+    }
 
 }

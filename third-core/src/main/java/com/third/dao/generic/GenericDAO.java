@@ -23,6 +23,7 @@ import com.third.dao.util.PaginationSupport;
 
 import java.io.Serializable;
 import java.lang.reflect.ParameterizedType;
+import java.math.BigDecimal;
 import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.util.Collection;
@@ -339,4 +340,12 @@ public class GenericDAO<T, ID extends Serializable> extends HibernateDaoSupport
 
 		return StringUtils.EMPTY;
 	}
+
+    public BigDecimal sum(String queryString)
+    {
+        Query sumquery = this.getSessionFactory().getCurrentSession().createQuery(queryString);
+        BigDecimal totalCount = (BigDecimal) sumquery.list().get(0);
+        
+        return totalCount;
+    }
 }

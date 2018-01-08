@@ -2,6 +2,35 @@ ACC.paymentList = {
   query: function () {
     $('#paymentGrid').dataTable().fnDraw();
   },
+  querySummary:function(){
+	  var deliveryDate = getDate4Range($("#paymentDate").val());
+	  var d = {};
+      d.startDate = deliveryDate[0];
+      d.endDate = moment(deliveryDate[1]).add(1,'days').format('YYYY-MM-DD');
+      d.storeCodes = $('#storeCodes').val()!=null?$('#storeCodes').val().toString():'';
+      d.sourcePKs = $('#sourcePKs').val()!=null?$('#sourcePKs').val().toString():'';
+      d.paymentMethods = $('#paymentMethods').val()!=null?$('#paymentMethods').val().toString():'';
+      d.orderStatus = $('#orderStatus').val()!=null?$('#orderStatus').val().toString():'';
+      d.salesPersons = $('#salesPersons').val()!=null?$('#salesPersons').val().toString():'';
+      
+	  $.ajax({
+  	      type: 'GET',
+  	      url: ACC.config.contextPath + '/payment/getsummary',
+  	      data: d, 
+  	      error: function (request) {
+  	        ACC.message.alert("通讯失败");
+  	      },
+  	      success: function (data) {
+  	      	$("#cashAmount").val(data[0]);
+  	    	    $("#creditCardAmount").val(data[1]);
+  	        $("#alipayAmount").val(data[2]);
+  	        $("#receiveable").val(data[3]);
+  	        $("#openAmount").val(data[4]);
+  	        $("#paidAmount").val(data[5]);
+  	        $("#totalPayment").val(data[0]+data[1]+data[2]);
+  	      }
+  	  });
+  },
   init: function ()
   {
     $('#paymentGrid').DataTable({
@@ -25,6 +54,7 @@ ACC.paymentList = {
         }
       },
       'fnDrawCallback': function () {
+    	      ACC.paymentList.querySummary();
       }
     });
     

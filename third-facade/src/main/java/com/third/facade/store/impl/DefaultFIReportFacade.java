@@ -1,10 +1,14 @@
 package com.third.facade.store.impl;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.commons.lang3.ArrayUtils;
+
+import com.third.core.constants.CoreConstants;
 import com.third.facade.data.DTResults;
 import com.third.facade.store.FIReportFacade;
 import com.third.facade.utils.DTResultConvertor;
@@ -27,6 +31,24 @@ public class DefaultFIReportFacade implements FIReportFacade {
 				.getPayments(startDate, endDate, startIndex, pageSize, sp));
 
 		return result;
+	}
+	
+	@Override
+	public BigDecimal[] getPaymentListSummary(Date startDate, Date endDate, Map<String, String[]> sp)
+	{
+	   BigDecimal[] results = new BigDecimal[3];
+	   
+	   BigDecimal cash =  paymentService.sumPaymentsByPaymentMethod(startDate, endDate, sp, CoreConstants.PaymentMethod.Cash);
+	   BigDecimal creditCard =  paymentService.sumPaymentsByPaymentMethod(startDate, endDate, sp, CoreConstants.PaymentMethod.CreditCard);
+	   BigDecimal o2oPay =  paymentService.sumPaymentsByPaymentMethod(startDate, endDate, sp, CoreConstants.PaymentMethod.O2OAliPay);
+	   
+	   results[0] = cash;
+	   results[1] = creditCard;
+	   results[2] = o2oPay;
+	   
+	   BigDecimal[] orderAmounts = paymentService.sumPaymentsByOrder(startDate, endDate, sp);
+	   
+	   return ArrayUtils.addAll(results, orderAmounts);
 	}
 	
 	@Override

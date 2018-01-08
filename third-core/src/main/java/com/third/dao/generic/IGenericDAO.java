@@ -8,6 +8,7 @@ import org.springframework.dao.DataAccessException;
 import com.third.dao.util.PaginationSupport;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.util.Collection;
 import java.util.List;
 
@@ -83,4 +84,7 @@ public interface IGenericDAO<T, ID extends Serializable> {
 	public List searchBySQL(String sql);
 
 	public Integer countByQuery(String queryString);
+	
+	public BigDecimal sum(String queryString);
+	
 }
