@@ -130,7 +130,7 @@ public class UserDataBuilder implements DataBuilder {
 		menuService.createMenu(lv3_reservation);
 
 		MenuModel lv3_orderprocess = this.buildMenu("24", 3, "订单处理记录查询",
-				"/orderprocess/orderprocesspage", "fa-barcode");
+		        "/order/getorderprocesspage", "fa-barcode");
 		lv3_orderprocess.setParentMenu(lv2_sales);
 		menuService.createMenu(lv3_orderprocess);
 
@@ -203,24 +203,24 @@ public class UserDataBuilder implements DataBuilder {
 				Arrays.asList(lv3_userlist, lv3_source,lv3_store,
 					    lv3_customer, lv3_orders, lv3_reservation, lv3_reservationlist,lv3_source1,lv3_storereceipt, lv3_storedeliver, lv3_orderentrylist,lv3_exhibition,
 						lv3_factorydeliver, lv3_orderentrylist1, lv3_product,lv3_factoryreceipt,
-						lv3_report1,lv3_report2));
+						lv3_report1,lv3_report2,lv3_orderprocess));
 		RoleModel role_sales = buildRole("sales", "销售员", "销售员",
 				Arrays.asList(
-					    lv3_customer, lv3_orders, lv3_reservation, lv3_reservationlist,lv3_storereceipt, lv3_storedeliver, lv3_orderentrylist,lv3_exhibition,lv3_report1
+					    lv3_customer, lv3_orders, lv3_reservation, lv3_reservationlist,lv3_storereceipt, lv3_storedeliver, lv3_orderentrylist,lv3_exhibition,lv3_report1,lv3_orderprocess
 						));
 		RoleModel role_factory = buildRole("factory", "工厂", "工厂", 
-				Arrays.asList(lv3_factoryreceipt,lv3_factorydeliver, lv3_orderentrylist1, lv3_product));
+				Arrays.asList(lv3_factoryreceipt,lv3_factorydeliver, lv3_orderentrylist1, lv3_product,lv3_orderprocess));
 		
 		RoleModel role_finicial = buildRole("finicial", "财务", "财务",
 				Arrays.asList(
 					    lv3_customer, lv3_orders, lv3_report1,lv3_report2));
 		RoleModel role_designer = buildRole("designer", "设计", "设计", 
 				Arrays.asList(
-					    lv3_customer, lv3_orders, lv3_reservation, lv3_reservationlist,lv3_storereceipt, lv3_storedeliver, lv3_orderentrylist,lv3_exhibition
+					    lv3_customer, lv3_orders, lv3_reservation, lv3_reservationlist,lv3_storereceipt, lv3_storedeliver, lv3_orderentrylist,lv3_exhibition,lv3_orderprocess
 				));
 		RoleModel role_manager = buildRole("manager", "店长", "店长", 
 				Arrays.asList(
-					    lv3_customer, lv3_orders, lv3_reservation, lv3_reservationlist,lv3_storereceipt, lv3_storedeliver, lv3_orderentrylist,lv3_exhibition,lv3_source1,lv3_report1
+					    lv3_customer, lv3_orders, lv3_reservation, lv3_reservationlist,lv3_storereceipt, lv3_storedeliver, lv3_orderentrylist,lv3_exhibition,lv3_source1,lv3_report1,lv3_orderprocess
 				));
 
 		UserModel admin = new UserModel();

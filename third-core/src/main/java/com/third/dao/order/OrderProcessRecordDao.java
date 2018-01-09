@@ -13,7 +13,7 @@ public interface OrderProcessRecordDao
 
 	PaginationSupport findOrderProcessRecord(Date startDate, Date endDate,
 			Integer startIndex, Integer pageSize,
-			Map<String, String> searchParameter);
+			Map<String, String[]> searchParameter);
 
 	List<OrderProcessRecordModel> findOrderProcessForOrder(
 			final String orderCode);

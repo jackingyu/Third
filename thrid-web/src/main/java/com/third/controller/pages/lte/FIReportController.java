@@ -131,7 +131,7 @@ public class FIReportController extends AbstractPageController {
         sp.put("paymentMethods", paymentMethods);
         
 
-        if ((this.isManger()||this.isSales()) && (storeCodes == null || storeCodes.length == 0))
+        if ((this.isManager()||this.isSales()) && (storeCodes == null || storeCodes.length == 0))
         {
             List<StoreData> stores = userFacade.getCurrentUser().getStores();
             String[] userStoreCodes = new String[stores.size()];
@@ -192,7 +192,7 @@ public class FIReportController extends AbstractPageController {
         sp.put("paymentMethods", paymentMethods);
         
         
-        if ((this.isManger()||this.isSales()) && (storeCodes == null || storeCodes.length == 0))
+        if ((this.isManager()||this.isSales()) && (storeCodes == null || storeCodes.length == 0))
         {
             List<StoreData> stores = userFacade.getCurrentUser().getStores();
             String[] userStoreCodes = new String[stores.size()];

@@ -1,16 +1,21 @@
 package com.third.facade.order.impl;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
+
+import com.third.dao.util.PaginationSupport;
 import com.third.exceptions.NoQualifiedTargetStatusException;
 import com.third.exceptions.NotFoundException;
+import com.third.facade.data.DTResults;
 import com.third.facade.data.ListData;
-import com.third.facade.data.OrderData;
 import com.third.facade.data.OrderProcessRecordData;
 import com.third.facade.data.TextMapper;
 import com.third.facade.order.OrderProcessFacade;
 import com.third.facade.populator.OrderProcessRecordDataPopulator;
+import com.third.facade.utils.DTResultConvertor;
 import com.third.model.OrderEntryModel;
 import com.third.model.OrderModel;
 import com.third.model.OrderProcessRecordModel;
@@ -37,17 +42,7 @@ public class DefaultOrderProcessFacade implements OrderProcessFacade {
 		UserModel currentUser = userService.getCurrentUser();
 		try
 		{
-			Integer currentStatus = order.getStatus();
-			OrderProcessRecordModel processRecord = orderProcessService
-					.processOrder(order, currentUser, toStatus);
-			StringBuilder sb = new StringBuilder("订单:");
-			sb.append(processRecord.getOrderCode()).append("从状态")
-					.append(TextMapper.OrderStatus
-							.get(currentStatus.toString()))
-					.append(" 至状态")
-					.append(TextMapper.OrderStatus.get(toStatus.toString()));
-			processRecord.setMessage(sb.toString());
-			orderProcessService.updateOrderProcess(processRecord);
+			orderProcessService.processOrder(order, currentUser, toStatus);
 		} catch (NoQualifiedTargetStatusException ex)
 		{
 			String currentStatus = TextMapper.OrderStatus
@@ -77,6 +72,28 @@ public class DefaultOrderProcessFacade implements OrderProcessFacade {
 
 		return result;
 	}
+	
+	@Override
+	public DTResults  getOrderProcessRecords(final Date startDate,
+            final Date endDate, final Integer startIndex,
+            final Integer pageSize, final Map<String, String[]> sp)
+	{
+	    DTResults result = DTResultConvertor.convertPS2DT(orderProcessService.getOrderProcessRecords(startDate, endDate, startIndex, pageSize, sp));
+        return result;
+	}
+	
+	@Override
+    public List<Object[]> exportOrderProcessRecords(Date startDate, Date endDate,
+            int startIndex, int pageSize, Map<String, String[]> sp)
+    {
+        PaginationSupport ps = orderProcessService.getOrderProcessRecords(startDate, endDate, startIndex, pageSize, sp);
+
+        List<Object[]> exportResults = ps.getItems();
+//select e.itemCategory,e.externalId,e.deliveryDate,e.customerName,e.product.code,e.style,e.comment,e.sizeDetails
+        Object[] title = {"门店","姓名","布料号","件数","量身单系统编号","纸质量身单号","记录发生时间"};
+        exportResults.add(0, title);
+        return exportResults;
+    }
 
 	public void setOrderService(OrderService orderService)
 	{

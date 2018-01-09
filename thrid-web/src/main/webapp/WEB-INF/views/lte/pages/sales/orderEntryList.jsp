@@ -24,7 +24,7 @@
       </div>
       <div class="col-lg-2 col-md-2">
       <a onclick="ACC.orderEntryList.exportExcel()" class="btn btn-app">
-          <i class="fa fa-search"></i>  <spring:message code="lte.export"></spring:message>
+          <i class="fa fa-download"></i>  <spring:message code="lte.export"></spring:message>
        </a>
       </div>
       </div>

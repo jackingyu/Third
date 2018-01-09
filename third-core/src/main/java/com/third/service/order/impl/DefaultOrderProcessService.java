@@ -45,7 +45,7 @@ public class DefaultOrderProcessService implements OrderProcessService {
 	}
 
 	@Override
-	public OrderProcessRecordModel processOrder(OrderModel order,
+	public void processOrder(OrderModel order,
 			UserModel user, Integer targetStatus)
 			throws NoQualifiedTargetStatusException
 	{
@@ -59,16 +59,32 @@ public class DefaultOrderProcessService implements OrderProcessService {
 			throw ex;
 		}
 
-		OrderProcessRecordModel orderProcessRecordModel = new OrderProcessRecordModel();
-		orderProcessRecordModel.setFromStatus(currentStatus.toString());
-		orderProcessRecordModel.setToStatus(nextStatus.toString());
-		orderProcessRecordModel.setOrderCode(order.getCode());
-		orderProcessRecordModel.setCreatedBy(user);
-		orderProcessRecordModel
-				.setProcessTime(Calendar.getInstance().getTime());
-		;
 
-		createOrderProcess(orderProcessRecordModel);
+		List<OrderEntryModel> entries = order.getOrderEntries();
+		String storeName = order.getStore().getName();
+		String storeCode = order.getStore().getId();
+		String customerName = order.getCustomer().getName();
+		Date processTime = Calendar.getInstance().getTime();
+		for(OrderEntryModel oem:entries)
+		{
+
+	        OrderProcessRecordModel orderProcessRecordModel = new OrderProcessRecordModel();
+	        orderProcessRecordModel.setFromStatus(currentStatus.toString());
+	        orderProcessRecordModel.setToStatus(nextStatus.toString());
+	        orderProcessRecordModel.setOrderCode(order.getCode());
+	        orderProcessRecordModel.setCreatedBy(user);
+	        orderProcessRecordModel.setProcessTime(processTime);
+		    orderProcessRecordModel.setName(customerName);
+		    orderProcessRecordModel.setProductCode(oem.getProduct().getCode());
+		    orderProcessRecordModel.setSizeOrderExternalId(oem.getExternalId());
+		    orderProcessRecordModel.setSizeOrderPk(oem.getPk());
+		    orderProcessRecordModel.setStoreCode(storeCode);
+		    orderProcessRecordModel.setStoreName(storeName);
+		    orderProcessRecordModel.setProductTitle(oem.getProductTitle());
+		    
+		    createOrderProcess(orderProcessRecordModel);
+		}
+		
 
 		order.setStatus(nextStatus);
 
@@ -84,7 +100,6 @@ public class DefaultOrderProcessService implements OrderProcessService {
 		if(actions.containsKey(targetStatus))
 			actions.get(targetStatus).perform(order);
 		
-		return orderProcessRecordModel;
 	}
 
 	@Override
@@ -128,10 +143,9 @@ public class DefaultOrderProcessService implements OrderProcessService {
 	@Override
 	public PaginationSupport getOrderProcessRecords(Date startDate,
 			Date endDate, Integer startIndex, Integer pageSize,
-			Map<String, String> sp)
+			Map<String, String[]> sp)
 	{
-		// TODO Auto-generated method stub
-		return null;
+		return orderProcessRecordDao.findOrderProcessRecord(startDate, endDate, startIndex, pageSize, sp);
 	}
 
 	public void setOrderDao(OrderDao orderDao)

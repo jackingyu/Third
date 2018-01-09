@@ -347,6 +347,11 @@ public abstract class AbstractPageController {
 	{
 		model.addAttribute("orderStatus", TextMapperUtils.getOrderStatus());
 	}
+	
+	protected void fillOrderStatusWithoutAllInView(final Model model)
+	{
+	    model.addAttribute("orderStatus", TextMapperUtils.getOrderStatusWithoutAll());
+	}
 
 	protected void fillPaymentMethods2View(final Model model)
 	{
@@ -492,7 +497,7 @@ public abstract class AbstractPageController {
 		return userFacade.isSalesperson();
 	}
 	
-	protected boolean isManger()
+	protected boolean isManager()
 	{
 		return userFacade.isManager();
 	}

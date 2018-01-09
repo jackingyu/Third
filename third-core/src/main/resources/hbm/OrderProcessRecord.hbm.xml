@@ -7,7 +7,23 @@
 			<column name="pk" unique="true" />
 			<generator class="uuid" />
 		</id>
-		<property column="orderCode" lazy="false" name="orderCode"
+		<property column="ordercode" lazy="false" name="orderCode"
+			type="java.lang.String" />
+		<property column="sizeorder_externalid" lazy="false" name="sizeOrderExternalId"
+			type="java.lang.String" />
+		<property column="sizeorder_pk" lazy="false" name="sizeOrderPk"
+			type="java.lang.String" />
+		<property column="product_code" lazy="false" name="productCode"
+			type="java.lang.String" />
+		<property column="product_title" lazy="false" name="productTitle"
+			type="java.lang.String" />
+		<property column="quantity" lazy="false" name="quantity"
+			type="java.lang.Integer" />
+		<property column="name" lazy="false" name="name"
+			type="java.lang.String" />
+		<property column="storecode" lazy="false" name="storeCode"
+			type="java.lang.String" />
+		<property column="storename" lazy="false" name="storeName"
 			type="java.lang.String" />
 		<property column="fromstatus" lazy="false" name="fromStatus"
 			type="java.lang.String" />

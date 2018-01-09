@@ -18,16 +18,17 @@ public interface OrderProcessService {
 
 	PaginationSupport getOrderProcessRecords(final Date startDate,
 			final Date endDate, final Integer startIndex,
-			final Integer pageSize, final Map<String, String> sp);
+			final Integer pageSize, final Map<String, String[]> sp);
 
 	List<OrderProcessRecordModel> getOrderProcessRecordForOrder(
 			final String orderCode);
 
-	OrderProcessRecordModel processOrder(OrderModel order, UserModel user,
+	void processOrder(OrderModel order, UserModel user,
 			Integer targetStatus) throws NoQualifiedTargetStatusException;
 
 	OrderProcessRecordModel processOrderEntry(OrderEntryModel orderEntry,
 			UserModel user, Integer targetStatus)
 			throws NoQualifiedTargetStatusException;
+
 
 }
