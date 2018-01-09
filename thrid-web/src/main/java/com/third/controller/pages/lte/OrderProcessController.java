@@ -40,147 +40,167 @@ import com.third.facade.utils.TextMapperUtils;
 
 @Controller
 public class OrderProcessController extends AbstractPageController {
-	private static final Logger LOG = Logger.getLogger(
-			com.third.controller.pages.lte.OrderProcessController.class);
+    private static final Logger LOG = Logger.getLogger(
+            com.third.controller.pages.lte.OrderProcessController.class);
 
-	@Resource(name = "orderProcessFacade")
-	private OrderProcessFacade orderProcessFacade;
+    @Resource(name = "orderProcessFacade")
+    private OrderProcessFacade orderProcessFacade;
 
-	@Resource(name = "textMapperUtils")
-	private TextMapperUtils textMapperUtils;
-	
-	@Resource(name = "userFacade")
-	private UserFacade userFacade;
-	
-	@Resource(name = "orderFacade")
-	private OrderFacade orderFacade;
+    @Resource(name = "textMapperUtils")
+    private TextMapperUtils textMapperUtils;
 
-	@RequestMapping(value = "/order/updatestatus")
-	@ResponseBody
-	public String processOrder(
-			@RequestParam(value = "orderCode", required = true) final String orderCode,
-			@RequestParam(value = "toStatus", required = true) final Integer toStatus,
-			final HttpServletResponse response) throws IOException
-	{
-		if(isSales()||isManager())
-		{
-			List<StoreData> stores = userFacade.getCurrentUser().getStores();
-			OrderData orderData = orderFacade.getOrderForOptions(orderCode,Arrays.asList(OrderOption.BASIC));
-			StoreData store = orderData.getStore();
-			int i = 0;
-			for(StoreData storeData:stores)
-			{
-				if(storeData.getCode().equals(store.getCode()))
-				{	
-					i = 1;
-					break;
-				}
-			}
-			
-			if(i!=1)
-			{
-				response.getWriter().write("该订单属于"+store.getName()+",无权限处理");
-				response.setStatus(HttpStatus.UNAUTHORIZED.value());
-				return null;
-			}
-		}
-		try
-		{
-			orderProcessFacade.processOrder(orderCode, toStatus);
-			return TextMapperUtils.getOrderStatusText(toStatus);
-		} catch (NoQualifiedTargetStatusException e)
-		{
-			response.getWriter().write("订单状态不正确");
-			response.setStatus(HttpStatus.INTERNAL_SERVER_ERROR.value());
-			return null;
-		} catch (NotFoundException e)
-		{
-			response.getWriter().write("未找到订单!");
-			response.setStatus(HttpStatus.NOT_FOUND.value());
-			return null;
-		}
+    @Resource(name = "userFacade")
+    private UserFacade userFacade;
 
-	}
-	
-	@RequestMapping(value = "/order/getorderprocessrecord")
-	@ResponseBody
-	public Object getOrderProcessRecord(@RequestParam(value = "externalId", required = false) final String externalId,
-            @RequestParam(value = "startProcessTime", required = true)@DateTimeFormat(pattern = "yyyy-MM-dd") final Date startProcessTime,
-            @RequestParam(value = "endProcessTime", required = true)@DateTimeFormat(pattern = "yyyy-MM-dd") final Date endProcessTime,
+    @Resource(name = "orderFacade")
+    private OrderFacade orderFacade;
+
+    @RequestMapping(value = "/order/updatestatus")
+    @ResponseBody
+    public String processOrder(
+            @RequestParam(value = "orderCode", required = true) final String orderCode,
+            @RequestParam(value = "toStatus", required = true) final Integer toStatus,
+            final HttpServletResponse response) throws IOException
+    {
+        if (isSales() || isManager())
+        {
+            List<StoreData> stores = userFacade.getCurrentUser().getStores();
+            OrderData orderData = orderFacade.getOrderForOptions(orderCode,
+                    Arrays.asList(OrderOption.BASIC));
+            StoreData store = orderData.getStore();
+            int i = 0;
+            for (StoreData storeData : stores)
+            {
+                if (storeData.getCode().equals(store.getCode()))
+                {
+                    i = 1;
+                    break;
+                }
+            }
+
+            if (i != 1)
+            {
+                response.getWriter()
+                        .write("该订单属于" + store.getName() + ",无权限处理");
+                response.setStatus(HttpStatus.UNAUTHORIZED.value());
+                return null;
+            }
+        }
+        try
+        {
+            orderProcessFacade.processOrder(orderCode, toStatus);
+            return TextMapperUtils.getOrderStatusText(toStatus);
+        } catch (NoQualifiedTargetStatusException e)
+        {
+            response.getWriter().write("订单状态不正确");
+            response.setStatus(HttpStatus.INTERNAL_SERVER_ERROR.value());
+            return null;
+        } catch (NotFoundException e)
+        {
+            response.getWriter().write("未找到订单!");
+            response.setStatus(HttpStatus.NOT_FOUND.value());
+            return null;
+        }
+
+    }
+
+    @RequestMapping(value = "/order/getorderprocessrecord")
+    @ResponseBody
+    public Object getOrderProcessRecord(
+            @RequestParam(value = "externalId", required = false) final String externalId,
+            @RequestParam(value = "startProcessTime", required = true) @DateTimeFormat(pattern = "yyyy-MM-dd") final Date startProcessTime,
+            @RequestParam(value = "endProcessTime", required = true) @DateTimeFormat(pattern = "yyyy-MM-dd") final Date endProcessTime,
             @RequestParam(value = "orderStatus", required = true) final String orderStatus,
             @RequestParam(value = "storeCodes", required = false) final String[] storeCodes,
             final DataTableCriterias criterias) throws IOException
-	{
-	   Map<String,String[]> sp = new HashMap<String,String[]>();
-	   sp.put("storeCodes", storeCodes);
-	   String[] externalIds = {externalId};
-	   sp.put("externalIds",externalIds);
-	   String[] orderStatuses = {orderStatus};
-	   sp.put("orderStatus",orderStatuses);
-	   
-	   DTResults r = orderProcessFacade.getOrderProcessRecords(startProcessTime, endProcessTime,criterias.getStart(), criterias.getLength(), sp);
-	   return r;
-	}
-	
-	@RequestMapping(value = "/order/getorderprocesspage")
-	public String getOrderProcessRecordPage(final Model model,final HttpServletResponse response) throws IOException
-	{
-	    this.fillAuthorizedStoreInView(model);
-	    this.fillOrderStatusWithoutAllInView(model);
-	    return ControllerConstants.LTE.ORDERPROCESSRECORDPAGE;
-	}
-	
-	   @RequestMapping(value = "/order/exportorderprocessrecord")
-	    public void exportOrderProcessRecord(@RequestParam(value = "externalId", required = false) final String externalId,
-	            @RequestParam(value = "startProcessTime", required = true)@DateTimeFormat(pattern = "yyyy-MM-dd") final Date startProcessTime,
-	            @RequestParam(value = "endProcessTime", required = true)@DateTimeFormat(pattern = "yyyy-MM-dd") final Date endProcessTime,
-	            @RequestParam(value = "orderStatus", required = true) final String orderStatus,
-	            @RequestParam(value = "storeCodes", required = false) final String[] storeCodes,
-	            final HttpServletRequest request,
-	            final HttpServletResponse response,
-	            final DataTableCriterias criterias) throws IOException
-	    {
-	       Map<String,String[]> sp = new HashMap<String,String[]>();
-	       sp.put("storeCodes", storeCodes);
-	       String[] externalIds = {externalId};
-	       sp.put("externalIds",externalIds);
-	       String[] orderStatuses = {orderStatus};
-	       sp.put("orderStatus",orderStatuses);
-	      
-	       String[] sheetNames = new String[1];
-	        
-	       sheetNames[0] = TextMapperUtils.getOrderStatusText(Integer.valueOf(orderStatus));
-	       List<Object[]> r1 = orderProcessFacade.exportOrderProcessRecords(startProcessTime, endProcessTime, 0, 20000, sp);
-	        
-	       List<List<Object[]>> dataArrays = new ArrayList<List<Object[]>>();
-	       dataArrays.add(r1);
-	     
-	       ExcelUtils.exportExcel("订单处理列表", sheetNames,dataArrays, request,response);
-	    }
+    {
+        Map<String, String[]> sp = new HashMap<String, String[]>();
+        sp.put("storeCodes", storeCodes);
+        String[] externalIds = { externalId };
+        sp.put("externalIds", externalIds);
+        String[] orderStatuses = { orderStatus };
+        sp.put("orderStatus", orderStatuses);
 
+        DTResults r = orderProcessFacade.getOrderProcessRecords(
+                startProcessTime, endProcessTime, criterias.getStart(),
+                criterias.getLength(), sp);
+        return r;
+    }
 
+    @RequestMapping(value = "/order/getorderprocesspage")
+    public String getOrderProcessRecordPage(final Model model,
+            final HttpServletResponse response) throws IOException
+    {
+        this.fillAuthorizedStoreInView(model);
+        this.fillOrderStatusWithoutAllInView(model);
+        return ControllerConstants.LTE.ORDERPROCESSRECORDPAGE;
+    }
 
-	@Deprecated
-	@RequestMapping(value = "/orderentry/updatestatus")
-	@ResponseBody
-	public String processOrderEntry(
-			@RequestParam(value = "entryPK", required = true) final String entryPK,
-			@RequestParam(value = "toStatus", required = true) final Integer toStatus,
-			final HttpServletResponse response) throws IOException
-	{
-		try
-		{
-			orderProcessFacade.processOrderEntry(entryPK, toStatus);
-		} catch (NoQualifiedTargetStatusException e)
-		{
-			response.sendError(500);
-		} catch (NotFoundException e)
-		{
-			// TODO Auto-generated catch block
-			response.sendError(501);
-		}
+    @RequestMapping(value = "/order/exportorderprocessrecord")
+    public void exportOrderProcessRecord(
+            @RequestParam(value = "externalId", required = false) final String externalId,
+            @RequestParam(value = "startProcessTime", required = true) @DateTimeFormat(pattern = "yyyy-MM-dd") final Date startProcessTime,
+            @RequestParam(value = "endProcessTime", required = true) @DateTimeFormat(pattern = "yyyy-MM-dd") final Date endProcessTime,
+            @RequestParam(value = "orderStatus", required = true) final String orderStatus,
+            @RequestParam(value = "storeCodes", required = false) final String[] storeCodes,
+            final HttpServletRequest request,
+            final HttpServletResponse response,
+            final DataTableCriterias criterias) throws IOException
+    {
+        Map<String, String[]> sp = new HashMap<String, String[]>();
+        
+        if (storeCodes == null || storeCodes.length == 0)
+        {
+            List<StoreData> stores = userFacade.getCurrentUser().getStores();
+            String[] userStoreCodes = new String[stores.size()];
+            for (int i = 0; i < stores.size(); i++)
+            {
+                userStoreCodes[i] = stores.get(i).getCode();
+            }
+            sp.put("storeCodes", userStoreCodes);
+        } else
+            sp.put("storeCodes", storeCodes);
 
-		return TextMapperUtils.getOrderStatusText(toStatus);
-	}
+        String[] externalIds = { externalId };
+        sp.put("externalIds", externalIds);
+        String[] orderStatuses = { orderStatus };
+        sp.put("orderStatus", orderStatuses);
+
+        String[] sheetNames = new String[1];
+
+        sheetNames[0] = TextMapperUtils
+                .getOrderStatusText(Integer.valueOf(orderStatus));
+        List<Object[]> r1 = orderProcessFacade.exportOrderProcessRecords(
+                startProcessTime, endProcessTime, 0, 20000, sp);
+
+        List<List<Object[]>> dataArrays = new ArrayList<List<Object[]>>();
+        dataArrays.add(r1);
+
+        ExcelUtils.exportExcel("订单处理列表", sheetNames, dataArrays, request,
+                response);
+    }
+
+    @Deprecated
+    @RequestMapping(value = "/orderentry/updatestatus")
+    @ResponseBody
+    public String processOrderEntry(
+            @RequestParam(value = "entryPK", required = true) final String entryPK,
+            @RequestParam(value = "toStatus", required = true) final Integer toStatus,
+            final HttpServletResponse response) throws IOException
+    {
+        try
+        {
+            orderProcessFacade.processOrderEntry(entryPK, toStatus);
+        } catch (NoQualifiedTargetStatusException e)
+        {
+            response.sendError(500);
+        } catch (NotFoundException e)
+        {
+            // TODO Auto-generated catch block
+            response.sendError(501);
+        }
+
+        return TextMapperUtils.getOrderStatusText(toStatus);
+    }
 
 }
