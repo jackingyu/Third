@@ -20,6 +20,7 @@ public class OrderEntryData extends AbstractData {
 	private Date deliveryDate;
 	private Date sizeDate;
 	private Date tryDate;
+	private Date actualTryDate;
 	private String sizeDetails;
 	private Date createTime;
 	private Date modificationTime;
@@ -294,4 +295,14 @@ public class OrderEntryData extends AbstractData {
 	{
 		return designer;
 	}
+
+    public Date getActualTryDate()
+    {
+        return actualTryDate;
+    }
+
+    public void setActualTryDate(Date actualTryDate)
+    {
+        this.actualTryDate = actualTryDate;
+    }
 }

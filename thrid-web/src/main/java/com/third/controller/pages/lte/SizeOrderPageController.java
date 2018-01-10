@@ -1,5 +1,6 @@
 package com.third.controller.pages.lte;
 
+import java.awt.datatransfer.StringSelection;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
@@ -141,6 +142,27 @@ public class SizeOrderPageController extends AbstractPageController {
 		fillStore2View(model, orderEntry.getStore().getCode());
 		fillDeisgnerInModel(model,orderEntry.getStore().getCode(),orderEntry.getDesigner().getUserId());
 		return ControllerConstants.LTE.ORDERENTRYDETAILPAGE;
+	}
+	
+	@RequestMapping(value = "/orderentry/scanpage",method = RequestMethod.GET)
+	public String scanSizeOrderPage()
+	{
+	    return ControllerConstants.LTE.ORDERENTRYSCANPAGE;
+	}
+	
+	@RequestMapping(value = "/orderentry/updateactualtrydate",method = RequestMethod.POST)
+	@ResponseBody
+	public String updateActualTryDate(@RequestParam(value = "externalId", required = false) final String externalId,
+            @RequestParam(value = "entryPK", required = false) final String entryPK)
+	{
+	    OrderEntryData entry = new OrderEntryData();
+	    entry.setActualTryDate(new Date());
+	    entry.setExternalId(externalId);
+	    entry.setPk(entryPK);
+	    
+	    orderFacade.updateOrderEntryActualTryDate(entry);
+	    
+	    return "";
 	}
 
 	@RequestMapping(value = "/orderentry/saveorderentry")

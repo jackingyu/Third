@@ -54,6 +54,10 @@
 						<input readonly="readonly" class="form-control" placeholder="" type="text"
 							value="${orderEntry.salesperson.name}">
 					</div>
+					<div class="col-md-4 col-lg-4 col-xs-12 col-sm-12 ">
+						<label><spring:message code="lte.orderentry.actualtrydate"></spring:message></label>
+						<input readonly="readonly" class="form-control" placeholder="" type="text" value="${orderEntry.actualTryDate}">
+					</div>
 				</div>
 				<div class="row">
 					<div class="col-md-4 col-lg-4 col-xs-12 col-sm-12">

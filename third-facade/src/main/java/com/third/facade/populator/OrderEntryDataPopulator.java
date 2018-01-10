@@ -7,6 +7,7 @@ import com.third.facade.data.ProductData;
 import com.third.facade.data.StoreData;
 import com.third.facade.data.TextMapper;
 import com.third.facade.data.UserData;
+import com.third.facade.utils.DateUtils;
 import com.third.facade.utils.TextMapperUtils;
 import com.third.model.OrderEntryModel;
 import com.third.model.UserModel;
@@ -36,6 +37,7 @@ public class OrderEntryDataPopulator
 		target.setQuantity(source.getQuantity());
 		target.setSizeDate(source.getSizeDate());
 		target.setTryDate(source.getTryDate());
+		target.setActualTryDate(source.getActualTryDate());
 		target.setComment(source.getComment());
 		target.setOrderCode(source.getOrder().getCode());
 		target.setCustomerName(StringUtils.isBlank(source.getCustomerName())

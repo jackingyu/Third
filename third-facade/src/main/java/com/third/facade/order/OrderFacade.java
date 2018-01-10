@@ -73,5 +73,7 @@ public interface OrderFacade {
 
 	List<Object[]> exportOrderEntries(Date startDate, Date endDate, int i, int j,
 			Map<String, String> sp);
+
+    void updateOrderEntryActualTryDate(OrderEntryData orderEntryData);
 	
 }

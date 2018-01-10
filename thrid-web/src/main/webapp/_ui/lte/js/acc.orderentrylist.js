@@ -30,7 +30,7 @@ ACC.orderEntryList = {
 						$('td', row).eq(1).html(
 								'<a  href="' + ACC.config.contextPath
 										+ "/orderentry/modifyentrypage/"
-										+ data[6] + '" target="_blank">'
+										+ data[8] + '" target="_blank">'
 										+ data[1] + '</a>');
 					},
 					'ajax' : {

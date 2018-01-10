@@ -316,6 +316,24 @@ public class DefaultOrderFacade implements OrderFacade {
 
 		orderService.updateOrderEntry(orderEntry);
 	}
+	
+	@Override
+	public void updateOrderEntryActualTryDate(final OrderEntryData orderEntryData)
+	{
+	    OrderEntryModel entryModel = null;
+	   
+	    if (StringUtils.isNotEmpty(orderEntryData.getPk()))
+            entryModel = orderService.getOrderEntry(orderEntryData.getPk());
+        else if (StringUtils.isNotEmpty(orderEntryData.getExternalId()))
+            entryModel = orderService.getOrderEntryForExternalId(orderEntryData.getExternalId());
+	    
+	    if(null==entryModel)
+	        return;
+	    
+	    entryModel.setActualTryDate(orderEntryData.getActualTryDate());
+	   
+	    orderService.updateOrderEntry(entryModel);
+	}
 
 	@Override
 	public void removeOrderEntry(String orderEntryPK)

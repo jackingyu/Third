@@ -47,7 +47,7 @@ public class DefaultOrderEntryDao extends GenericDAO<OrderEntryModel, String>
 			Integer startIndex, Integer pageSize, Map<String, String> sp)
 	{
 		final StringBuilder sb = new StringBuilder(
-				"select e.itemCategory,e.externalId,e.deliveryDate,e.customerName,e.store.name,e.status,e.tryDate,e.actualTryDate from OrderEntryModel  e "
+				"select e.itemCategory,e.externalId,e.deliveryDate,e.customerName,e.store.name,e.status,e.tryDate,e.actualTryDate,e.pk from OrderEntryModel  e "
 						+ " where ");
 
 		List<String> condition = new ArrayList<String>();
