@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.lang3.StringUtils;
+import org.apache.http.client.utils.DateUtils;
 import org.apache.log4j.Logger;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Controller;
@@ -56,13 +57,29 @@ public class SizeOrderListController extends AbstractPageController {
 			@RequestParam(value = "orderEntryStatus", required = false) final String orderEntryStatus,
 			@RequestParam(value = "startDate", required = false) @DateTimeFormat(pattern = "yyyy-MM-dd") Date startDate,
 			@RequestParam(value = "endDate", required = false) @DateTimeFormat(pattern = "yyyy-MM-dd") Date endDate,
+			@RequestParam(value = "startTryDate", required = false) @DateTimeFormat(pattern = "yyyy-MM-dd") Date startTryDate,
+			@RequestParam(value = "endTryDate", required = false) @DateTimeFormat(pattern = "yyyy-MM-dd") Date endTryDate,
+			@RequestParam(value = "startActualTryDate", required = false) @DateTimeFormat(pattern = "yyyy-MM-dd") Date startActualTryDate,
+			@RequestParam(value = "endActualTryDate", required = false) @DateTimeFormat(pattern = "yyyy-MM-dd") Date endActualTryDate,
 			final DataTableCriterias criterias)
 	{
 		Map<String, String> sp = new HashMap<String, String>();
 		sp.put("externalId", externalId);
 		sp.put("name", name);
+		if(orderEntryStatus!=null&&Integer.valueOf(orderEntryStatus)>=0)
 		sp.put("status", orderEntryStatus);
+		
 		sp.put("storeCodes", storeCodes);
+		
+		if(startTryDate!=null&&endTryDate!=null)
+		{
+		    sp.put("tryDate", DateUtils.formatDate(startTryDate)+","+DateUtils.formatDate(endTryDate));
+		}
+		
+		if(startActualTryDate!=null&&endActualTryDate!=null)
+		{
+		    sp.put("actualTryDate", DateUtils.formatDate(startActualTryDate)+","+DateUtils.formatDate(endActualTryDate));
+		}
 
 		DTResults r = orderFacade.getOrderEntries(startDate, endDate,
 				criterias.getStart(), criterias.getLength(), sp);
@@ -84,7 +101,9 @@ public class SizeOrderListController extends AbstractPageController {
 		Map<String, String> sp = new HashMap<String, String>();
 		sp.put("externalId", externalId);
 		sp.put("name", name);
-		sp.put("status", orderEntryStatus);
+		if(orderEntryStatus!=null&&Integer.valueOf(orderEntryStatus)>=0)
+	    sp.put("status", orderEntryStatus);
+		
 		sp.put("storeCodes", storeCodes);
 		String[] sheetNames = new String[4];
 		

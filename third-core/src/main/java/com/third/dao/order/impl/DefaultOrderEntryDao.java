@@ -47,7 +47,7 @@ public class DefaultOrderEntryDao extends GenericDAO<OrderEntryModel, String>
 			Integer startIndex, Integer pageSize, Map<String, String> sp)
 	{
 		final StringBuilder sb = new StringBuilder(
-				"select e.itemCategory,e.externalId,e.deliveryDate,e.customerName,e.store.name,e.status,e.pk from OrderEntryModel  e "
+				"select e.itemCategory,e.externalId,e.deliveryDate,e.customerName,e.store.name,e.status,e.tryDate,e.actualTryDate from OrderEntryModel  e "
 						+ " where ");
 
 		List<String> condition = new ArrayList<String>();
@@ -97,6 +97,27 @@ public class DefaultOrderEntryDao extends GenericDAO<OrderEntryModel, String>
 					.append(getParameterValue(sp, "name")).append("%'");
 			condition.add(c.toString());
 		}
+		
+        if (sp.containsKey("tryDate"))
+        {
+            String tryDate = sp.get("tryDate");
+            String[] tryDates = tryDate.split(",");
+            StringBuilder c = new StringBuilder().append("e.tryDate between '")
+                    .append(tryDates[0]).append("' and '")
+                    .append(tryDates[1]).append("'");
+            condition.add(c.toString());
+        }
+        
+        if (sp.containsKey("actualTryDate"))
+        {
+            String tryDate = sp.get("actualTryDate");
+            String[] tryDates = tryDate.split(",");
+            StringBuilder c = new StringBuilder().append("e.actualTryDate between '")
+                    .append(tryDates[0]).append("' and '")
+                    .append(tryDates[1]).append("'");
+            condition.add(c.toString());
+        }
+           
 
 		if (CollectionUtils.isNotEmpty(condition))
 		{
@@ -107,6 +128,8 @@ public class DefaultOrderEntryDao extends GenericDAO<OrderEntryModel, String>
 			}
 
 		}
+		
+		
 
 		sb.append("e.order.deliveryDate between '")
 				.append(fmt.format(startDate)).append("' and '")
@@ -123,7 +146,7 @@ public class DefaultOrderEntryDao extends GenericDAO<OrderEntryModel, String>
 	{
 
 		final StringBuilder sb = new StringBuilder(
-				"select e.externalId,e.deliveryDate,e.customerName,e.product.code,e.comment,e.style,e.sizeDetails from OrderEntryModel  e "
+				"select e.externalId,e.deliveryDate,e.customerName,e.product.code,e.comment,e.style,e.tryDate,e.actualTryDate,e.sizeDetails from OrderEntryModel  e "
 						+ " where ");
 
 		List<String> condition = new ArrayList<String>();

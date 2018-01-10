@@ -54,6 +54,16 @@
          <label><spring:message code="lte.orderentrylist.customername"></spring:message></label>
            <input class="form-control" placeholder="" name="customerName" type="text">
          </div>
+        <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
+         <label><spring:message code="lte.orderentrylist.trydate"></spring:message></label>
+           <common:datepicker id="tryDate" name="tryDate"></common:datepicker>
+         </div>
+       </div>
+       <div class="row">
+        <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
+         <label><spring:message code="lte.orderentrylist.actualtrydate"></spring:message></label>
+           <common:datepicker id="actualTryDate" name="actualTryDate"></common:datepicker>
+         </div>
        </div>
        </form>
     </section>
@@ -76,6 +86,8 @@
                   <th><spring:message code="lte.orderentrylist.customername"></spring:message></th>
                   <th><spring:message code="lte.orderentrylist.store"></spring:message></th>
                   <th><spring:message code="lte.orderentrylist.status"></spring:message></th>
+                  <th><spring:message code="lte.orderentrylist.trydate"></spring:message></th>
+                  <th><spring:message code="lte.orderentrylist.actualtrydate"></spring:message></th>
                 </tr>
                 </thead>
               </table>

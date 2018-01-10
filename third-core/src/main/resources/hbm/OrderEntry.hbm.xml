@@ -76,6 +76,9 @@
 			type="java.util.Date" />
 		<property column="trydate" lazy="false" name="tryDate"
 			type="java.util.Date" />
+		<property column="actual_trydate" lazy="false" name="actualTryDate"
+			type="java.util.Date" />
+		<property column="need_try" lazy="false" name="needTry" type="java.lang.Boolean" />
 		<property name="comment" type="java.lang.String">
 			<column name="comment" />
 		</property>

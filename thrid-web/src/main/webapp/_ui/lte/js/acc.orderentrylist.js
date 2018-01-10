@@ -43,8 +43,9 @@ ACC.orderEntryList = {
 							var deliveryDate = getDate4Range($("#deliveryDate")
 									.val());
 							d.startDate = deliveryDate[0];
-							  d.endDate = moment(deliveryDate[1]).add(1,'days').format('YYYY-MM-DD');
-
+							d.endDate = moment(deliveryDate[1]).add(1,'days').format('YYYY-MM-DD');
+                   
+							var tryDate = getDate4Range($("#tryDate").val());
 							/*
 							 * var storeCodes = $('#storeCodes').val(),;
 							 * d.storeCodes = new Array(storeCodes.length);
@@ -63,6 +64,12 @@ ACC.orderEntryList = {
 			locale : datepicker_locale_zh,
 			startDate : moment().subtract(15, 'days'),
 			endDate : moment().add(15, 'days')
+		});
+		$('#tryDate').daterangepicker({
+			locale : datepicker_locale_zh
+		});
+		$('#actualTryDate').daterangepicker({
+			locale : datepicker_locale_zh
 		});
 
 	}

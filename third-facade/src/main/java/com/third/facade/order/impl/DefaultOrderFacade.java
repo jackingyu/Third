@@ -665,7 +665,10 @@ public class DefaultOrderFacade implements OrderFacade {
 
 		datas.forEach(d -> {
 			// 量身单类型
+		    if(d[0]!=null)
 			d[0] = TextMapperUtils.getItemCategoryText(d[0].toString());
+		    
+		    if(d[5]!=null)
 			// 订单状态
 			d[5] = TextMapperUtils
 					.getOrderStatusText(Integer.valueOf(d[5].toString()));
@@ -722,17 +725,17 @@ public class DefaultOrderFacade implements OrderFacade {
 		});
 
 //select e.itemCategory,e.externalId,e.deliveryDate,e.customerName,e.product.code,e.style,e.comment,e.sizeDetails
-		Object[] title1 = {"量身单号码","交付日","顾客姓名","布料","布料补充说明","款式"};
+		Object[] title1 = {"量身单号码","交付日","顾客姓名","布料","布料补充说明","款式","试装日","实际试装日"};
 		Object[] title= ArrayUtils.addAll(title1,sizeAttributesSorter.keySet().toArray());
 		int arrayLength = sizeAttributes.size();
 		exportResults.add(title);
 		
 		datas.forEach(d -> {
-			Object[] basicInformation =  Arrays.copyOfRange(d, 0, 6);
+			Object[] basicInformation =  Arrays.copyOfRange(d, 0, 8);
 			Object[] sizeDataArrays = new String[arrayLength];
 
 			List<SizeAttributeData> attributeDatas = JSON
-					.parseArray(d[6].toString(), SizeAttributeData.class);
+					.parseArray(d[8].toString(), SizeAttributeData.class);
 			HashMap<String, String> attrDataMap = new HashMap<String, String>();
 
 			for (SizeAttributeData attrData : attributeDatas)
