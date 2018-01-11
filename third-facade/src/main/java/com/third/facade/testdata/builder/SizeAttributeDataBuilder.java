@@ -21,7 +21,7 @@ public class SizeAttributeDataBuilder implements DataBuilder {
 		List<String[]> results = ExcelFileReader.readFile(filename, 2);
 
 		results.forEach(r -> {
-			for(int i = 1; i < 4; i++ )
+			for(int i = 1; i < 3; i++ )
 			{
 				buildSizeAttribute(Double.valueOf(r[0]).intValue(),i*10,r[1]);
 			}

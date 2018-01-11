@@ -44,7 +44,7 @@ public class UserDataBuilder implements DataBuilder {
 			user.setUserGroup(userService.getUserGroupById(r[4]));
 			user.setStore(storeService.getStoreForCode(r[3]));
 			user.setStores(Arrays.asList(storeService.getStoreForCode(r[3])));
-			if(!r[4].equals("sales")&&!r[4].equals("manager"))
+			if(r[4].equals("factory")||r[4].equals("finicial"))
 				user.setStores(storeService.getAllStores());
 			
 			userService.createUser(user);

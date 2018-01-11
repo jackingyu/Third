@@ -23,9 +23,9 @@
 	        <ref bean="userDataBuilder"></ref>
 	        <ref bean="sizeAttributeDataBuilder"></ref>
 	        
-	        <ref bean="orderDataBuilder"></ref> 
-            <ref bean="salesQuotationDataBuilder"></ref>
-            <ref bean="reservationDataBuilder"></ref>
+<!-- 	        <ref bean="orderDataBuilder"></ref>  -->
+<!--             <ref bean="salesQuotationDataBuilder"></ref> -->
+<!--             <ref bean="reservationDataBuilder"></ref> -->
 	      </list>
 	   </property>
 	</bean>
