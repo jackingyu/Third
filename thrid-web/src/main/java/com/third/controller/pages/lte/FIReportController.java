@@ -1,7 +1,5 @@
 package com.third.controller.pages.lte;
 
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -9,6 +7,7 @@ import java.util.Map;
 
 import javax.annotation.Resource;
 
+import org.apache.commons.lang3.StringUtils;
 import org.apache.log4j.Logger;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Controller;
@@ -21,9 +20,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.third.controller.pages.AbstractPageController;
 import com.third.controller.pages.ControllerConstants;
 import com.third.core.util.DataTableCriterias;
-import com.third.facade.customer.SourceFacade;
 import com.third.facade.data.DTResults;
-import com.third.facade.data.SourceData;
 import com.third.facade.data.StoreData;
 import com.third.facade.store.FIReportFacade;
 import com.third.facade.user.UserFacade;
@@ -71,7 +68,20 @@ public class FIReportController extends AbstractPageController {
             Model model)
     {
         Map<String, String[]> sp = new HashMap<String, String[]>();
-        sp.put("storeCodes", storeCodes);
+        
+        if (storeCodes == null || storeCodes.length == 0)
+        {
+            List<StoreData> stores = userFacade.getCurrentUser().getStores();
+            String[] userStoreCodes = new String[stores.size()];
+            for (int i = 0; i < stores.size(); i++)
+            {
+                userStoreCodes[i] = stores.get(i).getCode();
+            }
+
+            sp.put("storeCodes", userStoreCodes);
+        }else
+            sp.put("storeCodes", storeCodes);
+        
         sp.put("customerSources", customerSources);
 
         return fiReportFacade.getStoreDashboardResult1(startDate, endDate, sp);
@@ -87,8 +97,23 @@ public class FIReportController extends AbstractPageController {
             Model model, final DataTableCriterias criterias)
     {
         Map<String, String[]> sp = new HashMap<String, String[]>();
-        String[] storeCodes = { storeCode };
-        sp.put("storeCodes", storeCodes);
+        
+        if (StringUtils.isEmpty(storeCode))
+        {
+            List<StoreData> stores = userFacade.getCurrentUser().getStores();
+            String[] userStoreCodes = new String[stores.size()];
+            for (int i = 0; i < stores.size(); i++)
+            {
+                userStoreCodes[i] = stores.get(i).getCode();
+            }
+
+            sp.put("storeCodes", userStoreCodes);
+        }else
+        {  
+            String[] storeCodes = { storeCode };
+            sp.put("storeCodes", storeCodes);
+        }
+        
         sp.put("customerSources", customerSources);
 
         return fiReportFacade.getDashboardPaymentDetails(startDate, endDate, sp,
@@ -104,8 +129,23 @@ public class FIReportController extends AbstractPageController {
             @RequestParam(value = "endDate", required = false) @DateTimeFormat(pattern = "yyyy-MM-dd") Date endDate)
     {
         Map<String, String[]> sp = new HashMap<String, String[]>();
-        String[] storeCodes = { storeCode };
-        sp.put("storeCodes", storeCodes);
+        
+        if (StringUtils.isEmpty(storeCode))
+        {
+            List<StoreData> stores = userFacade.getCurrentUser().getStores();
+            String[] userStoreCodes = new String[stores.size()];
+            for (int i = 0; i < stores.size(); i++)
+            {
+                userStoreCodes[i] = stores.get(i).getCode();
+            }
+
+            sp.put("storeCodes", userStoreCodes);
+        }else
+        {  
+            String[] storeCodes = { storeCode };
+            sp.put("storeCodes", storeCodes);
+        }
+        
         sp.put("customerSources", customerSources);
 
         return fiReportFacade.getDashboardPaymentsByMethod(startDate, endDate,
@@ -131,7 +171,7 @@ public class FIReportController extends AbstractPageController {
         sp.put("paymentMethods", paymentMethods);
         
 
-        if ((this.isManager()||this.isSales()) && (storeCodes == null || storeCodes.length == 0))
+        if (storeCodes == null || storeCodes.length == 0)
         {
             List<StoreData> stores = userFacade.getCurrentUser().getStores();
             String[] userStoreCodes = new String[stores.size()];
@@ -192,7 +232,7 @@ public class FIReportController extends AbstractPageController {
         sp.put("paymentMethods", paymentMethods);
         
         
-        if ((this.isManager()||this.isSales()) && (storeCodes == null || storeCodes.length == 0))
+        if (storeCodes == null || storeCodes.length == 0)
         {
             List<StoreData> stores = userFacade.getCurrentUser().getStores();
             String[] userStoreCodes = new String[stores.size()];

@@ -36,7 +36,11 @@ public class UserDataBuilder implements DataBuilder {
 		List<String[]> results = ExcelFileReader.readFile(filename, 5);
 
 		results.forEach(r->{
+		    if(r[0]==null)
+		        break;
+		    
 			UserModel user = new UserModel();
+			
 			user.setBlocked(false);
 			user.setUserId(r[0]);
 			user.setName(r[1]);
@@ -211,21 +215,23 @@ public class UserDataBuilder implements DataBuilder {
 						lv3_report1,lv3_report2,lv3_orderprocess));
 		RoleModel role_sales = buildRole("sales", "销售员", "销售员",
 				Arrays.asList(
-					    lv3_customer, lv3_orders, lv3_reservation, lv3_reservationlist,lv3_storereceipt, lv3_storedeliver, lv3_orderentrylist,lv3_exhibition,lv3_report1,lv3_orderprocess,lv3_scansizeorder
+				        lv3_customer, lv3_orders, lv3_reservation, lv3_reservationlist,lv3_storereceipt, lv3_storedeliver, lv3_orderentrylist,lv3_exhibition,
+                        lv3_source1,lv3_orderprocess,lv3_scansizeorder,lv3_report1
 						));
 		RoleModel role_factory = buildRole("factory", "工厂", "工厂", 
-				Arrays.asList(lv3_factoryreceipt,lv3_factorydeliver, lv3_orderentrylist1, lv3_product,lv3_orderprocess));
+				Arrays.asList(lv3_factoryreceipt,lv3_factorydeliver, lv3_orderentrylist1, lv3_product));
 		
 		RoleModel role_finicial = buildRole("finicial", "财务", "财务",
 				Arrays.asList(
-					    lv3_customer, lv3_orders, lv3_report1,lv3_report2));
+				        lv3_orderentrylist, lv3_report1,lv3_report2));
 		RoleModel role_designer = buildRole("designer", "设计", "设计", 
 				Arrays.asList(
-					    lv3_customer, lv3_orders, lv3_reservation, lv3_reservationlist,lv3_storereceipt, lv3_storedeliver, lv3_orderentrylist,lv3_exhibition,lv3_orderprocess
+					   lv3_orderentrylist
 				));
 		RoleModel role_manager = buildRole("manager", "店长", "店长", 
 				Arrays.asList(
-					    lv3_customer, lv3_orders, lv3_reservation, lv3_reservationlist,lv3_storereceipt, lv3_storedeliver, lv3_orderentrylist,lv3_exhibition,lv3_source1,lv3_report1,lv3_orderprocess,lv3_scansizeorder
+					    lv3_customer, lv3_orders, lv3_reservation, lv3_reservationlist,lv3_storereceipt, lv3_storedeliver, lv3_orderentrylist,lv3_exhibition,
+					    lv3_source1,lv3_orderprocess,lv3_scansizeorder,lv3_report1,lv3_report2
 				));
 
 		UserModel admin = new UserModel();
