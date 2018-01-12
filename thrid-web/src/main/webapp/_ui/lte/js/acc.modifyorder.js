@@ -12,6 +12,18 @@ ACC.modifyorder = {
     ACC.modifyorder.approveOrder("20");
   },
   approveOrder:function(toStatus){
+	if($('#paymentGrid').DataTable().rows().data().length <= 0)
+	{
+		ACC.message.alert("无付款记录,无法进行审批!");
+		return;
+	}
+	
+	if($('#entryGrid').DataTable().rows().data().length <= 0)
+	{
+		ACC.message.alert("无量身单记录,无法进行审批!");
+		return;
+	}
+	
   	$.ajax({
       type: 'POST',
       url: ACC.config.contextPath + '/order/updatestatus',
