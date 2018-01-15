@@ -101,6 +101,7 @@ public class OrderPageController extends AbstractPageController {
 	@RequestMapping(value = "/order/createorderpage", method = RequestMethod.GET)
 	public String getCreateOrderPage(
 			@RequestParam(value = "cellphone", required = false) final String cellphone,
+			@ModelAttribute("message") final String message,
 			final Model model,
 			final HttpServletRequest request,
 			final HttpServletResponse response)
@@ -117,7 +118,10 @@ public class OrderPageController extends AbstractPageController {
 		    
 		    model.addAttribute("orderData", orderData);
 		}
-
+		
+        if(StringUtils.isNotEmpty(message))
+            model.addAttribute("message", message);
+        
 		return ControllerConstants.LTE.CREATEORDERPAGE;
 	}
 
@@ -278,7 +282,17 @@ public class OrderPageController extends AbstractPageController {
 		order.setStore(store);
         
 		if (StringUtils.isBlank(orderPK))
+		{
+		    CustomerData customer = customerFacade.getCustomerByCellphone(order.getCellphone());
+		    if(StringUtils.isEmpty(customer.getSource().getPk()))
+		    {
+		        
+		        attr.addFlashAttribute("message","顾客"+customer.getCellphone()+"来源为空,请维护顾客的客户来源字段");
+		        return REDIRECT_PREFIX + "/order/createorderpage/";
+		    }
+		    
 			orderFacade.createOrder(order);
+		}
 		else
 			// TODO:需要判断订单状态为新建(需要考虑是否允许admin修改)
 			orderFacade.updateOrder(order);
