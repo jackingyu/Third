@@ -20,7 +20,7 @@ public class SmsController {
 	public Object sendVCode(
 			@RequestParam(value = "cellphone") final String cellphone)
 	{
-		smsVerifyCodeUtils.generateVCode();
+		smsVerifyCodeUtils.generateVCode(cellphone);
 		return new Message(true);
 	}
 

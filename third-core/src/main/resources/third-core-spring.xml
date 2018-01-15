@@ -226,5 +226,8 @@
 		</property>
 	</bean>
 	
+	<alias name="defaultSMSService" alias="smsService"></alias>
+    <bean id="defaultSMSService" class="com.third.service.media.impl.DefaultSMSService">
+	</bean>
 </beans>
  

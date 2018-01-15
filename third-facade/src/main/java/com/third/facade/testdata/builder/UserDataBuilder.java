@@ -36,8 +36,6 @@ public class UserDataBuilder implements DataBuilder {
 		List<String[]> results = ExcelFileReader.readFile(filename, 5);
 
 		results.forEach(r->{
-		    if(r[0]==null)
-		        break;
 		    
 			UserModel user = new UserModel();
 			
