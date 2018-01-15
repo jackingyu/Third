@@ -1,19 +1,69 @@
 {
-     "button":[
-     {	
-          "type":"view",
-          "name":"店铺查找",
-          "url":"https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx095f3e1260a6b827&redirect_uri=http%3A%2F%2Fqas.blaimar.com%2Fthrid-web%2Fwx%2FgetStoreList&response_type=code&scope=snsapi_base&state=123#wechat_redirect"
+   "button":[
+      {
+         "name":"探索铂玛",
+         "sub_button":[
+            {
+               "type":"view",
+               "name":"品牌介绍",
+               "url":"http://mp.weixin.qq.com/s/TlAGF1_JDGrr8iF9Rq-rKA"
+            },
+            {
+               "type":"view",
+               "name":"客照赏析",
+               "url":"http://mp.weixin.qq.com/s/wiAWnGk4QV4_utvGtp0-sw"
+            },
+            {
+               "type":"view",
+               "name":"模特照片",
+               "url":"http://mp.weixin.qq.com/s/foTxHWZLOTBTo4d5emfCFQ"
+            },
+            {
+               "type":"view",
+               "name":"套装价格",
+               "url":"http://mp.weixin.qq.com/s/tl737wgveH-wsOoKdJcwlA"
+            },
+            {
+               "type":"view",
+               "name":"店铺列表",
+               "url":"https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx095f3e1260a6b827&redirect_uri=http%3A%2F%2Fqas.blaimar.com%2Fthrid-web%2Fwx%2FgetStoreList&response_type=code&scope=snsapi_base&state=123#wechat_redirect"
+            }
+         ]
       },
       {
-           "name":"功能",
-           "sub_button":[
-           {	
+         "name":"铂玛特色",
+         "sub_button":[
+            {
+               "type":"view",
+               "name":"定制流程",
+               "url":"http://mp.weixin.qq.com/s/pIjwFxLTxjWvfXqlUtzDOw"
+            },
+            {
+               "type":"view",
+               "name":"DIY细节",
+               "url":"http://blaimar.xnorth.cn/BLAIMAR/wx/culture"
+            },
+            {
+               "type":"view",
+               "name":"保养细节",
+               "url":"http://mp.weixin.qq.com/s/DY2pXySOLvYaJMrBtCerCQ"
+            },
+            {
+               "type":"view",
+               "name":"客人点评",
+               "url":"https://bj.jiehun.com.cn/m/nanshilifu/10326/dp/"
+            }
+         ]
+      },
+      {
+         "name":"铂玛会员",
+         "sub_button":[
+            {
                "type":"view",
                "name":"注册",
                "url":"https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx095f3e1260a6b827&redirect_uri=http%3a%2f%2fqas.blaimar.com%2fthrid-web%2fwx%2member%2fgetRegisterPage&response_type=code&scope=snsapi_base&state=123#wechat_redirect"
             },
-           {	
+            {
                "type":"view",
                "name":"我的订单",
                "url":"https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx095f3e1260a6b827&redirect_uri=http%3a%2f%2fqas.blaimar.com%2fthrid-web%2fwx%2fgetOrderList&response_type=code&scope=snsapi_base&state=123#wechat_redirect"
@@ -28,6 +78,7 @@
                "name":"我的会员",
                "url":"https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx095f3e1260a6b827&redirect_uri=http%3A%2F%2Fqas.blaimar.com%2Fthrid-web%2Fwx%2Fmember%2Fhome&response_type=code&scope=snsapi_base&state=123#wechat_redirect"
             }
-            ]
-       }]
+         ]
+      }
+   ]
 }
