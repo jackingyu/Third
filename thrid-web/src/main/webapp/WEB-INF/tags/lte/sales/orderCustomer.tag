@@ -32,8 +32,8 @@
 				<input id="cellphone" value="${orderData.cellphone }" readonly="readonly" name="cellphone" class="form-control"  type="text">
 			</div>
 			<div class="col-lg-3 cl-md-3 cl-sm-12 cl-xs-12">
-				<label><spring:message code="lte.order.customer.contactinfo"></spring:message></label>
-				<input  value="${orderData.contactinfo}"  name="contactinfo" class="form-control"  type="text">
+				<label><spring:message code="lte.order.customer.source"></spring:message></label>
+				<input  readonly="readonly" value="${orderData.source.name}"  id="customerSource"  class="form-control"  type="text">
 			</div>
 		</div>
 	</div>

@@ -11,11 +11,13 @@ import com.third.facade.data.CustomerData;
 import com.third.facade.data.OrderData;
 import com.third.facade.data.OrderEntryData;
 import com.third.facade.data.PaymentData;
+import com.third.facade.data.SourceData;
 import com.third.facade.data.StoreData;
 import com.third.facade.utils.TextMapperUtils;
 import com.third.model.OrderEntryModel;
 import com.third.model.OrderModel;
 import com.third.model.PaymentModel;
+import com.third.model.SourceModel;
 import com.third.model.StoreModel;
 
 public class OrderDataPopulator implements Populator<OrderModel, OrderData> {
@@ -57,7 +59,7 @@ public class OrderDataPopulator implements Populator<OrderModel, OrderData> {
 		target.setTryDate(source.getTryDate());
 		target.setPhotoDate(source.getPhotoDate());
 		target.setDeliveryDate(source.getDeliveryDate());
-
+        
 		StoreData store = new StoreData();
 		storeDataPopulator.populate(source.getStore(), store);
 		target.setStore(store);
@@ -86,11 +88,15 @@ public class OrderDataPopulator implements Populator<OrderModel, OrderData> {
 		target.setOrderDate(source.getOrderDate());
 		target.setCoSalesperson(source.getCoSalesperson());
 		target.setComment(source.getComment());
-
+		
+		SourceModel customerSource = source.getSource();
+		SourceData sourceData = new SourceData();
+        sourceDataPopulator.populate(customerSource, sourceData);
+        customer.setSource(sourceData);
+        
 		// 订单行项目
 		List<OrderEntryData> orderEntryDatas = new ArrayList<OrderEntryData>();
-		List<OrderEntryModel> orderEntryModels = (List<OrderEntryModel>) source
-				.getOrderEntries();
+		List<OrderEntryModel> orderEntryModels = (List<OrderEntryModel>) source.getOrderEntries();
 
 		if (!CollectionUtils.isEmpty(orderEntryModels))
 			orderEntryModels.stream().filter((o) -> o != null).forEach(o -> {

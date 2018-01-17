@@ -5,11 +5,13 @@ import org.apache.log4j.Logger;
 
 import com.third.facade.data.CustomerData;
 import com.third.facade.data.OrderData;
+import com.third.facade.data.SourceData;
 import com.third.facade.data.StoreData;
 import com.third.facade.data.TextMapper;
 import com.third.facade.data.UserData;
 import com.third.facade.utils.TextMapperUtils;
 import com.third.model.OrderModel;
+import com.third.model.SourceModel;
 
 public class OrderBasicPopulator implements Populator<OrderModel, OrderData> {
 	private static final Logger LOG = Logger
@@ -76,6 +78,12 @@ public class OrderBasicPopulator implements Populator<OrderModel, OrderData> {
 		target.setOrderDate(source.getOrderDate());
 		target.setCoSalesperson(source.getCoSalesperson());
 		target.setComment(source.getComment());
+		
+
+        SourceModel customerSource = source.getSource();
+        SourceData sourceData = new SourceData();
+        sourceDataPopulator.populate(customerSource, sourceData);
+        target.setSource(sourceData);
 	}
 
 	public void setSourceDataPopulator(SourceDataPopulator sourceDataPopulator)
