@@ -53,7 +53,7 @@ public class DefaultUserFacade implements UserFacade {
 	{
 		UserModel userModel = new UserModel();
 		userModel.setName(user.getName());
-		userModel.setUserId(userService.generateUserId());
+		userModel.setUserId(user.getUserId());
 		userModel.setPassword(
 				user.getPassword() != null ? user.getPassword() : "111111");
 		if (null != user.getUserGroup())
