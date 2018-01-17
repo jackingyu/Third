@@ -66,11 +66,31 @@ ACC.orderEntryList = {
 			endDate : moment().add(15, 'days')
 		});
 		$('#tryDate').daterangepicker({
-			locale : datepicker_locale_zh
+			locale : datepicker_locale_zh,
+			autoUpdateInput: false
 		});
+		
+		$('#tryDate').on('apply.daterangepicker', function(ev, picker) {
+		      $(this).val(picker.startDate.format('MM/DD/YYYY') + ' - ' + picker.endDate.format('MM/DD/YYYY'));
+		  });
+
+		  $('#tryDate').on('cancel.daterangepicker', function(ev, picker) {
+		      $(this).val('');
+		  });
+
 		$('#actualTryDate').daterangepicker({
-			locale : datepicker_locale_zh
+			locale : datepicker_locale_zh,
+			autoUpdateInput: false
 		});
+		
+		$('#actualTryDate').on('apply.daterangepicker', function(ev, picker) {
+		      $(this).val(picker.startDate.format('MM/DD/YYYY') + ' - ' + picker.endDate.format('MM/DD/YYYY'));
+		  });
+
+		  $('#actualTryDate').on('cancel.daterangepicker', function(ev, picker) {
+		      $(this).val('');
+		  });
+
 
 	}
 }
