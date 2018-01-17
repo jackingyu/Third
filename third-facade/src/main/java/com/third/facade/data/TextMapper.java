@@ -76,6 +76,8 @@ public class TextMapper {
 				"门店已确认");
 		OrderStatus.put(CoreConstants.OrderStatus.FACTORY_DELIVERED.toString(),
 				"工厂已发货");
+		OrderStatus.put(CoreConstants.OrderStatus.FACTORY_RECEIPT.toString(),
+	                "工厂已收货");
 		OrderStatus.put(CoreConstants.OrderStatus.STORE_RECEIPT.toString(),
 				"门店已收货");
 		OrderStatus.put(CoreConstants.OrderStatus.STORE_DELIVERED.toString(),
@@ -87,6 +89,8 @@ public class TextMapper {
 		OrderStatus4Cust.put(CoreConstants.OrderStatus.NEW.toString(), "已创建");
 		OrderStatus4Cust.put(CoreConstants.OrderStatus.FACTORY_APPROVE.toString(),
 				"工厂已排产");
+		OrderStatus4Cust.put(CoreConstants.OrderStatus.FACTORY_RECEIPT.toString(),
+		        "工厂已排产");
 		OrderStatus4Cust.put(CoreConstants.OrderStatus.FINICIAL_APPROVE.toString(),
 				"工厂已排产");
 		OrderStatus4Cust.put(CoreConstants.OrderStatus.STORE_APPROVE.toString(),

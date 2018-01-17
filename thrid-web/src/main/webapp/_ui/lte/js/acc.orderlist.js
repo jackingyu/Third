@@ -43,7 +43,7 @@ ACC.orderList = {
     $('#deliveryDate').daterangepicker({
       locale:datepicker_locale_zh,
       startDate:moment().subtract(15, 'days'),
-      endDate: moment().add(15,'days')    }
+      endDate: moment().add(365,'days')    }
     );
     
     $('#orderDate').datepicker({

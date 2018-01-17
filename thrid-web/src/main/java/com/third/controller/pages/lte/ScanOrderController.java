@@ -55,7 +55,7 @@ public class ScanOrderController extends AbstractPageController {
 		model.addAttribute("status",
 				CoreConstants.OrderStatus.FACTORY_DELIVERED);
 		model.addAttribute("currentStatus",
-				CoreConstants.OrderStatus.FACTORY_APPROVE);
+				CoreConstants.OrderStatus.FACTORY_RECEIPT);
 		model.addAttribute("successmessage", "工厂发货成功");
 		model.addAttribute("title", "工厂发货");
 		return ControllerConstants.LTE.SCANORDERPAGE;
