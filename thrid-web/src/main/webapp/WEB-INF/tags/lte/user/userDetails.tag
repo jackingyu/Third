@@ -34,7 +34,7 @@
 				</div>
 			</div>
 			<div class="form-group">
-				<common:selection2  validator="required" data="${userGroups}" label="lte.user.usergroup"  name="usergroupPK"></common:selection2>
+				<common:selection2  validator="required" data="${userGroups}" value="${user.userGroup.pk}" label="lte.user.usergroup"  name="usergroupPK"></common:selection2>
 			</div>
 			
 			<div class="form-group">
