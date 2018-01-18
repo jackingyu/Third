@@ -21,6 +21,7 @@ public class DefaultPaymentService implements PaymentService {
 	@Override
 	public void createPayment(PaymentModel payment)
 	{
+	    payment.setCreateTime(new Date());
 		paymentDao.save(payment);
 	}
 

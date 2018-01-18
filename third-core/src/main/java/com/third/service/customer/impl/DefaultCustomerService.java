@@ -18,6 +18,7 @@ public class DefaultCustomerService implements CustomerService {
 	@Override
 	public void createCustomer(CustomerModel customer)
 	{
+	    customer.setCreateTime(new Date());
 		customerDao.save(customer);
 	}
 
@@ -37,6 +38,7 @@ public class DefaultCustomerService implements CustomerService {
 	@Override
 	public void updateCustomer(CustomerModel customer)
 	{
+	    customer.setModificationTime(new Date());
 		customerDao.update(customer);
 	}
 

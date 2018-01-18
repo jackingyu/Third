@@ -93,7 +93,7 @@
 					</div>
 					<div class="col-md-6 col-lg-6 col-xs-12 col-sm-12">
 						<label><spring:message code="lte.orderentry.producttitle"></spring:message></label>
-						<input name="producttitle" value="${orderEntry.productTitle}" class="form-control" placeholder=""
+						<input name="productTitle" value="${orderEntry.productTitle}" class="form-control" placeholder=""
 							type="text">
 					</div>
 				</div>

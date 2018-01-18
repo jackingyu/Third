@@ -24,12 +24,14 @@ public class DefaultOrderService implements OrderService {
 	@Override
 	public void createOrder(OrderModel orderModel)
 	{
+	    orderModel.setCreateTime(new Date());
 		orderDao.save(orderModel);
 	}
 
 	@Override
 	public void upateOrder(OrderModel orderModel)
 	{
+	    orderModel.setModificationTime(new Date());
 		orderDao.update(orderModel);
 	}
 
@@ -55,12 +57,14 @@ public class DefaultOrderService implements OrderService {
 		String orderPK = orderEntry.getOrder().getPk();
 		Integer numberOfEntry = orderEntryDao.countOrderEntryByOrder(orderPK);
 		orderEntry.setEntryNo(numberOfEntry);
+		orderEntry.setCreateTime(new Date());
 		orderEntryDao.save(orderEntry);
 	}
 
 	@Override
 	public void updateOrderEntry(OrderEntryModel orderEntry)
 	{
+	    orderEntry.setModificationTime(new Date());
 		orderEntryDao.update(orderEntry);
 	}
 

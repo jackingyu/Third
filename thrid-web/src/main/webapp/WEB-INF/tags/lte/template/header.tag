@@ -6,11 +6,11 @@
 
 <header class="main-header">
     <!-- Logo -->
-    <a href="index2.html" class="logo">
+    <a href="javascript:void(0)" class="logo">
       <!-- mini logo for sidebar mini 50x50 pixels -->
-      <span class="logo-mini"><b>T</b>HD</span>
+      <span class="logo-mini"><b>B</b>M</span>
       <!-- logo for regular state and mobile devices -->
-      <span class="logo-lg"><b>T</b>hird</span>
+      <span class="logo-lg"><b>B</b>laimar</span>
     </a>
     <!-- Header Navbar: style can be found in header.less -->
     <nav class="navbar navbar-static-top">
