@@ -220,11 +220,11 @@ public class UserDataBuilder implements DataBuilder {
 				Arrays.asList(lv3_factoryreceipt,lv3_factorydeliver, lv3_orderentrylist1, lv3_product));
 		
 		RoleModel role_finicial = buildRole("finicial", "财务", "财务",
-				Arrays.asList(
+				Arrays.asList(lv3_orders,
 				        lv3_orderentrylist, lv3_report1,lv3_report2));
 		RoleModel role_designer = buildRole("designer", "设计", "设计", 
 				Arrays.asList(
-					   lv3_orderentrylist
+					   lv3_orderentrylist1
 				));
 		RoleModel role_manager = buildRole("manager", "店长", "店长", 
 				Arrays.asList(

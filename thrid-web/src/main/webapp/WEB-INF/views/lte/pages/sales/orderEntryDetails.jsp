@@ -38,7 +38,7 @@
       </sec:authorize>
       </c:if>
       <c:if test="${orderEntry.status == 20}">
-      <sec:authorize access="hasAnyRole('ROLE_ADMIN','ROLE_FACTORY')">
+      <sec:authorize access="hasAnyRole('ROLE_ADMIN','ROLE_DESIGNER')">
       <div class="col-lg-1 col-md-1 pull-right">
          <a onclick="ACC.sizeorder.factoryApprove()" class="btn btn-app">
           <i class="fa fa-save"></i> 
