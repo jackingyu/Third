@@ -76,6 +76,8 @@ public class DefaultOrderProcessService implements OrderProcessService {
 	        orderProcessRecordModel.setProcessTime(processTime);
 		    orderProcessRecordModel.setName(customerName);
 		    orderProcessRecordModel.setProductCode(oem.getProduct().getCode());
+		    orderProcessRecordModel.setProductTitle(oem.getProduct().getProducttitle());
+		    orderProcessRecordModel.setQuantity(oem.getQuantity());
 		    orderProcessRecordModel.setSizeOrderExternalId(oem.getExternalId());
 		    orderProcessRecordModel.setSizeOrderPk(oem.getPk());
 		    orderProcessRecordModel.setStoreCode(storeCode);
