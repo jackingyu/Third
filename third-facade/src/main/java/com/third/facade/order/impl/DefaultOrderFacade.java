@@ -306,7 +306,8 @@ public class DefaultOrderFacade implements OrderFacade {
 		orderEntry.setStyle(orderEntryData.getStyle());
 		orderEntry.setCustomerName(orderEntryData.getCustomerName());
 		orderEntry.setExternalId(orderEntryData.getExternalId());
-
+        orderEntry.setProductTitle(orderEntryData.getProductTitle());
+        
 		if (StringUtils.isNotEmpty(orderEntryData.getProduct().getCode()))
 		{
 			ProductModel product = productService

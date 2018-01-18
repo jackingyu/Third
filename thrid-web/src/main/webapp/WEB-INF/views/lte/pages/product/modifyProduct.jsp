@@ -14,7 +14,14 @@
       <div class="row">
        <div class="col-lg-8 col-md-8 col-sm-6 col-xs-6">
       <h1>
-        <spring:message code="lte.modifyproduct.title"></spring:message>
+       <c:choose>
+	      <c:when test="${readonly}">
+		    <spring:message code="lte.modifyproduct.title"></spring:message>
+	      </c:when>
+	      <c:otherwise>
+		     <spring:message code="lte.modifyproduct.title1"></spring:message>
+	      </c:otherwise>
+       </c:choose>
       </h1>
       </div>
       <div class="col-lg-4 col-md-4">
