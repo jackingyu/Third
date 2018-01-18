@@ -114,6 +114,9 @@ public abstract class AbstractPageController {
 		List<ComboboxData> stores = new ArrayList<ComboboxData>();
 		List<StoreData> storeDatas = userFacade.getCurrentUser().getStores();
 
+		if(CollectionUtils.isEmpty(storeDatas))
+		    return;
+		
 		for (int i = 0; i < storeDatas.size(); i++)
 		{
 			StoreData s = storeDatas.get(i);
