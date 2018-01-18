@@ -4,6 +4,8 @@ import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.commons.lang3.RandomUtils;
+
 import com.third.dao.order.OrderDao;
 import com.third.dao.order.OrderEntryDao;
 import com.third.dao.util.PaginationSupport;
@@ -56,6 +58,7 @@ public class DefaultOrderService implements OrderService {
 	{
 		String orderPK = orderEntry.getOrder().getPk();
 		Integer numberOfEntry = orderEntryDao.countOrderEntryByOrder(orderPK);
+		orderEntry.setPk(Long.valueOf(System.currentTimeMillis())+Integer.toString(RandomUtils.nextInt(0, 1000)));
 		orderEntry.setEntryNo(numberOfEntry);
 		orderEntry.setCreateTime(new Date());
 		orderEntryDao.save(orderEntry);
