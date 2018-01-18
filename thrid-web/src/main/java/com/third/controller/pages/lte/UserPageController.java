@@ -155,7 +155,7 @@ public class UserPageController extends AbstractPageController {
 
 		model.addAttribute("message", "保存成功!");
 
-		return REDIRECT_PREFIX + "/user/modifyuserpage/" + userId;
+		return REDIRECT_PREFIX + "/user/modifyuserpage/" + URLEncoder.encode(userId,"utf-8");
 		//URLEncoder.encode(java.net.URLEncoder.encode(userId,"UTF-8")  ,"UTF-8");
 	}
 
