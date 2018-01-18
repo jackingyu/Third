@@ -50,6 +50,7 @@ public class TextMapperUtils {
     public static List<ComboboxData> getOrderStatus()
     {
         List<ComboboxData> results = new ArrayList<ComboboxData>();
+
         TextMapper.OrderStatus.entrySet().forEach(s -> {
             ComboboxData combobox = new ComboboxData();
             combobox.setCode(s.getKey());

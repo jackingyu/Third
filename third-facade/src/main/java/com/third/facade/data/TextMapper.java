@@ -1,6 +1,7 @@
 package com.third.facade.data;
 
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 
 import com.third.core.constants.CoreConstants;
 
@@ -11,7 +12,7 @@ public class TextMapper {
 	public static HashMap<String, String> ItemCategory = new HashMap<String, String>();
 	public static HashMap<String, String> SizeAttributeGroup = new HashMap<String, String>();
 	public static HashMap<String, String> ReservationChannel = new HashMap<String, String>();
-	public static HashMap<String, String> OrderStatus = new HashMap<String, String>();
+	public static HashMap<String, String> OrderStatus = new LinkedHashMap<String, String>();
 	public static HashMap<String, String> OrderStatus4Cust = new HashMap<String, String>();
 	public static HashMap<String, String> ItemCategory2Category = new HashMap<String, String>();
 
