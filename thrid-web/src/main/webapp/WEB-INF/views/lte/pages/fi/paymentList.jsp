@@ -7,6 +7,7 @@
 <template:page>
 	<jsp:attribute name="pageScripts">
 	   <script src="${lteResourcePath}/js/acc.paymentlist.js"></script>
+	   <script src="${lteResourcePath}/js/acc.message.js"></script>
 	</jsp:attribute>
 	<jsp:body>
     <!-- Content Header (Page header) -->
@@ -18,9 +19,14 @@
       </h1>
       </div>
       
-      <div class="col-lg-4 col-md-4">
+      <div class="col-lg-2 col-md-2">
       <a onclick="ACC.paymentList.query()" class="btn btn-app">
           <i class="fa fa-search"></i>  <spring:message code="lte.search"></spring:message>
+       </a>
+      </div>
+        <div class="col-lg-2 col-md-2">
+      <a onclick="ACC.paymentList.exportExcel()" class="btn btn-app">
+          <i class="fa fa-download"></i>  <spring:message code="lte.export"></spring:message>
        </a>
       </div>
       </div>

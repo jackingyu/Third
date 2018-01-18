@@ -1,11 +1,14 @@
 package com.third.controller.pages.lte;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.lang3.StringUtils;
 import org.apache.log4j.Logger;
@@ -24,6 +27,7 @@ import com.third.facade.data.DTResults;
 import com.third.facade.data.StoreData;
 import com.third.facade.store.FIReportFacade;
 import com.third.facade.user.UserFacade;
+import com.third.facade.utils.ExcelUtils;
 
 @Controller
 public class FIReportController extends AbstractPageController {
@@ -211,6 +215,70 @@ public class FIReportController extends AbstractPageController {
                 criterias.getStart(), criterias.getLength(), sp);
 
         return r;
+    }
+    @RequestMapping(value = "/payment/export")
+    public void export(
+            @RequestParam(value = "storeCodes", required = false) final String[] storeCodes,
+            @RequestParam(value = "sourcePKs", required = false) final String[] sourcePKs,
+            @RequestParam(value = "paymentMethods", required = false) final String[] paymentMethods,
+            @RequestParam(value = "orderStatus", required = false) final String[] orderStatus,
+            @RequestParam(value = "salesPersons", required = false) final String[] salesPersons,
+            @RequestParam(value = "startDate", required = false) @DateTimeFormat(pattern = "yyyy-MM-dd") Date startDate,
+            @RequestParam(value = "endDate", required = false) @DateTimeFormat(pattern = "yyyy-MM-dd") Date endDate,
+            final HttpServletRequest request,
+            final HttpServletResponse response)
+    {
+        
+        Map<String, String[]> sp = new HashMap<String, String[]>();
+        
+        sp.put("sourcePKs", sourcePKs);
+        sp.put("paymentMethods", paymentMethods);
+        
+        
+        if (storeCodes == null || storeCodes.length == 0)
+        {
+            List<StoreData> stores = userFacade.getCurrentUser().getStores();
+            String[] userStoreCodes = new String[stores.size()];
+            for (int i = 0; i < stores.size(); i++)
+            {
+                userStoreCodes[i] = stores.get(i).getCode();
+            }
+            
+            sp.put("storeCodes", userStoreCodes);
+        }else
+            sp.put("storeCodes", storeCodes);
+        
+        if (this.isSales())
+        {
+            String[] sales = { userFacade.getCurrentUser().getUserId() };
+            sp.put("salesPersons", sales);
+        } else
+        {
+            sp.put("salesPersons", salesPersons);
+        }
+        
+        //if query order and set order status to all
+        boolean ifAll = false;
+        for(int i = 0; i < orderStatus.length;i++)
+        {
+            if(Integer.valueOf(orderStatus[i])<0)
+            {
+                ifAll = true;
+                break;
+            }
+        }
+        
+        if(!ifAll)
+            sp.put("orderStatus", orderStatus);
+        
+        DTResults r = fiReportFacade.getPaymentList(startDate, endDate,
+                0, 100000, sp);
+        
+        
+        List<Object[]> data = r.getData();
+        String[] headerNames = {"门店","顾客","订单编码","销售员","付款方式","付款金额","付款日期","订单总金额","订单已付","订单剩余","订单日期","客户来源"};
+        ExcelUtils.exportToExcel1("报表","财务报表",headerNames,data, request,response);
+        
     }
     
     @RequestMapping(value = "/payment/getsummary")

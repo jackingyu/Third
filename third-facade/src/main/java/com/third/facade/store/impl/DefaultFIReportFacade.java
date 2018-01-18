@@ -9,6 +9,7 @@ import java.util.Map;
 import org.apache.commons.lang3.ArrayUtils;
 
 import com.third.core.constants.CoreConstants;
+import com.third.dao.util.PaginationSupport;
 import com.third.facade.data.DTResults;
 import com.third.facade.store.FIReportFacade;
 import com.third.facade.utils.DTResultConvertor;
@@ -27,8 +28,12 @@ public class DefaultFIReportFacade implements FIReportFacade {
 	public DTResults getPaymentList(Date startDate, Date endDate,
 			Integer startIndex, Integer pageSize, Map<String, String[]> sp)
 	{
-		DTResults result = DTResultConvertor.convertPS2DT(paymentService
-				.getPayments(startDate, endDate, startIndex, pageSize, sp));
+	    PaginationSupport ps = paymentService.getPayments(startDate, endDate, startIndex, pageSize, sp);
+	    List<Object[]> r = ps.getItems();
+	    r.forEach(ri->{
+	        ri[4] = TextMapperUtils.getPaymentMethodText(ri[4].toString());
+	    });
+		DTResults result = DTResultConvertor.convertPS2DT(ps);
 
 		return result;
 	}
