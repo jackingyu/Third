@@ -45,7 +45,11 @@ public class DefaultSalesQuotationFacade implements SalesQuotationFacade {
 			salesQuotation = salesQuotationService
 					.getSalesQuotation(salesQuotationData.getPk());
 		else
+		{
 			salesQuotation = new SalesQuotationModel();
+			salesQuotation.setCreateTime(new Date());
+			salesQuotation.setCreateDate(new Date());
+		}
 
 		salesQuotation.setCellphone(salesQuotationData.getCellphone());
 		salesQuotation.setCustomerName(salesQuotationData.getCustomerName());
@@ -153,7 +157,7 @@ public class DefaultSalesQuotationFacade implements SalesQuotationFacade {
 			customerService.createCustomer(customer);
 		}
 		
-		so.setCode(new Date().toString());
+		so.setCode(Long.toString(System.currentTimeMillis()));
 		so.setCoSalesperson(sq.getCoSalesperson());
 		so.setCustomerName(sq.getCustomerName());
 		so.setDeliveryDate(sq.getDeliveryDate());
@@ -164,7 +168,7 @@ public class DefaultSalesQuotationFacade implements SalesQuotationFacade {
 		so.setStore(store);
 		so.setCustomer(customer);
 		so.setPaidamount(sq.getPaidamount());
-		
+		so.setSource(sq.getSource());
 		PaymentModel pm = new PaymentModel();
 		pm.setAmount(sq.getPaidamount());
 		pm.setPaymentMethod(sq.getPaymentMethod());

@@ -6,12 +6,18 @@ ACC.modifyorder = {
   	window.open(ACC.config.contextPath+"/orderentry/modifyentrypage/"+orderEntryPK);
   },
   storeApprove:function(){
+	 if(!$('#orderForm').valid())
+		return;
+	 
   	 ACC.modifyorder.approveOrder("10");
   },
   fiApprove:function(){
     ACC.modifyorder.approveOrder("20");
   },
   approveOrder:function(toStatus){
+	if(!$('#orderForm').valid())
+	    return;
+	
 	if($('#paymentGrid').DataTable().rows().data().length <= 0)
 	{
 		ACC.message.alert("无付款记录,无法进行审批!");

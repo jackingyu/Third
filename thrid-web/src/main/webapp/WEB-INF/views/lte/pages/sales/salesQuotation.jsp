@@ -82,7 +82,7 @@
 		<div class="row">
 			<div class="col-lg-4 cl-md-4 cl-sm-12 cl-xs-12">
 				<label><spring:message code="lte.salesquotation.deliverydate"></spring:message></label>
-		        <common:datepicker value="${sq.deliveryDate}" name="deliveryDate" id="deliverydate"/>
+		        <common:datepicker value="${sq.deliveryDate}" validator="required" name="deliveryDate" id="deliverydate"/>
 			</div>
 			<div class="col-lg-4 cl-md-4 cl-sm-12 cl-xs-12">
 				<label><spring:message code="lte.salesquotation.cosalesperson"></spring:message></label>
@@ -101,7 +101,7 @@
 			</div>
 			<div class="col-lg-4 cl-md-4 cl-sm-12 cl-xs-12">
 				<label><spring:message code="lte.salesquotation.cellphone"></spring:message></label>
-				 <input  name="cellphone" class="form-control required" placeholder="" type="text" value="${sq.cellphone}">
+				 <input  name="cellphone" class="form-control required cellphone" placeholder="" type="text" value="${sq.cellphone}">
 			</div>
 		</div>
 		

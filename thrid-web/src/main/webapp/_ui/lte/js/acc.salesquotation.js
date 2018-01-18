@@ -13,20 +13,38 @@ ACC.salesquotation = {
 	},
 	init : function() {
 		$('#photodate').datepicker({
-			autoclose : true
+			autoclose : true,
+			locale : {
+				format : 'YYYY/MM/DD'
+			},
+			language : 'zh-CN'
 		});
 
 		$('#trydate').datepicker({
-			autoclose : true
+			autoclose : true,
+			locale : {
+				format : 'YYYY/MM/DD'
+			},
+			language : 'zh-CN'
 		});
 
 		$('#deliverydate').datepicker({
-			autoclose : true
+			autoclose : true,
+			locale : {
+				format : 'YYYY/MM/DD'
+			},
+			language : 'zh-CN'
 		});
 
 		$('#weddingdate').datepicker({
-			autoclose : true
+			autoclose : true,
+			locale : {
+				format : 'YYYY/MM/DD'
+			},
+			language : 'zh-CN'
 		});
+		
+		$('#salesQuotationForm').validate();
 	}
 }
 
