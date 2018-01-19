@@ -60,8 +60,8 @@
               <table id="customerGrid" class="table table-bordered table-hover">
                 <thead>
                 <tr>
-                  <th><spring:message code="lte.customerlist.customername"></spring:message></th>
                   <th><spring:message code="lte.customerlist.cellphone"></spring:message></th>
+                  <th><spring:message code="lte.customerlist.customername"></spring:message></th>
                   <th><spring:message code="lte.customerlist.weddingdate"></spring:message></th>
                   <th><spring:message code="lte.customerlist.source"></spring:message></th>
                   <th><spring:message code="lte.operation"></spring:message></th>

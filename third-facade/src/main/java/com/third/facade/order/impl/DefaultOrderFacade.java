@@ -744,17 +744,17 @@ public class DefaultOrderFacade implements OrderFacade {
 		});
 
 //select e.itemCategory,e.externalId,e.deliveryDate,e.customerName,e.product.code,e.style,e.comment,e.sizeDetails
-		Object[] title1 = {"量身单号码","系统编码","门店","取件日","顾客姓名","布料","布料补充说明","款式","试装日","实际试装日"};
+		Object[] title1 = {"量身单号码","系统编码","门店","取件日","顾客姓名","布料","布料补充说明","备注","款式","试装日","实际试装日"};
 		Object[] title= ArrayUtils.addAll(title1,sizeAttributesSorter.keySet().toArray());
 		int arrayLength = sizeAttributes.size();
 		exportResults.add(title);
 		
 		datas.forEach(d -> {
-			Object[] basicInformation =  Arrays.copyOfRange(d, 0, 10);
+			Object[] basicInformation =  Arrays.copyOfRange(d, 0, 11);
 			Object[] sizeDataArrays = new String[arrayLength];
 
 			List<SizeAttributeData> attributeDatas = JSON
-					.parseArray(d[10].toString(), SizeAttributeData.class);
+					.parseArray(d[11].toString(), SizeAttributeData.class);
 			HashMap<String, String> attrDataMap = new HashMap<String, String>();
 
 			for (SizeAttributeData attrData : attributeDatas)

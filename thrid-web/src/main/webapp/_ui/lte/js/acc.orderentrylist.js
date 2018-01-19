@@ -21,7 +21,7 @@ ACC.orderEntryList = {
 		if(tryDate.length > 0&&tryDate[0]!='NaN-aN-aN')
 	    {
 		  d.startTryDate = tryDate[0];
-		  d.endTryDate = moment(tryDate[1]).add(1,'days').format('YYYY-MM-DD');
+		  d.endTryDate = tryDate[1];//moment(tryDate[1]).add(1,'days').format('YYYY-MM-DD');
 	    }
 		
 		var actualTryDate = getDate4Range($("#actualTryDate").val());
@@ -29,7 +29,7 @@ ACC.orderEntryList = {
 		if(actualTryDate.length > 0&&actualTryDate[0]!='NaN-aN-aN')
 		{
 			d.startActualTryDate = actualTryDate[0];
-			d.endActualTryDate = moment(actualTryDate[1]).add(1,'days').format('YYYY-MM-DD');
+			d.endActualTryDate = actualTryDate[1];//moment(actualTryDate[1]).add(1,'days').format('YYYY-MM-DD');
 		}
 		
 		var url = ACC.config.contextPath + '/orderentry/export?externalId='+d.externalId
@@ -59,14 +59,14 @@ ACC.orderEntryList = {
 							var deliveryDate = getDate4Range($("#deliveryDate")
 									.val());
 							d.startDate = deliveryDate[0];
-							d.endDate = moment(deliveryDate[1]).add(1,'days').format('YYYY-MM-DD');
+							d.endDate = deliveryDate[1];//moment(deliveryDate[1]).add(1,'days').format('YYYY-MM-DD');
 							
 							var tryDate = getDate4Range($("#tryDate")
 									.val());
 							if(tryDate.length > 0&&tryDate[0]!='NaN-aN-aN')
 						    {
 							  d.startTryDate = tryDate[0];
-							  d.endTryDate = moment(tryDate[1]).add(1,'days').format('YYYY-MM-DD');
+							  d.endTryDate = tryDate[1];//moment(tryDate[1]).add(1,'days').format('YYYY-MM-DD');
 						    }
 							
 							var actualTryDate = getDate4Range($("#actualTryDate").val());
@@ -74,7 +74,7 @@ ACC.orderEntryList = {
 							if(actualTryDate.length > 0&&actualTryDate[0]!='NaN-aN-aN')
 							{
 								d.startActualTryDate = actualTryDate[0];
-								d.endActualTryDate = moment(actualTryDate[1]).add(1,'days').format('YYYY-MM-DD');
+								d.endActualTryDate = actualTryDate[1];//moment(actualTryDate[1]).add(1,'days').format('YYYY-MM-DD');
 							}
 							
 							
