@@ -16,7 +16,7 @@
 		<property column="birthday" lazy="false" name="birthday"
 			type="java.util.Date" />
 		<property column="weddingdate" lazy="false" name="weddingDate"
-			type="java.util.Date" />
+			type="java.sql.Date" />
 		<property column="comment" lazy="false" name="comment"
 			type="java.lang.String" />
 		<property column="email" lazy="false" name="email" type="java.lang.String" />

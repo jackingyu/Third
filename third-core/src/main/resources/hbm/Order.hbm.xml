@@ -17,14 +17,14 @@
 		<property column="contactinfo" lazy="false" name="contactinfo"
 			type="java.lang.String" />
 		<property column="weddingdate" lazy="false" name="weddingDate"
-			type="java.util.Date" />
+			type="java.sql.Date" />
 		<property column="trydate" lazy="false" name="tryDate" type="java.util.Date" />
 		<property column="photodate" lazy="false" name="photoDate"
-			type="java.util.Date" />
+			type="java.sql.Date" />
 		<property column="deliverydate" lazy="false" name="deliveryDate"
-			type="java.util.Date" />
+			type="java.sql.Date" />
 		<property column="orderdate" lazy="false" name="orderDate"
-			type="java.util.Date" />
+			type="java.sql.Date" />
 		<property column="cosalesperson" lazy="false" name="coSalesperson"
 			type="java.lang.String" />
 		<property column="comment" lazy="false" name="comment"
