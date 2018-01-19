@@ -42,6 +42,7 @@ import com.third.facade.data.UserData;
 import com.third.facade.order.OrderFacade;
 import com.third.facade.populator.option.OrderOption;
 import com.third.facade.user.UserFacade;
+import com.third.facade.utils.ExcelUtils;
 import com.third.facade.utils.TextMapperUtils;
 
 @Controller
@@ -95,6 +96,39 @@ public class OrderPageController extends AbstractPageController {
 				criterias.getStart(), criterias.getLength(), sp);
 
 		return r;
+	}
+	
+	@RequestMapping(value = "/order/export")
+	public void exportOrderList(
+	        @RequestParam(value = "orderCode", required = false) final String orderCode,
+	        @RequestParam(value = "cellphone", required = false) final String cellphone,
+	        @RequestParam(value = "customerName", required = false) final String name,
+	        @RequestParam(value = "orderDate", required = false)@DateTimeFormat(pattern = "yyyy-MM-dd") final String orderDate,
+	        @RequestParam(value = "storeCodes", required = false) final String storeCodes,
+	        @RequestParam(value = "orderStatus", required = false) final String orderStatus,
+	        @RequestParam(value = "startDate", required = false) @DateTimeFormat(pattern = "yyyy-MM-dd") Date startDate,
+	        @RequestParam(value = "endDate", required = false) @DateTimeFormat(pattern = "yyyy-MM-dd") Date endDate,
+	        final HttpServletRequest request,
+            final HttpServletResponse response)
+	{
+	    Map<String, String> sp = new HashMap<String, String>();
+	    sp.put("cellphone", cellphone);
+	    sp.put("orderCode", orderCode);
+	    sp.put("name", name);
+	    sp.put("orderDate", orderDate);
+	    
+	    if(StringUtils.isNotEmpty(orderStatus)&&Integer.valueOf(orderStatus) >= 0)
+	        sp.put("orderStatus", orderStatus);
+	    
+	    sp.put("storeCodes", storeCodes);
+	    
+	    DTResults r = orderFacade.getOrders(startDate, endDate,
+	            0, 10000, sp);
+        
+        
+        List<Object[]> data = r.getData();
+        String[] headerNames = {"订单号码","顾客姓名","手机号码","门店","取件日","订单状态","总金额","已付金额","剩余金额","销售员","合作销售员","客户来源"};
+        ExcelUtils.exportToExcel1("报表","财务报表",headerNames,data, request,response);
 	}
 
 	

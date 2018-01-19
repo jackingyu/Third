@@ -193,7 +193,7 @@ public class DefaultOrderFacade implements OrderFacade {
 		order.setDeliveryDate(orderData.getDeliveryDate());
 		order.setOrderDate(orderData.getOrderDate());
 		order.setPhotoDate(orderData.getPhotoDate());
-
+       
 		if (orderData.getSource() != null)
 			order.setSource(
 					sourceService.getSource(orderData.getSource().getPk()));

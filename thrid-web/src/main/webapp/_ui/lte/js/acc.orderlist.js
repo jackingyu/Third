@@ -2,6 +2,38 @@ ACC.orderList = {
   query: function () {
     $('#orderGrid').dataTable().fnDraw();
   },
+  exportExcel:function() {
+		var d = {};
+		formData = getQuery('orderListForm');
+        d.orderCode = formData.orderCode;
+        d.customerName = formData.customerName;
+        d.cellphone = formData.cellphone;
+       
+        var orderDate = $('#orderDate').datepicker('getDate');
+       
+        var deliveryDate = getDate4Range($("#deliveryDate").val());
+        d.startDate = deliveryDate[0];
+        d.endDate = deliveryDate[1];
+     
+        d.storeCodes = $('#storeCodes').val()!=null?$('#storeCodes').val().toString():'';
+        d.orderStatus = formData.orderStatus;
+		
+		var url = ACC.config.contextPath + '/order/export?&startDate='+d.startDate
+		          +"&endDate="+d.endDate
+		          +"&customerName="+d.customerName
+		          +"&orderStatus="+d.orderStatus
+		          +"&storeCodes="+d.storeCodes
+		          +"&orderCode="+d.orderCode
+		          +"&cellphone="+d.cellphone
+		
+		if(!isNaN(orderDate))
+	    {
+		   d.orderDate = new Date(orderDate).Format('yyyy-MM-dd');
+	       url = url +"&orderDate="+d.orderDate;
+	    }
+		  
+		window.open(url);
+  },
   init: function ()
   {
     $('#orderGrid').DataTable({

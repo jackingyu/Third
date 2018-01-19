@@ -17,11 +17,16 @@
         <spring:message code="lte.orderlist.title"></spring:message>
       </h1>
       </div>
-      <div class="col-lg-4 col-md-4">
+      <div class="col-lg-2 col-md-2">
       <a onclick="ACC.orderList.query()" class="btn btn-app">
           <i class="fa fa-search"></i>  <spring:message code="lte.search"></spring:message>
        </a>
       </div>
+       <div class="col-lg-2 col-md-2">
+       <a onclick="ACC.orderList.exportExcel()" class="btn btn-app">
+          <i class="fa fa-download"></i>  <spring:message code="lte.export"></spring:message>
+       </a>
+       </div>
       </div>
     </section>
     <section class="content-header">

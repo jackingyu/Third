@@ -44,7 +44,7 @@
 			</div>
 			<div class="col-lg-3 cl-md-3 cl-sm-12 cl-xs-12">
 				<label><spring:message code="lte.order.basic.cosalesperson"></spring:message></label>
-				<input name="coSalesPerson" value="${orderData.coSalesperson}"
+				<input name="coSalesperson" value="${orderData.coSalesperson}"
 					class="form-control" placeholder="" type="text">
 			</div>
 			<div class="col-lg-3 cl-md-3 cl-sm-12 cl-xs-12">
