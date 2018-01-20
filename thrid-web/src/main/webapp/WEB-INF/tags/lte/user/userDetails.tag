@@ -38,7 +38,7 @@
 			</div>
 			
 			<div class="form-group">
-				<common:selection2   data="${stores}" label="lte.user.store"  multiple="true" name="stores"></common:selection2>
+				<common:selection2 id="storeCodes"  data="${stores}" label="lte.user.store"  multiple="true" name="stores"></common:selection2>
 			</div>
 			<div class="form-group">
 				<common:selection2  data="${stores}" label="lte.user.store1"  value="${user.store.code}" name="store"></common:selection2>
