@@ -10,7 +10,8 @@
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>Third</title>
+  <link rel="shortcut icon" href="${contextPath}/_ui/images/favicon.png" type="image/x-icon">
+  <title>Blaimar</title>
   <!-- Tell the browser to be responsive to screen width -->
   <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
   <template:css/>
@@ -25,18 +26,18 @@
 <body class="hold-transition login-page">
 <div class="login-box">
   <div class="login-logo">
-    <a><b>T</b>hird</a>
+    <a><b><spring:message code="lte.title1"/></b><spring:message code="lte.title2"/></a>
   </div>
   <!-- /.login-logo -->
   <div class="login-box-body">
     <p class="login-box-msg"><spring:message code="lte.loginhint"></spring:message></p>
    <form action="<c:url value='/j_spring_security_check' />"  method="post">
       <div class="form-group has-feedback">
-        <input type="text" name="username" class="form-control" placeholder="username">
+        <input type="text" name="username" class="form-control" placeholder="<spring:message code="lte.login.username"/>">
         <span class="fa fa-user form-control-feedback"></span>
       </div>
       <div class="form-group has-feedback">
-        <input type="password" name="password" class="form-control" placeholder="Password">
+        <input type="password" name="password" class="form-control" placeholder="<spring:message code="lte.login.password"/>">
         <span class="glyphicon glyphicon-lock form-control-feedback"></span>
       </div>
       <div class="row">
