@@ -40,6 +40,7 @@ public class OrderEntryDataPopulator
         target.setActualTryDate(source.getActualTryDate());
         target.setComment(source.getComment());
         target.setOrderCode(source.getOrder().getCode());
+        target.setOrderPK(source.getOrder().getPk());
         target.setCustomerName(StringUtils.isBlank(source.getCustomerName())
                 ? source.getOrder().getCustomerName()
                 : source.getCustomerName());

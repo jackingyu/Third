@@ -28,6 +28,7 @@ public class OrderEntryData extends AbstractData {
 	private UserData createBy;
 	private UserData salesperson;
 	private String orderCode;
+	private String orderPK;
 	private String customerName;
 	private Map<String, SizeAttributeGroupData> sizeDatas;
 	private String sizeImageUrl;
@@ -304,5 +305,15 @@ public class OrderEntryData extends AbstractData {
     public void setActualTryDate(Date actualTryDate)
     {
         this.actualTryDate = actualTryDate;
+    }
+
+    public String getOrderPK()
+    {
+        return orderPK;
+    }
+
+    public void setOrderPK(String orderPK)
+    {
+        this.orderPK = orderPK;
     }
 }

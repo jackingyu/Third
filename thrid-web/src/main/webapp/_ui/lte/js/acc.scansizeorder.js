@@ -3,7 +3,7 @@ ACC.scansizeorder = {
 		var d = {};
 		formData = getQuery('sizeOrderForm');
 		d.externalId = formData.externalId==undefined?"":formData.externalId;
-		d.entryPk = formData.entryPk==undefined?"":formData.entryPk;
+		d.entryPK = formData.entryPK==undefined?"":formData.entryPK;
 		$.ajax({
 	  	      type: 'POST',
 	  	      url: ACC.config.contextPath + '/orderentry/updateactualtrydate',

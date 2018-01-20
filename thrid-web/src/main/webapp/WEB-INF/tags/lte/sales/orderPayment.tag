@@ -32,6 +32,6 @@
           </div>
           <!-- /.modal-dialog -->
         </div>
-        <input name="orderCode" value="${orderCode}" type="hidden"></input>
+        <input name="orderPK" value="${orderPK}" type="hidden"></input>
 </form>
         

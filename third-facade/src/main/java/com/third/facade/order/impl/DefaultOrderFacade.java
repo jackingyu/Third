@@ -178,9 +178,12 @@ public class DefaultOrderFacade implements OrderFacade {
 		if (StringUtils.isBlank(orderData.getPk()))
 			return;
 
-		OrderModel order = orderService
-				.getOrderForCode(orderData.getOrderCode());
+		OrderModel order = orderService.getOrderForPk(orderData.getPk());
 
+		//只有新建状态的订单允许更新orderCode
+		if(order.getStatus()==CoreConstants.OrderStatus.NEW)
+		order.setCode(orderData.getOrderCode());
+		
 		order.setCellphone(orderData.getCellphone());
 		order.setComment(orderData.getComment());
 		order.setCoSalesperson(orderData.getCoSalesperson());
@@ -189,11 +192,11 @@ public class DefaultOrderFacade implements OrderFacade {
 		order.setCustomer(customer);
 		order.setCustomerName(orderData.getCustomerName());
 		order.setContactinfo(orderData.getContactinfo());
-
+        order.setCode(orderData.getOrderCode());
 		order.setDeliveryDate(orderData.getDeliveryDate());
 		order.setOrderDate(orderData.getOrderDate());
 		order.setPhotoDate(orderData.getPhotoDate());
-       
+	    order.setReceiveable(BigDecimal.valueOf(Double.valueOf(orderData.getReceiveable())));
 		if (orderData.getSource() != null)
 			order.setSource(
 					sourceService.getSource(orderData.getSource().getPk()));
@@ -262,8 +265,7 @@ public class DefaultOrderFacade implements OrderFacade {
 		orderEntry.setExternalId(orderEntryData.getExternalId());
 		orderEntry.setStatus(0);
 
-		OrderModel order = orderService
-				.getOrderForCode(orderEntryData.getOrderCode());
+		OrderModel order = orderService.getOrderForPk(orderEntryData.getOrderPK());
 		orderEntry.setOrder(order);
 		orderEntry.setCreatedBy(userService.getCurrentUser());
 		orderEntry.setDeliveryDate(order.getDeliveryDate());
@@ -454,8 +456,7 @@ public class DefaultOrderFacade implements OrderFacade {
 	@Override
 	public String[] createPayment(PaymentData payment)
 	{
-		OrderModel orderModel = orderService
-				.getOrderForCode(payment.getOrderCode());
+		OrderModel orderModel = orderService.getOrderForPk(payment.getOrderPK());
 		Integer paymentEntryNo = orderModel.getPayments().size();
 
 		PaymentModel paymentModel = new PaymentModel();

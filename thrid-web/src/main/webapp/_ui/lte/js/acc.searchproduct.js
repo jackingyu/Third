@@ -17,6 +17,7 @@ ACC.searchproduct = {
       $('#productSearchGrid').dataTable().fnDraw();
     });
     $('#productSearchGrid').DataTable({
+    	  'pageLength':6,
       'ajax': {
         'url': ACC.config.contextPath + '/product/productlist',
         'data': function (d) {

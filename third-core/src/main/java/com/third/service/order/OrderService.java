@@ -10,6 +10,8 @@ import com.third.model.OrderModel;
 
 public interface OrderService {
 	OrderModel getOrderForCode(final String orderCode);
+	
+	OrderModel getOrderForPk(final String pk);
 
 	void createOrder(final OrderModel order);
 

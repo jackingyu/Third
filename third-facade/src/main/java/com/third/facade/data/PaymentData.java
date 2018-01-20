@@ -11,6 +11,7 @@ public class PaymentData extends AbstractData {
 	private BigDecimal amount;
 	private Date paidTime;
 	private String orderCode;
+	private String orderPK;
 	private String storeCode;
 
 	public String getPaymentMethod()
@@ -92,5 +93,15 @@ public class PaymentData extends AbstractData {
 	{
 		this.paymentTypeText = paymentTypeText;
 	}
+
+    public String getOrderPK()
+    {
+        return orderPK;
+    }
+
+    public void setOrderPK(String orderPK)
+    {
+        this.orderPK = orderPK;
+    }
 
 }

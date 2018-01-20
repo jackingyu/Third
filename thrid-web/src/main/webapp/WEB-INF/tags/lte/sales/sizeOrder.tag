@@ -20,7 +20,9 @@
 					<div class="col-md-4 col-lg-4 col-xs-12 col-sm-12 ">
 						<label><spring:message code="lte.orderentry.ordercode"></spring:message></label>
 					    <a href="${contextPath}/order/modifyorderpage/${orderEntry.orderCode}">${orderEntry.orderCode}<input readonly="readonly" name="orderCode" value="${orderEntry.orderCode}"
-							class="form-control" placeholder="" type="text"></a>	
+							class="form-control" placeholder="" type="text">
+							<input name="orderPK" value="${orderEntry.orderPK}" type="hidden">
+							</a>	
 					</div>
 					<div class="col-md-4 col-lg-4 col-xs-12 col-sm-12 ">
 						<label><spring:message code="lte.orderentry.code"></spring:message></label>

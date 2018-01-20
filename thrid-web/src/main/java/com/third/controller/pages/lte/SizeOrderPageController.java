@@ -57,7 +57,7 @@ public class SizeOrderPageController extends AbstractPageController {
 
 	@RequestMapping(value = "/orderentry/createorderentrypage/"
 			+ ORDER_CODE_PATH_VARIABLE_PATTERN, method = RequestMethod.GET)
-	public String createSizeOrderPage(
+	public String getCreateSizeOrderPage(
 			@PathVariable(value = "orderCode") final String orderCode,
 			@RequestParam(value = "itemCategory", required = false) final String itemCategory,
 			Model model)
@@ -83,7 +83,7 @@ public class SizeOrderPageController extends AbstractPageController {
 		orderEntry.setOrderCode(order.getOrderCode());
         orderEntry.setItemCategoryText(TextMapperUtils.getItemCategoryText(itemCategory));
         orderEntry.setItemCategory(itemCategory);
-        
+        orderEntry.setOrderPK(order.getPk());
 		model.addAttribute("message1", "新建"+orderEntry.getItemCategoryText());
 		model.addAttribute("itemCategories",TextMapperUtils.getItemCategories());
 		model.addAttribute("orderEntry", orderEntry);
@@ -168,6 +168,7 @@ public class SizeOrderPageController extends AbstractPageController {
 	@RequestMapping(value = "/orderentry/saveorderentry")
 	public String saveOrderEntry(
 			@RequestParam(value = "orderCode", required = false) final String orderCode,
+			@RequestParam(value = "orderPK", required = false) final String orderPK,
 			@RequestParam(value = "entryPK", required = false) final String entryPK,
 			@RequestParam(value = "itemCategory", required = false) final String itemCategory,
 			@RequestParam(value = "style", required = false) final String style,
@@ -194,6 +195,7 @@ public class SizeOrderPageController extends AbstractPageController {
 		orderEntryData.setStyle(style);
 		orderEntryData.setProductTitle(productTitle);
 		orderEntryData.setQuantity(1);
+		orderEntryData.setOrderPK(orderPK);
 		UserData user = new UserData();
 		user.setUserId(designer);
 		orderEntryData.setDesigner(user);

@@ -168,6 +168,7 @@ public class DefaultSalesQuotationFacade implements SalesQuotationFacade {
 		so.setStore(store);
 		so.setCustomer(customer);
 		so.setPaidamount(sq.getPaidamount());
+		so.setReceiveable(sq.getPaidamount());
 		so.setSource(sq.getSource());
 		PaymentModel pm = new PaymentModel();
 		pm.setAmount(sq.getPaidamount());

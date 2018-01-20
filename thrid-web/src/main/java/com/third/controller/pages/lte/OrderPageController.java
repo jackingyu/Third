@@ -196,6 +196,7 @@ public class OrderPageController extends AbstractPageController {
 		model.addAttribute("itemCategories",
 				TextMapperUtils.getItemCategories());
 		model.addAttribute("orderData", orderData);
+		model.addAttribute("orderPK", orderData.getPk());
 		model.addAttribute("statusText", orderData.getStatusText());
 		if(StringUtils.isNotEmpty(message))
 		model.addAttribute("message",message);
@@ -210,7 +211,7 @@ public class OrderPageController extends AbstractPageController {
 	@RequestMapping(value = "/order/addpayment", method = RequestMethod.POST)
 	@ResponseBody
 	public Object addPayment(
-			@RequestParam(value = "orderCode", required = true) final String orderCode,
+			@RequestParam(value = "orderPK", required = true) final String orderPK,
 			@RequestParam(value = "paymentMethod", required = true) final String paymentMethod,
 			@RequestParam(value = "paymentType", required = true) final String paymentType,
 			@RequestParam(value = "amount", required = true) final BigDecimal amount,
@@ -219,7 +220,7 @@ public class OrderPageController extends AbstractPageController {
 	{
 		PaymentData payment = new PaymentData();
 		payment.setAmount(amount);
-		payment.setOrderCode(orderCode);
+		payment.setOrderPK(orderPK);
 		payment.setPaidTime(new Date());
 		payment.setPaymentMethod(paymentMethod);
 		payment.setPaymentType(paymentType);

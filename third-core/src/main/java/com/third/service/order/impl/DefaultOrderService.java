@@ -22,6 +22,12 @@ public class DefaultOrderService implements OrderService {
 	{
 		return orderDao.findOrder(orderCode);
 	}
+	
+	@Override
+	public OrderModel getOrderForPk(final String orderPK)
+	{
+	    return orderDao.get(orderPK);
+	}
 
 	@Override
 	public void createOrder(OrderModel orderModel)

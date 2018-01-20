@@ -33,7 +33,7 @@ ACC.modifyorder = {
   	$.ajax({
       type: 'POST',
       url: ACC.config.contextPath + '/order/updatestatus',
-      data: {'orderCode':$("#orderCode").val(),'toStatus':toStatus}, // 你的formid
+      data: {'orderPK':$("#orderPK").val(),'orderCode':$("#orderCode").val(),'toStatus':toStatus}, // 你的formid
       error: function (request) {
          ACC.message.alert("目标状态不正确,无法让订单进入下一个环节!");
       },
@@ -165,7 +165,7 @@ ACC.modifyorder = {
   init: function () {
      ACC.modifyorder.initPaymentGrid();
      ACC.modifyorder.initEntryGrid();
-     $("#orderCode").attr("readonly","readonly");
+     //$("#orderCode").attr("readonly","readonly");
   }
 }
 

@@ -13,6 +13,7 @@ public class PaymentDataPopulator
 		target.setPk(source.getPk());
 		target.setAmount(source.getAmount());
 		target.setOrderCode(source.getOrder().getCode());
+		target.setOrderPK(source.getOrder().getPk());
 		target.setPaidTime(source.getPaidTime());
 		target.setPaymentType(source.getPaymentType());
 		target.setPaymentMethod(source.getPaymentMethod());
