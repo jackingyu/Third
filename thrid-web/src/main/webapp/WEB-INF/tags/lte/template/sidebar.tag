@@ -9,7 +9,7 @@
     <section class="sidebar">
       <!-- Sidebar user panel -->
       <div class="user-panel" style="padding:0px">
-            <img width="100%" height="100%" src="${contextPath}/_ui/images/ERPLOGO.jpg"  alt="blaimar">
+            <img width="100%" height="43px" src="${contextPath}/_ui/images/ERPLOGO.jpg"  alt="blaimar">
 <!--         <div class="pull-left image"> -->
 <%--           <img src="${contextPath}/_ui/images/favicon.png"  alt="blaimar"> --%>
 <!--         </div> -->
