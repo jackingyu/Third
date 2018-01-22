@@ -12,6 +12,7 @@ import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.commons.lang3.StringUtils;
 import org.apache.log4j.Logger;
 import org.springframework.context.MessageSource;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -58,15 +59,22 @@ public class OrderProcessController extends AbstractPageController {
     @RequestMapping(value = "/order/updatestatus")
     @ResponseBody
     public String processOrder(
-            @RequestParam(value = "orderCode", required = true) final String orderCode,
+            @RequestParam(value = "orderCode", required = false) final String orderCode,
+            @RequestParam(value = "orderPK", required = false) final String orderPK,
             @RequestParam(value = "toStatus", required = true) final Integer toStatus,
             final HttpServletResponse response) throws IOException
     {
         if (isSales() || isManager())
         {
             List<StoreData> stores = userFacade.getCurrentUser().getStores();
-            OrderData orderData = orderFacade.getOrderForOptions(orderCode,
-                    Arrays.asList(OrderOption.BASIC));
+            OrderData orderData = null;
+            if (StringUtils.isEmpty(orderCode))
+                orderData = orderFacade.getOrderForOptionsByPK(orderCode,
+                        Arrays.asList(OrderOption.BASIC));
+            else
+                orderData = orderFacade.getOrderForOptions(orderCode,
+                        Arrays.asList(OrderOption.BASIC));
+
             StoreData store = orderData.getStore();
             int i = 0;
             for (StoreData storeData : stores)
@@ -88,7 +96,11 @@ public class OrderProcessController extends AbstractPageController {
         }
         try
         {
-            orderProcessFacade.processOrder(orderCode, toStatus);
+            if (StringUtils.isNotEmpty(orderCode))
+                orderProcessFacade.processOrder(orderCode, toStatus);
+            else
+                orderProcessFacade.processOrder(orderPK, toStatus);
+            
             return TextMapperUtils.getOrderStatusText(toStatus);
         } catch (NoQualifiedTargetStatusException e)
         {
@@ -148,7 +160,7 @@ public class OrderProcessController extends AbstractPageController {
             final DataTableCriterias criterias) throws IOException
     {
         Map<String, String[]> sp = new HashMap<String, String[]>();
-        
+
         if (storeCodes == null || storeCodes.length == 0)
         {
             List<StoreData> stores = userFacade.getCurrentUser().getStores();

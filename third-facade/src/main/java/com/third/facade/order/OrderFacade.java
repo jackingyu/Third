@@ -75,5 +75,8 @@ public interface OrderFacade {
 			Map<String, String> sp);
 
     void updateOrderEntryActualTryDate(OrderEntryData orderEntryData);
+
+    OrderData getOrderForOptionsByPK(String orderPK,
+            Collection<OrderOption> orderOptions);
 	
 }

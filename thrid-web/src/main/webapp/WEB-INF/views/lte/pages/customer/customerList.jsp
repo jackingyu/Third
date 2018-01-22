@@ -32,6 +32,10 @@
     <section class="content-header">
      <form id="customerListForm">
        <div class="row">
+         <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
+           <label><spring:message code="lte.customerlist.weddingdate"></spring:message></label>
+          <common:datepicker id="weddingDate" name="weddingDate"></common:datepicker>
+         </div>
        <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
          <label><spring:message code="lte.customerlist.cellphone"></spring:message></label>
          <input class="form-control" placeholder="" name="cellphone" type="text">
@@ -40,10 +44,6 @@
          <label><spring:message code="lte.customerlist.customername"></spring:message></label>
          <input class="form-control" placeholder="" name="customerName" type="text">
         </div>
-        <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
-           <label><spring:message code="lte.customerlist.weddingdate"></spring:message></label>
-          <common:datepicker id="weddingDate" name="weddingDate"></common:datepicker>
-         </div>
        </div>
        </form>
     </section>

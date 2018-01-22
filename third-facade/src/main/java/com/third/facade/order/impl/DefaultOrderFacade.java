@@ -171,6 +171,16 @@ public class DefaultOrderFacade implements OrderFacade {
 		orderConfiguredPopulator.populate(order, orderData, orderOptions);
 		return orderData;
 	}
+	
+	@Override
+	public OrderData getOrderForOptionsByPK(String orderPK,
+	        Collection<OrderOption> orderOptions)
+	{
+	    OrderModel order = orderService.getOrderForPk(orderPK);
+	    OrderData orderData = new OrderData();
+	    orderConfiguredPopulator.populate(order, orderData, orderOptions);
+	    return orderData;
+	}
 
 	@Override
 	public void updateOrder(OrderData orderData)

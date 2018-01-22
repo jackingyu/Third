@@ -37,7 +37,13 @@ public class DefaultOrderProcessFacade implements OrderProcessFacade {
 		OrderModel order = orderService.getOrderForCode(orderCode);
 
 		if (order == null)
-			throw new NotFoundException();
+		{
+		    order = orderService.getOrderForPk(orderCode);
+		    
+		    if(order == null)
+		        throw new NotFoundException();
+		}
+			
 
 		UserModel currentUser = userService.getCurrentUser();
 		try

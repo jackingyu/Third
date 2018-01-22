@@ -109,11 +109,11 @@ public class UserDataBuilder implements DataBuilder {
 		menuService.createMenu(lv3_source);
 		
 		MenuModel lv3_store = this.buildMenu("13", 3, "门店列表",
-				"/store/storelistpage", "fa-build");
+				"/store/storelistpage", "fa-build",true);
 		lv3_store.setParentMenu(lv2_user);
 		menuService.createMenu(lv3_store);
 
-		MenuModel lv2_sales = this.buildMenu("2", 2, "销售管理", "#", "fa-book");
+		MenuModel lv2_sales = this.buildMenu("2", 2, "销售管理", "#", "fa-book",true);
 		menuService.createMenu(lv2_sales);
 
 		MenuModel lv3_customer = this.buildMenu("21", 3, "顾客管理",
@@ -122,17 +122,17 @@ public class UserDataBuilder implements DataBuilder {
 		menuService.createMenu(lv3_userlist);
 
 		MenuModel lv3_orders = this.buildMenu("22", 3, "订单管理",
-				"/order/orderlistpage", "fa-book");
+				"/order/orderlistpage", "fa-book",true);
 		lv3_orders.setParentMenu(lv2_sales);
 		menuService.createMenu(lv3_orders);
 
-		MenuModel lv3_reservation = this.buildMenu("23", 3, "创建订单",
+		MenuModel lv3_createorder = this.buildMenu("23", 3, "创建订单",
 				"/order/createorderpage", "fa-edit",true);
-		lv3_reservation.setParentMenu(lv2_sales);
-		menuService.createMenu(lv3_reservation);
+		lv3_createorder.setParentMenu(lv2_sales);
+		menuService.createMenu(lv3_createorder);
 
 		MenuModel lv3_orderprocess = this.buildMenu("24", 3, "订单处理记录查询",
-		        "/order/getorderprocesspage", "fa-barcode");
+		        "/order/getorderprocesspage", "fa-barcode",true);
 		lv3_orderprocess.setParentMenu(lv2_sales);
 		menuService.createMenu(lv3_orderprocess);
 
@@ -152,43 +152,43 @@ public class UserDataBuilder implements DataBuilder {
 		menuService.createMenu(lv3_orderentrylist);
 
 		MenuModel lv3_storereceipt = this.buildMenu("28", 3, "门店收货",
-				"/store/orderreceipt", "fa-barcode");
+				"/store/orderreceipt", "fa-barcode",true);
 		lv3_storereceipt.setParentMenu(lv2_sales);
 		menuService.createMenu(lv3_storereceipt);
 		MenuModel lv3_storedeliver = this.buildMenu("29", 3, "顾客取件",
-				"/store/orderdeliver", "fa-barcode");
+				"/store/orderdeliver", "fa-barcode",true);
 		lv3_storedeliver.setParentMenu(lv2_sales);
 		menuService.createMenu(lv3_storedeliver);
 		
 		MenuModel lv3_scansizeorder = this.buildMenu("201", 3, "扫描量身单试装日",
-		        "/orderentry/scanpage", "fa-barcode");
+		        "/orderentry/scanpage", "fa-barcode",true);
 		lv3_scansizeorder.setParentMenu(lv2_sales);
 		menuService.createMenu(lv3_scansizeorder);
 
 		MenuModel lv3_source1 = this.buildMenu("30", 3, "顾客来源管理",
-				"/source/listforstorepage", "fa-users");
+				"/source/listforstorepage", "fa-users",true);
 		lv3_source1.setParentMenu(lv2_sales);
 		menuService.createMenu(lv3_source1);
 
 		MenuModel lv2_factory = this.buildMenu("3", 2, "工厂管理", "#",
-				"fa-building");
+				"fa-building",true);
 		menuService.createMenu(lv2_sales);
 
 		MenuModel lv3_factoryreceipt = this.buildMenu("35", 3, "扫码收货",
-		        "/factory/orderreceipt", "fa-truck");
+		        "/factory/orderreceipt", "fa-truck",true);
 		lv3_factoryreceipt.setParentMenu(lv2_factory);
 		
 		MenuModel lv3_factorydeliver = this.buildMenu("32", 3, "扫码发货",
-				"/factory/orderdeliver", "fa-truck");
+				"/factory/orderdeliver", "fa-truck",true);
 		lv3_factorydeliver.setParentMenu(lv2_factory);
 
 		MenuModel lv3_orderentrylist1 = this.buildMenu("33", 3, "量身单列表",
-				"/orderentry/listpage", "fa-book");
+				"/orderentry/listpage", "fa-book",true);
 		lv3_orderentrylist1.setParentMenu(lv2_factory);
 		menuService.createMenu(lv3_orderentrylist1);
 
 		MenuModel lv3_product = this.buildMenu("34", 3, "布料列表",
-				"/product/productlistpage", "fa-database");
+				"/product/productlistpage", "fa-database",true);
 		lv3_product.setParentMenu(lv2_factory);
 		menuService.createMenu(lv3_product);
 
@@ -196,11 +196,11 @@ public class UserDataBuilder implements DataBuilder {
 		menuService.createMenu(lv2_report);
 
 		MenuModel lv3_report1 = this.buildMenu("41", 3, "付款明细",
-				"/payment/listpage", "fa-money");
+				"/payment/listpage", "fa-money",true);
 		lv3_report1.setParentMenu(lv2_report);
 		
 		MenuModel lv3_report2 = this.buildMenu("42", 3, "仪表盘",
-				"/storedashboard/dashboardpage", "fa-money");
+				"/storedashboard/dashboardpage", "fa-money",true);
 		lv3_report2.setParentMenu(lv2_report);
 		
 		menuService.createMenu(lv3_report1);
@@ -208,19 +208,19 @@ public class UserDataBuilder implements DataBuilder {
 
 		RoleModel role_admin = buildRole("admin", "管理员", "管理员",
 				Arrays.asList(lv3_userlist, lv3_source,lv3_store,
-					    lv3_customer, lv3_orders, lv3_reservation, lv3_reservationlist,lv3_source1,lv3_storereceipt, lv3_storedeliver, lv3_orderentrylist,lv3_exhibition,lv3_scansizeorder,
+					    lv3_customer, lv3_orders, lv3_createorder, lv3_reservationlist,lv3_source1,lv3_storereceipt, lv3_storedeliver, lv3_orderentrylist,lv3_exhibition,lv3_scansizeorder,
 						lv3_factorydeliver, lv3_orderentrylist1, lv3_product,lv3_factoryreceipt,
 						lv3_report1,lv3_report2,lv3_orderprocess));
 		RoleModel role_sales = buildRole("sales", "销售员", "销售员",
 				Arrays.asList(
-				        lv3_customer, lv3_orders, lv3_reservation, lv3_reservationlist,lv3_storereceipt, lv3_storedeliver, lv3_orderentrylist,lv3_exhibition,
-                        lv3_source1,lv3_orderprocess,lv3_scansizeorder,lv3_report1
+				        lv3_customer, lv3_orders, lv3_createorder, lv3_reservationlist,lv3_storereceipt, lv3_storedeliver, lv3_orderentrylist,
+                         lv3_orderprocess,lv3_scansizeorder,lv3_report1
 						));
 		RoleModel role_factory = buildRole("factory", "工厂", "工厂", 
-				Arrays.asList(lv3_factoryreceipt,lv3_factorydeliver, lv3_orderentrylist1, lv3_product));
+				Arrays.asList(lv3_orderprocess,lv3_factoryreceipt,lv3_factorydeliver, lv3_orderentrylist1, lv3_product));
 		
 		RoleModel role_finicial = buildRole("finicial", "财务", "财务",
-				Arrays.asList(lv3_orders,
+				Arrays.asList(lv3_orders,lv3_orderprocess,
 				        lv3_orderentrylist, lv3_report1,lv3_report2));
 		RoleModel role_designer = buildRole("designer", "设计", "设计", 
 				Arrays.asList(
@@ -228,7 +228,7 @@ public class UserDataBuilder implements DataBuilder {
 				));
 		RoleModel role_manager = buildRole("manager", "店长", "店长", 
 				Arrays.asList(
-					    lv3_customer, lv3_orders, lv3_reservation, lv3_reservationlist,lv3_storereceipt, lv3_storedeliver, lv3_orderentrylist,lv3_exhibition,
+					    lv3_customer, lv3_orders, lv3_createorder, lv3_reservationlist,lv3_storereceipt, lv3_storedeliver, lv3_orderentrylist,lv3_exhibition,
 					    lv3_source1,lv3_orderprocess,lv3_scansizeorder,lv3_report1,lv3_report2
 				));
 

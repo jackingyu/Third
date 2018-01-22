@@ -34,7 +34,9 @@
       </div>
       <div class="col-lg-1 col-md-1">
       <c:if test="${not empty customer.cellphone}">
-       <a href="${contextPath}/order/createorderpage?cellphone=${customer.cellphone}" class="btn btn-app">
+       <a
+							href="${contextPath}/order/createorderpage?cellphone=${customer.cellphone}"
+							class="btn btn-app">
           <i class="fa fa-edit"></i>  
           <spring:message code="lte.order.createorder"></spring:message>
        </a>

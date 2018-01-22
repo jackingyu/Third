@@ -17,7 +17,7 @@
 				<label><spring:message code="lte.order.basic.ordercode"></spring:message></label>
 				<input id="orderCode" name="orderCode" class="form-control required"
 					placeholder="" type="text" value="${orderData.orderCode}">
-				<input name="orderPK" type="hidden" value="${orderData.pk}">
+				<input name="orderPK" id="orderPK" type="hidden" value="${orderData.pk}">
 				<input id="orderStatus" type="hidden" value="${orderData.status}">
 			</div>
 			<div class="col-lg-3 cl-md-3 cl-sm-12 cl-xs-12">
