@@ -92,6 +92,16 @@ public class OrderPageController extends AbstractPageController {
 
 		sp.put("storeCodes", storeCodes);
 
+		if(isSales())
+        {
+            UserData user = userFacade.getCurrentUser();
+        }
+        
+        if(isManager())
+        {
+            UserData user = userFacade.getCurrentUser();
+        }
+        
 		DTResults r = orderFacade.getOrders(startDate, endDate,
 				criterias.getStart(), criterias.getLength(), sp);
 
@@ -183,6 +193,25 @@ public class OrderPageController extends AbstractPageController {
 			
 			if(!orderData.getSalesPerson().equals(user))
 				return ControllerConstants.LTE.NOAUTHPAGE;
+		}
+		
+		if(isManager())
+		{
+		    UserData user = userFacade.getCurrentUser();
+		    StoreData store = orderData.getStore();
+		    
+		    List<StoreData> stores = user.getStores();
+		    boolean ifAuthorized = false;
+		    for(StoreData s:stores)
+		    {
+		        if(store.getCode().equals(s.getCode()))
+		        {   ifAuthorized = true;
+		            break;
+		        }
+		    }
+		    
+		    if(!ifAuthorized)
+		    return ControllerConstants.LTE.NOAUTHPAGE;
 		}
 		
 		if(isAdmin())
