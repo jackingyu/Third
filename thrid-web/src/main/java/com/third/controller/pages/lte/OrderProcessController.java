@@ -69,7 +69,7 @@ public class OrderProcessController extends AbstractPageController {
             List<StoreData> stores = userFacade.getCurrentUser().getStores();
             OrderData orderData = null;
             if (StringUtils.isEmpty(orderCode))
-                orderData = orderFacade.getOrderForOptionsByPK(orderCode,
+                orderData = orderFacade.getOrderForOptionsByPK(orderPK,
                         Arrays.asList(OrderOption.BASIC));
             else
                 orderData = orderFacade.getOrderForOptions(orderCode,
