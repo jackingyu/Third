@@ -127,7 +127,18 @@ public class OrderProcessController extends AbstractPageController {
             final DataTableCriterias criterias) throws IOException
     {
         Map<String, String[]> sp = new HashMap<String, String[]>();
-        sp.put("storeCodes", storeCodes);
+        if (storeCodes == null || storeCodes.length == 0)
+        {
+            List<StoreData> stores = userFacade.getCurrentUser().getStores();
+            String[] userStoreCodes = new String[stores.size()];
+            for (int i = 0; i < stores.size(); i++)
+            {
+                userStoreCodes[i] = stores.get(i).getCode();
+            }
+            sp.put("storeCodes", userStoreCodes);
+        } else
+            sp.put("storeCodes", storeCodes);
+        
         String[] externalIds = { externalId };
         sp.put("externalIds", externalIds);
         String[] orderStatuses = { orderStatus };

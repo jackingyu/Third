@@ -57,6 +57,11 @@ public class DefaultOrderDao extends GenericDAO<OrderModel, String>
 			sb.append("s.orderDate = '")
 					.append(getParameterValue(sp, "orderDate"))
 					.append("' and ");
+		
+		if (StringUtils.isNotBlank(getParameterValue(sp, "salesperson")))
+		    sb.append("s.salesperson = '")
+		    .append(getParameterValue(sp, "salesperson"))
+		    .append("' and ");
 
 		if (StringUtils.isNotBlank(getParameterValue(sp, "storeCodes")))
 		{

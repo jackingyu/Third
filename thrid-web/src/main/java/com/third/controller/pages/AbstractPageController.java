@@ -475,11 +475,30 @@ public abstract class AbstractPageController {
 		return sources;
 	}
 
+	
 	protected List<ComboboxData> getPaymentMethods()
 	{
 		return TextMapperUtils.getPaymentMethods();
 	}
 
+	protected boolean checkStoreAuthorization(final String storeCode)
+	{
+	    UserData user = userFacade.getCurrentUser();
+        
+        List<StoreData> stores = user.getStores();
+        boolean ifAuthorized = false;
+        
+        for(StoreData s:stores)
+        {
+            if(storeCode.equals(s.getCode()))
+            {   ifAuthorized = true;
+                break;
+            }
+        }
+        
+        return ifAuthorized;
+	}
+	
 	protected boolean isAdmin()
 	{
 		return userFacade.isAdmin();

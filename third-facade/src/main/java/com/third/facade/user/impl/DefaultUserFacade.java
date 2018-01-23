@@ -17,6 +17,7 @@ import com.third.facade.data.ComboboxData;
 import com.third.facade.data.ListData;
 import com.third.facade.data.MenuData;
 import com.third.facade.data.RoleData;
+import com.third.facade.data.StoreData;
 import com.third.facade.data.UserData;
 import com.third.facade.data.UserGroupData;
 import com.third.facade.populator.MenuDataPopulator;
@@ -313,6 +314,18 @@ public class DefaultUserFacade implements UserFacade {
         UserModel user = userService.getUserById(userId);
         UserData userData = new UserData();
         userDataPopulator.populate(user, userData);
+        List<StoreData> stores = userData.getStores();
+        if(CollectionUtils.isNotEmpty(stores))
+        {
+            StringBuilder storeCode = new StringBuilder(stores.get(0).getCode());
+            
+            for(int i = 1;i < stores.size();i++)
+            {
+                storeCode.append(",").append(stores.get(i).getCode());
+            }
+            userData.setStoreCodes(storeCode.toString());
+        }
+        
         sessionService.save(CoreConstants.Session.CURRENT_USER, userData);
         sessionService.save(CoreConstants.Session.CURRENT_USER_ID,
                 userData.getUserId());

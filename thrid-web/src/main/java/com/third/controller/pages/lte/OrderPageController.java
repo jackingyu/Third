@@ -47,346 +47,348 @@ import com.third.facade.utils.TextMapperUtils;
 
 @Controller
 public class OrderPageController extends AbstractPageController {
-	private static final Logger LOG = Logger.getLogger(
-			com.third.controller.pages.lte.OrderPageController.class);
-	private static final String ORDER_CODE_PATH_VARIABLE_PATTERN = "/{orderCode:.*}";
+    private static final Logger LOG = Logger.getLogger(
+            com.third.controller.pages.lte.OrderPageController.class);
+    private static final String ORDER_CODE_PATH_VARIABLE_PATTERN = "/{orderCode:.*}";
 
-	@Resource(name = "orderFacade")
-	private OrderFacade orderFacade;
-	
-	@Resource(name = "userFacade")
-	private UserFacade userFacade;
-	
-	@Resource(name = "customerFacade")
-	private CustomerFacade customerFacade;
+    @Resource(name = "orderFacade")
+    private OrderFacade orderFacade;
 
-	@RequestMapping(value = "/order/orderlistpage", method = RequestMethod.GET)
-	public String orderListPage(Model model)
-	{
-		fillAuthorizedStoreInView(model);
-		fillOrderStatus2View(model);
-		return ControllerConstants.LTE.ORDERLISTPAGE;
-	}
+    @Resource(name = "userFacade")
+    private UserFacade userFacade;
 
-	@RequestMapping(value = "/order/orderlist")
-	@ResponseBody
-	public Object getOrderList(
-			@RequestParam(value = "orderCode", required = false) final String orderCode,
-			@RequestParam(value = "cellphone", required = false) final String cellphone,
-			@RequestParam(value = "customerName", required = false) final String name,
-			@RequestParam(value = "orderDate", required = false)@DateTimeFormat(pattern = "yyyy-MM-dd") final String orderDate,
-			@RequestParam(value = "storeCodes", required = false) final String storeCodes,
-			@RequestParam(value = "orderStatus", required = false) final String orderStatus,
-			@RequestParam(value = "startDate", required = false) @DateTimeFormat(pattern = "yyyy-MM-dd") Date startDate,
-			@RequestParam(value = "endDate", required = false) @DateTimeFormat(pattern = "yyyy-MM-dd") Date endDate,
-			final DataTableCriterias criterias)
-	{
-		Map<String, String> sp = new HashMap<String, String>();
-		sp.put("cellphone", cellphone);
-		sp.put("orderCode", orderCode);
-		sp.put("name", name);
-		sp.put("orderDate", orderDate);
-		
-		if(StringUtils.isNotEmpty(orderStatus)&&Integer.valueOf(orderStatus) >= 0)
-		sp.put("orderStatus", orderStatus);
+    @Resource(name = "customerFacade")
+    private CustomerFacade customerFacade;
 
-		sp.put("storeCodes", storeCodes);
+    @RequestMapping(value = "/order/orderlistpage", method = RequestMethod.GET)
+    public String orderListPage(Model model)
+    {
+        fillAuthorizedStoreInView(model);
+        fillOrderStatus2View(model);
+        return ControllerConstants.LTE.ORDERLISTPAGE;
+    }
 
-		if(isSales())
+    @RequestMapping(value = "/order/orderlist")
+    @ResponseBody
+    public Object getOrderList(
+            @RequestParam(value = "orderCode", required = false) final String orderCode,
+            @RequestParam(value = "cellphone", required = false) final String cellphone,
+            @RequestParam(value = "customerName", required = false) final String name,
+            @RequestParam(value = "orderDate", required = false) @DateTimeFormat(pattern = "yyyy-MM-dd") final String orderDate,
+            @RequestParam(value = "storeCodes", required = false) final String storeCodes,
+            @RequestParam(value = "orderStatus", required = false) final String orderStatus,
+            @RequestParam(value = "startDate", required = false) @DateTimeFormat(pattern = "yyyy-MM-dd") Date startDate,
+            @RequestParam(value = "endDate", required = false) @DateTimeFormat(pattern = "yyyy-MM-dd") Date endDate,
+            final DataTableCriterias criterias)
+    {
+        Map<String, String> sp = new HashMap<String, String>();
+        sp.put("cellphone", cellphone);
+        sp.put("orderCode", orderCode);
+        sp.put("name", name);
+        sp.put("orderDate", orderDate);
+
+        if (StringUtils.isNotEmpty(orderStatus)
+                && Integer.valueOf(orderStatus) >= 0)
+            sp.put("orderStatus", orderStatus);
+
+        if (StringUtils.isEmpty(storeCodes))
+        {
+            String storeCodes1 = userFacade.getCurrentUser().getStoreCodes();
+            sp.put("storeCodes", storeCodes1);
+        } else
+            sp.put("storeCodes", storeCodes);
+
+        if (isSales())
         {
             UserData user = userFacade.getCurrentUser();
+            sp.put("salesperson", user.getPk());
         }
-        
-        if(isManager())
-        {
-            UserData user = userFacade.getCurrentUser();
-        }
-        
-		DTResults r = orderFacade.getOrders(startDate, endDate,
-				criterias.getStart(), criterias.getLength(), sp);
 
-		return r;
-	}
-	
-	@RequestMapping(value = "/order/export")
-	public void exportOrderList(
-	        @RequestParam(value = "orderCode", required = false) final String orderCode,
-	        @RequestParam(value = "cellphone", required = false) final String cellphone,
-	        @RequestParam(value = "customerName", required = false) final String name,
-	        @RequestParam(value = "orderDate", required = false)@DateTimeFormat(pattern = "yyyy-MM-dd") final String orderDate,
-	        @RequestParam(value = "storeCodes", required = false) final String storeCodes,
-	        @RequestParam(value = "orderStatus", required = false) final String orderStatus,
-	        @RequestParam(value = "startDate", required = false) @DateTimeFormat(pattern = "yyyy-MM-dd") Date startDate,
-	        @RequestParam(value = "endDate", required = false) @DateTimeFormat(pattern = "yyyy-MM-dd") Date endDate,
-	        final HttpServletRequest request,
+        DTResults r = orderFacade.getOrders(startDate, endDate,
+                criterias.getStart(), criterias.getLength(), sp);
+
+        return r;
+    }
+
+    @RequestMapping(value = "/order/export")
+    public void exportOrderList(
+            @RequestParam(value = "orderCode", required = false) final String orderCode,
+            @RequestParam(value = "cellphone", required = false) final String cellphone,
+            @RequestParam(value = "customerName", required = false) final String name,
+            @RequestParam(value = "orderDate", required = false) @DateTimeFormat(pattern = "yyyy-MM-dd") final String orderDate,
+            @RequestParam(value = "storeCodes", required = false) final String storeCodes,
+            @RequestParam(value = "orderStatus", required = false) final String orderStatus,
+            @RequestParam(value = "startDate", required = false) @DateTimeFormat(pattern = "yyyy-MM-dd") Date startDate,
+            @RequestParam(value = "endDate", required = false) @DateTimeFormat(pattern = "yyyy-MM-dd") Date endDate,
+            final HttpServletRequest request,
             final HttpServletResponse response)
-	{
-	    Map<String, String> sp = new HashMap<String, String>();
-	    sp.put("cellphone", cellphone);
-	    sp.put("orderCode", orderCode);
-	    sp.put("name", name);
-	    sp.put("orderDate", orderDate);
-	    
-	    if(StringUtils.isNotEmpty(orderStatus)&&Integer.valueOf(orderStatus) >= 0)
-	        sp.put("orderStatus", orderStatus);
-	    
-	    sp.put("storeCodes", storeCodes);
-	    
-	    DTResults r = orderFacade.getOrders(startDate, endDate,
-	            0, 10000, sp);
+    {
+        Map<String, String> sp = new HashMap<String, String>();
+        sp.put("cellphone", cellphone);
+        sp.put("orderCode", orderCode);
+        sp.put("name", name);
+        sp.put("orderDate", orderDate);
+
+        if (StringUtils.isNotEmpty(orderStatus)
+                && Integer.valueOf(orderStatus) >= 0)
+            sp.put("orderStatus", orderStatus);
+
+        if (StringUtils.isEmpty(storeCodes))
+        {
+            String storeCodes1 = userFacade.getCurrentUser().getStoreCodes();
+            sp.put("storeCodes", storeCodes1);
+        } else
+            sp.put("storeCodes", storeCodes);
+
+        if (isSales())
+        {
+            UserData user = userFacade.getCurrentUser();
+            sp.put("salesperson", user.getPk());
+        }
         
-        
+        DTResults r = orderFacade.getOrders(startDate, endDate, 0, 10000, sp);
+
         List<Object[]> data = r.getData();
-        String[] headerNames = {"订单号码","顾客姓名","手机号码","门店","取件日","订单状态","总金额","已付金额","剩余金额","销售员","合作销售员","客户来源"};
-        ExcelUtils.exportToExcel1("报表","财务报表",headerNames,data, request,response);
-	}
+        String[] headerNames = { "订单号码", "顾客姓名", "手机号码", "门店", "取件日", "订单状态",
+                "总金额", "已付金额", "剩余金额", "销售员", "合作销售员", "客户来源" };
+        ExcelUtils.exportToExcel1("报表", "财务报表", headerNames, data, request,
+                response);
+    }
 
-	
-	@RequestMapping(value = "/order/createorderpage", method = RequestMethod.GET)
-	public String getCreateOrderPage(
-			@RequestParam(value = "cellphone", required = false) final String cellphone,
-			@ModelAttribute("message") final String message,
-			final Model model,
-			final HttpServletRequest request,
-			final HttpServletResponse response)
-	{
-		fillAuthorizedStoreInView(model);
-		
-		if(StringUtils.isNotEmpty(cellphone))
-		{
-		    CustomerData customer = customerFacade.getCustomerByCellphone(cellphone);
-		    OrderData orderData = new OrderData();
-		    orderData.setCellphone(customer.getCellphone());
-		    orderData.setCustomerName(customer.getName());
-		    orderData.setWeddingDate(customer.getWeddingdate());
-		    
-		    model.addAttribute("orderData", orderData);
-		}
-		
-        if(StringUtils.isNotEmpty(message))
+    @RequestMapping(value = "/order/createorderpage", method = RequestMethod.GET)
+    public String getCreateOrderPage(
+            @RequestParam(value = "cellphone", required = false) final String cellphone,
+            @ModelAttribute("message") final String message, final Model model,
+            final HttpServletRequest request,
+            final HttpServletResponse response)
+    {
+        fillAuthorizedStoreInView(model);
+
+        if (StringUtils.isNotEmpty(cellphone))
+        {
+            CustomerData customer = customerFacade
+                    .getCustomerByCellphone(cellphone);
+            OrderData orderData = new OrderData();
+            orderData.setCellphone(customer.getCellphone());
+            orderData.setCustomerName(customer.getName());
+            orderData.setWeddingDate(customer.getWeddingdate());
+
+            model.addAttribute("orderData", orderData);
+        }
+
+        if (StringUtils.isNotEmpty(message))
             model.addAttribute("message", message);
-        
-		return ControllerConstants.LTE.CREATEORDERPAGE;
-	}
 
-	@RequestMapping(value = "/order/modifyorderpage"
-			+ ORDER_CODE_PATH_VARIABLE_PATTERN, method = RequestMethod.GET)
-	public String getModifyOrderPage(
-			@PathVariable("orderCode") String orderCode, 
-			@ModelAttribute("message") final String message,
-			final Model model,
-			final HttpServletRequest request,
-			final HttpServletResponse response)
-	{
-		if(isFactory())
-		{
-			return ControllerConstants.LTE.NOAUTHPAGE;
-		}
-		
-		OrderData orderData = orderFacade.getOrderForOptions(orderCode,
-				Arrays.asList(OrderOption.BASIC, OrderOption.PAYMENTS,
-						OrderOption.ENTRIES));
-		
-		if(isSales())
-		{
-			UserData user = userFacade.getCurrentUser();
-			
-			if(!orderData.getSalesPerson().equals(user))
-				return ControllerConstants.LTE.NOAUTHPAGE;
-		}
-		
-		if(isManager())
-		{
-		    UserData user = userFacade.getCurrentUser();
-		    StoreData store = orderData.getStore();
-		    
-		    List<StoreData> stores = user.getStores();
-		    boolean ifAuthorized = false;
-		    for(StoreData s:stores)
-		    {
-		        if(store.getCode().equals(s.getCode()))
-		        {   ifAuthorized = true;
-		            break;
-		        }
-		    }
-		    
-		    if(!ifAuthorized)
-		    return ControllerConstants.LTE.NOAUTHPAGE;
-		}
-		
-		if(isAdmin())
-		{
-			model.addAttribute("receivableEditable",true);
-		}
-		model.addAttribute("paymentTypes", TextMapperUtils.getPaymentTypes());
+        return ControllerConstants.LTE.CREATEORDERPAGE;
+    }
 
-		model.addAttribute("paymentMethods",
-				TextMapperUtils.getPaymentMethods());
-		model.addAttribute("itemCategories",
-				TextMapperUtils.getItemCategories());
-		model.addAttribute("orderData", orderData);
-		model.addAttribute("orderPK", orderData.getPk());
-		model.addAttribute("statusText", orderData.getStatusText());
-		if(StringUtils.isNotEmpty(message))
-		model.addAttribute("message",message);
-		// TODO:订单的允许更新策略
-		model.addAttribute("editable",
-				orderData.getStatus().equals(CoreConstants.OrderStatus.NEW));
+    @RequestMapping(value = "/order/modifyorderpage"
+            + ORDER_CODE_PATH_VARIABLE_PATTERN, method = RequestMethod.GET)
+    public String getModifyOrderPage(
+            @PathVariable("orderCode") String orderCode,
+            @ModelAttribute("message") final String message, final Model model,
+            final HttpServletRequest request,
+            final HttpServletResponse response)
+    {
+        if (isFactory())
+        {
+            return ControllerConstants.LTE.NOAUTHPAGE;
+        }
 
-		fillStore2View(model, orderData.getStore().getCode());
-		return ControllerConstants.LTE.MODIFYORDERPAGE;
-	}
+        OrderData orderData = orderFacade.getOrderForOptions(orderCode,
+                Arrays.asList(OrderOption.BASIC, OrderOption.PAYMENTS,
+                        OrderOption.ENTRIES));
 
-	@RequestMapping(value = "/order/addpayment", method = RequestMethod.POST)
-	@ResponseBody
-	public Object addPayment(
-			@RequestParam(value = "orderPK", required = true) final String orderPK,
-			@RequestParam(value = "paymentMethod", required = true) final String paymentMethod,
-			@RequestParam(value = "paymentType", required = true) final String paymentType,
-			@RequestParam(value = "amount", required = true) final BigDecimal amount,
-			final Model model, final HttpServletRequest request,
-			final HttpServletResponse response)
-	{
-		PaymentData payment = new PaymentData();
-		payment.setAmount(amount);
-		payment.setOrderPK(orderPK);
-		payment.setPaidTime(new Date());
-		payment.setPaymentMethod(paymentMethod);
-		payment.setPaymentType(paymentType);
-		return orderFacade.createPayment(payment);
-	}
+        if (isSales())
+        {
+            UserData user = userFacade.getCurrentUser();
 
-	@RequestMapping(value = "/order/removepayment", method = RequestMethod.POST)
-	@ResponseBody
-	public Object removePayment(
-			@RequestParam(value = "paymentPK", required = true) final String paymentPK,
-			final Model model, final HttpServletRequest request,
-			final HttpServletResponse response)
-	{
-		return orderFacade.removePayment(paymentPK);
-	}
+            if (!orderData.getSalesPerson().equals(user))
+                return ControllerConstants.LTE.NOAUTHPAGE;
+        }
 
-	@RequestMapping(value = "/order/payments/"
-			+ ORDER_CODE_PATH_VARIABLE_PATTERN, method = RequestMethod.GET)
-	@ResponseBody
-	public Object getPayments(@PathVariable("orderCode") String orderCode,
-			final Model model, final HttpServletRequest request,
-			final HttpServletResponse response)
-	{
-		OrderData orderData = orderFacade.getOrderForOptions(orderCode,
-				Arrays.asList(OrderOption.PAYMENTS));
-		List<PaymentData> paymentDatas = orderData.getPayments();
-		DTResultsV data = new DTResultsV();
-		data.setRecordsFiltered(paymentDatas.size());
-		data.setRecordsTotal(paymentDatas.size());
-		List<String[]> listDatas = new ArrayList<String[]>();
-		for (int i = 0; i < paymentDatas.size(); i++)
-		{
-			PaymentData paymentData = paymentDatas.get(i);
+        if (isManager())
+        {
+            String storeCode = orderData.getStore().getCode();
 
-			String[] row = new String[5];
-			row[0] = paymentData.getPaymentTypeText();
-			row[1] = paymentData.getPaymentMethodText();
-			row[2] = paymentData.getAmount().toString();
-			row[3] = DateFormatUtils.format(paymentData.getPaidTime(),
-					"yyyy-MM-dd HH:mm:ss");
-			row[4] = paymentData.getPk();
+            if (!checkStoreAuthorization(storeCode))
+                return ControllerConstants.LTE.NOAUTHPAGE;
+        }
 
-			listDatas.add(row);
-		}
-		;
+        if (isAdmin())
+        {
+            model.addAttribute("receivableEditable", true);
+        }
+        model.addAttribute("paymentTypes", TextMapperUtils.getPaymentTypes());
 
-		data.setData(listDatas);
-		return data;
-	}
+        model.addAttribute("paymentMethods",
+                TextMapperUtils.getPaymentMethods());
+        model.addAttribute("itemCategories",
+                TextMapperUtils.getItemCategories());
+        model.addAttribute("orderData", orderData);
+        model.addAttribute("orderPK", orderData.getPk());
+        model.addAttribute("statusText", orderData.getStatusText());
+        if (StringUtils.isNotEmpty(message))
+            model.addAttribute("message", message);
+        // TODO:订单的允许更新策略
+        model.addAttribute("editable",
+                orderData.getStatus().equals(CoreConstants.OrderStatus.NEW));
 
-	@RequestMapping(value = "/order/save")
-	public String saveOrder(
-			@RequestParam(value = "orderCode", required = false) final String orderCode,
-			@RequestParam(value = "orderPK", required = true) final String orderPK,
-			@RequestParam(value = "contactinfo", required = false) final String contactinfo,
-			@RequestParam(value = "cellphone") final String cellphone,
-			@RequestParam(value = "storeCode", required = true) final String storeCode,
-			@RequestParam(value = "receiveable", required = true) final String receiveable,
-			@RequestParam(value = "tryDate") @DateTimeFormat(pattern = "yyyy-MM-dd") final Date tryDate,
-			@RequestParam(value = "photoDate") @DateTimeFormat(pattern = "yyyy-MM-dd") final Date photoDate,
-			@RequestParam(value = "deliveryDate") @DateTimeFormat(pattern = "yyyy-MM-dd") final Date deliveryDate,
-			@RequestParam(value = "weddingDate", required = false) @DateTimeFormat(pattern = "yyyy-MM-dd") final Date weddingDate,
-			@RequestParam(value = "customerName", required = false) final String customerName,
-			@RequestParam(value = "comment", required = false) final String comment,
-			@RequestParam(value = "coSalesperson", required = false) final String coSalesperson,
-			final RedirectAttributes attr,
-			final Model model)
-	{
-		
-		if(StringUtils.isBlank(orderPK)&&orderFacade.isExist(orderCode))
-		{
-			attr.addFlashAttribute("message", "四联单号重复,请重新输入");
-		    return REDIRECT_PREFIX + "/order/createorderpage/";
-		}
-		
-		OrderData order = new OrderData();
-		order.setPk(orderPK);
-		order.setOrderCode(orderCode);
-		order.setContactinfo(contactinfo);
-		// find customer by cellphone
-		order.setCellphone(cellphone);
-		order.setComment(comment);
-		order.setPhotoDate(photoDate);
-		order.setDeliveryDate(deliveryDate);
-		order.setCoSalesperson(coSalesperson);
-		order.setTryDate(tryDate);
-		order.setOrderDate(new Date());
-		order.setWeddingDate(weddingDate);
-		order.setCustomerName(customerName);
-		order.setReceiveable(receiveable);
+        fillStore2View(model, orderData.getStore().getCode());
+        return ControllerConstants.LTE.MODIFYORDERPAGE;
+    }
 
-		StoreData store = new StoreData();
-		store.setCode(storeCode);
-		order.setStore(store);
-        
-		if (StringUtils.isBlank(orderPK))
-		{
-		    CustomerData customer = customerFacade.getCustomerByCellphone(order.getCellphone());
-		    if(StringUtils.isEmpty(customer.getSource().getPk()))
-		    {
-		        
-		        attr.addFlashAttribute("message","顾客"+customer.getCellphone()+"来源为空,请维护顾客的客户来源字段");
-		        return REDIRECT_PREFIX + "/order/createorderpage/";
-		    }
-		    
-			orderFacade.createOrder(order);
-		}
-		else
-			// TODO:需要判断订单状态为新建(需要考虑是否允许admin修改)
-			orderFacade.updateOrder(order);
-      
-		model.addAttribute("message","保存成功!");
-		return REDIRECT_PREFIX + "/order/modifyorderpage/" + orderCode;
-	}
-	
-	@RequestMapping(value = "/order/isexist")
-	@ResponseBody
-	public boolean isExist(
-			@RequestParam(value = "orderCode", required = true) final String orderCode) 
-	{
-		return orderFacade.isExist(orderCode);
-	}
-	
-	
-	@RequestMapping(value = "/order/myorderpage")
-	public String getMyOrderPage(final Model model) 
-	{
-		return ControllerConstants.LTE.MYORDERPAGE;
-	}
-	
-	@RequestMapping(value = "/order/myorder")
-	public String getMyOrder(
-			@RequestParam(value = "orderStatus", required = true) final Integer orderStatus,final Model model) 
-	{
-		List<OrderData> orders = orderFacade.getOrdersForCurrentUser(orderStatus);
-		model.addAttribute("orders",orders);
-		
-		return ControllerConstants.LTE.ORDERITEMFRAGMENT;
-	}
+    @RequestMapping(value = "/order/addpayment", method = RequestMethod.POST)
+    @ResponseBody
+    public Object addPayment(
+            @RequestParam(value = "orderPK", required = true) final String orderPK,
+            @RequestParam(value = "paymentMethod", required = true) final String paymentMethod,
+            @RequestParam(value = "paymentType", required = true) final String paymentType,
+            @RequestParam(value = "amount", required = true) final BigDecimal amount,
+            final Model model, final HttpServletRequest request,
+            final HttpServletResponse response)
+    {
+        PaymentData payment = new PaymentData();
+        payment.setAmount(amount);
+        payment.setOrderPK(orderPK);
+        payment.setPaidTime(new Date());
+        payment.setPaymentMethod(paymentMethod);
+        payment.setPaymentType(paymentType);
+        return orderFacade.createPayment(payment);
+    }
+
+    @RequestMapping(value = "/order/removepayment", method = RequestMethod.POST)
+    @ResponseBody
+    public Object removePayment(
+            @RequestParam(value = "paymentPK", required = true) final String paymentPK,
+            final Model model, final HttpServletRequest request,
+            final HttpServletResponse response)
+    {
+        return orderFacade.removePayment(paymentPK);
+    }
+
+    @RequestMapping(value = "/order/payments/"
+            + ORDER_CODE_PATH_VARIABLE_PATTERN, method = RequestMethod.GET)
+    @ResponseBody
+    public Object getPayments(@PathVariable("orderCode") String orderCode,
+            final Model model, final HttpServletRequest request,
+            final HttpServletResponse response)
+    {
+        OrderData orderData = orderFacade.getOrderForOptions(orderCode,
+                Arrays.asList(OrderOption.PAYMENTS));
+        List<PaymentData> paymentDatas = orderData.getPayments();
+        DTResultsV data = new DTResultsV();
+        data.setRecordsFiltered(paymentDatas.size());
+        data.setRecordsTotal(paymentDatas.size());
+        List<String[]> listDatas = new ArrayList<String[]>();
+        for (int i = 0; i < paymentDatas.size(); i++)
+        {
+            PaymentData paymentData = paymentDatas.get(i);
+
+            String[] row = new String[5];
+            row[0] = paymentData.getPaymentTypeText();
+            row[1] = paymentData.getPaymentMethodText();
+            row[2] = paymentData.getAmount().toString();
+            row[3] = DateFormatUtils.format(paymentData.getPaidTime(),
+                    "yyyy-MM-dd HH:mm:ss");
+            row[4] = paymentData.getPk();
+
+            listDatas.add(row);
+        }
+        ;
+
+        data.setData(listDatas);
+        return data;
+    }
+
+    @RequestMapping(value = "/order/save")
+    public String saveOrder(
+            @RequestParam(value = "orderCode", required = false) final String orderCode,
+            @RequestParam(value = "orderPK", required = true) final String orderPK,
+            @RequestParam(value = "contactinfo", required = false) final String contactinfo,
+            @RequestParam(value = "cellphone") final String cellphone,
+            @RequestParam(value = "storeCode", required = true) final String storeCode,
+            @RequestParam(value = "receiveable", required = true) final String receiveable,
+            @RequestParam(value = "tryDate") @DateTimeFormat(pattern = "yyyy-MM-dd") final Date tryDate,
+            @RequestParam(value = "photoDate") @DateTimeFormat(pattern = "yyyy-MM-dd") final Date photoDate,
+            @RequestParam(value = "deliveryDate") @DateTimeFormat(pattern = "yyyy-MM-dd") final Date deliveryDate,
+            @RequestParam(value = "weddingDate", required = false) @DateTimeFormat(pattern = "yyyy-MM-dd") final Date weddingDate,
+            @RequestParam(value = "customerName", required = false) final String customerName,
+            @RequestParam(value = "comment", required = false) final String comment,
+            @RequestParam(value = "coSalesperson", required = false) final String coSalesperson,
+            final RedirectAttributes attr, final Model model)
+    {
+
+        if (StringUtils.isBlank(orderPK) && orderFacade.isExist(orderCode))
+        {
+            attr.addFlashAttribute("message", "四联单号重复,请重新输入");
+            return REDIRECT_PREFIX + "/order/createorderpage/";
+        }
+
+        OrderData order = new OrderData();
+        order.setPk(orderPK);
+        order.setOrderCode(orderCode);
+        order.setContactinfo(contactinfo);
+        // find customer by cellphone
+        order.setCellphone(cellphone);
+        order.setComment(comment);
+        order.setPhotoDate(photoDate);
+        order.setDeliveryDate(deliveryDate);
+        order.setCoSalesperson(coSalesperson);
+        order.setTryDate(tryDate);
+        order.setOrderDate(new Date());
+        order.setWeddingDate(weddingDate);
+        order.setCustomerName(customerName);
+        order.setReceiveable(receiveable);
+
+        StoreData store = new StoreData();
+        store.setCode(storeCode);
+        order.setStore(store);
+
+        if (StringUtils.isBlank(orderPK))
+        {
+            CustomerData customer = customerFacade
+                    .getCustomerByCellphone(order.getCellphone());
+            if (StringUtils.isEmpty(customer.getSource().getPk()))
+            {
+
+                attr.addFlashAttribute("message",
+                        "顾客" + customer.getCellphone() + "来源为空,请维护顾客的客户来源字段");
+                return REDIRECT_PREFIX + "/order/createorderpage/";
+            }
+
+            orderFacade.createOrder(order);
+        } else
+            // TODO:需要判断订单状态为新建(需要考虑是否允许admin修改)
+            orderFacade.updateOrder(order);
+
+        model.addAttribute("message", "保存成功!");
+        return REDIRECT_PREFIX + "/order/modifyorderpage/" + orderCode;
+    }
+
+    @RequestMapping(value = "/order/isexist")
+    @ResponseBody
+    public boolean isExist(
+            @RequestParam(value = "orderCode", required = true) final String orderCode)
+    {
+        return orderFacade.isExist(orderCode);
+    }
+
+    @RequestMapping(value = "/order/myorderpage")
+    public String getMyOrderPage(final Model model)
+    {
+        return ControllerConstants.LTE.MYORDERPAGE;
+    }
+
+    @RequestMapping(value = "/order/myorder")
+    public String getMyOrder(
+            @RequestParam(value = "orderStatus", required = true) final Integer orderStatus,
+            final Model model)
+    {
+        List<OrderData> orders = orderFacade
+                .getOrdersForCurrentUser(orderStatus);
+        model.addAttribute("orders", orders);
+
+        return ControllerConstants.LTE.ORDERITEMFRAGMENT;
+    }
 }

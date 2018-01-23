@@ -13,6 +13,7 @@ public class UserData extends AbstractData {
 	public boolean blocked;
 	public UserGroupData userGroup;
 	public List<StoreData> stores;
+	private String storeCodes;
 	private StoreData store;
 
 	public String getUserId()
@@ -89,4 +90,14 @@ public class UserData extends AbstractData {
 	{
 		this.store = store;
 	}
+
+    public String getStoreCodes()
+    {
+        return storeCodes;
+    }
+
+    public void setStoreCodes(String storeCodes)
+    {
+        this.storeCodes = storeCodes;
+    }
 }

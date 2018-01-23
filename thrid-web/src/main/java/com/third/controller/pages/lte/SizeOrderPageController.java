@@ -119,7 +119,10 @@ public class SizeOrderPageController extends AbstractPageController {
 			if(!orderEntry.getSalesperson().equals(user))
 				return ControllerConstants.LTE.NOAUTHPAGE;
 		}
-	
+		
+		if(!checkStoreAuthorization(orderEntry.getStore().getCode()))
+		 return ControllerConstants.LTE.NOAUTHPAGE;
+		
 		// set size details data
 		OrderEntryData entry = orderFacade.getSizeDatas(orderEntry.getPk());
 		orderEntry.setSizeDatas(entry.getSizeDatas());
