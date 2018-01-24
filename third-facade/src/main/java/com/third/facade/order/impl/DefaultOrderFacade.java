@@ -214,43 +214,45 @@ public class DefaultOrderFacade implements OrderFacade {
 		order.setTryDate(orderData.getTryDate());
 		order.setWeddingDate(orderData.getWeddingDate());
 
-		if (!CollectionUtils.isEmpty(orderData.getPayments()))
-		{
-			List<PaymentModel> paymentModels = new ArrayList<PaymentModel>();
-			List<PaymentModel> oldPaymentModels = order.getPayments();
-			orderData.getPayments().forEach(p -> {
-				if (StringUtils.isBlank(p.getPk()))
-				{
-					PaymentModel payment = new PaymentModel();
-					payment.setAmount(p.getAmount());
-					payment.setCreatedBy(userService.getCurrentUser());
-					payment.setPaymentMethod(p.getPaymentMethod());
-					payment.setPaymentType(p.getPaymentType());
-					payment.setStore(order.getStore());
-					payment.setPaidTime(new Date());
-					paymentModels.add(payment);
-				} else
-				{
-					Optional<PaymentModel> payment = oldPaymentModels.stream()
-							.filter(p1 -> p1.getPk().equals(p.getPk()))
-							.findFirst();
-					payment.get().setAmount(p.getAmount());
-					payment.get().setPaymentType(p.getPaymentType());
-					payment.get().setPaymentMethod(p.getPaymentMethod());
-					paymentModels.add(payment.get());
-				}
-			});
-			order.setPayments(paymentModels);
-
-			BigDecimal paidamount = new BigDecimal(0);
-			for (int i = 0; i < paymentModels.size(); i++)
-			{
-				paidamount = paidamount.add(paymentModels.get(i).getAmount());
-			}
-
-			order.setPaidamount(paidamount);
-			order.setOpenamount(order.getReceiveable().subtract(paidamount));
-		}
+        order.setOpenamount(order.getReceiveable().subtract(order.getPaidamount()));
+		
+//		if (!CollectionUtils.isEmpty(orderData.getPayments()))
+//		{
+//			List<PaymentModel> paymentModels = new ArrayList<PaymentModel>();
+//			List<PaymentModel> oldPaymentModels = order.getPayments();
+//			orderData.getPayments().forEach(p -> {
+//				if (StringUtils.isBlank(p.getPk()))
+//				{
+//					PaymentModel payment = new PaymentModel();
+//					payment.setAmount(p.getAmount());
+//					payment.setCreatedBy(userService.getCurrentUser());
+//					payment.setPaymentMethod(p.getPaymentMethod());
+//					payment.setPaymentType(p.getPaymentType());
+//					payment.setStore(order.getStore());
+//					payment.setPaidTime(new Date());
+//					paymentModels.add(payment);
+//				} else
+//				{
+//					Optional<PaymentModel> payment = oldPaymentModels.stream()
+//							.filter(p1 -> p1.getPk().equals(p.getPk()))
+//							.findFirst();
+//					payment.get().setAmount(p.getAmount());
+//					payment.get().setPaymentType(p.getPaymentType());
+//					payment.get().setPaymentMethod(p.getPaymentMethod());
+//					paymentModels.add(payment.get());
+//				}
+//			});
+//			order.setPayments(paymentModels);
+//
+//			BigDecimal paidamount = new BigDecimal(0);
+//			for (int i = 0; i < paymentModels.size(); i++)
+//			{
+//				paidamount = paidamount.add(paymentModels.get(i).getAmount());
+//			}
+//
+//			order.setPaidamount(paidamount);
+//			order.setOpenamount(order.getReceiveable().subtract(paidamount));
+//		}
 
 		orderService.upateOrder(order);
 	}
