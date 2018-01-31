@@ -2,8 +2,6 @@ package com.third.facade.order.impl;
 
 import java.math.BigDecimal;
 import java.time.Instant;
-import java.time.LocalDate;
-import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
@@ -11,9 +9,9 @@ import java.util.Collections;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Optional;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
@@ -27,7 +25,6 @@ import com.alibaba.fastjson.JSON;
 import com.third.core.constants.CoreConstants;
 import com.third.dao.util.PaginationSupport;
 import com.third.facade.data.DTResults;
-import com.third.facade.data.ListData;
 import com.third.facade.data.OrderData;
 import com.third.facade.data.OrderEntryData;
 import com.third.facade.data.PaymentData;
@@ -363,7 +360,7 @@ public class DefaultOrderFacade implements OrderFacade {
 		List<SizeAttributeModel> sizeAttributes = sizeAttributeService
 				.getSizeAttributeForItemCategory(itemCategory);
 
-		Map<String, SizeAttributeGroupData> groups = new HashMap<String, SizeAttributeGroupData>();
+		Map<String, SizeAttributeGroupData> groups = new LinkedHashMap<String, SizeAttributeGroupData>();
 
 		Map<Integer, List<SizeAttributeModel>> sizeAttributeModels = sizeAttributes
 				.stream()
@@ -751,7 +748,7 @@ public class DefaultOrderFacade implements OrderFacade {
 		int itemCategory = Integer.valueOf(sp.get("itemCategory"));
 		List<SizeAttributeModel> sizeAttributes = sizeAttributeService
 				.getSizeAttributeForItemCategory(itemCategory);
-		HashMap<String, String> sizeAttributesSorter = new HashMap<String, String>();
+		HashMap<String, String> sizeAttributesSorter = new LinkedHashMap<String, String>();
 		sizeAttributes.forEach(s -> {
 			sizeAttributesSorter.put(s.getName(), "");
 		});
