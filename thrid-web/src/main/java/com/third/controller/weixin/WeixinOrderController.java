@@ -33,8 +33,7 @@ public class WeixinOrderController extends AbstractWeixinController {
 	public String getOrderList(final Model model)
 	{
 		CustomerData customer = customerFacade.getCurrentCustomer();
-		List<OrderData> orders = orderFacade
-				.getOrdersForCustomer(customer.getCellphone());
+		List<OrderData> orders = orderFacade.getOrdersForCustomer(customer.getCellphone());
 
 		model.addAttribute("orderList", orders);
 		return ControllerConstants.WeiXin.ORDERLISTPAGE;

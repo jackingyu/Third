@@ -37,7 +37,7 @@ public class WeixinMemberController extends AbstractWeixinController {
 	@Resource(name = "smsVerifyCodeUtils")
 	SmsVerifyCodeUtils smsVerifyCodeUtils;
 
-	@RequestMapping(value = "/wx/getregisterpage")
+	@RequestMapping(value = "/weixin/member/getregisterpage")
 	public String getRegisterPage(final HttpServletRequest request,
 			final Model model,
 			@RequestParam(value = "code", required = false) final String code,
@@ -83,7 +83,7 @@ public class WeixinMemberController extends AbstractWeixinController {
 		return ControllerConstants.WeiXin.MEMBERPAGE;
 	}
 
-	@RequestMapping(value = "/wx/member/registercustomer")
+	@RequestMapping(value = "/weixin/member/registercustomer")
 	public String bindCustomer(final HttpServletRequest request,
 			final HttpServletRequest response,
 			@RequestParam(value = "vcode", required = false) final String vcode,

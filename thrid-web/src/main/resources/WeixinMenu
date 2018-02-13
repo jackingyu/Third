@@ -61,7 +61,7 @@
             {
                "type":"view",
                "name":"注册",
-               "url":"https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx095f3e1260a6b827&redirect_uri=http%3a%2f%2fwx.blaimar.com%2fthrid-web%2fwx%2member%2fgetregisterpage&response_type=code&scope=snsapi_base&state=123#wechat_redirect"
+               "url":"https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx095f3e1260a6b827&redirect_uri=http%3a%2f%2fwx.blaimar.com%2fthrid-web%2fweixin%2fmember%2fgetregisterpage&response_type=code&scope=snsapi_base&state=123#wechat_redirect"
             },
             {
                "type":"view",
