@@ -37,6 +37,15 @@ public class WeixinMemberController extends AbstractWeixinController {
 	@Resource(name = "smsVerifyCodeUtils")
 	SmsVerifyCodeUtils smsVerifyCodeUtils;
 
+	
+	/**wx 类型的url需要经过weixinauthrozationfilter进行检查,weixin这种url不需要进行检查
+	 * @param request
+	 * @param model
+	 * @param code
+	 * @param state
+	 * @param openId
+	 * @return
+	 */
 	@RequestMapping(value = "/weixin/member/getregisterpage")
 	public String getRegisterPage(final HttpServletRequest request,
 			final Model model,
