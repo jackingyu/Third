@@ -18,7 +18,7 @@
 	<%@ include file="inc/nav.jsp"%>
 	<%@ include file="inc/msg.jsp"%>
 	
-	<form id="regform" class="form-horizontal" role="form" action="${contextPath}/weixin/member/registercustomer" method="post">
+	<form id="regform" class="form-horizontal" role="form" action="${contextPath}/wx/member/registercustomer" method="post">
 	
 		<div class="container wx_container" style="margin-top:20px">
 			<div class="row wx_row">
@@ -104,7 +104,7 @@
 		$.ajax({
         	type: "get",//使用get方法访问后台
         	dataType: "json",//返回json格式的数据
-        	url: "${contextPath}/weixin/generatevcode",
+        	url: "${contextPath}/wx/generatevcode",
         	data: "cellphone=" + $('#phone').val(),	//要发送的数据
         	complete :function(){},
         	success: function(msg){	//msg为返回的数据，在这里做数据绑定

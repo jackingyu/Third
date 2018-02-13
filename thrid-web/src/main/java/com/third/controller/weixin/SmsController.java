@@ -15,7 +15,7 @@ public class SmsController {
 	@Resource(name = "smsVerifyCodeUtils")
 	SmsVerifyCodeUtils smsVerifyCodeUtils;
 
-	@RequestMapping(value = "/weixin/generatevcode")
+	@RequestMapping(value = "/wx/generatevcode")
 	@ResponseBody
 	public Object sendVCode(
 			@RequestParam(value = "cellphone") final String cellphone)
