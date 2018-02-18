@@ -46,7 +46,7 @@ public class WeixinMemberController extends AbstractWeixinController {
 	 * @param openId
 	 * @return
 	 */
-	@RequestMapping(value = "/wx/member/getregisterpage")
+	@RequestMapping(value = "/weixin/member/getregisterpage")
 	public String getRegisterPage(final HttpServletRequest request,
 			final Model model,
 			@RequestParam(value = "code", required = false) final String code,
