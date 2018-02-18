@@ -54,7 +54,7 @@ public class WeixinMemberController extends AbstractWeixinController {
 	{
 		if (sessionService.contains(CoreConstants.Session.CURRENT_CUSTOMER))
 		{
-			LOG.debug("有已绑定的顾客,跳转到member页");
+			System.out.println("有已绑定的顾客,跳转到member页");
 			return getMemberPage(request, model);
 		}
 
@@ -98,10 +98,10 @@ public class WeixinMemberController extends AbstractWeixinController {
 			@RequestParam(value = "name", required = false) final String name,
 			final Model model)
 	{
-		LOG.debug("vcode=" + vcode);
-		LOG.debug("cellphone=" + cellphone);
+		System.out.println("vcode=" + vcode);
+		System.out.println("cellphone=" + cellphone);
 		
-		LOG.debug("openID = "+sessionService.get(WXConstant.WX_OPENID));
+		System.out.println("openID = "+sessionService.get(WXConstant.WX_OPENID));
 		
 		if (!sessionService.contains(WXConstant.WX_OPENID))
 		{
@@ -116,7 +116,7 @@ public class WeixinMemberController extends AbstractWeixinController {
 			{
 				final String openId = (String) sessionService
 						.get(WXConstant.WX_OPENID);
-				LOG.debug("openId:" + openId);
+				System.out.println("openId:" + openId);
 				customerFacade.registerCustomer(openId, cellphone, name);
 				// 注册成功之后执行登录才能保证之后返回的会员主页可以取到当前用户,否则应该使用redirect
 				customerFacade.loginCustomer(openId);
@@ -128,7 +128,7 @@ public class WeixinMemberController extends AbstractWeixinController {
 			return getMemberPage(request, model);
 		}
 
-		LOG.debug("sms verify code is not correct");
+		System.out.println("sms verify code is not correct");
 		model.addAttribute("WxErrorMessage", "验证码不正确");
 		return "forward:" + ControllerConstants.WeiXin.ERRORURL;
 	}

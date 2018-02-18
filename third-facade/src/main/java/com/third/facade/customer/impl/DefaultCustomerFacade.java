@@ -211,7 +211,10 @@ public class DefaultCustomerFacade implements CustomerFacade {
 
 		if (subscribeModel == null)
 		{
-			throw new SubscribeException("请先关注铂玛微信号");
+			//throw new SubscribeException("请先关注铂玛微信号");
+		    subscribeModel = new SubscribeModel();
+		    subscribeModel.setOpenId(openId);
+		    subscribeService.create(subscribeModel);
 		}
 
 		CustomerModel customerModel = customerService
