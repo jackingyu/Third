@@ -46,32 +46,30 @@ public class WeixinMemberController extends AbstractWeixinController {
 	 * @param openId
 	 * @return
 	 */
-	@RequestMapping(value = "/weixin/member/getregisterpage")
+	@RequestMapping(value = "/wx/member/getregisterpage")
 	public String getRegisterPage(final HttpServletRequest request,
 			final Model model,
 			@RequestParam(value = "code", required = false) final String code,
-			@RequestParam(value = "state", required = false) final String state,
-         	@RequestParam(value = "openId", required = false) final String openId)
+			@RequestParam(value = "state", required = false) final String state)
 	{
 		if (sessionService.contains(CoreConstants.Session.CURRENT_CUSTOMER))
 		{
 			LOG.debug("有已绑定的顾客,跳转到member页");
 			return getMemberPage(request, model);
 		}
-		
-		LOG.debug("+++++++openID in session = "+sessionService.get(WXConstant.WX_OPENID));
-		LOG.debug("+++++++openID in request = "+openId);
 
 		// code 必须存在,此处不在进行code 必须输入的判断,直接通过参数进行404控制
 
-//		String openId = "";
+        final String openId = weixinFacade.getOpenId(code);
+        sessionService.save(WXConstant.WX_OPENID, openId);
 
-		//openId = weixinFacade.getOpenId(code);
+        CustomerData customer = customerFacade.loginCustomer(openId);
 
-//		if (StringUtils.isNotEmpty(openId))
-//			sessionService.save(WXConstant.WX_OPENID, openId);
-
-		return ControllerConstants.WeiXin.REGISTERPAGE;
+        if (customer == null)
+        {
+            return ControllerConstants.WeiXin.REGISTERPAGE;
+        }else
+		    return "forward:/wx/member/home";
 
 	}
 
