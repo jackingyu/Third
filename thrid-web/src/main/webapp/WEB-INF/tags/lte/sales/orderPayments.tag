@@ -13,7 +13,7 @@
 	<div class="box-body">
 		<div class="row">
 			<div class="col-lg-3 cl-md-3 cl-sm-12 cl-xs-12">
-			  <c:if test="${editable}">
+			  <c:if test="${paymentEditable}">
 				<button type="button" class="btn btn-default" data-toggle="modal"
 					data-target="#orderPaymentPanel">
 					<spring:message code="lte.order.payment.addpayment"></spring:message>

@@ -24,11 +24,11 @@ ACC.modifyorder = {
 		return;
 	}
 	
-	if($('#entryGrid').DataTable().rows().data().length <= 0)
-	{
-		ACC.message.alert("无量身单记录,无法进行审批!");
-		return;
-	}
+//	if($('#entryGrid').DataTable().rows().data().length <= 0)
+//	{
+//		ACC.message.alert("无量身单记录,无法进行审批!");
+//		return;
+//	}
 	
   	$.ajax({
       type: 'POST',

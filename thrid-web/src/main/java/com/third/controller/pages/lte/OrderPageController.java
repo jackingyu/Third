@@ -219,6 +219,13 @@ public class OrderPageController extends AbstractPageController {
         {
             model.addAttribute("receivableEditable", true);
         }
+        
+        if (isAdmin()||userFacade.getCurrentUser().getUserId().equals(orderData.getSalesPerson().getUserId()))
+        {
+            model.addAttribute("paymentEditable", true);
+        }else
+            model.addAttribute("paymentEditable",false);
+        
         model.addAttribute("paymentTypes", TextMapperUtils.getPaymentTypes());
 
         model.addAttribute("paymentMethods",

@@ -18,7 +18,7 @@
 	<%@ include file="inc/nav.jsp"%>
 	<%@ include file="inc/msg.jsp"%>
 	
-	<form id="regform" class="form-horizontal" role="form" action="${contextPath}/wx/member/registercustomer" method="post">
+	<form id="regform" class="form-horizontal" role="form" action="${contextPath}/weixin/member/registercustomer" method="post">
 	
 		<div class="container wx_container" style="margin-top:20px">
 			<div class="row wx_row">
