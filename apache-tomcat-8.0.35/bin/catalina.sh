@@ -279,7 +279,7 @@ if [ "$1" = "jpda" ] ; then
     JPDA_TRANSPORT="dt_socket"
   fi
   if [ -z "$JPDA_ADDRESS" ]; then
-    JPDA_ADDRESS="0.0.0.0:8000"
+    JPDA_ADDRESS="8000"
   fi
   if [ -z "$JPDA_SUSPEND" ]; then
     JPDA_SUSPEND="n"
