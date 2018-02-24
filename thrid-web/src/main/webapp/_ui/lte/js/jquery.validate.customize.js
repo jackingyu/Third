@@ -3,7 +3,7 @@ $(document).ready(function() {
 
 	 // Mobile
 	$.validator.addMethod("cellphone", function(value, element) {
-		 return this.optional( element ) || /^([1][34578][0-9]{9})$/.test( value );
+		 return this.optional( element ) || /^([1][345789][0-9]{9})$/.test( value );
 	}, '请输入符合格式的手机号码.');
 	
 	 // Money		

@@ -54,6 +54,9 @@ public class SourceMaintainController extends AbstractPageController {
 		SourceData source = new SourceData();
 		source.setName(name);
         source.setType(type);
+        if(StringUtils.isEmpty(type))
+            source.setType("0");
+        
 		if (StringUtils.isNotEmpty(pk))
 			source.setPk(pk);
 

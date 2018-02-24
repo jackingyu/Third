@@ -1,5 +1,6 @@
 package com.third.facade.customer.impl;
 
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -8,6 +9,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.apache.log4j.Logger;
 
 import com.third.core.constants.CoreConstants;
+import com.third.core.util.DateUtil;
 import com.third.dao.util.PaginationSupport;
 import com.third.exceptions.BussinessException;
 import com.third.exceptions.NotFoundException;
@@ -19,6 +21,7 @@ import com.third.facade.data.ListData;
 import com.third.facade.data.SourceData;
 import com.third.facade.populator.CustomerDataPopulator;
 import com.third.facade.populator.SourceDataPopulator;
+import com.third.facade.utils.DateUtils;
 import com.third.model.AddressModel;
 import com.third.model.CustomerModel;
 import com.third.model.SourceModel;
@@ -227,6 +230,14 @@ public class DefaultCustomerFacade implements CustomerFacade {
 			customerModel.setCellphone(cellphone);
 			customerModel.setName(name);
 			customerModel.setSubscribe(subscribeModel);
+			try
+            {
+                customerModel.setWeddingDate(DateUtils.getDefaultDate());
+            } catch (ParseException e)
+            {
+                customerModel.setWeddingDate(new Date());
+                e.printStackTrace();
+            }
 			customerService.createCustomer(customerModel);
 			LOG.debug("创建顾客" + cellphone);
 		} else
