@@ -12,7 +12,6 @@ import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.time.DateFormatUtils;
 import org.apache.log4j.Logger;
@@ -218,7 +217,9 @@ public class OrderPageController extends AbstractPageController {
         if (isAdmin())
         {
             model.addAttribute("receivableEditable", true);
-        }
+            model.addAttribute("editable",true);
+        }else
+            model.addAttribute("editable", orderData.getStatus().equals(CoreConstants.OrderStatus.NEW));
         
         if (isAdmin()||userFacade.getCurrentUser().getUserId().equals(orderData.getSalesPerson().getUserId()))
         {
@@ -237,9 +238,6 @@ public class OrderPageController extends AbstractPageController {
         model.addAttribute("statusText", orderData.getStatusText());
         if (StringUtils.isNotEmpty(message))
             model.addAttribute("message", message);
-        // TODO:订单的允许更新策略
-        model.addAttribute("editable",
-                orderData.getStatus().equals(CoreConstants.OrderStatus.NEW));
 
         fillStore2View(model, orderData.getStore().getCode());
         return ControllerConstants.LTE.MODIFYORDERPAGE;
