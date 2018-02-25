@@ -364,8 +364,22 @@ public class OrderPageController extends AbstractPageController {
 
             orderFacade.createOrder(order);
         } else
-            // TODO:需要判断订单状态为新建(需要考虑是否允许admin修改)
+            // 判断订单状态为新建(只允许admin跨状态修改)
+        {
+            boolean allowUpdate = false;
+            
+            if(!isAdmin())
+            {
+                OrderData orderData = orderFacade.getOrderForOptionsByPK(orderPK, Arrays.asList(OrderOption.BASIC));
+                allowUpdate = orderData.getStatus().equals(CoreConstants.OrderStatus.NEW);
+            }else
+                allowUpdate = true;
+            
+            
+            if(allowUpdate)
             orderFacade.updateOrder(order);
+        }
+            
 
         model.addAttribute("message", "保存成功!");
         return REDIRECT_PREFIX + "/order/modifyorderpage/" + orderCode;
