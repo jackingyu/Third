@@ -50,12 +50,12 @@ ACC.orderList = {
           d.customerName = formData.customerName;
           d.cellphone = formData.cellphone;
          
-          var orderDate = $('#orderDate').datepicker('getDate');
-          if(!isNaN(orderDate))
-          d.orderDate = new Date(orderDate).Format('yyyy-MM-dd');
-          var deliveryDate = getDate4Range($("#deliveryDate").val());
-          d.startDate = deliveryDate[0];
-          d.endDate = deliveryDate[1];
+          var deliveryDate = $('#deliveryDate').datepicker('getDate');
+          if(!isNaN(deliveryDate))
+          d.deliveryDate = new Date(deliveryDate).Format('yyyy-MM-dd');
+          var orderDate = getDate4Range($("#orderDate").val());
+          d.startDate = orderDate[0];
+          d.endDate = orderDate[1];
          
         /*  var storeCodes = $('#storeCodes').val(),;
            d.storeCodes = new Array(storeCodes.length);
@@ -72,13 +72,14 @@ ACC.orderList = {
       'fnDrawCallback': function () {
       }
     });
-    $('#deliveryDate').daterangepicker({
+    $('#orderDate').daterangepicker({
       locale:datepicker_locale_zh,
-      startDate:moment().subtract(15, 'days'),
-      endDate: moment().add(365,'days')    }
+      startDate:moment().subtract(365, 'days'),
+      endDate: moment().add(400,'days')    
+     }
     );
     
-    $('#orderDate').datepicker({
+    $('#deliveryDate').datepicker({
       autoclose:true,
       locale: {
         format: 'YYYY/MM/DD'

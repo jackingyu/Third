@@ -112,7 +112,7 @@
 			</div>
 			<div class="col-lg-3 cl-md-3 cl-sm-12 cl-xs-12">
 				<label><spring:message code="lte.paymentlist.alipay"></spring:message></label>
-				<input id="aliPayAmount"  readonly="true"  class="form-control required"
+				<input id="alipayAmount"  readonly="true"  class="form-control required"
 					placeholder="" type="text">
 			</div>
 			<div class="col-lg-3 cl-md-3 cl-sm-12 cl-xs-12">

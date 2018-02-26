@@ -73,7 +73,7 @@ public class OrderPageController extends AbstractPageController {
             @RequestParam(value = "orderCode", required = false) final String orderCode,
             @RequestParam(value = "cellphone", required = false) final String cellphone,
             @RequestParam(value = "customerName", required = false) final String name,
-            @RequestParam(value = "orderDate", required = false) @DateTimeFormat(pattern = "yyyy-MM-dd") final String orderDate,
+            @RequestParam(value = "deliveryDate", required = false) @DateTimeFormat(pattern = "yyyy-MM-dd") final String deliveryDate,
             @RequestParam(value = "storeCodes", required = false) final String storeCodes,
             @RequestParam(value = "orderStatus", required = false) final String orderStatus,
             @RequestParam(value = "startDate", required = false) @DateTimeFormat(pattern = "yyyy-MM-dd") Date startDate,
@@ -84,7 +84,7 @@ public class OrderPageController extends AbstractPageController {
         sp.put("cellphone", cellphone);
         sp.put("orderCode", orderCode);
         sp.put("name", name);
-        sp.put("orderDate", orderDate);
+        sp.put("deliveryDate", deliveryDate);
 
         if (StringUtils.isNotEmpty(orderStatus)
                 && Integer.valueOf(orderStatus) >= 0)
@@ -114,7 +114,7 @@ public class OrderPageController extends AbstractPageController {
             @RequestParam(value = "orderCode", required = false) final String orderCode,
             @RequestParam(value = "cellphone", required = false) final String cellphone,
             @RequestParam(value = "customerName", required = false) final String name,
-            @RequestParam(value = "orderDate", required = false) @DateTimeFormat(pattern = "yyyy-MM-dd") final String orderDate,
+            @RequestParam(value = "deliveryDate", required = false) @DateTimeFormat(pattern = "yyyy-MM-dd") final String deliveryDate,
             @RequestParam(value = "storeCodes", required = false) final String storeCodes,
             @RequestParam(value = "orderStatus", required = false) final String orderStatus,
             @RequestParam(value = "startDate", required = false) @DateTimeFormat(pattern = "yyyy-MM-dd") Date startDate,
@@ -126,7 +126,7 @@ public class OrderPageController extends AbstractPageController {
         sp.put("cellphone", cellphone);
         sp.put("orderCode", orderCode);
         sp.put("name", name);
-        sp.put("orderDate", orderDate);
+        sp.put("deliveryDate", deliveryDate);
 
         if (StringUtils.isNotEmpty(orderStatus)
                 && Integer.valueOf(orderStatus) >= 0)

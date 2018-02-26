@@ -53,9 +53,9 @@ public class DefaultOrderDao extends GenericDAO<OrderModel, String>
 					.append(getParameterValue(sp, "orderStatus"))
 					.append(" and ");
 
-		if (StringUtils.isNotBlank(getParameterValue(sp, "orderDate")))
-			sb.append("s.orderDate = '")
-					.append(getParameterValue(sp, "orderDate"))
+		if (StringUtils.isNotBlank(getParameterValue(sp, "deliveryDate")))
+			sb.append("s.deliveryDate = '")
+					.append(getParameterValue(sp, "deliveryDate"))
 					.append("' and ");
 		
 		if (StringUtils.isNotBlank(getParameterValue(sp, "salesperson")))
@@ -89,10 +89,10 @@ public class DefaultOrderDao extends GenericDAO<OrderModel, String>
 			sb.append("s.customer.name like '%")
 					.append(getParameterValue(sp, "name")).append("%' and ");
 
-		sb.append("s.deliveryDate between '").append(fmt.format(startDate))
+		sb.append("s.orderDate between '").append(fmt.format(startDate))
 				.append("' and '").append(fmt.format(endDate)).append("'");
 
-		sb.append(" order by s.deliveryDate asc");
+		sb.append(" order by s.orderDate asc");
 		final String hsql = sb.toString();
 		logger.info(hsql);
 
