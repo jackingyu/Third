@@ -24,20 +24,20 @@ public class TestDataController {
 	@Resource(name = "lotsOrderDataBuilder")
 	private LotsOrderDataBuilder lotsOrderDataBuilder;
 
-	@RequestMapping(value = "/data", method = RequestMethod.GET)
-	public String testData()
-	{
-		LOG.info("start create test data");
-		testDataGenerator.generateData();
-		return "redirect:/login";
-	}
-
-	@RequestMapping(value = "/lotsdata", method = RequestMethod.POST)
-	public void lotsOfData(
-			@RequestParam(value = "start", required = false) Integer start)
-	{
-		LOG.info("start create lots data " + start);
-		int length = 3000;
-		lotsOrderDataBuilder.buildData(start, length);
-	}
+//	@RequestMapping(value = "/data", method = RequestMethod.GET)
+//	public String testData()
+//	{
+//		LOG.info("start create test data");
+//		testDataGenerator.generateData();
+//		return "redirect:/login";
+//	}
+//
+//	@RequestMapping(value = "/lotsdata", method = RequestMethod.POST)
+//	public void lotsOfData(
+//			@RequestParam(value = "start", required = false) Integer start)
+//	{
+//		LOG.info("start create lots data " + start);
+//		int length = 3000;
+//		lotsOrderDataBuilder.buildData(start, length);
+//	}
 }
