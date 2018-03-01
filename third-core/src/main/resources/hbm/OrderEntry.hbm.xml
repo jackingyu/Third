@@ -78,6 +78,7 @@
 		<property column="actual_trydate" lazy="false" name="actualTryDate"
 			type="java.sql.Date" />
 		<property column="need_try" lazy="false" name="needTry" type="java.lang.Boolean" />
+		<property column="exported" lazy="false" name="exported" type="java.lang.Boolean" />
 		<property name="comment" type="java.lang.String">
 			<column name="comment" />
 		</property>

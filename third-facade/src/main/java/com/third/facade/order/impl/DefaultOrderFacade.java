@@ -284,7 +284,8 @@ public class DefaultOrderFacade implements OrderFacade {
 		orderEntry.setCustomerName(orderEntryData.getCustomerName());
 		orderEntry.setExternalId(orderEntryData.getExternalId());
 		orderEntry.setStatus(0);
-
+        orderEntry.setExported(false);
+        
 		OrderModel order = orderService.getOrderForPk(orderEntryData.getOrderPK());
 		orderEntry.setOrder(order);
 		orderEntry.setCreatedBy(userService.getCurrentUser());
@@ -767,6 +768,7 @@ public class DefaultOrderFacade implements OrderFacade {
 //select e.itemCategory,e.externalId,e.deliveryDate,e.customerName,e.product.code,e.style,e.comment,e.sizeDetails
 		Object[] title1 = {"量身单号码","系统编码","门店","取件日","顾客姓名","布料","布料补充说明","备注","款式","试装日","实际试装日"};
 		Object[] title= ArrayUtils.addAll(title1,sizeAttributesSorter.keySet().toArray());
+		List<String> orderEntriesPK = new ArrayList<String>();
 		int arrayLength = sizeAttributes.size();
 		exportResults.add(title);
 		
@@ -794,9 +796,12 @@ public class DefaultOrderFacade implements OrderFacade {
 			}
 			
 			exportResults.add(ArrayUtils.addAll(basicInformation, sizeDataArrays));
-
+             orderEntriesPK.add(d[0].toString());
 		});
-
+		String[] orderEntriesPKArray = new String[orderEntriesPK.size()];
+		orderEntriesPK.toArray(orderEntriesPKArray);
+		
+        orderService.updateOrderEntryExportFlag(orderEntriesPKArray);
 		return exportResults;
 	}
 

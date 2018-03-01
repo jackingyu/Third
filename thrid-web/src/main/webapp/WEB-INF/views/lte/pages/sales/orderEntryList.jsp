@@ -64,6 +64,10 @@
          <label><spring:message code="lte.orderentrylist.actualtrydate"></spring:message></label>
            <common:datepicker id="actualTryDate" name="actualTryDate"></common:datepicker>
          </div>
+        <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
+         <label><spring:message code="lte.orderentrylist.unexported"></spring:message></label>
+           <input class="checkbox" name="onlyUnExported" type="checkbox">
+         </div>
        </div>
        </form>
     </section>

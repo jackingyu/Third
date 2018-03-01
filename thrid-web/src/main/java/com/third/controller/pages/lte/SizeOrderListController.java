@@ -63,6 +63,7 @@ public class SizeOrderListController extends AbstractPageController {
             @RequestParam(value = "endDate", required = false) @DateTimeFormat(pattern = "yyyy-MM-dd") Date endDate,
             @RequestParam(value = "startTryDate", required = false) @DateTimeFormat(pattern = "yyyy-MM-dd") Date startTryDate,
             @RequestParam(value = "endTryDate", required = false) @DateTimeFormat(pattern = "yyyy-MM-dd") Date endTryDate,
+            @RequestParam(value = "onlyUnExported", required = false) boolean onlyUnExported,
             @RequestParam(value = "startActualTryDate", required = false) @DateTimeFormat(pattern = "yyyy-MM-dd") Date startActualTryDate,
             @RequestParam(value = "endActualTryDate", required = false) @DateTimeFormat(pattern = "yyyy-MM-dd") Date endActualTryDate,
             final DataTableCriterias criterias)
@@ -92,6 +93,11 @@ public class SizeOrderListController extends AbstractPageController {
                     + "," + DateUtils.formatYYYYMMDD(endActualTryDate));
         }
 
+        if(onlyUnExported)
+        {
+            sp.put("exported", "0");
+        }
+        
         DTResults r = orderFacade.getOrderEntries(startDate, endDate,
                 criterias.getStart(), criterias.getLength(), sp);
 
@@ -104,6 +110,7 @@ public class SizeOrderListController extends AbstractPageController {
             @RequestParam(value = "customerName", required = false) final String name,
             @RequestParam(value = "storeCodes", required = false) final String storeCodes,
             @RequestParam(value = "orderEntryStatus", required = false) final String orderEntryStatus,
+            @RequestParam(value = "onlyUnExported", required = false) boolean onlyUnExported,
             @RequestParam(value = "startDate", required = false) @DateTimeFormat(pattern = "yyyy-MM-dd") Date startDate,
             @RequestParam(value = "endDate", required = false) @DateTimeFormat(pattern = "yyyy-MM-dd") Date endDate,
             @RequestParam(value = "startTryDate", required = false) @DateTimeFormat(pattern = "yyyy-MM-dd") Date startTryDate,
@@ -129,6 +136,11 @@ public class SizeOrderListController extends AbstractPageController {
         {
             sp.put("actualTryDate", DateUtils.formatYYYYMMDD(startActualTryDate)
                     + "," + DateUtils.formatYYYYMMDD(endActualTryDate));
+        }
+        
+        if(onlyUnExported)
+        {
+            sp.put("exported", "0");
         }
 
         if (StringUtils.isEmpty(storeCodes))

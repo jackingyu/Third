@@ -65,6 +65,13 @@ public class DefaultOrderEntryDao extends GenericDAO<OrderEntryModel, String>
                     .append(getParameterValue(sp, "status"));
             condition.add(c.toString());
         }
+        
+        if (StringUtils.isNotBlank(getParameterValue(sp, "exported")))
+        {
+            StringBuilder c = new StringBuilder().append("e.exported = ")
+                    .append(getParameterValue(sp, "exported"));
+            condition.add(c.toString());
+        }
 
         // TODO if there is no store parameter get store from session
         if (StringUtils.isNotBlank(getParameterValue(sp, "storeCodes")))
@@ -155,6 +162,13 @@ public class DefaultOrderEntryDao extends GenericDAO<OrderEntryModel, String>
                     .append(getParameterValue(sp, "externalId")).append("'");
             condition.add(c.toString());
         }
+        
+        if (StringUtils.isNotBlank(getParameterValue(sp, "exported")))
+        {
+            StringBuilder c = new StringBuilder().append("e.exported = ")
+                    .append(getParameterValue(sp, "exported"));
+            condition.add(c.toString());
+        }
 
         if (StringUtils.isNotBlank(getParameterValue(sp, "status")))
         {
@@ -239,5 +253,16 @@ public class DefaultOrderEntryDao extends GenericDAO<OrderEntryModel, String>
         sb.append(" order by e.order.deliveryDate asc");
         logger.info(sb.toString());
         return findPageByQuery(sb.toString(), pageSize, startIndex);
+    }
+
+    @Override
+    public void updateOrderEntriesExportFlag(String[] orderEntriesPK)
+    {
+        final StringBuilder sb = new StringBuilder(
+                "update  OrderEntryModel e set e.exported = 1 "
+                        + " WHERE e.externalId IN ");
+       String condition  = "('"+StringUtils.join(orderEntriesPK, "','")+"')";
+       sb.append(condition);
+       this.updateByQuery(sb.toString());
     }
 }

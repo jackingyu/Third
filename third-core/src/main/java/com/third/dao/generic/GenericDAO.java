@@ -272,6 +272,13 @@ public class GenericDAO<T, ID extends Serializable> extends HibernateDaoSupport
 		logger.debug(queryString);
 		return query.list();
 	}
+	
+	
+	public void updateByQuery(String queryString)
+	{
+	    Query query = this.currentSession().createQuery(queryString);
+	    query.executeUpdate();
+	}
 
 	public Integer countByQuery(String hsql)
 	{

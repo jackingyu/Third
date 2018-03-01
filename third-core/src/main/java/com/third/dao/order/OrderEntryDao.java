@@ -17,5 +17,7 @@ public interface OrderEntryDao extends IGenericDAO<OrderEntryModel, String> {
 	
 	PaginationSupport findOrderEntriesWithSizeData(Date startDate, Date endDate,
 			Integer startIndex, Integer pageSize, Map<String, String> sp);
+	
+	void updateOrderEntriesExportFlag(String[] orderEntriesPK);
 
 }

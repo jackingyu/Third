@@ -141,5 +141,11 @@ public class DefaultOrderService implements OrderService {
 	{
 		return orderEntryDao.findOrderEntriesWithSizeData(startDate, endDate, startIndex, pageSize, sp);
 	}
+	
+	@Override
+	public void updateOrderEntryExportFlag(String[] orderEntriesPK)
+	{
+	    orderEntryDao.updateOrderEntriesExportFlag(orderEntriesPK);
+	}
 
 }

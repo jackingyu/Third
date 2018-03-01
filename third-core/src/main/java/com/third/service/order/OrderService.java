@@ -48,4 +48,6 @@ public interface OrderService {
 	List<OrderModel> getOrdersForCustomer(final String customerPK);
 	
 	List<Object[]> anlysisOrder(Date startDate, Date endDate,Map<String, String[]> sp);
+
+    void updateOrderEntryExportFlag(String[] orderEntriesPK);
 }

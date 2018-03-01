@@ -7,7 +7,7 @@ ACC.orderEntryList = {
 		formData = getQuery('orderEntryListForm');
 		d.externalId = formData.externalId==undefined?"":formData.externalId;
 		d.customerName = formData.customerName==undefined?"":formData.customerName;
-
+		d.onlyUnExported = formData.onlyUnExported=='on'?true:false;
 		var deliveryDate = getDate4Range($("#deliveryDate")
 				.val());
 		d.startDate = deliveryDate[0];
@@ -35,7 +35,7 @@ ACC.orderEntryList = {
 		var url = ACC.config.contextPath + '/orderentry/export?externalId='+d.externalId
 		          +"&startDate="+d.startDate+"&endDate="+d.endDate+"&customerName="+d.customerName
 		          +"&orderEntryStatus="+d.orderEntryStatus
-		          +"&storeCodes="+d.storeCodes;
+		          +"&storeCodes="+d.storeCodes+"&onlyUnExported="+d.onlyUnExported;
 		
 		window.open(url);
 	},
@@ -55,7 +55,8 @@ ACC.orderEntryList = {
 							formData = getQuery('orderEntryListForm');
 							d.externalId = formData.externalId;
 							d.customerName = formData.customerName;
-
+							d.onlyUnExported = formData.onlyUnExported=='on'?true:false;
+							
 							var deliveryDate = getDate4Range($("#deliveryDate")
 									.val());
 							d.startDate = deliveryDate[0];
