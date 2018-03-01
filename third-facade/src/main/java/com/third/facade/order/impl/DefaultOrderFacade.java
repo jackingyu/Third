@@ -185,8 +185,9 @@ public class DefaultOrderFacade implements OrderFacade {
 		if (StringUtils.isBlank(orderData.getPk()))
 			return;
 
+		
 		OrderModel order = orderService.getOrderForPk(orderData.getPk());
-
+        boolean deliveryDateChanged = !orderData.getDeliveryDate().equals(order.getDeliveryDate());
 		//只有新建状态的订单允许更新orderCode
 		if(order.getStatus()==CoreConstants.OrderStatus.NEW)
 		order.setCode(orderData.getOrderCode());
@@ -252,6 +253,16 @@ public class DefaultOrderFacade implements OrderFacade {
 //		}
 
 		orderService.upateOrder(order);
+		
+		if(deliveryDateChanged)
+		{
+		    List<OrderEntryModel> orderEntries = order.getOrderEntries();
+		    for(OrderEntryModel orderEntry:orderEntries)
+		    {
+		        orderEntry.setDeliveryDate(order.getDeliveryDate());
+		        orderService.updateOrderEntry(orderEntry);
+		    }
+		}
 	}
 
 	@Override
