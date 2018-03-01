@@ -29,7 +29,7 @@
       <div class="col-lg-1 col-md-1 pull-right">
       </div>
      <c:if test="${enableSaveBtn}">
-      <sec:authorize access="hasAnyRole('ROLE_SALES','ROLE_ADMIN','ROLE_FACTORY')">
+      <sec:authorize access="hasAnyRole('ROLE_SALES','ROLE_ADMIN','ROLE_FACTORY','ROLE_MANAGER')">
       <div class="col-lg-1 col-md-1 pull-right">
          <a onclick="ACC.sizeorder.saveSizeOrder()" class="btn btn-app">
           <i class="fa fa-save"></i>  <spring:message code="lte.save"></spring:message>
