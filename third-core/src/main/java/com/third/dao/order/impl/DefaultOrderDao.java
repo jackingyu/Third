@@ -21,6 +21,7 @@ public class DefaultOrderDao extends GenericDAO<OrderModel, String>
 	private final static String FIND_BY_ORDERCODE_SQL = "from com.third.model.OrderModel o where o.code=?";
 	private final static String FIND_BY_CUSTOMERPK_SQL = "from com.third.model.OrderModel o where o.customer.pk=?";
 	private final static String COUNT_ORDER_BY_CUSTOMER = "select count(*) from com.third.model.OrderModel o where o.customer.cellphone=:cellphone";
+	private final static String COUNT_ORDER_BY_CODE = "select count(*) from com.third.model.OrderModel o where o.code=:code";
 
 	@Override
 	public OrderModel findOrder(String orderCode)
@@ -180,6 +181,15 @@ public class DefaultOrderDao extends GenericDAO<OrderModel, String>
 				.createQuery(COUNT_ORDER_BY_CUSTOMER)
 				.setParameter("cellphone", cellphone).uniqueResult();
 		return numberOfOrder.intValue();
+	}
+	
+	@Override
+	public Integer checkOrderByCode(String code)
+	{
+	    Long numberOfOrder = (Long) this.currentSession()
+	            .createQuery(COUNT_ORDER_BY_CODE)
+	            .setParameter("code", code).uniqueResult();
+	    return numberOfOrder.intValue();
 	}
 
 	@Override

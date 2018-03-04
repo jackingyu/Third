@@ -32,7 +32,6 @@ public class DefaultOrderService implements OrderService {
 	@Override
 	public void createOrder(OrderModel orderModel)
 	{
-	    orderModel.setCreateTime(new Date());
 		orderDao.save(orderModel);
 	}
 
@@ -41,6 +40,13 @@ public class DefaultOrderService implements OrderService {
 	{
 	    orderModel.setModificationTime(new Date());
 		orderDao.update(orderModel);
+	}
+	
+	@Override
+	public boolean isExist(final String code)
+	{
+	    Integer i = orderDao.checkOrderByCode(code);
+	    return i > 0;
 	}
 
 	@Override

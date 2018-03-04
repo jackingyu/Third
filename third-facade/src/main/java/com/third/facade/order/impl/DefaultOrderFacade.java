@@ -720,7 +720,7 @@ public class DefaultOrderFacade implements OrderFacade {
 
 	public boolean isExist(final String orderCode)
 	{
-		return orderService.getOrderForCode(orderCode) != null;
+		return orderService.isExist(orderCode);
 	}
 
 	@Override

@@ -50,4 +50,6 @@ public interface OrderService {
 	List<Object[]> anlysisOrder(Date startDate, Date endDate,Map<String, String[]> sp);
 
     void updateOrderEntryExportFlag(String[] orderEntriesPK);
+
+    boolean isExist(String code);
 }

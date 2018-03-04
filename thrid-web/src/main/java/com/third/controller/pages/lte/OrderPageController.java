@@ -354,7 +354,7 @@ public class OrderPageController extends AbstractPageController {
         {
             CustomerData customer = customerFacade
                     .getCustomerByCellphone(order.getCellphone());
-            if (StringUtils.isEmpty(customer.getSource().getPk()))
+            if (customer.getSource()==null||StringUtils.isEmpty(customer.getSource().getPk()))
             {
 
                 attr.addFlashAttribute("message",
