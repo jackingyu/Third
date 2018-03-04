@@ -24,13 +24,13 @@
 		<property name="paidTime" type="java.util.Date">
 			<column name="paid_time"/>
 		</property>
-		<property name="modificationTime" update="false" insert="false" 
-			type="java.util.Date" generated="always">
-			<column name="modification_time" />
+		<property name="modificationTime" update="true" insert="true" 
+			type="java.util.Date" >
+			<column name="modification_time" sql-type="timestamp" default="CURRENT_TIMESTAMP" />
 		</property>
-		<property name="createTime" update="false" insert="false"
-			type="java.util.Date" generated="insert">
-			<column name="create_time"/>
+		<property name="createTime" update="false" insert="true"
+			type="java.util.Date" >
+			<column name="create_time" sql-type="timestamp" default="CURRENT_TIMESTAMP" />
 		</property>
 		<many-to-one name="store" lazy="false"
 			class="com.third.model.StoreModel" cascade="refresh"
