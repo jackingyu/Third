@@ -8,6 +8,7 @@ import java.util.Map;
 
 import org.springframework.web.multipart.MultipartFile;
 
+import com.third.exceptions.ProductNotFoundException;
 import com.third.facade.data.DTResults;
 import com.third.facade.data.ListData;
 import com.third.facade.data.OrderData;
@@ -31,9 +32,9 @@ public interface OrderFacade {
 
 	void updateOrder(final OrderData order);
 
-	void createOrderEntry(final OrderEntryData orderEntryData);
+	void createOrderEntry(final OrderEntryData orderEntryData) throws ProductNotFoundException;
 
-	void updateOrderEntry(final OrderEntryData orderEntryData);
+	void updateOrderEntry(final OrderEntryData orderEntryData) throws ProductNotFoundException;
 
 	void removeOrderEntry(final String orderEntryPK);
 

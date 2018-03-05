@@ -46,7 +46,7 @@ ACC.sizeorder = {
 		$("#productSearchPanel").modal();
 	},
 	setProduct : function(d) {
-		$("#productInfo").val(d[0] + "-" + d[1]);
+		$("#productInfo").val(d[0] + "/" + d[1]);
 		$("#productCode").val(d[0]);
 	},
 	factoryApprove : function() {

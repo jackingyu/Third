@@ -95,6 +95,7 @@ public interface ControllerConstants {
 		static final String ORDERITEMFRAGMENT = PAGE + "/sales/orderItem";
 		
 		static final String NOAUTHPAGE = PAGE + "/security/401";
+		static final String ERRORPAGE = PAGE + "/security/error";
 
 		static final String MYORDERPAGE = PAGE + "/sales/myOrder";
 		

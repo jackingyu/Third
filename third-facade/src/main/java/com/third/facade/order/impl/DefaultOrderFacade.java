@@ -24,6 +24,7 @@ import org.springframework.web.multipart.MultipartFile;
 import com.alibaba.fastjson.JSON;
 import com.third.core.constants.CoreConstants;
 import com.third.dao.util.PaginationSupport;
+import com.third.exceptions.ProductNotFoundException;
 import com.third.facade.data.DTResults;
 import com.third.facade.data.OrderData;
 import com.third.facade.data.OrderEntryData;
@@ -266,7 +267,7 @@ public class DefaultOrderFacade implements OrderFacade {
 	}
 
 	@Override
-	public void createOrderEntry(final OrderEntryData orderEntryData)
+	public void createOrderEntry(final OrderEntryData orderEntryData) throws ProductNotFoundException
 	{
 		OrderEntryModel orderEntry = new OrderEntryModel();
 		orderEntry.setComment(orderEntryData.getComment());
@@ -299,19 +300,23 @@ public class DefaultOrderFacade implements OrderFacade {
 			store = order.getStore();
 		orderEntry.setStore(store);
 
+		ProductModel product = null;
 		if (StringUtils.isNotEmpty(orderEntryData.getProduct().getCode()))
 		{
-			ProductModel product = productService
+			product = productService
 					.getProductForCode(orderEntryData.getProduct().getCode());
 			orderEntry.setProduct(product);
 		}
+		
+		if(product==null)
+		    throw new ProductNotFoundException();
 
 		orderService.createOrderEntry(orderEntry);
 		orderEntryData.setPk(orderEntry.getPk());
 	}
 
 	@Override
-	public void updateOrderEntry(final OrderEntryData orderEntryData)
+	public void updateOrderEntry(final OrderEntryData orderEntryData) throws ProductNotFoundException
 	{
 		OrderEntryModel orderEntry = orderService
 				.getOrderEntry(orderEntryData.getPk());
@@ -331,13 +336,17 @@ public class DefaultOrderFacade implements OrderFacade {
 		orderEntry.setExternalId(orderEntryData.getExternalId());
         orderEntry.setProductTitle(orderEntryData.getProductTitle());
         
+        ProductModel product = null;
 		if (StringUtils.isNotEmpty(orderEntryData.getProduct().getCode()))
 		{
-			ProductModel product = productService
+			product = productService
 					.getProductForCode(orderEntryData.getProduct().getCode());
 			orderEntry.setProduct(product);
 		}
 
+		if(product==null)
+            throw new ProductNotFoundException();
+		
 		orderService.updateOrderEntry(orderEntry);
 	}
 	
