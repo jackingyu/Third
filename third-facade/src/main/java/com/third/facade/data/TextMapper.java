@@ -6,7 +6,7 @@ import java.util.LinkedHashMap;
 import com.third.core.constants.CoreConstants;
 
 public class TextMapper {
-    public static HashMap<String, String> PaymentType = new HashMap<String, String>();
+    public static HashMap<String, String> PaymentType = new LinkedHashMap<String, String>();
     public static HashMap<String, String> PaymentMethod = new HashMap<String, String>();
     public static HashMap<String, String> ItemCategory = new HashMap<String, String>();
     public static HashMap<String, String> SizeAttributeGroup = new HashMap<String, String>();
@@ -17,8 +17,8 @@ public class TextMapper {
 
     static
     {
-        PaymentType.put(CoreConstants.PaymentType.DownPayment, "订金");
         PaymentType.put(CoreConstants.PaymentType.NormalPayment, "付款");
+        PaymentType.put(CoreConstants.PaymentType.DownPayment, "订金");
     }
 
     static
