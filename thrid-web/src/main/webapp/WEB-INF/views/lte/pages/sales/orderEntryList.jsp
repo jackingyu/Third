@@ -23,9 +23,11 @@
        </a>
       </div>
       <div class="col-lg-2 col-md-2">
-      <a onclick="ACC.orderEntryList.exportExcel()" class="btn btn-app">
+       <sec:authorize access="hasAnyRole('ROLE_ADMIN','ROLE_DESIGNER','ROLE_FACTORY')">
+       <a onclick="ACC.orderEntryList.exportExcel()" class="btn btn-app"> 
           <i class="fa fa-download"></i>  <spring:message code="lte.export"></spring:message>
        </a>
+       </sec:authorize>
       </div>
       </div>
     </section>
