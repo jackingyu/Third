@@ -104,6 +104,10 @@
 						<label><spring:message code="lte.orderentry.comment"></spring:message></label>
 						<textarea name="comment" class="form-control" rows="3" placeholder="">${orderEntry.comment}</textarea>
 					</div>
+					<div class="col-md-3 col-lg-3 col-xs-12 col-sm-12 ">
+						<label><spring:message code="lte.orderentry.scheduledate"></spring:message></label>
+						<input readonly="readonly" class="form-control" placeholder="" type="text" value="${orderEntry.scheduleDate}">
+					</div>
 				</div>
 			</div>
 		</div>

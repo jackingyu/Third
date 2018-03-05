@@ -9,11 +9,12 @@ ACC.orderList = {
         d.customerName = formData.customerName;
         d.cellphone = formData.cellphone;
        
-        var orderDate = $('#orderDate').datepicker('getDate');
-       
-        var deliveryDate = getDate4Range($("#deliveryDate").val());
-        d.startDate = deliveryDate[0];
-        d.endDate = deliveryDate[1];
+        var deliveryDate = $('#deliveryDate').datepicker('getDate');
+        if(!isNaN(deliveryDate))
+        d.deliveryDate = new Date(deliveryDate).Format('yyyy-MM-dd');
+        var orderDate = getDate4Range($("#orderDate").val());
+        d.startDate = orderDate[0];
+        d.endDate = orderDate[1];
      
         d.storeCodes = $('#storeCodes').val()!=null?$('#storeCodes').val().toString():'';
         d.orderStatus = formData.orderStatus;

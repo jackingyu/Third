@@ -37,6 +37,13 @@ ACC.orderEntryList = {
 		          +"&orderEntryStatus="+d.orderEntryStatus
 		          +"&storeCodes="+d.storeCodes+"&onlyUnExported="+d.onlyUnExported;
 		
+		var scheduleDate = $('#scheduleDate').datepicker('getDate');
+	    if(!isNaN(scheduleDate))
+	    	{
+	    	  d.scheduleDate = new Date(scheduleDate).Format('yyyy-MM-dd');
+		  url=url+"&scheduleDate="+d.scheduledate;
+	    	}
+		
 		window.open(url);
 	},
 	init : function() {
@@ -56,7 +63,10 @@ ACC.orderEntryList = {
 							d.externalId = formData.externalId;
 							d.customerName = formData.customerName;
 							d.onlyUnExported = formData.onlyUnExported=='on'?true:false;
-							
+						    var scheduleDate = $('#scheduleDate').datepicker('getDate');
+					        if(!isNaN(scheduleDate))
+					          d.scheduleDate = new Date(scheduleDate).Format('yyyy-MM-dd');
+					        
 							var deliveryDate = getDate4Range($("#deliveryDate")
 									.val());
 							d.startDate = deliveryDate[0];
@@ -126,6 +136,14 @@ ACC.orderEntryList = {
 		      $(this).val('');
 		  });
 
+		  $('#scheduleDate').datepicker({
+		      autoclose:true,
+		      locale: {
+		        format: 'YYYY/MM/DD'
+		      },
+		      language: 'zh-CN'
+		    }
+		  );
 
 	}
 }

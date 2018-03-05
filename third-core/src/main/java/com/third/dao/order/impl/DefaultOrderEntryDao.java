@@ -125,6 +125,14 @@ public class DefaultOrderEntryDao extends GenericDAO<OrderEntryModel, String>
                     .append("' and '").append(tryDates[1]).append("'");
             condition.add(c.toString());
         }
+        
+        if (sp.containsKey("scheduleDate"))
+        {
+            String scheduleDate = sp.get("scheduleDate");
+            StringBuilder c = new StringBuilder()
+                    .append("e.scheduleDate = '").append(scheduleDate).append("'");
+            condition.add(c.toString());
+        }
 
         if (CollectionUtils.isNotEmpty(condition))
         {
@@ -234,6 +242,14 @@ public class DefaultOrderEntryDao extends GenericDAO<OrderEntryModel, String>
             StringBuilder c = new StringBuilder()
                     .append("e.actualTryDate between '").append(tryDates[0])
                     .append("' and '").append(tryDates[1]).append("'");
+            condition.add(c.toString());
+        }
+        
+        if (sp.containsKey("scheduleDate"))
+        {
+            String scheduleDate = sp.get("scheduleDate");
+            StringBuilder c = new StringBuilder()
+                    .append("e.scheduleDate = '").append(scheduleDate).append("'");
             condition.add(c.toString());
         }
         

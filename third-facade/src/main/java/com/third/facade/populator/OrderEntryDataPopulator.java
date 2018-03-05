@@ -37,6 +37,7 @@ public class OrderEntryDataPopulator
         target.setQuantity(source.getQuantity());
         target.setSizeDate(source.getSizeDate());
         target.setTryDate(source.getTryDate());
+        target.setScheduleDate(source.getScheduleDate());
         target.setActualTryDate(source.getActualTryDate());
         target.setComment(source.getComment());
         target.setOrderCode(source.getOrder().getCode());

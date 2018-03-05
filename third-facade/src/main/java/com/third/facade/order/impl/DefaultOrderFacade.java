@@ -203,7 +203,7 @@ public class DefaultOrderFacade implements OrderFacade {
 		order.setContactinfo(orderData.getContactinfo());
         order.setCode(orderData.getOrderCode());
 		order.setDeliveryDate(orderData.getDeliveryDate());
-		order.setOrderDate(orderData.getOrderDate());
+		//order.setOrderDate(orderData.getOrderDate());
 		order.setPhotoDate(orderData.getPhotoDate());
 	    order.setReceiveable(BigDecimal.valueOf(Double.valueOf(orderData.getReceiveable())));
 		if (orderData.getSource() != null)

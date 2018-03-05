@@ -63,6 +63,7 @@ public class SizeOrderListController extends AbstractPageController {
             @RequestParam(value = "endDate", required = false) @DateTimeFormat(pattern = "yyyy-MM-dd") Date endDate,
             @RequestParam(value = "startTryDate", required = false) @DateTimeFormat(pattern = "yyyy-MM-dd") Date startTryDate,
             @RequestParam(value = "endTryDate", required = false) @DateTimeFormat(pattern = "yyyy-MM-dd") Date endTryDate,
+            @RequestParam(value = "scheduleDate", required = false) @DateTimeFormat(pattern = "yyyy-MM-dd") Date scheduleDate,
             @RequestParam(value = "onlyUnExported", required = false) boolean onlyUnExported,
             @RequestParam(value = "startActualTryDate", required = false) @DateTimeFormat(pattern = "yyyy-MM-dd") Date startActualTryDate,
             @RequestParam(value = "endActualTryDate", required = false) @DateTimeFormat(pattern = "yyyy-MM-dd") Date endActualTryDate,
@@ -92,6 +93,11 @@ public class SizeOrderListController extends AbstractPageController {
             sp.put("actualTryDate", DateUtils.formatYYYYMMDD(startActualTryDate)
                     + "," + DateUtils.formatYYYYMMDD(endActualTryDate));
         }
+        
+        if (scheduleDate!=null)
+        {
+            sp.put("scheduleDate", DateUtils.formatYYYYMMDD(scheduleDate));
+        }
 
         if(onlyUnExported)
         {
@@ -115,6 +121,7 @@ public class SizeOrderListController extends AbstractPageController {
             @RequestParam(value = "endDate", required = false) @DateTimeFormat(pattern = "yyyy-MM-dd") Date endDate,
             @RequestParam(value = "startTryDate", required = false) @DateTimeFormat(pattern = "yyyy-MM-dd") Date startTryDate,
             @RequestParam(value = "endTryDate", required = false) @DateTimeFormat(pattern = "yyyy-MM-dd") Date endTryDate,
+            @RequestParam(value = "scheduleDate", required = false) @DateTimeFormat(pattern = "yyyy-MM-dd") Date scheduleDate,
             @RequestParam(value = "startActualTryDate", required = false) @DateTimeFormat(pattern = "yyyy-MM-dd") Date startActualTryDate,
             @RequestParam(value = "endActualTryDate", required = false) @DateTimeFormat(pattern = "yyyy-MM-dd") Date endActualTryDate,
             final HttpServletRequest request,
@@ -136,6 +143,11 @@ public class SizeOrderListController extends AbstractPageController {
         {
             sp.put("actualTryDate", DateUtils.formatYYYYMMDD(startActualTryDate)
                     + "," + DateUtils.formatYYYYMMDD(endActualTryDate));
+        }
+        
+        if (scheduleDate!=null)
+        {
+            sp.put("scheduleDate", DateUtils.formatYYYYMMDD(scheduleDate));
         }
         
         if(onlyUnExported)

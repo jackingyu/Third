@@ -120,6 +120,12 @@ public class DefaultOrderProcessService implements OrderProcessService {
 		}
 
 		orderEntry.setStatus(targetStatus);
+		//设置的目标状态为工厂已排产
+        if(targetStatus ==30)
+        {
+            orderEntry.setScheduleDate(new Date());
+        }
+        
 		orderEntryDao.save(orderEntry);
 
 		OrderModel order = orderEntry.getOrder();
@@ -138,7 +144,7 @@ public class DefaultOrderProcessService implements OrderProcessService {
 		{
 			processOrder(order, user, targetStatus);
 		}
-
+      
 		return orderProcessRecordModel;
 	}
 

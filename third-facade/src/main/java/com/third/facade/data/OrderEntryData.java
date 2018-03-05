@@ -21,6 +21,7 @@ public class OrderEntryData extends AbstractData {
 	private Date sizeDate;
 	private Date tryDate;
 	private Date actualTryDate;
+	private Date scheduleDate;
 	private String sizeDetails;
 	private Date createTime;
 	private Date modificationTime;
@@ -315,5 +316,15 @@ public class OrderEntryData extends AbstractData {
     public void setOrderPK(String orderPK)
     {
         this.orderPK = orderPK;
+    }
+
+    public Date getScheduleDate()
+    {
+        return scheduleDate;
+    }
+
+    public void setScheduleDate(Date scheduleDate)
+    {
+        this.scheduleDate = scheduleDate;
     }
 }

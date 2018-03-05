@@ -75,6 +75,8 @@
 			type="java.sql.Date" />
 		<property column="trydate" lazy="false" name="tryDate"
 			type="java.sql.Date" />
+		<property column="scheduledate" lazy="false" name="scheduleDate"
+			type="java.sql.Date" />
 		<property column="actual_trydate" lazy="false" name="actualTryDate"
 			type="java.sql.Date" />
 		<property column="need_try" lazy="false" name="needTry" type="java.lang.Boolean" />
