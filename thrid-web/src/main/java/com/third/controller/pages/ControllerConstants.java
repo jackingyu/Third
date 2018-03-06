@@ -101,6 +101,8 @@ public interface ControllerConstants {
 		
 		final static String STORELISTPAGE = PAGE+"/store/storeList";
 		final static String STOREDETAILSPAGE = PAGE+"/store/storeDetails";
+		
+		final static String TITLE = "title";
 
 	}
 

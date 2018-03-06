@@ -240,6 +240,7 @@ public class OrderPageController extends AbstractPageController {
             model.addAttribute("message", message);
 
         fillStore2View(model, orderData.getStore().getCode());
+        model.addAttribute(ControllerConstants.LTE.TITLE, "订单"+orderData.getOrderCode());
         return ControllerConstants.LTE.MODIFYORDERPAGE;
     }
 

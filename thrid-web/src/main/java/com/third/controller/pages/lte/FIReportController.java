@@ -49,6 +49,7 @@ public class FIReportController extends AbstractPageController {
         fillPaymentMethods2View(model);
         fillOrderStatus2View(model);
         model.addAttribute("salesPersons", getSalesPerson());
+        model.addAttribute(ControllerConstants.LTE.TITLE, "财务明细报表");
         return ControllerConstants.LTE.PAYMENTLISTPAGE;
     }
 

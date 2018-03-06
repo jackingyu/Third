@@ -55,7 +55,7 @@ ACC.paymentList = {
     $('#paymentGrid').DataTable({
        'createdRow': function (row, data, index) {
         $('td', row).eq(2).html(
-           '<a  href="'+ACC.config.contextPath+"/order/modifyorderpage/"+data[2]+'" >'+data[2]+'</a>'
+           '<a  href="'+ACC.config.contextPath+"/order/modifyorderpage/"+data[2]+'" target="_blank" >'+data[2]+'</a>'
         );
       },
       'ajax': {
