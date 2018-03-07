@@ -163,8 +163,13 @@ public class DefaultPaymentDao extends GenericDAO<PaymentModel, String>
          BigDecimal[] result1 = new BigDecimal[3];
          for(int i = 0; i < result.length;i++)
          {
-             BigDecimal b = new BigDecimal(Double.valueOf(result[i].toString()));
-             result1[i] = b;
+             if(result[i]!=null)
+             {
+               BigDecimal b = new BigDecimal(Double.valueOf(result[i].toString()));
+               result1[i] = b;
+             }
+             else
+                 result1[i] = new BigDecimal(0);
          }
          
          return result1;

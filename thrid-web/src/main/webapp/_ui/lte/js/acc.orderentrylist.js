@@ -41,7 +41,7 @@ ACC.orderEntryList = {
 	    if(!isNaN(scheduleDate))
 	    	{
 	    	  d.scheduleDate = new Date(scheduleDate).Format('yyyy-MM-dd');
-		  url=url+"&scheduleDate="+d.scheduledate;
+		  url=url+"&scheduleDate="+d.scheduleDate;
 	    	}
 		
 		window.open(url);
