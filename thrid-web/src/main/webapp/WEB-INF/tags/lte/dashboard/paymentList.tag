@@ -26,8 +26,8 @@
 				       <input class="formcontrol" readonly="readonly" name="endDate"></input>
 		          	</div>
 				     <div class="form-group">
-				       <label><spring:message code="lte.storedashboard.customersource"></spring:message></label>
-				       <input class="formcontrol" readonly="readonly" name="customerSources"></input>
+<%-- 				       <label><spring:message code="lte.storedashboard.customersource"></spring:message></label> --%>
+<!-- 				       <input class="formcontrol" readonly="readonly" name="customerSources"></input> -->
 				       <input type="hidden" name="storeCode"></input>
 		          	</div>
         
