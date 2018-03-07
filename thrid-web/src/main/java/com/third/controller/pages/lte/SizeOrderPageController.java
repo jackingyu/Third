@@ -261,7 +261,7 @@ public class SizeOrderPageController extends AbstractPageController {
 
         if (isAdmin())
             return true;
-        if (isSales())
+        if (isSales()||isManager())
             if (CoreConstants.OrderStatus.NEW.equals(status))
                 return true;
             else
