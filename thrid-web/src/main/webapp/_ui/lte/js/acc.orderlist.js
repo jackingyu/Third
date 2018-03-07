@@ -75,8 +75,8 @@ ACC.orderList = {
     });
     $('#orderDate').daterangepicker({
       locale:datepicker_locale_zh,
-      startDate:moment().subtract(365, 'days'),
-      endDate: moment().add(400,'days')    
+      startDate:moment().subtract(30, 'days'),
+      endDate: moment().add(1,'days')    
      }
     );
     
