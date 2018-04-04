@@ -54,6 +54,15 @@ public class WeixinReservationController extends AbstractWeixinController {
 
 		return ControllerConstants.WeiXin.RESERVATIONMODIFYPAGE;
 	}
+	
+	@RequestMapping(value = "/createreservationpage")
+	public String getCreateReservationPage( final Model model)
+	{
+	    fillInStoreList(model);
+	    
+	    return ControllerConstants.WeiXin.RESERVATIONPAGE;
+	    
+	}
 
 	@RequestMapping(value = "/createReservation")
 	public String createReservation(

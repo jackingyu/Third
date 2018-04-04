@@ -38,7 +38,7 @@ public class WeixinAuthorizationFilter extends OncePerRequestFilter {
 
 
 	protected void forward(ServletRequest request,ServletResponse response) throws ServletException, IOException {
-		request.getRequestDispatcher("/weixin/memeber/getregisterpage").forward(request, response);
+		request.getRequestDispatcher("/weixin/member/getregisterpage").forward(request, response);
 	}
 
 	@Override
@@ -84,7 +84,10 @@ public class WeixinAuthorizationFilter extends OncePerRequestFilter {
 				if (customer == null)
 				{
 					LOG.debug(openId + " openid can not find customer master data");
+					request.setAttribute(WXConstant.WX_OPENID, openId);
+		
 					this.forward(request, response);
+					return;
 				}
 
 				filterChain.doFilter(request, response);

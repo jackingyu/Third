@@ -26,7 +26,7 @@
             {
                "type":"view",
                "name":"店铺列表",
-               "url":"https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx095f3e1260a6b827&redirect_uri=http%3A%2F%2Fwx.blaimar.com%2Fthrid-web%2Fwx%2FgetStoreList&response_type=code&scope=snsapi_base&state=123#wechat_redirect"
+               "url":"https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx2738a59e80ca5600&redirect_uri=http%3A%2F%2Fwx.blaimar.com%2Fthrid-web%2Fwx%2FgetStoreList&response_type=code&scope=snsapi_base&state=123#wechat_redirect"
             }
          ]
       },
@@ -37,11 +37,6 @@
                "type":"view",
                "name":"定制流程",
                "url":"http://mp.weixin.qq.com/s/pIjwFxLTxjWvfXqlUtzDOw"
-            },
-            {
-               "type":"view",
-               "name":"DIY细节",
-               "url":"http://blaimar.xnorth.cn/BLAIMAR/wx/culture"
             },
             {
                "type":"view",
@@ -61,22 +56,27 @@
             {
                "type":"view",
                "name":"注册",
-               "url":"https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx095f3e1260a6b827&redirect_uri=http%3a%2f%2fwx.blaimar.com%2fthrid-web%2fweixin%2fmember%2fgetregisterpage&response_type=code&scope=snsapi_base&state=123#wechat_redirect"
+               "url":"https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx2738a59e80ca5600&redirect_uri=http%3a%2f%2fwx.blaimar.com%2fthrid-web%2fweixin%2fmember%2fgetregisterpage&response_type=code&scope=snsapi_base&state=123#wechat_redirect"
             },
             {
                "type":"view",
                "name":"我的订单",
-               "url":"https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx095f3e1260a6b827&redirect_uri=http%3a%2f%2fwx.blaimar.com%2fthrid-web%2fwx%2fgetOrderList&response_type=code&scope=snsapi_base&state=123#wechat_redirect"
+               "url":"https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx2738a59e80ca5600&redirect_uri=http%3a%2f%2fwx.blaimar.com%2fthrid-web%2fwx%2fgetOrderList&response_type=code&scope=snsapi_base&state=123#wechat_redirect"
             },
             {
                "type":"view",
-               "name":"我的预定",
-               "url":"https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx095f3e1260a6b827&redirect_uri=http%3A%2F%2Fwx.blaimar.com%2Fthrid-web%2Fwx%2FgetReservationList&response_type=code&scope=snsapi_base&state=123#wechat_redirect"
+               "name":"我的预约",
+               "url":"https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx2738a59e80ca5600&redirect_uri=http%3A%2F%2Fwx.blaimar.com%2Fthrid-web%2Fwx%2FgetReservationList&response_type=code&scope=snsapi_base&state=123#wechat_redirect"
             },
             {
                "type":"view",
                "name":"我的会员",
-               "url":"https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx095f3e1260a6b827&redirect_uri=http%3A%2F%2Fwx.blaimar.com%2Fthrid-web%2Fwx%2Fmember%2Fhome&response_type=code&scope=snsapi_base&state=123#wechat_redirect"
+               "url":"https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx2738a59e80ca5600&redirect_uri=http%3A%2F%2Fwx.blaimar.com%2Fthrid-web%2Fwx%2Fmember%2Fhome&response_type=code&scope=snsapi_base&state=123#wechat_redirect"
+            },
+            {
+               "type":"view",
+               "name":"在线预约",
+               "url":"https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx2738a59e80ca5600&redirect_uri=http%3A%2F%2Fwx.blaimar.com%2Fthrid-web%2Fwx%2Fcreatereservationpage&response_type=code&scope=snsapi_base&state=123#wechat_redirect"
             }
          ]
       }
