@@ -1,10 +1,6 @@
 package com.third.facade.data;
 
-import java.math.BigDecimal;
 import java.util.Date;
-
-import com.third.model.OrderModel;
-import com.third.model.SourceModel;
 
 public class SalesQuotationData {
 	private String pk;
@@ -15,9 +11,11 @@ public class SalesQuotationData {
 	private Date tryDate;
 	private Date photoDate;
 	private Date deliveryDate;
+	private Date createDate;
 	private String coSalesperson;
 	private String comment;
 	private String paidamount;
+	private String totalamount;
 	private String paymentMethod;
 	private String orderCode;
 	private SourceData source;
@@ -161,4 +159,24 @@ public class SalesQuotationData {
 	{
 		this.source = source;
 	}
+
+    public Date getCreateDate()
+    {
+        return createDate;
+    }
+
+    public void setCreateDate(Date createDate)
+    {
+        this.createDate = createDate;
+    }
+
+    public String getTotalamount()
+    {
+        return totalamount;
+    }
+
+    public void setTotalamount(String totalamount)
+    {
+        this.totalamount = totalamount;
+    }
 }

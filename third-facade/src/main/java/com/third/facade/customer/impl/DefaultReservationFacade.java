@@ -14,11 +14,13 @@ import com.third.model.ReservationModel;
 import com.third.service.customer.CustomerService;
 import com.third.service.customer.ReservationService;
 import com.third.service.store.StoreService;
+import com.third.service.user.UserService;
 
 public class DefaultReservationFacade implements ReservationFacade {
 	private ReservationService reservationService;
 	private StoreService storeService;
 	private CustomerService customerService;
+	private UserService userService;
 	private ReservationDataPopulator reservationDataPopulator;
 
 	@Override
@@ -43,6 +45,7 @@ public class DefaultReservationFacade implements ReservationFacade {
 			reservation.setCustomer(customer);
 		}
 
+		reservation.setCreatedBy(userService.getCurrentUser());
 		reservationService.createrReservation(reservation);
 
 		return reservation.getPk();
@@ -144,4 +147,9 @@ public class DefaultReservationFacade implements ReservationFacade {
 		return reservations;
 	}
 
+    public void setUserService(UserService userService)
+    {
+        this.userService = userService;
+    }
+	
 }

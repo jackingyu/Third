@@ -9,8 +9,6 @@ import com.third.facade.data.SalesQuotationData;
 public interface SalesQuotationFacade {
 	String saveSalesQuotation(SalesQuotationData salesQuotationData);
 
-	void convertQuotation2Order(SalesQuotationData salesQuotationData);
-
 	DTResults getSalesQuotation(Date startDate, Date endDate, Integer startIndex,
 			Integer pageSize, Map<String, String> sp);
 	

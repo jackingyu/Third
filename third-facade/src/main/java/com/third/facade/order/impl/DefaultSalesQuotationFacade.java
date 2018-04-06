@@ -1,6 +1,7 @@
 package com.third.facade.order.impl;
 
 import java.math.BigDecimal;
+import java.time.Instant;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
@@ -56,18 +57,26 @@ public class DefaultSalesQuotationFacade implements SalesQuotationFacade {
 		salesQuotation.setComment(salesQuotationData.getComment());
 		salesQuotation.setPaidamount(BigDecimal
 				.valueOf(Double.valueOf(salesQuotationData.getPaidamount())));
+		salesQuotation.setTotalamount(BigDecimal
+		        .valueOf(Double.valueOf(salesQuotationData.getTotalamount())));
 		salesQuotation.setPaymentMethod(salesQuotationData.getPaymentMethod());
         salesQuotation.setCoSalesperson(salesQuotationData.getCoSalesperson());
         salesQuotation.setDeliveryDate(salesQuotationData.getDeliveryDate());
         salesQuotation.setWeddingDate(salesQuotationData.getWeddingDate());
         salesQuotation.setTryDate(salesQuotationData.getTryDate());
         salesQuotation.setPhotoDate(salesQuotationData.getPhotoDate());
+        //database level implement this
+        //salesQuotation.setCreateDate(Date.from(Instant.now()));
         if(salesQuotationData.getSource()!=null)
         {
           SourceModel sourceModel = sourceService.getSource(salesQuotationData.getSource().getPk());
           salesQuotation.setSource(sourceModel);
         }
+        
+        salesQuotation.setCreatedBy(userService.getCurrentUser());
+        
 		salesQuotationService.saveSalesQuotation(salesQuotation);
+		
 		
 		return salesQuotation.getPk();
 	}
@@ -87,13 +96,6 @@ public class DefaultSalesQuotationFacade implements SalesQuotationFacade {
 		});
 
 		return result;
-	}
-
-	@Override
-	public void convertQuotation2Order(SalesQuotationData salesQuotationData)
-	{
-		// TODO Auto-generated method stub
-
 	}
 
 	public void setSalesQuotationService(SalesQuotationService salesQuotationService)
@@ -167,9 +169,11 @@ public class DefaultSalesQuotationFacade implements SalesQuotationFacade {
 		StoreModel store = (StoreModel) userService.getCurrentUser().getStores().iterator().next();
 		so.setStore(store);
 		so.setCustomer(customer);
+		so.setReceiveable(sq.getTotalamount());
 		so.setPaidamount(sq.getPaidamount());
-		so.setReceiveable(sq.getPaidamount());
+		so.setOpenamount(sq.getTotalamount().subtract(sq.getPaidamount()));
 		so.setSource(sq.getSource());
+		so.setOrderDate(sq.getCreateDate());
 		PaymentModel pm = new PaymentModel();
 		pm.setAmount(sq.getPaidamount());
 		pm.setPaymentMethod(sq.getPaymentMethod());

@@ -114,6 +114,7 @@
 	    <property name="reservationService" ref="reservationService"></property>
 	    <property name="storeService" ref="storeService"></property>
 	    <property name="customerService" ref="customerService"></property>
+	    <property name="userService" ref="userService"></property>
 	    <property name="reservationDataPopulator" ref="reservationDataPopulator"></property>
 	</bean>
 	

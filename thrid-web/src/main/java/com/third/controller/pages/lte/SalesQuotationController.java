@@ -131,6 +131,7 @@ public class SalesQuotationController extends AbstractPageController {
 			@RequestParam(value = "customerName", required = false) final String customerName,
 			@RequestParam(value = "weddingDate", required = false) @DateTimeFormat(pattern = "yyyy-MM-dd") final Date weddingDate,
 			@RequestParam(value = "paidamount", required = false) final String paidamount,
+			@RequestParam(value = "totalamount", required = false) final String totalamount,
 			@RequestParam(value = "paymentMethod", required = false) final String paymentMethod,
 			@RequestParam(value = "continuecreate", required = true) final boolean continuecreate,
 			final Model model, final HttpServletRequest request,
@@ -142,6 +143,7 @@ public class SalesQuotationController extends AbstractPageController {
 		salesQuotation.setCustomerName(customerName);
 		salesQuotation.setCoSalesperson(coSalesperson);
 		salesQuotation.setPaidamount(paidamount);
+		salesQuotation.setTotalamount(totalamount);
 		salesQuotation.setPaymentMethod(paymentMethod);
 		salesQuotation.setDeliveryDate(deliveryDate);
 		salesQuotation.setWeddingDate(weddingDate);

@@ -85,6 +85,10 @@
 		        <common:datepicker value="${sq.deliveryDate}" validator="required" name="deliveryDate" id="deliverydate"/>
 			</div>
 			<div class="col-lg-4 cl-md-4 cl-sm-12 cl-xs-12">
+				<label><spring:message code="lte.salesquotation.createdate"></spring:message></label>
+				<input name="createDate" value="${sq.createDate}" disabled="disabled" class="form-control" placeholder="" type="text">
+			</div>
+			<div class="col-lg-4 cl-md-4 cl-sm-12 cl-xs-12">
 				<label><spring:message code="lte.salesquotation.cosalesperson"></spring:message></label>
 		         <input name="coSalesperson" value="${sq.coSalesperson}" class="form-control" placeholder="" type="text">
 			</div>
@@ -107,8 +111,12 @@
 		
 		 <div class="row">
 			<div class="col-lg-4 cl-md-4 cl-sm-12 cl-xs-12">
+				<label><spring:message code="lte.salesquotation.totalamount"></spring:message></label>
+				<input  name="totalamount" class="form-control required money" placeholder="" type="text" value="${sq.totalamount}">
+			</div>
+			<div class="col-lg-4 cl-md-4 cl-sm-12 cl-xs-12">
 				<label><spring:message code="lte.salesquotation.amount"></spring:message></label>
-				<input  name="paidamount" class="form-control required" placeholder="" type="text" value="${sq.paidamount}">
+				<input  name="paidamount" class="form-control required money" placeholder="" type="text" value="${sq.paidamount}">
 			</div>
 			<div class="col-lg-4 cl-md-4 cl-sm-12 cl-xs-12">
 				<label><spring:message code="lte.salesquotation.paymentmethod"></spring:message></label>

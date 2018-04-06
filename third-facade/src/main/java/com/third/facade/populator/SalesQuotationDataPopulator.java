@@ -22,11 +22,13 @@ public class SalesQuotationDataPopulator implements Populator<SalesQuotationMode
 		target.setCoSalesperson(source.getCoSalesperson());
 		target.setCustomerName(source.getCustomerName());
 		target.setDeliveryDate(source.getDeliveryDate());
+		target.setTotalamount(source.getTotalamount().toString());
 		target.setPaidamount(source.getPaidamount().toString());
 		target.setPaymentMethod(source.getPaymentMethod());
 		target.setPhotoDate(source.getPhotoDate());
 		target.setWeddingDate(source.getWeddingDate());
 		target.setTryDate(source.getTryDate());
+		target.setCreateDate(source.getCreateDate());
 		
 		if(source.getOrderCode()!=null)
 		target.setOrderCode(source.getOrderCode());

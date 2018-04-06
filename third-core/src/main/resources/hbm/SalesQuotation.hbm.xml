@@ -25,13 +25,13 @@
 			type="java.lang.String" />
 		<property column="comment" lazy="false" name="comment"
 			type="java.lang.String" />
+		<property column="totalamount" lazy="false" name="totalamount"
+			type="java.math.BigDecimal" />
 		<property column="paidamount" lazy="false" name="paidamount"
 			type="java.math.BigDecimal" />
 		<property column="paymentmethod" lazy="false" name="paymentMethod"
 			type="java.lang.String" />
-		<property name="createDate" update="false" insert="true"
-			type="java.util.Date">
-			<column name="create_date"/>
+		<property name="createDate" lazy="false" update="false" insert="true" type="java.sql.Date" column="create_date">
 		</property>
 			<property column="ordercode" lazy="false" name="orderCode"
 			type="java.lang.String" />
@@ -47,5 +47,10 @@
 			type="java.util.Date" >
 			<column name="create_time" />
 		</property>
+		<many-to-one name="createdBy" lazy="proxy"
+			class="com.third.model.UserModel" cascade="refresh"
+			fetch="select">
+			<column name="createdby" />
+		</many-to-one>
 	</class>
 </hibernate-mapping>
