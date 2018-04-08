@@ -25,7 +25,7 @@
 	<c:otherwise>
 		<select name="${name}" id="${id}" <c:if test="${not empty disabled}">disabled="${disabled}"</c:if>
 			class="form-control select2 ${validator}" style="width: 100%;">
-			<option value=""></option>
+			<c:if test="${empty value}"><option value=""></option></c:if>
 			<c:forEach var="item" items="${data}">
 				<option value="${item.code}" <c:if test="${value == item.code}">selected="selected"</c:if>>${item.text}</option>
 			</c:forEach>
