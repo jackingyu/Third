@@ -30,7 +30,7 @@ public class DefaultPaymentDao extends GenericDAO<PaymentModel, String>
 				+ "p.order.customer.name ,p.order.code,"
 				+ "p.order.salesperson.name,p.paymentMethod,p.amount,p.paidTime,"
 				+ "p.order.receiveable,p.order.paidamount,p.order.openamount,p.order.orderDate,"
-				+ "p.order.customer.source.name " + "from PaymentModel p ");
+				+ "p.order.source.name " + "from PaymentModel p ");
 
 		List<String> condition = new ArrayList<String>();
 
