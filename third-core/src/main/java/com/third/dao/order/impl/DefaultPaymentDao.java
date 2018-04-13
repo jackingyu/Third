@@ -43,7 +43,7 @@ public class DefaultPaymentDao extends GenericDAO<PaymentModel, String>
 			condition.add(c2);
 
 		String c3 = getArrayCondtion(sp, "sourcePKs",
-				"p.order.customer.source.pk");
+				"p.order.source.pk");
 		if (StringUtils.isNotEmpty(c3))
 			condition.add(c3);
 
