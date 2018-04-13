@@ -109,7 +109,8 @@ ACC.scanorder = {
           d.entryPK = formData.entryPK;
           d.externalId = formData.externalId;
           d.currentStatus = formData.currentStatus;
-        }
+        },
+        'bPaginate': false
       },
       'fnDrawCallback': function () {
       	var r = $('#orderEntryGrid').DataTable().rows();
