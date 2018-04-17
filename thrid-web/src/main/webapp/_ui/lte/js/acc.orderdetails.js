@@ -42,6 +42,7 @@ $(document).ready(function() {
 		locale : {
 			format : 'YYYY/MM/DD'
 		},
+	    startDate:new Date() ,
 		language : 'zh-CN'
 	});
 

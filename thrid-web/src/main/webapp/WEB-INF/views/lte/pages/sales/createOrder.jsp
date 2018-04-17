@@ -4,7 +4,7 @@
 <%@ taglib prefix="order" tagdir="/WEB-INF/tags/lte/sales"%>
 <template:page>
 	<jsp:attribute name="pageScripts">
-	  <script src="${lteResourcePath}/js/acc.orderdetails.js"></script>
+	  <script src="${lteResourcePath}/js/acc.orderdetails.js?v=20180417"></script>
 	  <script src="${lteResourcePath}/js/acc.searchcustomer.js"></script>
 	</jsp:attribute>
 	<jsp:body>
