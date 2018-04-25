@@ -99,7 +99,7 @@ ACC.modifyorder = {
     var orderCode = $('#orderCode').val();
     $('#paymentGrid').DataTable({
       'createdRow': function (row, data, index) {
-    	  if($('#orderStatus').val( )== '0') 
+    	  if($('#orderStatus').val( )== '0'||$('#allowRemovePayment').val()=='true') 
     	  $('td', row).eq(4).html('<a class="removePaymentBtn" onclick="ACC.modifyorder.removePayment(\'' + data[4] + '\')" paymentpk="' +
           data[4] +
         '"> <i class="fa fa-remove"></i>删除</a>'

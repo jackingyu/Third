@@ -70,6 +70,9 @@
 					   </c:forEach>
 					</tbody>
 				</table>
+				 <sec:authorize access="hasAnyRole('ROLE_ADMIN')">
+				   <input id="allowRemovePayment" type="hidden" value="true"/>
+				 </sec:authorize>
 			</div>
 		</div>
 	</div>
