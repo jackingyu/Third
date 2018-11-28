@@ -8,6 +8,7 @@ import javax.annotation.Resource;
 
 import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.Model;
 
 import com.third.controller.pages.lte.DTResultsV;
@@ -32,19 +33,20 @@ import com.third.facade.utils.TextMapperUtils;
 public abstract class AbstractPageController {
 	public static final String REDIRECT_PREFIX = "redirect:";
 	public static final String FORWARD_PREFIX = "forward:";
-	@Resource(name = "userFacade")
+
+	@Autowired
 	private UserFacade userFacade;
 
-	@Resource(name = "i18NFacade")
+	@Autowired
 	private I18NFacade i18NFacade;
 
-	@Resource(name = "storeFacade")
+    @Autowired
 	private StoreFacade storeFacade;
 
-	@Resource(name = "productFacade")
+    @Autowired
 	private ProductFacade productFacade;
 
-	@Resource(name = "sourceFacade")
+    @Autowired
 	private SourceFacade sourceFacade;
 
 	protected Integer getStartIndex(Integer page, Integer rows)

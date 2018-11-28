@@ -12,6 +12,7 @@ import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 /**
  * A postHandle HandlerInterceptor that runs a number of BeforeViewHandlers before the view is rendered.
  */
+
 public class BeforeControllerHandlerInterceptor extends HandlerInterceptorAdapter
 {
 	private final String INTERCEPTOR_ONCE_KEY = BeforeControllerHandlerInterceptor.class.getName();

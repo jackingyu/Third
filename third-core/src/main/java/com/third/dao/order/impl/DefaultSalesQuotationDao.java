@@ -17,7 +17,9 @@ import com.third.dao.generic.GenericDAO;
 import com.third.dao.order.SalesQuotationDao;
 import com.third.dao.util.PaginationSupport;
 import com.third.model.SalesQuotationModel;
+import org.springframework.stereotype.Repository;
 
+@Repository
 public class DefaultSalesQuotationDao extends
 		GenericDAO<SalesQuotationModel, String> implements SalesQuotationDao {
 

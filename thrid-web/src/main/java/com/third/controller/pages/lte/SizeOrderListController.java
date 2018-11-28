@@ -13,6 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.lang3.StringUtils;
 import org.apache.log4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -37,16 +38,14 @@ import com.third.facade.utils.TextMapperUtils;
 public class SizeOrderListController extends AbstractPageController {
     private static final Logger LOG = Logger.getLogger(
             com.third.controller.pages.lte.SizeOrderListController.class);
-
-    @Resource(name = "orderFacade")
+    @Autowired
     private OrderFacade orderFacade;
-    
-    @Resource(name = "userFacade")
+
+    @Autowired
     private UserFacade userFacade;
 
     @RequestMapping(value = "/orderentry/listpage", method = RequestMethod.GET)
-    public String orderEntryListPage(Model model)
-    {
+    public String orderEntryListPage(Model model) {
         fillAuthorizedStoreInView(model);
         fillOrderStatus2View(model);
         return ControllerConstants.LTE.ORDERENTRYLISTPAGE;
@@ -67,43 +66,37 @@ public class SizeOrderListController extends AbstractPageController {
             @RequestParam(value = "onlyUnExported", required = false) boolean onlyUnExported,
             @RequestParam(value = "startActualTryDate", required = false) @DateTimeFormat(pattern = "yyyy-MM-dd") Date startActualTryDate,
             @RequestParam(value = "endActualTryDate", required = false) @DateTimeFormat(pattern = "yyyy-MM-dd") Date endActualTryDate,
-            final DataTableCriterias criterias)
-    {
+            final DataTableCriterias criterias) {
         Map<String, String> sp = new HashMap<String, String>();
         sp.put("externalId", externalId);
         sp.put("name", name);
         if (orderEntryStatus != null && Integer.valueOf(orderEntryStatus) >= 0)
             sp.put("status", orderEntryStatus);
 
-        if (StringUtils.isEmpty(storeCodes))
-        {
+        if (StringUtils.isEmpty(storeCodes)) {
             String storeCodes1 = userFacade.getCurrentUser().getStoreCodes();
             sp.put("storeCodes", storeCodes1);
         } else
             sp.put("storeCodes", storeCodes);
 
-        if (startTryDate != null && endTryDate != null)
-        {
+        if (startTryDate != null && endTryDate != null) {
             sp.put("tryDate", DateUtils.formatYYYYMMDD(startTryDate) + ","
                     + DateUtils.formatYYYYMMDD(endTryDate));
         }
 
-        if (startActualTryDate != null && endActualTryDate != null)
-        {
+        if (startActualTryDate != null && endActualTryDate != null) {
             sp.put("actualTryDate", DateUtils.formatYYYYMMDD(startActualTryDate)
                     + "," + DateUtils.formatYYYYMMDD(endActualTryDate));
         }
-        
-        if (scheduleDate!=null)
-        {
+
+        if (scheduleDate != null) {
             sp.put("scheduleDate", DateUtils.formatYYYYMMDD(scheduleDate));
         }
 
-        if(onlyUnExported)
-        {
+        if (onlyUnExported) {
             sp.put("exported", "0");
         }
-        
+
         DTResults r = orderFacade.getOrderEntries(startDate, endDate,
                 criterias.getStart(), criterias.getLength(), sp);
 
@@ -125,43 +118,37 @@ public class SizeOrderListController extends AbstractPageController {
             @RequestParam(value = "startActualTryDate", required = false) @DateTimeFormat(pattern = "yyyy-MM-dd") Date startActualTryDate,
             @RequestParam(value = "endActualTryDate", required = false) @DateTimeFormat(pattern = "yyyy-MM-dd") Date endActualTryDate,
             final HttpServletRequest request,
-            final HttpServletResponse response)
-    {
+            final HttpServletResponse response) {
         Map<String, String> sp = new HashMap<String, String>();
         sp.put("externalId", externalId);
         sp.put("name", name);
         if (orderEntryStatus != null && Integer.valueOf(orderEntryStatus) >= 0)
             sp.put("status", orderEntryStatus);
 
-        if (startTryDate != null && endTryDate != null)
-        {
+        if (startTryDate != null && endTryDate != null) {
             sp.put("tryDate", DateUtils.formatYYYYMMDD(startTryDate) + ","
                     + DateUtils.formatYYYYMMDD(endTryDate));
         }
 
-        if (startActualTryDate != null && endActualTryDate != null)
-        {
+        if (startActualTryDate != null && endActualTryDate != null) {
             sp.put("actualTryDate", DateUtils.formatYYYYMMDD(startActualTryDate)
                     + "," + DateUtils.formatYYYYMMDD(endActualTryDate));
         }
-        
-        if (scheduleDate!=null)
-        {
+
+        if (scheduleDate != null) {
             sp.put("scheduleDate", DateUtils.formatYYYYMMDD(scheduleDate));
         }
-        
-        if(onlyUnExported)
-        {
+
+        if (onlyUnExported) {
             sp.put("exported", "0");
         }
 
-        if (StringUtils.isEmpty(storeCodes))
-        {
+        if (StringUtils.isEmpty(storeCodes)) {
             String storeCodes1 = userFacade.getCurrentUser().getStoreCodes();
             sp.put("storeCodes", storeCodes1);
         } else
             sp.put("storeCodes", storeCodes);
-        
+
         String[] sheetNames = new String[4];
 
         sp.put("itemCategory", CoreConstants.ItemCategory.Shirt);

@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.http.client.utils.DateUtils;
 import org.apache.log4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -41,10 +42,10 @@ public class CustomerPageController extends AbstractPageController {
 			.getLogger(CustomerPageController.class);
 	private static final String CELLPHONE_PATH_VARIABLE_PATTERN = "/{cellphone:.*}";
 
-	@Resource(name = "customerFacade")
+	@Autowired
 	private CustomerFacade customerFacade;
 
-	@Resource(name = "i18NFacade")
+	@Autowired
 	private I18NFacade i18NFacade;
 
 	@RequestMapping(value = "/customer/customerlistpage", method = RequestMethod.GET)

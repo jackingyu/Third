@@ -7,6 +7,7 @@ import javax.annotation.Resource;
 
 import org.apache.commons.lang3.StringUtils;
 import org.apache.log4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -26,7 +27,7 @@ public class SourceMaintainController extends AbstractPageController {
 	private static final Logger LOG = Logger.getLogger(
 			com.third.controller.pages.lte.SourceMaintainController.class);
 
-	@Resource(name = "sourceFacade")
+	@Autowired
 	private SourceFacade sourceFacade;
 
 	@RequestMapping(value = "/source/listpage", method = RequestMethod.GET)

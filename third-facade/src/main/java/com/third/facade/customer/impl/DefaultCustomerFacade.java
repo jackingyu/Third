@@ -31,7 +31,9 @@ import com.third.service.customer.SourceService;
 import com.third.service.customer.SubscribeService;
 import com.third.service.location.I18NService;
 import com.third.service.user.SessionService;
+import org.springframework.stereotype.Component;
 
+@Component
 public class DefaultCustomerFacade implements CustomerFacade {
 	private final static Logger LOG = Logger
 			.getLogger(DefaultCustomerFacade.class);

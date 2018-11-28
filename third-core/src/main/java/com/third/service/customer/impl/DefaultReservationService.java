@@ -7,7 +7,9 @@ import com.third.dao.customer.ReservationDao;
 import com.third.dao.util.PaginationSupport;
 import com.third.model.ReservationModel;
 import com.third.service.customer.ReservationService;
+import org.springframework.stereotype.Service;
 
+@Service
 public class DefaultReservationService implements ReservationService {
 	private ReservationDao reservationDao;
 

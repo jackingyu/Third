@@ -19,6 +19,7 @@ import org.dom4j.Document;
 import org.dom4j.DocumentException;
 import org.dom4j.Element;
 import org.dom4j.io.SAXReader;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -34,10 +35,10 @@ public class WeixinCallbackController {
 	private String TOKEN = "blaimar";
 	private static final Logger LOG = Logger
 			.getLogger(WeixinCallbackController.class);
-	@Resource(name = "weixinFacade")
+	@Autowired
 	private WeixinFacade weixinFacade;
-	
-	@Resource(name="sessionService")
+
+	@Autowired
 	private SessionService sessionService;
 
 	@RequestMapping(value = "/weixin/callback")

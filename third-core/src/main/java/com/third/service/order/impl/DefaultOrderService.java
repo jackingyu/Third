@@ -12,7 +12,9 @@ import com.third.dao.util.PaginationSupport;
 import com.third.model.OrderEntryModel;
 import com.third.model.OrderModel;
 import com.third.service.order.OrderService;
+import org.springframework.stereotype.Service;
 
+@Service
 public class DefaultOrderService implements OrderService {
 	private OrderDao orderDao;
 	private OrderEntryDao orderEntryDao;

@@ -12,7 +12,9 @@ import com.third.dao.generic.GenericDAO;
 import com.third.dao.location.CityDao;
 import com.third.dao.util.PaginationSupport;
 import com.third.model.CityModel;
+import org.springframework.stereotype.Repository;
 
+@Repository
 public class DefaultCityDao extends GenericDAO<CityModel, String>
 		implements CityDao {
 

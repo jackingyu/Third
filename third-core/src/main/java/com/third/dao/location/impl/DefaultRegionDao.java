@@ -12,7 +12,9 @@ import com.third.dao.generic.GenericDAO;
 import com.third.dao.location.RegionDao;
 import com.third.dao.util.PaginationSupport;
 import com.third.model.RegionModel;
+import org.springframework.stereotype.Repository;
 
+@Repository
 public class DefaultRegionDao extends GenericDAO<RegionModel, String>
 		implements RegionDao {
 

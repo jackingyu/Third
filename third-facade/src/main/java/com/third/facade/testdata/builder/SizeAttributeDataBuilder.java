@@ -7,10 +7,11 @@ import javax.annotation.Resource;
 import com.alibaba.fastjson.JSON;
 import com.third.model.SizeAttributeModel;
 import com.third.service.product.SizeAttributeService;
+import org.springframework.stereotype.Component;
 
+@Component
 public class SizeAttributeDataBuilder implements DataBuilder {
 	private String filename;
-	@Resource(name = "sizeAttributeService")
 	private SizeAttributeService sizeAttributeService;
 
 	@Override

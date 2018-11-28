@@ -11,7 +11,9 @@ import com.third.model.AddressModel;
 import com.third.model.StoreModel;
 import com.third.service.location.I18NService;
 import com.third.service.store.StoreService;
+import org.springframework.stereotype.Component;
 
+@Component
 public class DefaultStoreFacade implements StoreFacade {
 	private StoreService storeService;
 	private StoreDataPopulator storeDataPopulator;

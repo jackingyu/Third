@@ -76,7 +76,7 @@
 				<column name="orderpk"/>
 			</key>
 			<index>
-				<column name="paymentEntryNo"></column>
+				<column name="paymententryno"></column>
 			</index>
 			<one-to-many class="com.third.model.PaymentModel" />
 		</list>

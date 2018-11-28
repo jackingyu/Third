@@ -8,13 +8,16 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.apache.log4j.Logger;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.web.authentication.SimpleUrlAuthenticationSuccessHandler;
 
 import com.third.core.constants.CoreConstants;
 import com.third.facade.user.UserFacade;
 import com.third.service.user.SessionService;
 import com.third.web.utils.DeviceUtils;
+import org.springframework.stereotype.Component;
 
+@Component
 public class LoginAuthenticationSuccessHandler
 		extends SimpleUrlAuthenticationSuccessHandler {
 	private static final Logger LOG = Logger

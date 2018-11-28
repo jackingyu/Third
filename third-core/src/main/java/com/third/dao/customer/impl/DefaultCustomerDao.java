@@ -6,6 +6,7 @@ import java.util.List;
 import org.hibernate.criterion.DetachedCriteria;
 import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Restrictions;
+import org.springframework.stereotype.Repository;
 import org.springframework.util.CollectionUtils;
 import org.springframework.util.StringUtils;
 
@@ -13,7 +14,7 @@ import com.third.dao.customer.CustomerDao;
 import com.third.dao.generic.GenericDAO;
 import com.third.dao.util.PaginationSupport;
 import com.third.model.CustomerModel;
-
+@Repository
 public class DefaultCustomerDao extends GenericDAO<CustomerModel, String>
 		implements CustomerDao {
 	private final static String FIND_BY_CELLPHONE_SQL = "from com.third.model.CustomerModel c where c.cellphone=?";

@@ -5,7 +5,9 @@ import java.util.List;
 import com.third.dao.store.StoreDao;
 import com.third.model.StoreModel;
 import com.third.service.store.StoreService;
+import org.springframework.stereotype.Service;
 
+@Service
 public class DefaultStoreService implements StoreService {
 	private StoreDao storeDao;
 

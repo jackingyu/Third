@@ -18,6 +18,7 @@ import java.util.stream.Collectors;
 import org.apache.commons.lang3.ArrayUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.log4j.Logger;
+import org.springframework.stereotype.Component;
 import org.springframework.util.CollectionUtils;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -59,7 +60,7 @@ import com.third.service.product.ProductService;
 import com.third.service.product.SizeAttributeService;
 import com.third.service.store.StoreService;
 import com.third.service.user.UserService;
-
+@Component
 public class DefaultOrderFacade implements OrderFacade {
 	private OrderService orderService;
 	private CustomerService customerService;

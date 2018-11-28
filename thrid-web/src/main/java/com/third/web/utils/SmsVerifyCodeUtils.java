@@ -7,11 +7,16 @@ import javax.annotation.Resource;
 
 import com.third.service.media.SMSService;
 import com.third.service.user.SessionService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
+@Component
 public class SmsVerifyCodeUtils {
-    @Resource(name = "sessionService")
+
+    @Autowired
     private SessionService sessionService;
-    @Resource(name = "smsService")
+
+    @Autowired
     private SMSService smsService;
 
     private final static String VCODE = "vcode";

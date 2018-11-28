@@ -23,53 +23,55 @@ import com.third.service.customer.SourceService;
 import com.third.service.location.I18NService;
 import com.third.service.store.StoreService;
 import com.third.service.user.UserService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
+@Component
 public class CustomerSourceDataBuilder implements DataBuilder {
 
-	private String filename;
-	@Resource(name = "sourceService")
-	private SourceService sourceService;
-	@Resource(name="storeService")
-	private StoreService storeService;
+    private String filename;
 
-	private List<SourceModel> sourceModels = new ArrayList<SourceModel>();;
+    @Autowired
+    private SourceService sourceService;
 
-	@Override
-	public void buildData()
-	{
-		List<String[]> results = ExcelFileReader.readFile(filename, 3);
-		results.remove(0);
-		results.forEach(r->{
-			SourceModel source = new SourceModel();
-			source.setType(r[2]);
-			source.setName(r[1]);
-			sourceService.createSource(source);
-		});
-		
-		buildStore(sourceService.getSources());
-	}
+    @Autowired
+    private StoreService storeService;
 
+    private List<SourceModel> sourceModels = new ArrayList<SourceModel>();
+    ;
 
-	public void buildStore(List<SourceModel> sources)
-	{
-		List<StoreModel> stores = storeService.getAllStores();
-		stores.forEach(s->{
-			StoreModel store = s;
-			s.setSources(sources);
-			storeService.saveStore(store);
-		});
-	}
+    @Override
+    public void buildData() {
+        List<String[]> results = ExcelFileReader.readFile(filename, 3);
+        results.remove(0);
+        results.forEach(r -> {
+            SourceModel source = new SourceModel();
+            source.setType(r[2]);
+            source.setName(r[1]);
+            sourceService.createSource(source);
+        });
+
+        buildStore(sourceService.getSources());
+    }
 
 
-	public String getFilename()
-	{
-		return filename;
-	}
+    public void buildStore(List<SourceModel> sources) {
+        List<StoreModel> stores = storeService.getAllStores();
+        stores.forEach(s -> {
+            StoreModel store = s;
+            s.setSources(sources);
+            storeService.saveStore(store);
+        });
+    }
 
 
-	public void setFilename(String filename)
-	{
-		this.filename = filename;
-	}
+    public String getFilename() {
+        return filename;
+    }
+
+
+    public void setFilename(String filename) {
+        this.filename = filename;
+    }
 
 }

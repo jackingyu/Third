@@ -2,6 +2,7 @@ package com.third.controller.pages.lte;
 
 import javax.annotation.Resource;
 import org.apache.log4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -17,10 +18,10 @@ public class AddressDataController extends AbstractPageController {
 	private static final Logger LOG = Logger
 			.getLogger(AddressDataController.class);
 
-	@Resource(name = "customerFacade")
+	@Autowired
 	private CustomerFacade customerFacade;
 
-	@Resource(name = "i18NFacade")
+	@Autowired
 	private I18NFacade i18NFacade;
 
 	@RequestMapping(value = "/address/getcityforregion", method = RequestMethod.GET)

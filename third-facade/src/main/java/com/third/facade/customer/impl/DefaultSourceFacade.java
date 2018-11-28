@@ -16,7 +16,9 @@ import com.third.model.StoreModel;
 import com.third.service.customer.SourceService;
 import com.third.service.store.StoreService;
 import com.third.service.user.UserService;
+import org.springframework.stereotype.Component;
 
+@Component
 public class DefaultSourceFacade implements SourceFacade {
 	private SourceService sourceService;
 	private StoreService storeService;

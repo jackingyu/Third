@@ -8,6 +8,7 @@ import java.util.Map;
 import javax.annotation.Resource;
 
 import org.apache.log4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -32,7 +33,7 @@ public class ProductPageController extends AbstractPageController {
 			.getLogger(ProductPageController.class);
 	private static final String PRODUCTCODE_PATH_VARIABLE_PATTERN = "/{productCode:.*}";
 
-	@Resource(name = "productFacade")
+	@Autowired
 	private ProductFacade productFacade;
 
 	@RequestMapping(value = "/product/productlistpage", method = RequestMethod.GET)

@@ -10,7 +10,9 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.web.authentication.logout.SimpleUrlLogoutSuccessHandler;
 
 import com.third.facade.user.UserFacade;
+import org.springframework.stereotype.Component;
 
+@Component
 public class LogoutSuccessHandler extends SimpleUrlLogoutSuccessHandler {
 	private UserFacade userFacade;
 

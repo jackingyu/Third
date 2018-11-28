@@ -11,7 +11,9 @@ import com.third.model.SourceModel;
 import com.third.model.UserModel;
 import com.third.service.customer.CustomerService;
 import com.third.service.customer.SourceService;
+import org.springframework.stereotype.Service;
 
+@Service
 public class DefaultSourceService implements SourceService {
 	private SourceDao sourceDao;
 

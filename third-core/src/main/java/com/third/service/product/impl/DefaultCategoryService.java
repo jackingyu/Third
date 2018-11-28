@@ -10,7 +10,9 @@ import com.third.dao.product.CategoryDao;
 import com.third.dao.util.PaginationSupport;
 import com.third.model.CategoryModel;
 import com.third.service.product.CategoryService;
+import org.springframework.stereotype.Service;
 
+@Service
 public class DefaultCategoryService implements CategoryService {
 	private CategoryDao categoryDao;
 

@@ -13,11 +13,13 @@ import com.third.dao.user.UserDao;
 import com.third.dao.util.PaginationSupport;
 import com.third.model.UserGroupModel;
 import com.third.model.UserModel;
+import org.springframework.stereotype.Repository;
 
+@Repository
 public class DefaultUserDao extends GenericDAO<UserModel, String>
 		implements UserDao {
 
-	private final static String FIND_BY_ID_SQL = " from com.third.model.UserModel u where u.userId=?";
+	private final static String FIND_BY_ID_SQL = " from com.third.model.UserModel u where u.userId=?0";
 
 	public UserModel findUserById(final String userId)
 	{

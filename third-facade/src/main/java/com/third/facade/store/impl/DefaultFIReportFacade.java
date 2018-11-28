@@ -18,7 +18,9 @@ import com.third.model.StoreModel;
 import com.third.service.order.OrderService;
 import com.third.service.order.PaymentService;
 import com.third.service.store.StoreService;
+import org.springframework.stereotype.Component;
 
+@Component
 public class DefaultFIReportFacade implements FIReportFacade {
 	private PaymentService paymentService;
 	private OrderService orderService;

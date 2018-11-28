@@ -11,7 +11,10 @@ import com.third.dao.product.ProductDao;
 import com.third.dao.util.PaginationSupport;
 import com.third.model.ProductModel;
 import com.third.service.product.ProductService;
+import org.springframework.stereotype.Service;
 
+
+@Service
 public class DefaultProductService implements ProductService {
 	private ProductDao productDao;
 

@@ -6,6 +6,7 @@ import java.util.List;
 import javax.annotation.Resource;
 
 import org.apache.log4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -23,10 +24,10 @@ public class WeixinOrderController extends AbstractWeixinController {
 	private static final Logger LOG = Logger
 			.getLogger(WeixinOrderController.class);
 
-	@Resource(name = "orderFacade")
+    @Autowired
 	private OrderFacade orderFacade;
 
-	@Resource(name = "customerFacade")
+    @Autowired
 	private CustomerFacade customerFacade;
 
 	@RequestMapping(value = "/wx/getOrderList")

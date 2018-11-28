@@ -7,7 +7,9 @@ import com.third.dao.order.SalesQuotationDao;
 import com.third.dao.util.PaginationSupport;
 import com.third.model.SalesQuotationModel;
 import com.third.service.order.SalesQuotationService;
+import org.springframework.stereotype.Service;
 
+@Service
 public class DefaultSalesQuotationService implements SalesQuotationService {
 	private SalesQuotationDao salesQuotationDao;
 

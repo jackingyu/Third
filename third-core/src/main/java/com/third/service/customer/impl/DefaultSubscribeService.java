@@ -3,7 +3,9 @@ package com.third.service.customer.impl;
 import com.third.dao.customer.SubscribeDao;
 import com.third.model.SubscribeModel;
 import com.third.service.customer.SubscribeService;
+import org.springframework.stereotype.Service;
 
+@Service
 public class DefaultSubscribeService implements SubscribeService {
 	private SubscribeDao subscribeDao;
 

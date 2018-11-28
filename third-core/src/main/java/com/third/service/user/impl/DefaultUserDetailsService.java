@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -13,9 +14,12 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import com.third.model.RoleModel;
 import com.third.model.UserModel;
 import com.third.service.user.UserService;
+import org.springframework.stereotype.Service;
 
+@Service
 public class DefaultUserDetailsService implements UserDetailsService {
 
+	@Autowired
 	private UserService userService;
 	private final String rolePrefix = "ROLE_";
 
@@ -60,11 +64,6 @@ public class DefaultUserDetailsService implements UserDetailsService {
 		}
 
 		return authorities;
-	}
-
-	public void setUserService(UserService userService)
-	{
-		this.userService = userService;
 	}
 
 }

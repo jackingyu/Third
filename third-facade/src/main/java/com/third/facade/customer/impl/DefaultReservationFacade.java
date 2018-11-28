@@ -15,7 +15,9 @@ import com.third.service.customer.CustomerService;
 import com.third.service.customer.ReservationService;
 import com.third.service.store.StoreService;
 import com.third.service.user.UserService;
+import org.springframework.stereotype.Component;
 
+@Component
 public class DefaultReservationFacade implements ReservationFacade {
 	private ReservationService reservationService;
 	private StoreService storeService;

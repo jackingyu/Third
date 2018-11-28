@@ -11,6 +11,9 @@ import com.third.controller.pages.ControllerConstants;
 import com.third.facade.user.UserFacade;
 import com.third.service.user.UserService;
 
+import java.net.URL;
+import java.net.URLClassLoader;
+
 @Controller
 public class LoginPageController {
 	private static final Logger LOG = Logger
@@ -19,13 +22,15 @@ public class LoginPageController {
 	@Autowired
 	private UserService userService;
 
-	@Resource(name = "userFacade")
+	@Autowired
 	private UserFacade userFacade;
 
 	@RequestMapping(value = "/login", method = RequestMethod.GET)
 	public String getLoginPage()
 	{
-		return ControllerConstants.LTE.LOGINPAGE;
+		System.out.println(LoginPageController.class.getResource("").getPath());
+		return "index";
+//		return ControllerConstants.LTE.LOGINPAGE;
 	}
 
 }

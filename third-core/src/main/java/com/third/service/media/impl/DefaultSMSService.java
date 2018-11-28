@@ -22,7 +22,9 @@ import com.third.core.util.SmsConfig;
 import com.third.dao.util.HttpClientUtil;
 import com.third.model.OrderModel;
 import com.third.service.media.SMSService;
+import org.springframework.stereotype.Service;
 
+@Service
 public class DefaultSMSService implements SMSService {
 
 	private Log log = LogFactory.getLog(getClass());

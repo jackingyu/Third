@@ -4,27 +4,26 @@ import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.hibernate.Criteria;
-import org.hibernate.FlushMode;
 import org.hibernate.HibernateException;
 import org.hibernate.LockMode;
 import org.hibernate.Query;
-import org.hibernate.SQLQuery;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.DetachedCriteria;
 import org.hibernate.criterion.Projections;
-import org.hibernate.transform.Transformers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
-import org.springframework.orm.hibernate4.HibernateCallback;
-import org.springframework.orm.hibernate4.support.HibernateDaoSupport;
 
 import com.third.dao.util.PaginationSupport;
+import org.springframework.orm.hibernate5.HibernateCallback;
+import org.springframework.orm.hibernate5.LocalSessionFactoryBean;
+import org.springframework.orm.hibernate5.support.HibernateDaoSupport;
 
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
 import java.io.Serializable;
 import java.lang.reflect.ParameterizedType;
 import java.math.BigDecimal;
-import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.util.Collection;
 import java.util.List;
@@ -40,9 +39,13 @@ public class GenericDAO<T, ID extends Serializable> extends HibernateDaoSupport
 
 	protected Class<T> entityClass;
 
-	public GenericDAO()
-	{
+	public GenericDAO(){
+
 	}
+//	public GenericDAO(SessionFactory sessionFactory)
+//	{
+//		super.setSessionFactory(sessionFactory);
+//	}
 
 	protected Class getEntityClass()
 	{
@@ -303,10 +306,12 @@ public class GenericDAO<T, ID extends Serializable> extends HibernateDaoSupport
 	}
 
 	@Autowired
-	public void setSessionFactoryOverride(SessionFactory sessionFactory)
+	public void setSessionFactoryOverride(EntityManagerFactory entityManagerFactory)
 	{
 
-		super.setSessionFactory(sessionFactory);
+		System.out.println("execute once|"+entityManagerFactory+"|"+entityManagerFactory.unwrap(SessionFactory.class));
+
+		super.setSessionFactory(entityManagerFactory.unwrap(SessionFactory.class));
 	}
 
 	protected String generateLikeParameter(final String parameter)

@@ -43,7 +43,7 @@
 	</class>
 	<query name="getUserById">
     <![CDATA[  
-      from com.third.model.UserModel u where u.id=?
+      from com.third.model.UserModel u where u.id=?1
     ]]>
 	</query>
 </hibernate-mapping>

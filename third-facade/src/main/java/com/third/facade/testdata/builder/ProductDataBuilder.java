@@ -13,80 +13,76 @@ import com.third.model.ProductModel;
 import com.third.service.product.CategoryService;
 import com.third.service.product.ProductGroupService;
 import com.third.service.product.ProductService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
+@Component
 public class ProductDataBuilder implements DataBuilder {
-	private String filename;
-	
-	@Resource(name = "productService")
-	ProductService productService;
+    private String filename;
 
-	@Resource(name = "categoryService")
-	CategoryService categoryService;
+    @Autowired
+    ProductService productService;
 
-	@Resource(name = "productGroupService")
-	ProductGroupService productGroupService;
+    @Autowired
+    CategoryService categoryService;
 
-	@Override
-	public void buildData()
-	{
-		List<String[]> results = ExcelFileReader.readFile(filename, 4);
-		
-		buildCategories();
-		List<CategoryModel> categories = categoryService.getCategories();
+    @Autowired
+    ProductGroupService productGroupService;
 
-		results.forEach(r->{
-	    	   String[] item = r;
-	    	   ProductGroupModel pgm = productGroupService.getProductGroupByName(r[2]);
-	    	   
-	    	   if(pgm == null)
-	    	   {
-	    		   pgm = buildProductGroup(r[2]);
-	    	   }
-	    	   
-	    	   ProductModel product = new ProductModel();
-	    	   product.setProductGroup(pgm);
-	    	   product.setProducttitle(r[1]);
-	    	   product.setCode(r[0]);
-	    	   product.setCategory(categoryService.getCategoryForCode(r[3]));
-	    	   productService.saveProduct(product);
-	    });
+    @Override
+    public void buildData() {
+        List<String[]> results = ExcelFileReader.readFile(filename, 4);
 
-	}
+        buildCategories();
+        List<CategoryModel> categories = categoryService.getCategories();
 
-	private void buildCategories()
-	{
-	    buildCategory("A", "西服");
-		buildCategory("B", "西裤");
-		buildCategory("C", "衬衫");
-		buildCategory("D", "马甲");
-	}
+        results.forEach(r -> {
+            String[] item = r;
+            ProductGroupModel pgm = productGroupService.getProductGroupByName(r[2]);
 
-	public CategoryModel buildCategory(final String code, final String name)
-	{
-		CategoryModel category = new CategoryModel();
-		category.setCode(code);
-		category.setName(name);
-		categoryService.createCategory(category);
-		return category;
-	}
+            if (pgm == null) {
+                pgm = buildProductGroup(r[2]);
+            }
 
-	public ProductGroupModel buildProductGroup(final String name)
-	{
-		ProductGroupModel productGroup = new ProductGroupModel();
-		productGroup.setName(name);
-		productGroupService.createProductGroup(productGroup);
-		
-		return productGroup;
-	}
+            ProductModel product = new ProductModel();
+            product.setProductGroup(pgm);
+            product.setProducttitle(r[1]);
+            product.setCode(r[0]);
+            product.setCategory(categoryService.getCategoryForCode(r[3]));
+            productService.saveProduct(product);
+        });
 
-	public String getFilename()
-	{
-		return filename;
-	}
+    }
 
-	public void setFilename(String filename)
-	{
-		this.filename = filename;
-	}
+    private void buildCategories() {
+        buildCategory("A", "西服");
+        buildCategory("B", "西裤");
+        buildCategory("C", "衬衫");
+        buildCategory("D", "马甲");
+    }
+
+    public CategoryModel buildCategory(final String code, final String name) {
+        CategoryModel category = new CategoryModel();
+        category.setCode(code);
+        category.setName(name);
+        categoryService.createCategory(category);
+        return category;
+    }
+
+    public ProductGroupModel buildProductGroup(final String name) {
+        ProductGroupModel productGroup = new ProductGroupModel();
+        productGroup.setName(name);
+        productGroupService.createProductGroup(productGroup);
+
+        return productGroup;
+    }
+
+    public String getFilename() {
+        return filename;
+    }
+
+    public void setFilename(String filename) {
+        this.filename = filename;
+    }
 
 }

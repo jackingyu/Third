@@ -4,10 +4,12 @@ import java.io.File;
 import java.io.IOException;
 import java.util.UUID;
 
+import org.springframework.stereotype.Component;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.third.service.media.MediaStorageStrategy;
 
+@Component
 public class DefaultMediaStorageStrategy implements MediaStorageStrategy {
 	private final String mediaBasePath = "/medias";
 

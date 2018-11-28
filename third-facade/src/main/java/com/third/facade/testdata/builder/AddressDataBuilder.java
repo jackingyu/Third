@@ -9,7 +9,9 @@ import com.third.model.CityModel;
 import com.third.model.DistrictModel;
 import com.third.model.RegionModel;
 import com.third.service.location.I18NService;
+import org.springframework.stereotype.Component;
 
+@Component
 public class AddressDataBuilder implements DataBuilder {
 	private I18NService i18NService;
 	private String filename;

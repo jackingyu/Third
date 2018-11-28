@@ -16,7 +16,9 @@ import com.third.dao.generic.GenericDAO;
 import com.third.dao.order.OrderEntryDao;
 import com.third.dao.util.PaginationSupport;
 import com.third.model.OrderEntryModel;
+import org.springframework.stereotype.Repository;
 
+@Repository
 public class DefaultOrderEntryDao extends GenericDAO<OrderEntryModel, String>
         implements OrderEntryDao {
     private Log logger = LogFactory.getLog(getClass());

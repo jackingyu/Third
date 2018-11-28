@@ -8,6 +8,7 @@ import java.util.Map;
 
 import org.apache.commons.collections4.CollectionUtils;
 import org.apache.log4j.Logger;
+import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
 
 import com.third.core.constants.CoreConstants;
@@ -36,6 +37,7 @@ import com.third.service.user.RoleService;
 import com.third.service.user.SessionService;
 import com.third.service.user.UserService;
 
+@Component
 public class DefaultUserFacade implements UserFacade {
     private static final Logger LOG = Logger.getLogger(DefaultUserFacade.class);
 

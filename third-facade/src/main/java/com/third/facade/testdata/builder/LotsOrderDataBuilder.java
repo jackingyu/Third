@@ -30,159 +30,149 @@ import com.third.service.order.OrderService;
 import com.third.service.product.ProductService;
 import com.third.service.store.StoreService;
 import com.third.service.user.UserService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
+@Service("lotsOrderDataBuilder")
 public class LotsOrderDataBuilder {
-	@Resource(name = "orderService")
-	private OrderService orderService;
 
-	@Resource(name = "storeService")
-	private StoreService storeService;
+    private OrderService orderService;
 
-	@Resource(name = "customerService")
-	private CustomerService customerService;
+    private StoreService storeService;
 
-	@Resource(name = "userService")
-	private UserService userService;
+    private CustomerService customerService;
 
-	@Resource(name = "productService")
-	private ProductService productService;
+    private UserService userService;
 
-	@Resource(name = "orderProcessService")
-	private OrderProcessService orderProcessService;
+    private ProductService productService;
 
-	@Resource(name = "sourceService")
-	private SourceService sourceService;
+    private OrderProcessService orderProcessService;
 
-	private List<SourceModel> sources;
+    private SourceService sourceService;
 
-	public void buildData(final Integer start, final Integer length)
-	{
-		sources = sourceService.getSources();
+    private List<SourceModel> sources;
 
-		for (int i = 0; i < length; i++)
-		{
-			Integer orderCode = start + i;
-			buildOrder("m" + orderCode.toString());
-		}
+    public void buildData(final Integer start, final Integer length) {
+        sources = sourceService.getSources();
 
-	}
+        for (int i = 0; i < length; i++) {
+            Integer orderCode = start + i;
+            buildOrder("m" + orderCode.toString());
+        }
 
-	public void buildOrderProcess(final OrderModel orderModel)
-	{
-		OrderProcessRecordModel op = new OrderProcessRecordModel();
-		op.setMessage("dadfds");
-		op.setOrderCode(orderModel.getCode());
-		op.setFromStatus("0");
-		op.setToStatus("1");
-		orderProcessService.createOrderProcess(op);
-	}
+    }
 
-	public OrderModel buildOrder(final String orderCode)
-	{
-		OrderModel orderModel = new OrderModel();
+    public void buildOrderProcess(final OrderModel orderModel) {
+        OrderProcessRecordModel op = new OrderProcessRecordModel();
+        op.setMessage("dadfds");
+        op.setOrderCode(orderModel.getCode());
+        op.setFromStatus("0");
+        op.setToStatus("1");
+        orderProcessService.createOrderProcess(op);
+    }
 
-		orderModel.setCode(orderCode);
+    public OrderModel buildOrder(final String orderCode) {
+        OrderModel orderModel = new OrderModel();
 
-		Calendar calendar = Calendar.getInstance();
-		Date today = new Date();
-		orderModel.setDeliveryDate(
-				getNextDay(today, RandomUtils.nextInt(0, 365)));
-		orderModel.setOrderDate(getNextDay(today, 365));
-		orderModel.setStore(storeService.getStoreForCode("s-1"));
-		orderModel.setPhotoDate(getNextDay(today, 3));
-		orderModel.setWeddingDate(getNextDay(today, 20));
-		orderModel.setStatus(0);
-		CustomerModel customer = buildCustomer("13800138001" + orderCode,
-				"name" + orderCode);
-		orderModel.setCustomer(customer);
-		orderModel.setSalesperson(
-				userService.getUserById("test" + RandomUtils.nextInt(0, 20)));
-		StoreModel store = storeService.getStoreForCode("s-1");
-		orderModel.setStore(store);
+        orderModel.setCode(orderCode);
 
-		PaymentModel paymentModel = new PaymentModel();
-		paymentModel.setPaymentMethod(PaymentMethod.Cash);
-		paymentModel.setPaymentType(PaymentType.DownPayment);
-		paymentModel.setPaymentEntryNo(10);
-		paymentModel.setAmount(BigDecimal.valueOf(100.00));
-		paymentModel.setPaidTime(Calendar.getInstance().getTime());
-		paymentModel.setStore(store);
+        Calendar calendar = Calendar.getInstance();
+        Date today = new Date();
+        orderModel.setDeliveryDate(
+                getNextDay(today, RandomUtils.nextInt(0, 365)));
+        orderModel.setOrderDate(getNextDay(today, 365));
+        orderModel.setStore(storeService.getStoreForCode("s-1"));
+        orderModel.setPhotoDate(getNextDay(today, 3));
+        orderModel.setWeddingDate(getNextDay(today, 20));
+        orderModel.setStatus(0);
+        CustomerModel customer = buildCustomer("13800138001" + orderCode,
+                "name" + orderCode);
+        orderModel.setCustomer(customer);
+        orderModel.setSalesperson(
+                userService.getUserById("test" + RandomUtils.nextInt(0, 20)));
+        StoreModel store = storeService.getStoreForCode("s-1");
+        orderModel.setStore(store);
 
-		List<PaymentModel> payments = new ArrayList<PaymentModel>();
-		payments.add(paymentModel);
+        PaymentModel paymentModel = new PaymentModel();
+        paymentModel.setPaymentMethod(PaymentMethod.Cash);
+        paymentModel.setPaymentType(PaymentType.DownPayment);
+        paymentModel.setPaymentEntryNo(10);
+        paymentModel.setAmount(BigDecimal.valueOf(100.00));
+        paymentModel.setPaidTime(Calendar.getInstance().getTime());
+        paymentModel.setStore(store);
 
-		BigDecimal paidamount = new BigDecimal(100);
+        List<PaymentModel> payments = new ArrayList<PaymentModel>();
+        payments.add(paymentModel);
 
-		for (int i = 0; i < 5; i++)
-		{
-			PaymentModel paymentModel1 = new PaymentModel();
-			paymentModel1.setPaymentMethod(PaymentMethod.CreditCard);
-			paymentModel1.setPaymentType(PaymentType.NormalPayment);
-			paymentModel1.setPaymentEntryNo(10 + i);
-			paymentModel.setStore(store);
-			paymentModel1
-					.setAmount(BigDecimal.valueOf(RandomUtils.nextInt(1, 199)));
-			paymentModel1.setPaidTime(Calendar.getInstance().getTime());
-			payments.add(paymentModel1);
-			paidamount = paidamount.add(paymentModel1.getAmount());
-		}
+        BigDecimal paidamount = new BigDecimal(100);
 
-		orderModel.setReceiveable(
-				BigDecimal.valueOf(RandomUtils.nextInt(1000, 9999)));
-		orderModel.setPaidamount(paidamount);
-		orderModel.setOpenamount(orderModel.getReceiveable()
-				.subtract(orderModel.getPaidamount()));
+        for (int i = 0; i < 5; i++) {
+            PaymentModel paymentModel1 = new PaymentModel();
+            paymentModel1.setPaymentMethod(PaymentMethod.CreditCard);
+            paymentModel1.setPaymentType(PaymentType.NormalPayment);
+            paymentModel1.setPaymentEntryNo(10 + i);
+            paymentModel.setStore(store);
+            paymentModel1
+                    .setAmount(BigDecimal.valueOf(RandomUtils.nextInt(1, 199)));
+            paymentModel1.setPaidTime(Calendar.getInstance().getTime());
+            payments.add(paymentModel1);
+            paidamount = paidamount.add(paymentModel1.getAmount());
+        }
 
-		OrderEntryModel entry = new OrderEntryModel();
-		entry.setQuantity(11);
-		entry.setEntryNo(1);
-		entry.setComment("test order entry");
-		entry.setDeliveryDate(new Date());
-		entry.setSizeDate(new Date());
-		entry.setItemCategory("10");
-		entry.setStyle("测试规格");
-		entry.setProductTitle("成品西装");
-		entry.setSizeDate(new Date());
-		entry.setDesigner(userService.getDesignerForStore(entry.getStore().getId()).get(0));
-		entry.setTryDate(new Date());
-		entry.setComment("我是一个备注备注备注");
-		entry.setStore(store);
-		entry.setProduct(productService
-				.getProductForCode("p-" + RandomUtils.nextInt(0, 50)));
-		List<OrderEntryModel> entries = new ArrayList<OrderEntryModel>();
-		entries.add(entry);
+        orderModel.setReceiveable(
+                BigDecimal.valueOf(RandomUtils.nextInt(1000, 9999)));
+        orderModel.setPaidamount(paidamount);
+        orderModel.setOpenamount(orderModel.getReceiveable()
+                .subtract(orderModel.getPaidamount()));
 
-		orderModel.setOrderEntries(entries);
-		orderModel.setPayments(payments);
+        OrderEntryModel entry = new OrderEntryModel();
+        entry.setQuantity(11);
+        entry.setEntryNo(1);
+        entry.setComment("test order entry");
+        entry.setDeliveryDate(new Date());
+        entry.setSizeDate(new Date());
+        entry.setItemCategory("10");
+        entry.setStyle("测试规格");
+        entry.setProductTitle("成品西装");
+        entry.setSizeDate(new Date());
+        entry.setDesigner(userService.getDesignerForStore(entry.getStore().getId()).get(0));
+        entry.setTryDate(new Date());
+        entry.setComment("我是一个备注备注备注");
+        entry.setStore(store);
+        entry.setProduct(productService
+                .getProductForCode("p-" + RandomUtils.nextInt(0, 50)));
+        List<OrderEntryModel> entries = new ArrayList<OrderEntryModel>();
+        entries.add(entry);
 
-		orderService.createOrder(orderModel);
-		return orderModel;
-	}
+        orderModel.setOrderEntries(entries);
+        orderModel.setPayments(payments);
 
-	public static Date getNextDay(Date date, int after)
-	{
-		Calendar calendar = Calendar.getInstance();
-		calendar.setTime(date);
-		calendar.add(Calendar.DAY_OF_MONTH, +after);// +1今天的时间加一天
-		date = calendar.getTime();
-		return date;
-	}
+        orderService.createOrder(orderModel);
+        return orderModel;
+    }
 
-	public CustomerModel buildCustomer(final String cellphone,
-			final String name)
-	{
-		CustomerModel customer = new CustomerModel();
-		customer.setCellphone(cellphone);
-		customer.setName(name);
-		customer.setBirthday(new Date());
-		customer.setWeddingDate(new Date());
-		customer.setEmail("dd@tt.com");
-		customer.setComment("yekongzhongzuiliangdexing");
-		customer.setQQ("33445566");
-		customer.setSource(sources.get(RandomUtils.nextInt(0, 5)));
+    public static Date getNextDay(Date date, int after) {
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(date);
+        calendar.add(Calendar.DAY_OF_MONTH, +after);// +1今天的时间加一天
+        date = calendar.getTime();
+        return date;
+    }
 
-		customerService.createCustomer(customer);
-		return customer;
-	}
+    public CustomerModel buildCustomer(final String cellphone,
+                                       final String name) {
+        CustomerModel customer = new CustomerModel();
+        customer.setCellphone(cellphone);
+        customer.setName(name);
+        customer.setBirthday(new Date());
+        customer.setWeddingDate(new Date());
+        customer.setEmail("dd@tt.com");
+        customer.setComment("yekongzhongzuiliangdexing");
+        customer.setQQ("33445566");
+        customer.setSource(sources.get(RandomUtils.nextInt(0, 5)));
+
+        customerService.createCustomer(customer);
+        return customer;
+    }
 
 }

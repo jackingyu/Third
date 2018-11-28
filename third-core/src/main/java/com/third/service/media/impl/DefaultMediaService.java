@@ -1,11 +1,13 @@
 package com.third.service.media.impl;
 
 import org.apache.commons.lang3.StringUtils;
+import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.third.service.media.MediaService;
 import com.third.service.media.MediaStorageStrategy;
 
+@Service
 public class DefaultMediaService implements MediaService {
 	private MediaStorageStrategy mediaStorageStrategy;
 

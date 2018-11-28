@@ -14,6 +14,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.lang3.StringUtils;
 import org.apache.log4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
@@ -44,16 +45,13 @@ public class OrderProcessController extends AbstractPageController {
     private static final Logger LOG = Logger.getLogger(
             com.third.controller.pages.lte.OrderProcessController.class);
 
-    @Resource(name = "orderProcessFacade")
+    @Autowired
     private OrderProcessFacade orderProcessFacade;
 
-    @Resource(name = "textMapperUtils")
-    private TextMapperUtils textMapperUtils;
-
-    @Resource(name = "userFacade")
+    @Autowired
     private UserFacade userFacade;
 
-    @Resource(name = "orderFacade")
+    @Autowired
     private OrderFacade orderFacade;
 
     @RequestMapping(value = "/order/updatestatus")

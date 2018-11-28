@@ -22,7 +22,9 @@ import com.third.dao.util.HttpClientUtil;
 import com.third.dao.util.SubscribeData;
 import com.third.model.WeixinInfoModel;
 import com.third.service.customer.WeixinService;
+import org.springframework.stereotype.Service;
 
+@Service
 public class DefaultWeixinService implements WeixinService {
 	private static final Logger LOG = Logger
 			.getLogger(DefaultWeixinService.class);

@@ -13,7 +13,9 @@ import com.third.dao.product.CategoryDao;
 import com.third.dao.util.PaginationSupport;
 import com.third.model.CategoryModel;
 import com.third.model.UserModel;
+import org.springframework.stereotype.Repository;
 
+@Repository
 public class DefaultCategoryDao extends GenericDAO<CategoryModel, String>
 		implements CategoryDao {
 

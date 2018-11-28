@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.http.client.utils.DateUtils;
 import org.apache.log4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -45,13 +46,13 @@ public class ReservationPageController extends AbstractPageController {
 			.getLogger(ReservationPageController.class);
 	private static final String RESERVATIONPK_PATH_VARIABLE_PATTERN = "/{reservationPK:.*}";
 
-	@Resource(name = "customerFacade")
+	@Autowired
 	private CustomerFacade customerFacade;
 
-	@Resource(name = "reservationFacade")
+	@Autowired
 	private ReservationFacade reservationFacade;
 
-	@Resource(name = "i18NFacade")
+	@Autowired
 	private I18NFacade i18NFacade;
 
 	@RequestMapping(value = "/reservation/reservationlistpage", method = RequestMethod.GET)

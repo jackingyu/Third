@@ -5,6 +5,7 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.apache.commons.lang3.StringUtils;
 import org.apache.log4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -25,16 +26,16 @@ public class WeixinMemberController extends AbstractWeixinController {
     private static final Logger LOG = Logger
             .getLogger(WeixinMemberController.class);
 
-    @Resource(name = "customerFacade")
+    @Autowired
     private CustomerFacade customerFacade;
 
-    @Resource(name = "sessionService")
+    @Autowired
     private SessionService sessionService;
 
-    @Resource(name = "weixinFacade")
+    @Autowired
     private WeixinFacade weixinFacade;
 
-    @Resource(name = "smsVerifyCodeUtils")
+    @Autowired
     SmsVerifyCodeUtils smsVerifyCodeUtils;
 
     /**

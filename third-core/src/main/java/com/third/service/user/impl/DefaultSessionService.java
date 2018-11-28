@@ -5,7 +5,9 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.third.service.user.SessionService;
+import org.springframework.stereotype.Service;
 
+@Service
 public class DefaultSessionService implements SessionService {
 	@Autowired
 	private HttpSession httpSession;

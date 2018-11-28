@@ -7,6 +7,7 @@ import java.util.List;
 import javax.annotation.Resource;
 
 import org.apache.commons.collections4.CollectionUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.Model;
 
 import com.alibaba.fastjson.JSON;
@@ -14,7 +15,7 @@ import com.third.facade.data.StoreData;
 import com.third.facade.store.StoreFacade;
 
 public abstract class AbstractWeixinController {
-	@Resource(name = "storeFacade")
+	@Autowired
 	private StoreFacade storeFacade;
 
 	protected Integer getStartIndex(Integer page, Integer rows)

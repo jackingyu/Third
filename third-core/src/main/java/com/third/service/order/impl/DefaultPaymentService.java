@@ -9,7 +9,9 @@ import com.third.dao.order.PaymentDao;
 import com.third.dao.util.PaginationSupport;
 import com.third.model.PaymentModel;
 import com.third.service.order.PaymentService;
+import org.springframework.stereotype.Service;
 
+@Service
 public class DefaultPaymentService implements PaymentService {
 	private PaymentDao paymentDao;
 

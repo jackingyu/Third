@@ -16,7 +16,9 @@ import com.third.facade.data.WXMessage;
 import com.third.model.SubscribeModel;
 import com.third.service.customer.SubscribeService;
 import com.third.service.customer.WeixinService;
+import org.springframework.stereotype.Component;
 
+@Component
 public class DefaultWeixinFacade implements WeixinFacade {
 	private static final Logger LOG = Logger
 			.getLogger(DefaultWeixinFacade.class);

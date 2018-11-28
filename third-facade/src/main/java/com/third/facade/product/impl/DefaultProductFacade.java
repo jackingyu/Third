@@ -22,7 +22,9 @@ import com.third.model.ProductModel;
 import com.third.service.product.CategoryService;
 import com.third.service.product.ProductGroupService;
 import com.third.service.product.ProductService;
+import org.springframework.stereotype.Component;
 
+@Component
 public class DefaultProductFacade implements ProductFacade {
 	private ProductService productService;
 	private CategoryService categoryService;

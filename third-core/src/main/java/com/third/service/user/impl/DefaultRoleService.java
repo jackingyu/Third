@@ -5,7 +5,9 @@ import java.util.List;
 import com.third.dao.user.RoleDao;
 import com.third.model.RoleModel;
 import com.third.service.user.RoleService;
+import org.springframework.stereotype.Service;
 
+@Service
 public class DefaultRoleService implements RoleService {
 
 	private RoleDao roleDao;

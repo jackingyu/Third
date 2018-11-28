@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.lang3.StringUtils;
 import org.apache.log4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -34,10 +35,10 @@ public class FIReportController extends AbstractPageController {
     private static final Logger LOG = Logger
             .getLogger(com.third.controller.pages.lte.FIReportController.class);
 
-    @Resource(name = "FIReportFacade")
+    @Autowired
     private FIReportFacade fiReportFacade;
 
-    @Resource(name = "userFacade")
+    @Autowired
     private UserFacade userFacade;
 
     @RequestMapping(value = "/payment/listpage", method = RequestMethod.GET)
@@ -73,7 +74,7 @@ public class FIReportController extends AbstractPageController {
             Model model)
     {
         Map<String, String[]> sp = new HashMap<String, String[]>();
-        
+
         if (storeCodes == null || storeCodes.length == 0)
         {
             List<StoreData> stores = userFacade.getCurrentUser().getStores();
@@ -86,7 +87,7 @@ public class FIReportController extends AbstractPageController {
             sp.put("storeCodes", userStoreCodes);
         }else
             sp.put("storeCodes", storeCodes);
-        
+
         sp.put("customerSources", customerSources);
 
         return fiReportFacade.getStoreDashboardResult1(startDate, endDate, sp);
@@ -102,7 +103,7 @@ public class FIReportController extends AbstractPageController {
             Model model, final DataTableCriterias criterias)
     {
         Map<String, String[]> sp = new HashMap<String, String[]>();
-        
+
         if (StringUtils.isEmpty(storeCode))
         {
             List<StoreData> stores = userFacade.getCurrentUser().getStores();
@@ -114,11 +115,11 @@ public class FIReportController extends AbstractPageController {
 
             sp.put("storeCodes", userStoreCodes);
         }else
-        {  
+        {
             String[] storeCodes = { storeCode };
             sp.put("storeCodes", storeCodes);
         }
-        
+
         sp.put("customerSources", customerSources);
 
         return fiReportFacade.getDashboardPaymentDetails(startDate, endDate, sp,
@@ -134,7 +135,7 @@ public class FIReportController extends AbstractPageController {
             @RequestParam(value = "endDate", required = false) @DateTimeFormat(pattern = "yyyy-MM-dd") Date endDate)
     {
         Map<String, String[]> sp = new HashMap<String, String[]>();
-        
+
         if (StringUtils.isEmpty(storeCode))
         {
             List<StoreData> stores = userFacade.getCurrentUser().getStores();
@@ -146,11 +147,11 @@ public class FIReportController extends AbstractPageController {
 
             sp.put("storeCodes", userStoreCodes);
         }else
-        {  
+        {
             String[] storeCodes = { storeCode };
             sp.put("storeCodes", storeCodes);
         }
-        
+
         sp.put("customerSources", customerSources);
 
         return fiReportFacade.getDashboardPaymentsByMethod(startDate, endDate,
@@ -174,7 +175,7 @@ public class FIReportController extends AbstractPageController {
 
         sp.put("sourcePKs", sourcePKs);
         sp.put("paymentMethods", paymentMethods);
-        
+
 
         if (storeCodes == null || storeCodes.length == 0)
         {
@@ -197,7 +198,7 @@ public class FIReportController extends AbstractPageController {
         {
             sp.put("salesPersons", salesPersons);
         }
-        
+
         //if query order and set order status to all
         boolean ifAll = false;
         for(int i = 0; i < orderStatus.length;i++)
@@ -208,7 +209,7 @@ public class FIReportController extends AbstractPageController {
                 break;
             }
         }
-        
+
         if(!ifAll)
          sp.put("orderStatus", orderStatus);
 
@@ -229,13 +230,13 @@ public class FIReportController extends AbstractPageController {
             final HttpServletRequest request,
             final HttpServletResponse response)
     {
-        
+
         Map<String, String[]> sp = new HashMap<String, String[]>();
-        
+
         sp.put("sourcePKs", sourcePKs);
         sp.put("paymentMethods", paymentMethods);
-        
-        
+
+
         if (storeCodes == null || storeCodes.length == 0)
         {
             List<StoreData> stores = userFacade.getCurrentUser().getStores();
@@ -244,11 +245,11 @@ public class FIReportController extends AbstractPageController {
             {
                 userStoreCodes[i] = stores.get(i).getCode();
             }
-            
+
             sp.put("storeCodes", userStoreCodes);
         }else
             sp.put("storeCodes", storeCodes);
-        
+
         if (this.isSales())
         {
             String[] sales = { userFacade.getCurrentUser().getUserId() };
@@ -257,7 +258,7 @@ public class FIReportController extends AbstractPageController {
         {
             sp.put("salesPersons", salesPersons);
         }
-        
+
         //if query order and set order status to all
         boolean ifAll = false;
         for(int i = 0; i < orderStatus.length;i++)
@@ -268,20 +269,20 @@ public class FIReportController extends AbstractPageController {
                 break;
             }
         }
-        
+
         if(!ifAll)
             sp.put("orderStatus", orderStatus);
-        
+
         DTResults r = fiReportFacade.getPaymentList(startDate, endDate,
                 0, 100000, sp);
-        
-        
+
+
         List<Object[]> data = r.getData();
         String[] headerNames = {"门店","顾客","订单编码","销售员","付款方式","付款金额","付款日期","订单总金额","订单已付","订单剩余","订单日期","客户来源"};
         ExcelUtils.exportToExcel1("报表","财务报表",headerNames,data, request,response);
-        
+
     }
-    
+
     @RequestMapping(value = "/payment/getsummary")
     @ResponseBody
     public Object getPaymentSummary(
@@ -294,13 +295,13 @@ public class FIReportController extends AbstractPageController {
             @RequestParam(value = "endDate", required = false) @DateTimeFormat(pattern = "yyyy-MM-dd") Date endDate,
             final DataTableCriterias criterias)
     {
-        
+
         Map<String, String[]> sp = new HashMap<String, String[]>();
-        
+
         sp.put("sourcePKs", sourcePKs);
         sp.put("paymentMethods", paymentMethods);
-        
-        
+
+
         if (storeCodes == null || storeCodes.length == 0)
         {
             List<StoreData> stores = userFacade.getCurrentUser().getStores();
@@ -309,11 +310,11 @@ public class FIReportController extends AbstractPageController {
             {
                 userStoreCodes[i] = stores.get(i).getCode();
             }
-            
+
             sp.put("storeCodes", userStoreCodes);
         }else
             sp.put("storeCodes", storeCodes);
-        
+
         if (this.isSales())
         {
             String[] sales = { userFacade.getCurrentUser().getUserId() };
@@ -322,7 +323,7 @@ public class FIReportController extends AbstractPageController {
         {
             sp.put("salesPersons", salesPersons);
         }
-        
+
         //if query order and set order status to all
         boolean ifAll = false;
         for(int i = 0; i < orderStatus.length;i++)
@@ -333,10 +334,10 @@ public class FIReportController extends AbstractPageController {
                 break;
             }
         }
-        
+
         if(!ifAll)
             sp.put("orderStatus", orderStatus);
-        
+
         return this.fiReportFacade.getPaymentListSummary(startDate, endDate, sp);
     }
 

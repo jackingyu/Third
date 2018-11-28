@@ -3,6 +3,7 @@ package com.third.controller.weixin;
 import javax.annotation.Resource;
 
 import org.apache.log4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -18,7 +19,7 @@ public class WeixinStoreController extends AbstractWeixinController {
 	private static final Logger LOG = Logger
 			.getLogger(WeixinStoreController.class);
 
-	@Resource(name = "storeFacade")
+	@Autowired
 	private StoreFacade storeFacade;
 
 	@RequestMapping(value = "/getStoreList")

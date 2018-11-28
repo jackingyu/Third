@@ -6,13 +6,14 @@ import org.apache.commons.collections4.CollectionUtils;
 import org.hibernate.criterion.DetachedCriteria;
 import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Restrictions;
+import org.springframework.stereotype.Repository;
 import org.springframework.util.StringUtils;
 
 import com.third.dao.customer.SourceDao;
 import com.third.dao.generic.GenericDAO;
 import com.third.model.CustomerModel;
 import com.third.model.SourceModel;
-
+@Repository
 public class DefaultSourceDao extends GenericDAO<SourceModel, String>
 		implements SourceDao {
 

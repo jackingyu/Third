@@ -16,6 +16,7 @@ import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.time.DateFormatUtils;
 import org.apache.log4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -47,7 +48,7 @@ public class SalesQuotationController extends AbstractPageController {
 			com.third.controller.pages.lte.SalesQuotationController.class);
 	private static final String PK_PATH_VARIABLE_PATTERN = "/{pk:.*}";
 
-	@Resource(name = "salesQuotationFacade")
+	@Autowired
 	private SalesQuotationFacade salesQuotationFacade;
 
 	@RequestMapping(value = "/salesquotation/salesquotationlistpage", method = RequestMethod.GET)

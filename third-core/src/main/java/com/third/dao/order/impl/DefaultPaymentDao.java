@@ -17,7 +17,9 @@ import com.third.dao.generic.GenericDAO;
 import com.third.dao.order.PaymentDao;
 import com.third.dao.util.PaginationSupport;
 import com.third.model.PaymentModel;
+import org.springframework.stereotype.Repository;
 
+@Repository
 public class DefaultPaymentDao extends GenericDAO<PaymentModel, String>
 		implements PaymentDao {
 	private Log logger = LogFactory.getLog(getClass());

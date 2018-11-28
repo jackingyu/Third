@@ -6,13 +6,14 @@ import java.util.List;
 import org.hibernate.FetchMode;
 import org.hibernate.criterion.DetachedCriteria;
 import org.hibernate.criterion.Restrictions;
+import org.springframework.stereotype.Repository;
 import org.springframework.util.StringUtils;
 
 import com.third.dao.customer.ReservationDao;
 import com.third.dao.generic.GenericDAO;
 import com.third.dao.util.PaginationSupport;
 import com.third.model.ReservationModel;
-
+@Repository
 public class DefaultReservationDao extends GenericDAO<ReservationModel, String>
 		implements ReservationDao {
 	private String FIND_RESERVATION = "from com.third.model.ReservatioModel r where r.reservationDate >= ? and r.reservationDate <= ?";

@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.apache.commons.lang3.StringUtils;
 import org.apache.log4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -49,10 +50,10 @@ public class SizeOrderPageController extends AbstractPageController {
     private static final String ORDER_CODE_PATH_VARIABLE_PATTERN = "/{orderCode:.*}";
     private static final String ORDER_ENTRYPK_PATH_VARIABLE_PATTERN = "/{orderEntryPK:.*}";
 
-    @Resource(name = "orderFacade")
-    private OrderFacade orderFacade;
+  @Autowired
+  private OrderFacade orderFacade;
 
-    @Resource(name = "userFacade")
+  @Autowired
     private UserFacade userFacade;
 
     @RequestMapping(value = "/orderentry/createorderentrypage/"

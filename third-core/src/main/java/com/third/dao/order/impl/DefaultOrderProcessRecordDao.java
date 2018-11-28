@@ -11,7 +11,9 @@ import com.third.dao.generic.GenericDAO;
 import com.third.dao.order.OrderProcessRecordDao;
 import com.third.dao.util.PaginationSupport;
 import com.third.model.OrderProcessRecordModel;
+import org.springframework.stereotype.Repository;
 
+@Repository
 public class DefaultOrderProcessRecordDao
 		extends GenericDAO<OrderProcessRecordModel, String>
 		implements OrderProcessRecordDao {

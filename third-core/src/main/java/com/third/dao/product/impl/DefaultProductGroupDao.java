@@ -6,7 +6,9 @@ import com.third.dao.generic.GenericDAO;
 import com.third.dao.product.ProductGroupDao;
 import com.third.dao.util.PaginationSupport;
 import com.third.model.ProductGroupModel;
+import org.springframework.stereotype.Repository;
 
+@Repository
 public class DefaultProductGroupDao extends
 		GenericDAO<ProductGroupModel, String> implements ProductGroupDao {
 	@Override

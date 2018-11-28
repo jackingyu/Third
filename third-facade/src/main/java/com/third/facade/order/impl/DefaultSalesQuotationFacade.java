@@ -28,7 +28,9 @@ import com.third.service.customer.SourceService;
 import com.third.service.order.OrderService;
 import com.third.service.order.SalesQuotationService;
 import com.third.service.user.UserService;
+import org.springframework.stereotype.Component;
 
+@Component
 public class DefaultSalesQuotationFacade implements SalesQuotationFacade {
 
 	private SalesQuotationService salesQuotationService;

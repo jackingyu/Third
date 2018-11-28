@@ -23,7 +23,9 @@ import com.third.model.UserModel;
 import com.third.service.order.OrderProcessService;
 import com.third.service.order.OrderService;
 import com.third.service.user.UserService;
+import org.springframework.stereotype.Component;
 
+@Component
 public class DefaultOrderProcessFacade implements OrderProcessFacade {
 	private OrderService orderService;
 	private OrderProcessService orderProcessService;

@@ -1,54 +1,53 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-	<modelVersion>4.0.0</modelVersion>
-	<groupId>com.third</groupId>
-	<artifactId>third</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
-	<packaging>pom</packaging>
-	<properties>
-		<jdk.version>1.8</jdk.version>
-		<spring.version>4.1.6.RELEASE</spring.version>
-		<jstl.version>1.2</jstl.version>
-		<spring.security.version>4.1.0.RELEASE</spring.security.version>
-		<logback.version>1.1.3</logback.version>
-		<hibernate.version>4.3.8.Final</hibernate.version>
-		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-	</properties>
-	<modules>
-		<module>third-lib</module>
-		<module>thrid-web</module>
-		<module>third-facade</module>
-		<module>third-core</module>
-	</modules>
-	<build>
-		<plugins>
-			<plugin>
-				<groupId>org.mortbay.jetty</groupId>
-				<artifactId>jetty-maven-plugin</artifactId>
-				<version>8.0.1.v20110908</version>
-				<configuration>
-					<scanIntervalSeconds>10</scanIntervalSeconds>
-					<contextHandlers>
-						<contextHandler implementation="org.eclipse.jetty.webapp.WebAppContext">
-							<war>./thrid-web/target/thrid-web.war</war>
-							<contextPath>/thrid-web</contextPath>
-						</contextHandler>
-					</contextHandlers>
-				</configuration>
-			</plugin>
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <groupId>com.third</groupId>
+    <artifactId>third</artifactId>
+    <version>0.0.1-SNAPSHOT</version>
+    <packaging>pom</packaging>
+    <properties>
+        <jdk.version>1.8</jdk.version>
+        <spring.version>4.1.6.RELEASE</spring.version>
+        <jstl.version>1.2</jstl.version>
+        <spring.security.version>4.1.0.RELEASE</spring.security.version>
+        <logback.version>1.1.3</logback.version>
+        <hibernate.version>4.3.8.Final</hibernate.version>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    </properties>
+    <modules>
+        <module>third-lib</module>
+        <module>thrid-web</module>
+        <module>third-facade</module>
+        <module>third-core</module>
+    </modules>
+    <build>
+        <plugins>
+            <!--<plugin>-->
+            <!--<groupId>org.mortbay.jetty</groupId>-->
+            <!--<artifactId>jetty-maven-plugin</artifactId>-->
+            <!--<version>8.0.1.v20110908</version>-->
+            <!--<configuration>-->
+            <!--<scanIntervalSeconds>10</scanIntervalSeconds>-->
+            <!--<contextHandlers>-->
+            <!--<contextHandler implementation="org.eclipse.jetty.webapp.WebAppContext">-->
+            <!--<war>./thrid-web/target/thrid-web.war</war>-->
+            <!--<contextPath>/thrid-web</contextPath>-->
+            <!--</contextHandler>-->
+            <!--</contextHandlers>-->
+            <!--</configuration>-->
+            <!--</plugin>-->
 
 
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-compiler-plugin</artifactId>
-				<version>3.3</version>
-				<configuration>
-					<source>${jdk.version}</source>
-					<target>${jdk.version}</target>
-				</configuration>
-			</plugin>
-		</plugins>
-
-	</build>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.3</version>
+                <configuration>
+                    <source>${jdk.version}</source>
+                    <target>${jdk.version}</target>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
 </project>

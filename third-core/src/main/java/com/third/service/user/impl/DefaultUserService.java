@@ -13,11 +13,17 @@ import com.third.model.UserGroupModel;
 import com.third.model.UserModel;
 import com.third.service.user.SessionService;
 import com.third.service.user.UserService;
+import org.springframework.stereotype.Service;
 
+@Service
 public class DefaultUserService implements UserService {
 
+	@Autowired
 	private UserDao userDao;
+
+	@Autowired
 	private UserGroupDao userGroupDao;
+
 	@Autowired
 	private SessionService sessionService;
 

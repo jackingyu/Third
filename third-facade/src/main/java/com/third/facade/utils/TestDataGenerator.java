@@ -3,10 +3,12 @@ package com.third.facade.utils;
 import java.util.List;
 
 import com.third.facade.testdata.builder.DataBuilder;
+import org.springframework.stereotype.Service;
 
 /**
  * test data generator,depends {@link DataBuilder}
  */
+@Service("dataGenerator")
 public class TestDataGenerator {
 	private List<DataBuilder> dataBuilders;
 

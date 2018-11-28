@@ -9,7 +9,9 @@ import com.third.dao.util.PaginationSupport;
 import com.third.model.CustomerModel;
 import com.third.model.UserModel;
 import com.third.service.customer.CustomerService;
+import org.springframework.stereotype.Service;
 
+@Service
 public class DefaultCustomerService implements CustomerService {
 	private CustomerDao customerDao;
 	private ReservationDao reservationDao;

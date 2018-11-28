@@ -18,7 +18,9 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Required;
+import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 
@@ -26,7 +28,9 @@ import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
  * A postHandle HandlerInterceptor that runs a number of BeforeViewHandlers
  * before the view is rendered.
  */
+@Component
 public class BeforeViewHandlerInterceptor extends HandlerInterceptorAdapter {
+	@Autowired
 	private List<BeforeViewHandler> beforeViewHandlers;
 
 	protected List<BeforeViewHandler> getBeforeViewHandlers()
@@ -34,12 +38,6 @@ public class BeforeViewHandlerInterceptor extends HandlerInterceptorAdapter {
 		return beforeViewHandlers;
 	}
 
-	@Required
-	public void setBeforeViewHandlers(
-			final List<BeforeViewHandler> beforeViewHandlers)
-	{
-		this.beforeViewHandlers = beforeViewHandlers;
-	}
 
 	@Override
 	public void postHandle(final HttpServletRequest request,

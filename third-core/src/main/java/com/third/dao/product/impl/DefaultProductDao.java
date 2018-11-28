@@ -15,7 +15,9 @@ import com.third.dao.generic.GenericDAO;
 import com.third.dao.product.ProductDao;
 import com.third.dao.util.PaginationSupport;
 import com.third.model.ProductModel;
+import org.springframework.stereotype.Repository;
 
+@Repository
 public class DefaultProductDao extends GenericDAO<ProductModel, String>
 		implements ProductDao {
 	private Log logger = LogFactory.getLog(getClass());

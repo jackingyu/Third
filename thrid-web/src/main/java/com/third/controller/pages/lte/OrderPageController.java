@@ -15,6 +15,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.time.DateFormatUtils;
 import org.apache.log4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -50,13 +51,13 @@ public class OrderPageController extends AbstractPageController {
             com.third.controller.pages.lte.OrderPageController.class);
     private static final String ORDER_CODE_PATH_VARIABLE_PATTERN = "/{orderCode:.*}";
 
-    @Resource(name = "orderFacade")
+    @Autowired
     private OrderFacade orderFacade;
 
-    @Resource(name = "userFacade")
+    @Autowired
     private UserFacade userFacade;
 
-    @Resource(name = "customerFacade")
+    @Autowired
     private CustomerFacade customerFacade;
 
     @RequestMapping(value = "/order/orderlistpage", method = RequestMethod.GET)

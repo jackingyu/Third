@@ -14,20 +14,27 @@ import com.third.service.store.StoreService;
 import com.third.service.user.MenuService;
 import com.third.service.user.RoleService;
 import com.third.service.user.UserService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 /**
  * build test data for user module,this can be run via /data url,implement
  * {@link DataBuilder}
  */
+@Component
 public class UserDataBuilder implements DataBuilder {
 	private String filename;
-	@Resource(name="userService")
+
+	@Autowired
 	private UserService userService;
-	@Resource(name="menuService")
+
+	@Autowired
 	private MenuService menuService;
-	@Resource(name="roleService")
+
+	@Autowired
 	private RoleService roleService;
-	@Resource(name="storeService")
+
+	@Autowired
 	private StoreService storeService;
 
 	public void buildData()

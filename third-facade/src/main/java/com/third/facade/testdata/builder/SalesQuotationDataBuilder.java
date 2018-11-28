@@ -15,7 +15,9 @@ import com.third.model.StoreModel;
 import com.third.service.customer.SourceService;
 import com.third.service.order.SalesQuotationService;
 import com.third.service.store.StoreService;
+import org.springframework.stereotype.Component;
 
+@Component
 public class SalesQuotationDataBuilder implements DataBuilder {
 
 	private SalesQuotationService salesQuotationService;

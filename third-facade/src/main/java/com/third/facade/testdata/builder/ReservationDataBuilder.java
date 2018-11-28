@@ -16,57 +16,58 @@ import com.third.model.StoreModel;
 import com.third.service.customer.CustomerService;
 import com.third.service.customer.ReservationService;
 import com.third.service.store.StoreService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
+@Component
 public class ReservationDataBuilder implements DataBuilder {
-	@Resource(name = "reservationService")
-	private ReservationService reservationService;
+    @Autowired
+    private ReservationService reservationService;
 
-	@Resource(name = "cityDao")
-	private CityDao cityDao;
+    @Autowired
+    private CityDao cityDao;
 
-	@Resource(name = "storeService")
-	private StoreService storeService;
+    @Autowired
+    private StoreService storeService;
 
-	@Resource(name = "customerService")
-	private CustomerService customerService;
-	@Resource(name = "customerDao")
-	private CustomerDao customerDao;
+    @Autowired
+    private CustomerService customerService;
 
-	@Override
-	public void buildData()
-	{
-		CustomerModel customer = customerDao.list().get(RandomUtils.nextInt(0,5));
-		StoreModel store = storeService.getStoreForCode("1");
-		CityModel city = cityDao.get("cn12");
+    @Autowired
+    private CustomerDao customerDao;
 
-		for (int i = 0; i < 20; i++)
-		{
-			ReservationModel reservation = new ReservationModel();
-			reservation.setChannel(CoreConstants.ReservationChannel.Web);
-			reservation.setCity(city);
-			reservation.setCustomer(customer);
-			reservation.setName("tt");
-			reservation.setCellphone(customer.getCellphone());
-			reservation.setReservationDate(new Date());
-			reservation.setStatus(0);
-			reservation.setStore(store);
-			reservationService.createrReservation(reservation);
-		}
+    @Override
+    public void buildData() {
+        CustomerModel customer = customerDao.list().get(RandomUtils.nextInt(0, 5));
+        StoreModel store = storeService.getStoreForCode("1");
+        CityModel city = cityDao.get("cn12");
 
-		for (int i = 0; i < 20; i++)
-		{
-			ReservationModel reservation = new ReservationModel();
-			reservation.setChannel(CoreConstants.ReservationChannel.Weixin);
-			reservation.setCity(city);
-			reservation.setCustomer(customer);
-			reservation.setName("tt");
-			reservation.setCellphone(customer.getCellphone());
-			reservation.setReservationDate(new Date());
-			reservation.setStatus(0);
-			reservation.setStore(store);
-			reservationService.createrReservation(reservation);
-		}
+        for (int i = 0; i < 20; i++) {
+            ReservationModel reservation = new ReservationModel();
+            reservation.setChannel(CoreConstants.ReservationChannel.Web);
+            reservation.setCity(city);
+            reservation.setCustomer(customer);
+            reservation.setName("tt");
+            reservation.setCellphone(customer.getCellphone());
+            reservation.setReservationDate(new Date());
+            reservation.setStatus(0);
+            reservation.setStore(store);
+            reservationService.createrReservation(reservation);
+        }
 
-	}
+        for (int i = 0; i < 20; i++) {
+            ReservationModel reservation = new ReservationModel();
+            reservation.setChannel(CoreConstants.ReservationChannel.Weixin);
+            reservation.setCity(city);
+            reservation.setCustomer(customer);
+            reservation.setName("tt");
+            reservation.setCellphone(customer.getCellphone());
+            reservation.setReservationDate(new Date());
+            reservation.setStatus(0);
+            reservation.setStore(store);
+            reservationService.createrReservation(reservation);
+        }
+
+    }
 
 }

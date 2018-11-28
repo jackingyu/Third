@@ -7,6 +7,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.apache.log4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.third.core.constants.CoreConstants;
@@ -21,20 +23,22 @@ import com.third.web.interceptors.BeforeViewHandler;
  * for the following: * The current site * The current theme * The common
  * resources All of these paths are qualified by the current UiExperienceLevel
  */
+
+@Component
 public class UiThemeResourceBeforeViewHandler implements BeforeViewHandler {
 	private static final Logger LOG = Logger
 			.getLogger(UiThemeResourceBeforeViewHandler.class);
-	@Resource(name = "sessionService")
+	@Autowired
 	private SessionService sessionService;
-	@Resource(name = "userService")
+	@Autowired
 	private UserService userService;
 
 	@Override
 	public void beforeView(final HttpServletRequest request,
 			final HttpServletResponse response, final ModelAndView modelAndView)
 	{
-		modelAndView.addObject("jucierTplBasePath", "/WEB-INF/views/juicer");
-		modelAndView.addObject("framentsPath", "/WEB-INF/views/fragments");
+		modelAndView.addObject("jucierTplBasePath", "/views/juicer");
+		modelAndView.addObject("framentsPath", "/views/fragments");
 		modelAndView.addObject("contextPath", "/thrid-web");
 		modelAndView.addObject("WXImagePath", "/thrid-web/_ui/images/weixin");
 		modelAndView.addObject("WXJsPath", "/thrid-web/_ui/js/weixin");

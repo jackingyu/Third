@@ -18,7 +18,9 @@ import com.third.core.constants.CoreConstants.OrderStatus;
 import com.third.model.UserModel;
 import com.third.service.order.OrderProcessService;
 import com.third.service.order.OrderStatusUpdateAction;
+import org.springframework.stereotype.Service;
 
+@Service
 public class DefaultOrderProcessService implements OrderProcessService {
 	private OrderDao orderDao;
 	private OrderEntryDao orderEntryDao;
