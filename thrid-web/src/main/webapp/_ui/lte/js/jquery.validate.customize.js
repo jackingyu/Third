@@ -39,6 +39,10 @@ $(document).ready(function() {
 	$.validator.addMethod("positiveInteger", function(value, element) {
 		return this.optional( element ) || /^\+?[1-9]\d*$/.test( value );
 	}, '请输入正整数');
+
+	$.validator.addMethod("maxInteger", function(value, element) {
+		return this.optional( element ) || value <= 50;
+	}, '请输入不大于50的正整数');
 		
 	$.validator.addMethod("pwdComplex", function(pwd, element) {
 		var number = false;

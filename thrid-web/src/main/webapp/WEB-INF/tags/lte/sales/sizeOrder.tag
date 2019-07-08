@@ -82,7 +82,7 @@
 					</div>
 					<div class="col-md-4 col-lg-4 col-xs-12 col-sm-12">
 						<label><spring:message code="lte.orderentry.quantity"></spring:message></label>
-						<input name="quantity"  value="${orderEntry.quantity}" class="form-control required positiveInteger" placeholder=""
+						<input name="quantity"  value="${orderEntry.quantity}" class="form-control required positiveInteger maxInteger" placeholder=""
 							type="text" <c:if test="${not empty orderEntry.pk}">readonly="readonly"</c:if>>
 					</div>
 				</div>

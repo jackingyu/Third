@@ -194,11 +194,18 @@ public class SizeOrderPageController extends AbstractPageController {
             @RequestParam(value = "tryDate") @DateTimeFormat(pattern = "yyyy-MM-dd") final Date tryDate,
             @RequestParam(value = "sizeDetails", required = false) final String sizeDetails,
             @RequestParam(value = "comment", required = false) final String comment,
-            RedirectAttributes attr)
+            RedirectAttributes attr,Model model)
     {
         // TODO:校验量身单状态,判断是否允许修改,如果是新建的,则只允许销售员修改
         // 如果是财务审核通过,只允许裁床修改,需要考虑是否允许admin修改
         // --通过在页面上隐藏按钮已经实现上述的点,允许admin修改
+
+        //Fix #52
+        if (quantity > 50 || quantity < 1){
+            model.addAttribute("errorCode","lte.errorcode.sizeorderentryquantity");
+            return ControllerConstants.LTE.ERRORPAGE;
+        }
+
         OrderEntryData orderEntryData = new OrderEntryData();
         orderEntryData.setOrderCode(orderCode);
         orderEntryData.setPk(entryPK);
@@ -239,6 +246,7 @@ public class SizeOrderPageController extends AbstractPageController {
                 orderFacade.updateOrderEntry(orderEntryData);
         } catch (ProductNotFoundException ex)
         {
+            model.addAttribute("errorCode","lte.errorcode.productnotfound");
             return ControllerConstants.LTE.ERRORPAGE;
         }
         attr.addFlashAttribute("message", "保存成功!");

@@ -19,6 +19,7 @@
         <div class="error-content">
           <h3><i class="fa fa-warning text-red"></i><spring:message code="lte.exception"></spring:message></h3>
           <p>
+              <spring:message code="${errorCode}"></spring:message>
           </p>
     </section>
     
